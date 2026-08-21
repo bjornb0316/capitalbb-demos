@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>van der Veen Auto's · Rouveen</title>
+<meta name="description" content="Voorbeeldwebsite voor van der Veen Auto's.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f7f8fa;color:#14171d;font-family:'Figtree', 'Trebuchet MS', system-ui, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;letter-spacing:-0.03em;line-height:1.05;text-wrap:balance}
+p{margin:0}
+button{font:inherit}
+:focus-visible{outline:2px solid #22439b;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+
+
+html,body{overflow-x:clip}
+.wrap{width:min(var(--w,1220px),100% - 48px);margin-inline:auto}
+@media(max-width:720px){.wrap{width:min(var(--w,1220px),100% - 32px)}}
+
+.top{position:sticky;top:0;z-index:50;background:#f7f8fa;border-bottom:1px solid #e2e5ea}
+.top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
+.top.is-fixed.solid{background:#f7f8fae6;backdrop-filter:blur(14px);border-bottom-color:#e2e5ea}
+.top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
+.mark{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:20px;letter-spacing:-0.03em;margin-right:auto;text-decoration:none}
+.top nav{display:flex;gap:24px;font-size:15px}
+.top nav a{color:#5c626c;text-decoration:none}
+.top nav a:hover{color:#14171d}
+.callbtn{display:inline-flex;align-items:center;background:#22439b;color:#ffffff;padding:11px 20px;border-radius:14px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+.callbtn:hover{filter:brightness(1.07)}
+@media(max-width:900px){.top nav{display:none}}
+/* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
+@media(max-width:720px){
+  .top .wrap{gap:14px}
+  .mark{font-size:16px;line-height:1.18;overflow-wrap:break-word}
+  .mark.is-long{font-size:13.5px}
+  .mark.is-xlong{font-size:12px;letter-spacing:0}
+  .callbtn{flex:none;padding:11px 15px}
+}
+
+section{padding:clamp(54px,7vw,108px) 0}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
+.head h2{font-size:clamp(28px,3.9vw,50px)}
+.head .meta{color:#5c626c;font-size:15px}
+.head p{margin-top:12px;color:#5c626c;max-width:60ch;flex-basis:100%}
+.more{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.more span{color:#5c626c;font-size:15px}
+
+.hours{width:100%;border-collapse:collapse;font-size:16px}
+.hours th{text-align:left;font-weight:400;color:#5c626c;padding:10px 0;border-bottom:1px solid #e2e5ea}
+.hours td{text-align:right;padding:10px 0;border-bottom:1px solid #e2e5ea;font-variant-numeric:tabular-nums}
+.hours td.closed{color:#5c626c}
+.hours tr:last-child th,.hours tr:last-child td{border-bottom:0}
+.hours tr.today th{color:#14171d;font-weight:600}
+.hours tr.today td{font-weight:600}
+.hours .tag{margin-left:10px;color:#22439b;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+
+.field{display:block;margin-bottom:13px}
+.field span{display:block;font-size:13.5px;color:#5c626c;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:13px 15px;border:1px solid #e2e5ea;border-radius:14px;background:#f7f8fa;color:#14171d;font:inherit;font-size:16px}
+.field input:focus,.field textarea:focus{outline:none;border-color:#22439b}
+form .h-btn{width:100%;justify-content:center;border:0;cursor:pointer;margin-top:4px}
+.note{margin-top:12px;color:#5c626c;font-size:13.5px}
+
+footer{padding:32px 0 calc(32px + var(--bar,0px));color:#5c626c;font-size:14px;border-top:1px solid #e2e5ea}
+footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+
+.bar{position:fixed;inset:auto 0 0;z-index:60;display:none;gap:1px;background:#e2e5ea;border-top:1px solid #e2e5ea}
+.bar a{flex:1;padding:15px;text-align:center;background:#ffffff;color:#14171d;text-decoration:none;font-weight:600;font-size:15.5px}
+.bar a.acc{background:#22439b;color:#ffffff}
+@media(max-width:720px){.bar{display:flex}body{--bar:58px}}
+
+.js .rv{opacity:0;transform:translateY(14px)}
+.js .rv.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+
+
+.hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
+.hero h1 em{font-style:normal;color:#22439b}
+.hero h1 a{text-decoration:none}
+.h-kick{color:#5c626c;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
+.h-lede{margin-top:20px;max-width:50ch;color:#5c626c;font-size:clamp(16px,1.6vw,19px)}
+.h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:14px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #e2e5ea;background:#ffffff;color:#14171d;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
+.h-btn:hover{transform:translateY(-2px)}
+.h-btn.is-primary{background:#22439b;color:#ffffff;border-color:transparent}
+.h-facts{display:flex;flex-wrap:wrap;gap:0 34px;margin-top:38px;padding-top:20px;border-top:1px solid #e2e5ea;color:#5c626c;font-size:14.5px}
+.h-facts span{padding:6px 0}
+/* Waar de wereld het bewijs of de cijfers vóór de kop zet, draait de scheiding mee. */
+.h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #e2e5ea}
+.h-words>.h-cta:first-child{margin-top:0}
+.h-words>.h-lede:first-child{margin-top:0}
+
+/* cinematic: beeld vult het scherm, woorden liggen erin */
+.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+@keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
+.h-cinematic::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#f7f8faa6 0%,#f7f8fa1a 24%,#f7f8fa8c 52%,#f7f8fae8 80%,#f7f8fa 100%)}
+.h-cinematic .h-words{padding-bottom:clamp(40px,7vw,84px)}
+.h-cinematic h1{text-shadow:0 2px 30px #f7f8fab3}
+.h-cinematic .h-lede{color:#14171dcc;text-shadow:0 1px 18px #f7f8facc}
+
+/* panorama: liggend beeld in een kader, woorden erin */
+.h-panorama{padding:clamp(22px,3vw,44px) 0 0}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#eaeef7;aspect-ratio:21/9;min-height:320px}
+.h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
+@keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
+.h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
+/* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
+.h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
+.h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
+.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+/* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
+.h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
+.h-panorama .h-lede{color:#ffffffdb}
+.h-panorama .h-btn{border-color:#ffffff4d;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-panorama .h-btn.is-primary{background:#22439b;color:#ffffff;border-color:transparent}
+.h-panorama .h-facts{border-top:0;padding-top:0;margin-top:clamp(26px,3.4vw,44px);gap:0 clamp(20px,3vw,44px)}
+@media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
+
+/* split: woorden naast echte auto's */
+.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
+.h-split h1{font-size:clamp(36px,4.9vw,64px)}
+@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+
+/* stack: woorden boven, beeld als band eronder */
+.h-stack{padding:clamp(44px,6vw,92px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
+.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
+.h-band{margin:0;aspect-ratio:21/8;background:#eaeef7;overflow:hidden}
+.h-band img{width:100%;height:100%;object-fit:cover}
+@media(max-width:720px){.h-band{aspect-ratio:16/10}}
+
+/* poster: de letters doen het werk, foto's als strook */
+.h-poster{padding:clamp(36px,5vw,68px) 0 0}
+.h-poster h1{font-size:clamp(40px,7.6vw,100px);line-height:.95;max-width:16ch}
+.h-poster .h-facts{margin-bottom:clamp(28px,4vw,44px)}
+
+/* index: geen groot beeld, de cijfers staan naast de tekst */
+.h-index{padding:clamp(34px,4.4vw,60px) 0 clamp(24px,3vw,38px);border-bottom:1px solid #e2e5ea}
+.h-index .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(26px,4vw,56px);align-items:center}
+.h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
+.h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#e2e5ea;border:1px solid #e2e5ea;border-radius:14px;overflow:hidden;margin:0}
+.h-panel div{background:#ffffff;padding:17px 19px}
+.h-panel dd{margin:0;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.03em;line-height:1.25}
+@media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
+
+/* fotostrook, gedeeld door split en poster */
+.h-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.h-strip figure{margin:0;position:relative;border-radius:14px;overflow:hidden;background:#eaeef7}
+.h-strip figure:first-child{grid-column:1 / -1}
+.h-strip img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+.h-strip figure:first-child img{aspect-ratio:16/9}
+.h-strip .st-noimg{aspect-ratio:16/10;height:auto}
+.h-strip figure:first-child .st-noimg{aspect-ratio:16/9}
+.h-poster .h-strip .st-noimg{aspect-ratio:4/3}
+.h-strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:13px 15px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74));color:#fff;font-size:13.5px;font-weight:600;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.h-strip figcaption span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h-strip figcaption span:last-child{white-space:nowrap}
+.h-poster .h-strip{display:flex;grid-template-columns:none;gap:0}
+.h-poster .h-strip figure{flex:1;border-radius:0}
+.h-poster .h-strip figure:first-child{grid-column:auto}
+.h-poster .h-strip img{aspect-ratio:4/3}
+.h-poster .h-strip figcaption{display:none}
+@media(max-width:720px){.h-poster .h-strip figure:nth-child(n+4){display:none}}
+
+/* bijschrift bij de hoofdfoto */
+.h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#f7f8fad9;backdrop-filter:blur(8px);border:1px solid #e2e5ea;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
+.h-plate-k{color:#5c626c;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
+.h-plate-t{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-size:19px;line-height:1.15}
+.h-plate-p{color:#22439b;font-weight:600;font-size:17px;margin-top:4px}
+.h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #e2e5ea;border-radius:14px}
+@media(max-width:900px){.h-plate{display:none}}
+
+
+.st-card{background:#ffffff;display:flex;flex-direction:column;overflow:hidden}
+.st-shot{position:relative;aspect-ratio:4/3;background:#eaeef7;overflow:hidden}
+.st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.st-card:hover .st-shot img{transform:scale(1.04)}
+.st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#5c626c;font-size:14px}
+.st-year{position:absolute;left:0;top:0;background:#22439b;color:#ffffff;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
+.st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
+.st-card h3{font-size:17.5px;line-height:1.3}
+.st-spec{color:#5c626c;font-size:14.5px;font-variant-numeric:tabular-nums}
+.st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.st-price{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:23px;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#22439b;text-decoration:none;white-space:nowrap}
+.st-ask:hover{text-decoration:underline}
+
+.st-rail{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:max(24px,calc(50vw - 620px));padding:0 max(24px,calc(50vw - 620px)) 24px;scrollbar-width:thin;scrollbar-color:#e2e5ea transparent}
+.st-rail::-webkit-scrollbar{height:6px}
+.st-rail::-webkit-scrollbar-thumb{background:#e2e5ea;border-radius:99px}
+.st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
+
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+
+.st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.st-mosaic .st-card{grid-column:span 2}
+.st-mosaic .is-wide{grid-column:span 3}
+.st-mosaic .is-lead{grid-column:span 6}
+.st-mosaic .is-lead .st-shot{aspect-ratio:21/8}
+@media(max-width:980px){.st-mosaic{grid-template-columns:repeat(4,1fr)}.st-mosaic .is-lead{grid-column:span 4}.st-mosaic .is-wide{grid-column:span 2}}
+@media(max-width:660px){.st-mosaic{grid-template-columns:1fr;gap:16px}.st-mosaic .st-card,.st-mosaic .is-wide,.st-mosaic .is-lead{grid-column:span 1}.st-mosaic .is-lead .st-shot{aspect-ratio:16/10}}
+
+.st-list{border-top:1px solid #e2e5ea}
+.st-row{display:grid;grid-template-columns:132px 1fr auto auto;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid #e2e5ea;transition:background .18s ease}
+.st-row:hover{background:#ffffff}
+.st-row .st-thumb{aspect-ratio:4/3;background:#eaeef7;overflow:hidden;border-radius:14px}
+.st-row .st-thumb img{width:100%;height:100%;object-fit:cover}
+.st-row h3{font-size:17.5px;line-height:1.3;font-family:'Figtree', 'Trebuchet MS', system-ui, sans-serif;font-weight:600;letter-spacing:0;text-transform:none}
+.st-row .st-spec{margin-top:5px}
+.st-act{background:#22439b;color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;padding:11px 18px;border-radius:14px;white-space:nowrap}
+.st-act:hover{filter:brightness(1.07)}
+@media(max-width:820px){
+  .st-row{grid-template-columns:96px 1fr;gap:14px}
+  .st-row .st-price{grid-column:2}
+  .st-row .st-act{grid-column:2;justify-self:start}
+}
+
+.st-tablewrap{border:1px solid #e2e5ea;border-radius:14px;overflow-x:auto;background:#ffffff}
+.st-table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:720px}
+.st-table th{text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#5c626c;font-weight:600;padding:13px 16px;border-bottom:1px solid #e2e5ea;background:#eaeef7}
+.st-table td{padding:12px 16px;border-bottom:1px solid #e2e5ea;vertical-align:middle}
+.st-table tr:last-child td{border-bottom:0}
+.st-table tbody tr:hover{background:#eaeef7}
+.st-table .st-thumb{width:92px}
+.st-table .st-thumb img{width:92px;height:66px;object-fit:cover;border-radius:calc(14px - 1px);background:#eaeef7}
+.st-table .st-name{font-weight:600;line-height:1.3}
+.st-table .st-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-table .st-price{font-size:19px;text-align:right;display:block}
+.st-table .st-act-cell a{display:inline-block;background:#22439b;color:#ffffff;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+
+
+.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+.sec-trust b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#22439b;line-height:1}
+.sec-trust span{display:block;margin-top:9px;color:#5c626c;font-size:15px}
+.sec-trust a{color:#14171d}
+
+.sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
+/* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
+.sec-about .wrap>*{min-width:0}
+.sec-about p{overflow-wrap:anywhere}
+.sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
+.sec-about p{color:#5c626c;font-size:17.5px;max-width:66ch}
+.sec-about .portrait{border:1px solid #e2e5ea;border-radius:14px;background:#eaeef7;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+.sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
+@media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
+
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;list-style:none;padding:0;margin:0;counter-reset:s}
+.flow li{background:#ffffff;border:1px solid #e2e5ea;border-radius:14px;padding:clamp(22px,2.6vw,30px);position:relative}
+.flow li::before{counter-increment:s;content:counter(s);display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:#22439b;color:#ffffff;font-weight:700;font-size:14px;margin-bottom:14px}
+.flow li b{display:block;font-size:18.5px;margin-bottom:8px}
+.flow li p{color:#5c626c;font-size:15.5px}
+@media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+.sec-brands{border-block:1px solid #e2e5ea;background:#ffffff}
+.sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
+.sec-brands span{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.03em;color:#5c626c;padding:6px 0}
+.sec-brands span:first-child{color:#22439b}
+
+.wrap{--w:1180px}
+.sec-contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,68px)}
+.sec-contact h2{font-size:clamp(26px,3.4vw,44px)}
+.sec-contact .lede{margin-top:16px;color:#5c626c;max-width:46ch}
+.sec-contact .callrow{margin-top:24px}
+.sec-contact .addr{margin-top:18px;color:#5c626c}
+.sec-contact .hours{margin-top:26px}
+@media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
+
+/* Familie: overdag-licht, zacht, vertrouwen voorop. */
+.st-card{border:1px solid #e2e5ea;border-radius:14px;transition:transform .25s ease,box-shadow .25s ease}
+.st-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(15,20,30,.10)}
+/* Neutrale hoogte, geen gekleurde gloed: die leest als een sjabloon. */
+.callbtn{box-shadow:0 1px 2px rgba(15,20,30,.10),0 3px 8px rgba(15,20,30,.08)}
+.h-btn.is-primary{box-shadow:0 1px 2px rgba(15,20,30,.12),0 4px 12px rgba(15,20,30,.10)}
+.h-btn.is-primary:hover{box-shadow:0 2px 4px rgba(15,20,30,.14),0 10px 24px rgba(15,20,30,.14)}
+.sec-trust{background:#eaeef7}
+.sec-contact{background:#eaeef7;border-top:1px solid #e2e5ea}
+.sec-contact .panel{background:transparent}
+.hours{background:#ffffff;border-radius:14px;overflow:hidden}
+.hours th,.hours td{padding-inline:16px;border-bottom:0}
+.hours tr:nth-child(odd){background:#f7f8fa}
+/* Het bewijs staat boven de kop en leest als een regel losse feiten. */
+.h-words>.h-facts:first-child{gap:0 26px;color:#14171d;font-weight:600;font-size:15px;border-bottom-color:#e2e5ea}
+.h-words>.h-facts:first-child span:first-child{color:#22439b}
+</style>
+</head>
+<body>
+<!--
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van van der Veen Auto's (familie, mediaanprijs EUR 17700, 29 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+OWN-WORLD: palet kobalt, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #22439b.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
+FIRST VIEWPORT: hero-variant "index", voorraadweergave "grid", secties about > stock > trust > process > hours > contact.
+FORM: familie-kobalt-index-grid-gabarito-k0
+FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
+-->
+<div class="top" id="top">
+  <div class="wrap">
+    <a class="mark" href="#top">van der Veen Auto's</a>
+    <nav><a href="#voorraad">Voorraad</a><a href="#over-ons">Over ons</a><a href="#contact">Contact</a></nav>
+    <a class="callbtn" href="tel:+31654971898">06-5497 1898</a>
+  </div>
+</div>
+<header class="hero h-index">
+  <div class="wrap">
+    <div class="h-words"><h1>Uw volgende auto staat klaar <em>in Rouveen</em></h1><p class="h-lede">Bij van der Veen Auto’s staat eerlijkheid en betrouwbaarheid op de eerste plek.</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31654971898">Bel 06-5497 1898</a><a class="h-btn" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div></div>
+    <dl class="h-panel"><div><dd>29 voertuigen op voorraad</dd></div><div><dd>4.3 uit 44 beoordelingen</dd></div><div><dd>13 jaar op Marktplaats</dd></div><div><dd>8 merken in huis</dd></div><div><dd>Kom langs in Rouveen</dd></div></dl>
+  </div>
+</header>
+<section class="sec-about" id="over-ons">
+  <div class="wrap rv">
+    <div>
+      <h2>Over van der Veen Auto's</h2>
+      <p>Bij van der Veen Auto’s staat eerlijkheid en betrouwbaarheid op de eerste plek.</p>
+    </div>
+    <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/a3/a38c7a3a-9bbc-45ac-8e53-da4ac5838760?rule=ecg_mp_eps$_85.jpg" alt="van der Veen Auto's" loading="lazy"></div>
+  </div>
+</section>
+<section id="voorraad">
+  <div class="wrap head">
+    <h2>Onze voorraad</h2>
+    <span class="meta">18 getoond van 29 · vanaf € 13.999</span>
+    <p>Ziet u iets? Bel of app gerust, dan zetten we hem voor u apart.</p>
+  </div>
+  <div class="wrap"><div class="st-grid"><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c551b932-5e02-414f-b748-56d3f3fa7ae4?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Amarok 2.0 TDI 4Motion Dubbel Cabine 5 pers Highl" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Volkswagen Amarok 2.0 TDI 4Motion Dubbel Cabine 5 pers Highl</h3>
+    <p class="st-spec">2016 · 96.281 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 24.999</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Volkswagen%20Amarok%202.0%20TDI%204Motion%20Dubbel%20Cabine%205%20pers%20Highl%20(%E2%82%AC%2024.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8fd895e0-025a-4af4-8235-35612167ea93?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen T-Roc 1.5 TSI Sport. volledig leder dealer onderh" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Volkswagen T-Roc 1.5 TSI Sport. volledig leder dealer onderh</h3>
+    <p class="st-spec">2019 · 48.253 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 23.999</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Volkswagen%20T-Roc%201.5%20TSI%20Sport.%20volledig%20leder%20dealer%20onderh%20(%E2%82%AC%2023.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0d8b8e24-66c4-4bc5-9c68-8c55124bc6a2?rule=ecg_mp_eps$_85.jpg" alt="Seat Leon Sportstourer 1.5 eTSI FR Launch Edition. 1ste eige" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Seat Leon Sportstourer 1.5 eTSI FR Launch Edition. 1ste eige</h3>
+    <p class="st-spec">2021 · 105.467 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 20.500</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Seat%20Leon%20Sportstourer%201.5%20eTSI%20FR%20Launch%20Edition.%201ste%20eige%20(%E2%82%AC%2020.500)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/47d29fbc-501d-4432-97a1-117a7b71eecc?rule=ecg_mp_eps$_85.jpg" alt="BMW 2-serie Active Tourer 218i Executive Edition M-pakket De" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>BMW 2-serie Active Tourer 218i Executive Edition M-pakket De</h3>
+    <p class="st-spec">2020 · 94.565 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 19.999</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20BMW%202-serie%20Active%20Tourer%20218i%20Executive%20Edition%20M-pakket%20De%20(%E2%82%AC%2019.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5e710a92-3c6f-4e02-9a4f-be6ff951ec4c?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tiguan 1.4 TSI Comfortline Business. 1ste eigenaa" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Volkswagen Tiguan 1.4 TSI Comfortline Business. 1ste eigenaa</h3>
+    <p class="st-spec">2018 · 60.860 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 19.999</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Volkswagen%20Tiguan%201.4%20TSI%20Comfortline%20Business.%201ste%20eigenaa%20(%E2%82%AC%2019.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/21d2b753-5941-46a9-80c2-e3e1a8008971?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Golf Variant 1.0 TSI Life. Zeer netjes en luxe o." loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Volkswagen Golf Variant 1.0 TSI Life. Zeer netjes en luxe o.</h3>
+    <p class="st-spec">2022 · 96.514 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 18.750</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Volkswagen%20Golf%20Variant%201.0%20TSI%20Life.%20Zeer%20netjes%20en%20luxe%20o.%20(%E2%82%AC%2018.750)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/327f966b-359e-4c55-937a-705722891a2d?rule=ecg_mp_eps$_85.jpg" alt="Volvo V40 1.5 T3 Polar+ Sport R-Design Dealer onderhouden! O" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Volvo V40 1.5 T3 Polar+ Sport R-Design Dealer onderhouden! O</h3>
+    <p class="st-spec">2019 · 109.910 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 18.500</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Volvo%20V40%201.5%20T3%20Polar%2B%20Sport%20R-Design%20Dealer%20onderhouden!%20O%20(%E2%82%AC%2018.500)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/13940322-deeb-4720-949e-362d11695c02?rule=ecg_mp_eps$_85.jpg" alt="Toyota Avensis Touring Sports 1.8 VVT-i SkyView Edition" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Toyota Avensis Touring Sports 1.8 VVT-i SkyView Edition</h3>
+    <p class="st-spec">2018 · 89.304 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 18.250</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Toyota%20Avensis%20Touring%20Sports%201.8%20VVT-i%20SkyView%20Edition%20(%E2%82%AC%2018.250)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/abb95576-cd75-4639-881b-3e6a43603a4b?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen T-Roc 1.0 TSI Style Business metallic grijs. o.a." loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Volkswagen T-Roc 1.0 TSI Style Business metallic grijs. o.a.</h3>
+    <p class="st-spec">2021 · 96.503 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 17.999</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Volkswagen%20T-Roc%201.0%20TSI%20Style%20Business%20metallic%20grijs.%20o.a.%20(%E2%82%AC%2017.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ca6b7c5-c527-4329-bc11-21f413b99d91?rule=ecg_mp_eps$_85.jpg" alt="Seat Ateca 1.0 EcoTSI Style Business Intense. 1ste eigenaar." loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Seat Ateca 1.0 EcoTSI Style Business Intense. 1ste eigenaar.</h3>
+    <p class="st-spec">2020 · 113.429 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 17.400</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Seat%20Ateca%201.0%20EcoTSI%20Style%20Business%20Intense.%201ste%20eigenaar.%20(%E2%82%AC%2017.400)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/57ffe314-9789-47ad-841f-21da6be3d3c0?rule=ecg_mp_eps$_85.jpg" alt="Mazda 6 Sportbreak 2.5 SkyActiv-G 192 GT-M. O.a. Leder, crui" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Mazda 6 Sportbreak 2.5 SkyActiv-G 192 GT-M. O.a. Leder, crui</h3>
+    <p class="st-spec">2018 · 151.988 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 16.999</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Mazda%206%20Sportbreak%202.5%20SkyActiv-G%20192%20GT-M.%20O.a.%20Leder%2C%20crui%20(%E2%82%AC%2016.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3927898f-43ca-4e6d-816f-553c2616f202?rule=ecg_mp_eps$_85.jpg" alt="Kia Ceed Sportswagon 1.0 T-GDi Dynamic PlusLine Dealer onder" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Kia Ceed Sportswagon 1.0 T-GDi Dynamic PlusLine Dealer onder</h3>
+    <p class="st-spec">2022 · 82.124 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 16.750</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Kia%20Ceed%20Sportswagon%201.0%20T-GDi%20Dynamic%20PlusLine%20Dealer%20onder%20(%E2%82%AC%2016.750)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e405a4f3-194c-417a-983d-59fc5a16b6f7?rule=ecg_mp_eps$_85.jpg" alt="Mazda CX-5 2.0 SkyActiv-G 160 PK 4WD. 100% dealer onderhoude" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Mazda CX-5 2.0 SkyActiv-G 160 PK 4WD. 100% dealer onderhoude</h3>
+    <p class="st-spec">2016 · 141.874 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 16.750</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Mazda%20CX-5%202.0%20SkyActiv-G%20160%20PK%204WD.%20100%25%20dealer%20onderhoude%20(%E2%82%AC%2016.750)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7436f484-4b31-4902-9867-4331020c87ad?rule=ecg_mp_eps$_85.jpg" alt="Mazda CX-3 2.0 SkyActiv-G 120 SkyLease GT. O.a. carplay, nav" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Mazda CX-3 2.0 SkyActiv-G 120 SkyLease GT. O.a. carplay, nav</h3>
+    <p class="st-spec">2019 · 68.286 km · Benzine</p>
+    <div class="st-foot">
+      <span class="st-price">€ 16.500</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Mazda%20CX-3%202.0%20SkyActiv-G%20120%20SkyLease%20GT.%20O.a.%20carplay%2C%20nav%20(%E2%82%AC%2016.500)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d7445e7b-79cd-4008-881c-62ac31f38a30?rule=ecg_mp_eps$_85.jpg" alt="Kia Venga 1.6 CVVT Edition. Luxe uitvoering, o.a. stoelverw," loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Kia Venga 1.6 CVVT Edition. Luxe uitvoering, o.a. stoelverw,</h3>
+    <p class="st-spec">2019 · 53.616 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 16.450</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Kia%20Venga%201.6%20CVVT%20Edition.%20Luxe%20uitvoering%2C%20o.a.%20stoelverw%2C%20(%E2%82%AC%2016.450)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fce872c2-1f70-460f-8f90-2c7b2efdd7ae?rule=ecg_mp_eps$_85.jpg" alt="Mazda CX-3 2.0 SkyActiv-G 120 GT-M Dealer onderhouden! O.a." loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Mazda CX-3 2.0 SkyActiv-G 120 GT-M Dealer onderhouden! O.a.</h3>
+    <p class="st-spec">2017 · 90.429 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 15.500</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Mazda%20CX-3%202.0%20SkyActiv-G%20120%20GT-M%20Dealer%20onderhouden!%20O.a.%20(%E2%82%AC%2015.500)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3812798b-433a-49f8-bc51-fcf3f921bce2?rule=ecg_mp_eps$_85.jpg" alt="Seat Arona 1.0 TSI Xcellence Launch Edition In nieuwstaat. O" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Seat Arona 1.0 TSI Xcellence Launch Edition In nieuwstaat. O</h3>
+    <p class="st-spec">2018 · 78.424 km · Benzine</p>
+    <div class="st-foot">
+      <span class="st-price">€ 14.900</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Seat%20Arona%201.0%20TSI%20Xcellence%20Launch%20Edition%20In%20nieuwstaat.%20O%20(%E2%82%AC%2014.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2aa8ec95-2541-422b-9330-d97d3ba9de1f?rule=ecg_mp_eps$_85.jpg" alt="Skoda Karoq 1.0 TSI Ambition Business Dealer onderhouden! 2d" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Skoda Karoq 1.0 TSI Ambition Business Dealer onderhouden! 2d</h3>
+    <p class="st-spec">2019 · 140.677 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 13.999</span>
+      <a class="st-ask" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20zag%20de%20Skoda%20Karoq%201.0%20TSI%20Ambition%20Business%20Dealer%20onderhouden!%202d%20(%E2%82%AC%2013.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article></div><div class="more"><span>Er staan er nog 11 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
+</section>
+<section class="sec-trust"><div class="wrap rv"><div><b>4.3</b><span>gemiddeld uit 44 beoordelingen</span></div><div><b>13</b><span>jaar op Marktplaats</span></div><div><b>Rouveen</b><span><a href="https://maps.google.com/?q=Rouveen" target="_blank" rel="noreferrer">Rouveen</a></span></div></div></section>
+<section class="sec-flow">
+  <div class="wrap">
+    <div class="head rv"><h2>Zo gaat het</h2></div>
+    <ol class="flow rv">
+      <li><b>Neem contact op</b><p>Bel of app ons over het voertuig dat u op het oog heeft.</p></li><li><b>Kom langs</b><p>Kom langs voor een bezichtiging en een proefrit.</p></li><li><b>Regel het samen</b><p>We bespreken prijs, inruil en aflevering. Geen verrassingen.</p></li>
+    </ol>
+  </div>
+</section>
+<section class="sec-contact" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <h2>Even langskomen?</h2>
+      <p class="lede">Bel gerust voordat u komt, dan staat de auto klaar en heeft u niet voor niets gereden.</p>
+      <p class="callrow"><a class="h-btn is-primary" href="tel:+31654971898">Bel 06-5497 1898</a></p>
+      <p class="addr"><a href="https://maps.google.com/?q=Rouveen" target="_blank" rel="noreferrer">Rouveen</a></p>
+      <table class="hours"><tr data-d="1"><th>Maandag</th><td>09:00 – 17:00</td></tr><tr data-d="2"><th>Dinsdag</th><td>09:00 – 21:00</td></tr><tr data-d="3"><th>Woensdag</th><td>09:00 – 21:00</td></tr><tr data-d="4"><th>Donderdag</th><td>09:00 – 21:00</td></tr><tr data-d="5"><th>Vrijdag</th><td>09:00 – 17:00</td></tr><tr data-d="6"><th>Zaterdag</th><td>09:00 – 16:00</td></tr><tr data-d="0"><th>Zondag</th><td class="closed">Gesloten</td></tr></table>
+    </div>
+    <div class="panel rv"><form onsubmit="event.preventDefault();var f=this;location.href='https://wa.me/31654971898?text='+encodeURIComponent(f.bericht.value+' — '+f.naam.value+' ('+f.tel.value+')')"><label class="field"><span>Uw naam</span><input name="naam" type="text" autocomplete="name" required></label><label class="field"><span>Telefoonnummer</span><input name="tel" type="tel" autocomplete="tel" required></label><label class="field"><span>Waar kunnen we u mee helpen?</span><textarea name="bericht" rows="4" required></textarea></label><button class="h-btn is-primary" type="submit">Verstuur aanvraag</button><p class="note">Uw bericht opent in WhatsApp.</p></form></div>
+  </div>
+</section>
+<footer>
+  <div class="wrap rowf">
+    <span>van der Veen Auto's · Rouveen</span>
+    <span>Voorbeeldwebsite, gemaakt door Capital BB</span>
+  </div>
+</footer>
+<div class="bar">
+  <a class="acc" href="tel:+31654971898">Bellen</a>
+  <a href="https://wa.me/31654971898?text=Hallo%20van%20der%20Veen%20Auto's%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">WhatsApp</a>
+</div>
+<script>
+document.documentElement.className+=' js';
+(function(){
+  var today=document.querySelector('.hours tr[data-d="'+new Date().getDay()+'"]');
+  if(today){today.className='today';var v=today.lastElementChild;if(v){v.insertAdjacentHTML('beforeend','<span class="tag">vandaag</span>')}}
+  var top=document.getElementById('top');
+  if(top){var s=function(){top.classList.toggle('solid',window.scrollY>40)};s();addEventListener('scroll',s,{passive:true})}
+  var items=[].slice.call(document.querySelectorAll('.rv'));
+  var show=function(el){el.classList.add('in')};
+  if(!('IntersectionObserver' in window)){items.forEach(show);return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
+  items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
+  setTimeout(function(){items.forEach(show)},2600);
+})();
+</script>
+</body>
+</html>
