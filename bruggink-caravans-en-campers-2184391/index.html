@@ -294,8 +294,8 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Bruggink Caravans en Campers (reizen, mediaanprijs EUR 158393, 207 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet diepwater, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #125a72.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties stock > brands > trust > process > hours > contact.
-FORM: reizen-diepwater-split-grid-archivoexpanded-k1
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties stock > brands > trust > process > contact.
+FORM: reizen-diepwater-cinematic-grid-archivoexpanded-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
 <div class="top" id="top">
@@ -305,11 +305,9 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <a class="callbtn" href="tel:+31545271718">054-5271718</a>
   </div>
 </div>
-<header class="hero h-split">
-  <div class="wrap">
-    <div class="h-words"><h1>207 campers en caravans <em>in Borculo</em></h1><div class="h-facts"><span>207 voertuigen op voorraad</span><span>4.3 uit 655 beoordelingen</span><span>20 jaar op Marktplaats</span><span>Kom langs in Borculo</span></div><p class="h-lede">Kom rustig kijken en stap in. We nemen de tijd om alles met u door te lopen.</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31545271718">Bel 054-5271718</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div></div>
-    <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d4c9f3a-cb5d-44a5-b8fc-444b1478bdd8?rule=ecg_mp_eps$_85.jpg" alt="Carthago Chic E-Line I 61 XL LE" decoding="async" fetchpriority="high"><figcaption><span>Carthago Chic E-Line I 61 XL LE</span><span>€ 269.169</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/efbcf450-f5e6-4cd2-9eda-6348ea9a236b?rule=ecg_mp_eps$_85.jpg" alt="Carthago Chic C Line I 4.9 LE" decoding="async"><figcaption><span>Carthago Chic C Line I 4.9 LE</span><span>€ 205.520</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/be86f32c-1f22-482a-adbb-6149512e68a8?rule=ecg_mp_eps$_85.jpg" alt="Hymer ML-T 580 4X4 CROSS TRAIL 190 PK" decoding="async"><figcaption><span>Hymer ML-T 580 4X4 CROSS TRAIL 190 PK</span><span>€ 205.205</span></figcaption></figure></div></div>
-  </div>
+<header class="hero h-cinematic">
+  <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d4c9f3a-cb5d-44a5-b8fc-444b1478bdd8?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d4c9f3a-cb5d-44a5-b8fc-444b1478bdd8?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d4c9f3a-cb5d-44a5-b8fc-444b1478bdd8?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d4c9f3a-cb5d-44a5-b8fc-444b1478bdd8?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d4c9f3a-cb5d-44a5-b8fc-444b1478bdd8?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Carthago Chic E-Line I 61 XL LE" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Carthago Chic E-Line I 61 XL LE</span><span class="h-plate-p">€ 269.169</span></figcaption></figure>
+  <div class="wrap h-words"><h1>Stap in en kijk rustig rond <em>in Borculo</em></h1><div class="h-facts"><span>207 voertuigen op voorraad</span><span>4.3 uit 655 beoordelingen</span><span>20 jaar op Marktplaats</span><span>Kom langs in Borculo</span></div><p class="h-lede">Kom rustig kijken en stap in. We nemen de tijd om alles met u door te lopen.</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31545271718">Bel 054-5271718</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div></div>
 </header>
 <section id="voorraad">
   <div class="wrap head">
@@ -545,5 +543,6 @@ document.documentElement.className+=' js';
   setTimeout(function(){items.forEach(show)},2600);
 })();
 </script>
+
 </body>
 </html>

@@ -293,9 +293,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van ACC Service Limmen (reizen, mediaanprijs EUR 25248, 20 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet diepwater, 'Bricolage Grotesque' als display op 'Manrope', hoeken 20px, accent #125a72.
-STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties stock > about > process > hours > contact.
-FORM: reizen-diepwater-cinematic-grid-bricolagegrotesque-k2
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties stock > about > process > contact.
+FORM: reizen-diepwater-split-grid-bricolagegrotesque-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
 <div class="top" id="top">
@@ -305,9 +305,11 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <a class="callbtn" href="tel:+31725051889">072-5051889</a>
   </div>
 </div>
-<header class="hero h-cinematic">
-  <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9b388f83-e2ef-41e6-b2fc-aad566e8e886?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9b388f83-e2ef-41e6-b2fc-aad566e8e886?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9b388f83-e2ef-41e6-b2fc-aad566e8e886?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9b388f83-e2ef-41e6-b2fc-aad566e8e886?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9b388f83-e2ef-41e6-b2fc-aad566e8e886?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Adria TWIN 640 SPX 160 PK Automaat!" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Adria TWIN 640 SPX 160 PK Automaat!</span><span class="h-plate-p">€ 59.995</span></figcaption></figure>
-  <div class="wrap h-words"><h1>Uw volgende reis begint <em>in Limmen</em></h1><div class="h-facts"><span>20 voertuigen op voorraad</span><span>10 jaar op Marktplaats</span><span>3 merken in huis</span><span>Kom langs in Limmen</span></div><p class="h-lede">Kom rustig kijken en stap in. We nemen de tijd om alles met u door te lopen.</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging</a><a class="h-btn" href="tel:+31725051889">Bel 072-5051889</a></div></div>
+<header class="hero h-split">
+  <div class="wrap">
+    <div class="h-words"><h1>20 campers en caravans <em>in Limmen</em></h1><div class="h-facts"><span>20 voertuigen op voorraad</span><span>10 jaar op Marktplaats</span><span>3 merken in huis</span><span>Kom langs in Limmen</span></div><p class="h-lede">Kom rustig kijken en stap in. We nemen de tijd om alles met u door te lopen.</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31725051889">Bel 072-5051889</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div></div>
+    <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9b388f83-e2ef-41e6-b2fc-aad566e8e886?rule=ecg_mp_eps$_85.jpg" alt="Adria TWIN 640 SPX 160 PK Automaat!" decoding="async" fetchpriority="high"><figcaption><span>Adria TWIN 640 SPX 160 PK Automaat!</span><span>€ 59.995</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/909cca84-5056-4265-a20b-ab977d4bda67?rule=ecg_mp_eps$_85.jpg" alt="Laika ECOVIP 410" decoding="async"><figcaption><span>Laika ECOVIP 410</span><span>€ 59.500</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d40f508-3d8c-4182-8dc1-3a11d242f3fd?rule=ecg_mp_eps$_85.jpg" alt="Hymer Exsis T 588 Semi-integraal" decoding="async"><figcaption><span>Hymer Exsis T 588 Semi-integraal</span><span>€ 54.995</span></figcaption></figure></div></div>
+  </div>
 </header>
 <section id="voorraad">
   <div class="wrap head">
@@ -551,5 +553,6 @@ document.documentElement.className+=' js';
   setTimeout(function(){items.forEach(show)},2600);
 })();
 </script>
+
 </body>
 </html>
