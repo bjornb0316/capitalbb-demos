@@ -47,7 +47,7 @@ html,body{overflow-x:clip}
 .mark.has-sub em{display:block;font-family:'Chivo', 'Helvetica Neue', Arial, sans-serif;font-style:normal;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#989da4;margin-top:2px}
 
 /* WhatsApp als eigen knop, naast het nummer */
-.wabtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;border:1px solid #25282d;background:#17191c;color:#f5f6f7;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
+.wabtn{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:10px 17px;border-radius:999px;border:1px solid #25282d;background:#17191c;color:#f5f6f7;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
 .wabtn svg{width:17px;height:17px;flex:none}
 .wabtn:hover{border-color:#ff5b19}
 @media(max-width:900px){.wabtn span{display:none}.wabtn{padding:10px 12px}}
@@ -59,6 +59,9 @@ html,body{overflow-x:clip}
   .mark{font-size:16px;line-height:1.18;overflow-wrap:break-word}
   .mark.is-long{font-size:13.5px}
   .mark.is-xlong{font-size:12px;letter-spacing:0}
+  /* De naam mag over drie regels, want de hero houdt de kophoogte nu zelf vrij.
+     Afkappen tot "Autobedrijf van de..." is erger dan een regel extra. */
+  .top .wrap{padding:11px 0}
   .callbtn{flex:none;padding:11px 15px}
 }
 
@@ -188,8 +191,14 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 /* stack: woorden boven, beeld als band eronder */
 /* stack: woorden boven, beeld als band eronder. De band moet in het eerste
    scherm beginnen - anders open je met letters op een egale kleur, en dat is
-   precies wat we niet willen. */
+   precies wat we niet willen.
+   
+   De ruimte bovenaan moet wel een zwevende kop kunnen vrijhouden. Die is op een
+   telefoon ruim honderd pixels hoog, en met dertig pixels padding stond de
+   bedrijfsnaam dwars door de kopregel heen. */
 .h-stack{padding:clamp(30px,3.6vw,56px) 0 0}
+.has-vaste-kop .h-stack,
+.has-vaste-kop .h-split{padding-top:calc(var(--kop, 124px) + clamp(20px,2.4vw,36px))}
 .h-stack .h-words{padding-bottom:clamp(24px,2.8vw,40px)}
 /* Twee regels, geen drie: bij drie regels zakt de beeldband onder de vouw en
    open je alsnog met alleen letters. */
@@ -197,7 +206,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-stack .h-lede{margin-top:16px;max-width:44ch}
 .h-stack .h-facts{margin-top:24px;padding-top:16px}
 .h-stack .h-cta{margin-top:24px}
-.h-band{margin:0;aspect-ratio:21/7;min-height:min(46svh,460px);background:#1c1f23;overflow:hidden}
+/* width:100% is hier niet overbodig.
+   Met alleen aspect-ratio en min-height rekent de browser de bréédte uit de
+   hoogte, en dan werd deze band 621px breed in een venster van 375 - veertig
+   procent van de foto viel buiten beeld. */
+.h-band{margin:0;width:100%;aspect-ratio:21/7;min-height:min(46svh,460px);background:#1c1f23;overflow:hidden}
 .h-band img{width:100%;height:100%;object-fit:cover}
 @media(max-width:720px){.h-band{aspect-ratio:16/10}}
 
@@ -574,7 +587,15 @@ document.documentElement.className+=' js';
   var today=document.querySelector('.hours tr[data-d="'+new Date().getDay()+'"]');
   if(today){today.className='today';var v=today.lastElementChild;if(v){v.insertAdjacentHTML('beforeend','<span class="tag">vandaag</span>')}}
   var top=document.getElementById('top');
-  if(top){var s=function(){top.classList.toggle('solid',window.scrollY>40)};s();addEventListener('scroll',s,{passive:true})}
+  if(top){
+    var s=function(){top.classList.toggle('solid',window.scrollY>40)};s();addEventListener('scroll',s,{passive:true});
+    // Een zwevende kop neemt geen ruimte in; de hero moet die zelf vrijhouden.
+    // De CSS gaat uit van een veilige standaard, hier wordt hij precies gezet.
+    if(top.classList.contains('is-fixed')){
+      var meet=function(){document.documentElement.style.setProperty('--kop',top.offsetHeight+'px')};
+      meet();addEventListener('resize',meet,{passive:true});
+    }
+  }
   var items=[].slice.call(document.querySelectorAll('.rv'));
   var show=function(el){el.classList.add('in')};
   if(!('IntersectionObserver' in window)){items.forEach(show);return}
