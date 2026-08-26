@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#a0a4aa;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#a0a4aa;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #2e3238}
+.kenmerk-bewijs b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-0.01em;color:#f2c230;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#a0a4aa;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -439,7 +448,7 @@ footer{border-top:2px solid #f6f6f4}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van JK occasions (buurtgarage, mediaanprijs EUR 1650, 5 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet werkplaats, 'Anton' als display op 'Barlow', hoeken 0px, accent #f2c230.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "list", secties promise > uitgelicht > stock > process > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "list", secties kenmerk > promise > uitgelicht > stock > process > contact.
 FORM: buurtgarage-werkplaats-cinematic-list-anton-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -455,6 +464,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/578f0d2e-2ff6-4622-b40b-8805edcea0b1?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/578f0d2e-2ff6-4622-b40b-8805edcea0b1?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/578f0d2e-2ff6-4622-b40b-8805edcea0b1?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/578f0d2e-2ff6-4622-b40b-8805edcea0b1?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/578f0d2e-2ff6-4622-b40b-8805edcea0b1?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Peugeot 107 1.0-12V XS" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Peugeot 107 1.0-12V XS</span><span class="h-plate-p">€ 1.850</span></figcaption></figure>
   <div class="wrap h-words"><h1><a href="tel:+31687316264">06-8731 6264</a></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31687316264">Bel 06-8731 6264</a><a class="h-tweede" href="https://wa.me/31687316264?text=Hallo%20JK%20occasions%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div></div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Alles onder de € 1.850.</h2>
+    <p>Geen showroomprijzen en geen verrassingen: wat hier staat is bedoeld om gewoon te rijden. De prijs die u ziet is de prijs waarover we praten.</p>
+    <div class="kenmerk-bewijs"><div><b>€ 800</b><span>de goedkoopste nu</span></div><div><b>€ 1.850</b><span>de duurste nu</span></div></div>
+  </div>
+</section>
 <section class="sec-belofte"><div class="wrap rv">
   <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in De meern.</p>
   <ul class="sec-belofte-lijst"><li><b>5</b> voertuigen staan klaar</li><li>vanaf <b>€ 800</b></li><li>gemiddeld bouwjaar <b>2009</b></li></ul>

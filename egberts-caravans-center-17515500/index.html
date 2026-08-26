@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#61665f;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#61665f;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e5e3db}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(26px,3vw,38px);letter-spacing:-0.02em;color:#2f6b52;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#61665f;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -498,7 +507,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Egberts Caravans Center (reizen, mediaanprijs EUR 38730, 29 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet horizon, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #2f6b52.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties trust > uitgelicht > stock > brands > about > process > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties kenmerk > trust > uitgelicht > stock > brands > about > process > hours > contact.
 FORM: reizen-horizon-split-mosaic-archivoexpanded-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -516,6 +525,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8d7af370-5151-4dc9-be6d-8ce7f6f8122e?rule=ecg_mp_eps$_85.jpg" alt="Eriba Touring 620 Urban Hampton Bakoven" decoding="async" fetchpriority="high"><figcaption><span>Eriba Touring 620 Urban Hampton Bakoven</span><span>€ 49.160</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b5ed17d4-a1b6-4c34-bfa0-e7a89d68a91f?rule=ecg_mp_eps$_85.jpg" alt="Eriba Novaline 442 Airco Mover nieuwstaat unieke kans" decoding="async"><figcaption><span>Eriba Novaline 442 Airco Mover nieuwstaa</span><span>€ 43.500</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/23a38c59-fdd8-471b-8816-c9d1b357b81a?rule=ecg_mp_eps$_85.jpg" alt="Eriba Touring 630 Urban Memphis Luifel/mover AANBIEDING" decoding="async"><figcaption><span>Eriba Touring 630 Urban Memphis Luifel/m</span><span>€ 43.500</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>124 keer beoordeeld met een 4.5.</h2>
+    <p>Dat cijfer hebben we niet zelf bedacht; het staat op ons Marktplaats-profiel en iedereen kan het nakijken. Kom gerust langs en vorm uw eigen oordeel.</p>
+    <div class="kenmerk-bewijs"><div><b>4.5</b><span>gemiddeld cijfer</span></div><div><b>124</b><span>beoordelingen</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.5</b><span>gemiddeld uit 124 beoordelingen</span></div><div><b>14</b><span>jaar op Marktplaats</span></div></div><p class="sec-vestiging"><strong>Leek</strong> · <a href="https://maps.google.com/?q=Van%20't%20Hoffstraat%202%2C%209351VH%20Leek" target="_blank" rel="noreferrer">Van 't Hoffstraat 2, 9351VH Leek</a> · KvK 66635284</p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">

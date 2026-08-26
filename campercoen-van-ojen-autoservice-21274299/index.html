@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#a0a4aa;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#a0a4aa;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #2e3238}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#f2c230;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#a0a4aa;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -509,7 +518,7 @@ footer{border-top:2px solid #f6f6f4}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van CamperCoen van Ojen Autoservice (buurtgarage, mediaanprijs EUR 573, 104 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet werkplaats, 'Archivo Black' als display op 'Barlow', hoeken 0px, accent #f2c230.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties trust > uitgelicht > stock > about > promise > process > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties kenmerk > trust > uitgelicht > stock > about > promise > process > contact.
 FORM: buurtgarage-werkplaats-stack-grid-archivoblack-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -525,6 +534,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><h1><a href="tel:+31625022901">06-2502 2901</a></h1><div class="h-cta"><a class="h-btn is-primary" href="https://wa.me/31625022901?text=Hallo%20CamperCoen%20van%20Ojen%20Autoservice%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a><a class="h-tweede" href="tel:+31625022901">Bel 06-2502 2901</a></div></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/eca38b1c-6b0d-4b28-8749-6ef644c2a523?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/eca38b1c-6b0d-4b28-8749-6ef644c2a523?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/eca38b1c-6b0d-4b28-8749-6ef644c2a523?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/eca38b1c-6b0d-4b28-8749-6ef644c2a523?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/eca38b1c-6b0d-4b28-8749-6ef644c2a523?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Elnagh Magnum 81G camper XXL garage, supercompleet 60.000km" fetchpriority="high"></figure>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>164 keer beoordeeld met een 5.0.</h2>
+    <p>Dat cijfer hebben we niet zelf bedacht; het staat op ons Marktplaats-profiel en iedereen kan het nakijken. Kom gerust langs en vorm uw eigen oordeel.</p>
+    <div class="kenmerk-bewijs"><div><b>5.0</b><span>gemiddeld cijfer</span></div><div><b>164</b><span>beoordelingen</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>5.0</b><span>gemiddeld uit 164 beoordelingen</span></div><div><b>12</b><span>jaar op Marktplaats</span></div><div><b>7</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Eindhoven</strong> · <a href="https://maps.google.com/?q=Eindhoven" target="_blank" rel="noreferrer">Eindhoven</a> · KvK 59922869</p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">
@@ -571,8 +587,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="sa-veld">
   <label for="sa-merk">Merk</label>
   <select id="sa-merk" data-select="merk">
-    <option value="">Alle 6 merken</option>
-    <option value="Caravan Accessoires">Caravan Accessoires (5)</option><option value="Fietsendragers">Fietsendragers (5)</option><option value="Camper Accessoires">Camper Accessoires (4)</option><option value="Elektronica En Kabels">Elektronica En Kabels (1)</option><option value="Interieur En Bekleding">Interieur En Bekleding (1)</option><option value="Monitoren">Monitoren (1)</option>
+    <option value="">Alle 3 merken</option>
+    <option value="Elektronica En Kabels">Elektronica En Kabels (1)</option><option value="Interieur En Bekleding">Interieur En Bekleding (1)</option><option value="Monitoren">Monitoren (1)</option>
   </select>
 </div>
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
@@ -610,7 +626,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="camper-accessoires-memo-van-star-ecross-wegdraai-2" data-rang="1" data-merk="Camper Accessoires" data-prijs="1595" data-jaar="0" data-zoek="memo van-star ecross wegdraaibare fietsendrager ducato nieuw camper accessoires">
+</article><article class="st-card " data-slug="camper-accessoires-memo-van-star-ecross-wegdraai-2" data-rang="1" data-prijs="1595" data-jaar="0" data-zoek="memo van-star ecross wegdraaibare fietsendrager ducato nieuw">
   <div class="st-shot"><a class="st-link" href="v/camper-accessoires-memo-van-star-ecross-wegdraai-2/" aria-label="Memo Van-Star ECross wegdraaibare fietsendrager Ducato NIEUW"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9876d10e-7be2-4a1b-8be2-f5a1314f5318?rule=ecg_mp_eps$_85.jpg" alt="Memo Van-Star ECross wegdraaibare fietsendrager Ducato NIEUW" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="camper-accessoires-memo-van-star-ecross-wegdraai-2" aria-pressed="false" aria-label="Bewaar Memo Van-Star ECross wegdraaibare fietsendrager Ducato NIEUW"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/camper-accessoires-memo-van-star-ecross-wegdraai-2/">Memo Van-Star ECross wegdraaibare fietsendrager Ducato NIEUW</a></h3>
@@ -620,7 +636,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="fietsendragers-thule-easyfold-3-3-4-fietsendrage-3" data-rang="2" data-merk="Fietsendragers" data-prijs="899" data-jaar="0" data-kenmerk="Garantie" data-zoek="thule easyfold 3 3-4 fietsendrager nieuw 5 jaar garantie fietsendragers garantie">
+</article><article class="st-card " data-slug="fietsendragers-thule-easyfold-3-3-4-fietsendrage-3" data-rang="2" data-prijs="899" data-jaar="0" data-kenmerk="Garantie" data-zoek="thule easyfold 3 3-4 fietsendrager nieuw 5 jaar garantie garantie">
   <div class="st-shot"><a class="st-link" href="v/fietsendragers-thule-easyfold-3-3-4-fietsendrage-3/" aria-label="Thule EasyFold 3 3-4 Fietsendrager NIEUW 5 jaar garantie"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0b8afb1f-3514-432d-8281-d17b3ed8ad81?rule=ecg_mp_eps$_85.jpg" alt="Thule EasyFold 3 3-4 Fietsendrager NIEUW 5 jaar garantie" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="fietsendragers-thule-easyfold-3-3-4-fietsendrage-3" aria-pressed="false" aria-label="Bewaar Thule EasyFold 3 3-4 Fietsendrager NIEUW 5 jaar garantie"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/fietsendragers-thule-easyfold-3-3-4-fietsendrage-3/">Thule EasyFold 3 3-4 Fietsendrager NIEUW 5 jaar garantie</a></h3>
@@ -630,7 +646,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="caravan-accessoires-thule-6300-375x250-caravan-c-4" data-rang="3" data-merk="Caravan Accessoires" data-prijs="885" data-jaar="0" data-zoek="thule 6300 375x250 caravan camper luifel ant. nieuw op=op caravan accessoires">
+</article><article class="st-card " data-slug="caravan-accessoires-thule-6300-375x250-caravan-c-4" data-rang="3" data-prijs="885" data-jaar="0" data-zoek="thule 6300 375x250 caravan camper luifel ant. nieuw op=op">
   <div class="st-shot"><a class="st-link" href="v/caravan-accessoires-thule-6300-375x250-caravan-c-4/" aria-label="Thule 6300 375x250 caravan camper luifel ant. NIEUW op=op"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8e8b71d0-d878-423b-aeff-8d3683ee9e6a?rule=ecg_mp_eps$_85.jpg" alt="Thule 6300 375x250 caravan camper luifel ant. NIEUW op=op" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravan-accessoires-thule-6300-375x250-caravan-c-4" aria-pressed="false" aria-label="Bewaar Thule 6300 375x250 caravan camper luifel ant. NIEUW op=op"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/caravan-accessoires-thule-6300-375x250-caravan-c-4/">Thule 6300 375x250 caravan camper luifel ant. NIEUW op=op</a></h3>
@@ -640,7 +656,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="fietsendragers-thule-xt3-934-easyfold-fietsendra-5" data-rang="4" data-merk="Fietsendragers" data-prijs="835" data-jaar="0" data-kenmerk="Garantie" data-zoek="thule xt3 934 easyfold fietsendrager incl 5 jaar garantie fietsendragers garantie">
+</article><article class="st-card " data-slug="fietsendragers-thule-xt3-934-easyfold-fietsendra-5" data-rang="4" data-prijs="835" data-jaar="0" data-kenmerk="Garantie" data-zoek="thule xt3 934 easyfold fietsendrager incl 5 jaar garantie garantie">
   <div class="st-shot"><a class="st-link" href="v/fietsendragers-thule-xt3-934-easyfold-fietsendra-5/" aria-label="Thule XT3 934 easyfold fietsendrager incl 5 jaar garantie"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3480b89f-28f3-4a78-9ece-65bdd7e51248?rule=ecg_mp_eps$_85.jpg" alt="Thule XT3 934 easyfold fietsendrager incl 5 jaar garantie" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="fietsendragers-thule-xt3-934-easyfold-fietsendra-5" aria-pressed="false" aria-label="Bewaar Thule XT3 934 easyfold fietsendrager incl 5 jaar garantie"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/fietsendragers-thule-xt3-934-easyfold-fietsendra-5/">Thule XT3 934 easyfold fietsendrager incl 5 jaar garantie</a></h3>
@@ -650,7 +666,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="fietsendragers-thule-xt3-934-easyfold-fietsendra-6" data-rang="5" data-merk="Fietsendragers" data-prijs="835" data-jaar="0" data-kenmerk="Garantie" data-zoek="thule xt3 934 easyfold fietsendrager incl 5 jaar garantie fietsendragers garantie">
+</article><article class="st-card " data-slug="fietsendragers-thule-xt3-934-easyfold-fietsendra-6" data-rang="5" data-prijs="835" data-jaar="0" data-kenmerk="Garantie" data-zoek="thule xt3 934 easyfold fietsendrager incl 5 jaar garantie garantie">
   <div class="st-shot"><a class="st-link" href="v/fietsendragers-thule-xt3-934-easyfold-fietsendra-6/" aria-label="Thule XT3 934 easyfold fietsendrager incl 5 jaar garantie"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2f08d3da-6e56-45d4-91fa-0b7b6a6abbed?rule=ecg_mp_eps$_85.jpg" alt="Thule XT3 934 easyfold fietsendrager incl 5 jaar garantie" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="fietsendragers-thule-xt3-934-easyfold-fietsendra-6" aria-pressed="false" aria-label="Bewaar Thule XT3 934 easyfold fietsendrager incl 5 jaar garantie"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/fietsendragers-thule-xt3-934-easyfold-fietsendra-6/">Thule XT3 934 easyfold fietsendrager incl 5 jaar garantie</a></h3>
@@ -660,7 +676,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="caravan-accessoires-remistop-vario2-camper-carav-7" data-rang="6" data-merk="Caravan Accessoires" data-prijs="745" data-jaar="0" data-zoek="remistop vario2 camper caravan dakluik 90 x 60 nieuw caravan accessoires">
+</article><article class="st-card " data-slug="caravan-accessoires-remistop-vario2-camper-carav-7" data-rang="6" data-prijs="745" data-jaar="0" data-zoek="remistop vario2 camper caravan dakluik 90 x 60 nieuw">
   <div class="st-shot"><a class="st-link" href="v/caravan-accessoires-remistop-vario2-camper-carav-7/" aria-label="RemisTop vario2 camper caravan dakluik 90 x 60 NIEUW"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2e4e0285-9295-4478-9070-8cd25dc661ab?rule=ecg_mp_eps$_85.jpg" alt="RemisTop vario2 camper caravan dakluik 90 x 60 NIEUW" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravan-accessoires-remistop-vario2-camper-carav-7" aria-pressed="false" aria-label="Bewaar RemisTop vario2 camper caravan dakluik 90 x 60 NIEUW"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/caravan-accessoires-remistop-vario2-camper-carav-7/">RemisTop vario2 camper caravan dakluik 90 x 60 NIEUW</a></h3>
@@ -670,7 +686,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="fietsendragers-thule-xt2-933-easyfold-fietsendra-8" data-rang="7" data-merk="Fietsendragers" data-prijs="725" data-jaar="0" data-kenmerk="Garantie" data-zoek="thule xt2 933 easyfold fietsendrager incl 5 jaar garantie fietsendragers garantie">
+</article><article class="st-card " data-slug="fietsendragers-thule-xt2-933-easyfold-fietsendra-8" data-rang="7" data-prijs="725" data-jaar="0" data-kenmerk="Garantie" data-zoek="thule xt2 933 easyfold fietsendrager incl 5 jaar garantie garantie">
   <div class="st-shot"><a class="st-link" href="v/fietsendragers-thule-xt2-933-easyfold-fietsendra-8/" aria-label="Thule XT2 933 easyfold fietsendrager incl 5 jaar garantie"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/33096be2-29d9-4d15-b379-d85a1f941265?rule=ecg_mp_eps$_85.jpg" alt="Thule XT2 933 easyfold fietsendrager incl 5 jaar garantie" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="fietsendragers-thule-xt2-933-easyfold-fietsendra-8" aria-pressed="false" aria-label="Bewaar Thule XT2 933 easyfold fietsendrager incl 5 jaar garantie"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/fietsendragers-thule-xt2-933-easyfold-fietsendra-8/">Thule XT2 933 easyfold fietsendrager incl 5 jaar garantie</a></h3>
@@ -680,7 +696,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="camper-accessoires-memo-van-swing-wegdraaibare-f-9" data-rang="8" data-merk="Camper Accessoires" data-prijs="595" data-jaar="0" data-zoek="memo van-swing wegdraaibare fietsendrager balk nieuw camper accessoires">
+</article><article class="st-card " data-slug="camper-accessoires-memo-van-swing-wegdraaibare-f-9" data-rang="8" data-prijs="595" data-jaar="0" data-zoek="memo van-swing wegdraaibare fietsendrager balk nieuw">
   <div class="st-shot"><a class="st-link" href="v/camper-accessoires-memo-van-swing-wegdraaibare-f-9/" aria-label="Memo Van-Swing wegdraaibare fietsendrager balk NIEUW"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/20a301e5-0b35-4852-b67b-69509deffcc3?rule=ecg_mp_eps$_85.jpg" alt="Memo Van-Swing wegdraaibare fietsendrager balk NIEUW" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="camper-accessoires-memo-van-swing-wegdraaibare-f-9" aria-pressed="false" aria-label="Bewaar Memo Van-Swing wegdraaibare fietsendrager balk NIEUW"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/camper-accessoires-memo-van-swing-wegdraaibare-f-9/">Memo Van-Swing wegdraaibare fietsendrager balk NIEUW</a></h3>
@@ -690,7 +706,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="caravan-accessoires-indel-cruise-caravan-camper--10" data-rang="9" data-merk="Caravan Accessoires" data-prijs="550" data-jaar="0" data-zoek="indel cruise caravan &amp; camper koelkasten - cr42 &amp; cr49 op=op caravan accessoires">
+</article><article class="st-card " data-slug="caravan-accessoires-indel-cruise-caravan-camper--10" data-rang="9" data-prijs="550" data-jaar="0" data-zoek="indel cruise caravan &amp; camper koelkasten - cr42 &amp; cr49 op=op">
   <div class="st-shot"><a class="st-link" href="v/caravan-accessoires-indel-cruise-caravan-camper--10/" aria-label="Indel Cruise caravan &amp; camper Koelkasten - CR42 &amp; CR49 op=op"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/36295db0-e64c-4a72-a608-bf8b88f067c8?rule=ecg_mp_eps$_85.jpg" alt="Indel Cruise caravan &amp; camper Koelkasten - CR42 &amp; CR49 op=op" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravan-accessoires-indel-cruise-caravan-camper--10" aria-pressed="false" aria-label="Bewaar Indel Cruise caravan &amp; camper Koelkasten - CR42 &amp; CR49 op=op"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/caravan-accessoires-indel-cruise-caravan-camper--10/">Indel Cruise caravan &amp; camper Koelkasten - CR42 &amp; CR49 op=op</a></h3>
@@ -710,7 +726,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="caravan-accessoires-heki-2-dakluik-kap-koepel-ca-12" data-rang="11" data-merk="Caravan Accessoires" data-prijs="399" data-jaar="0" data-zoek="heki 2 dakluik kap koepel caravan dometic 96x65,5 nieuw caravan accessoires">
+</article><article class="st-card " data-slug="caravan-accessoires-heki-2-dakluik-kap-koepel-ca-12" data-rang="11" data-prijs="399" data-jaar="0" data-zoek="heki 2 dakluik kap koepel caravan dometic 96x65,5 nieuw">
   <div class="st-shot"><a class="st-link" href="v/caravan-accessoires-heki-2-dakluik-kap-koepel-ca-12/" aria-label="Heki 2 dakluik kap koepel caravan Dometic 96x65,5 Nieuw"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6859f5df-9ecb-49a3-a4d5-d007f339354f?rule=ecg_mp_eps$_85.jpg" alt="Heki 2 dakluik kap koepel caravan Dometic 96x65,5 Nieuw" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravan-accessoires-heki-2-dakluik-kap-koepel-ca-12" aria-pressed="false" aria-label="Bewaar Heki 2 dakluik kap koepel caravan Dometic 96x65,5 Nieuw"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/caravan-accessoires-heki-2-dakluik-kap-koepel-ca-12/">Heki 2 dakluik kap koepel caravan Dometic 96x65,5 Nieuw</a></h3>
@@ -720,7 +736,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="camper-accessoires-dometic-9222l-spoelbak-kookpl-13" data-rang="12" data-merk="Camper Accessoires" data-prijs="349" data-jaar="0" data-zoek="dometic 9222l spoelbak-kookplaat combinatie op=op camper accessoires">
+</article><article class="st-card " data-slug="camper-accessoires-dometic-9222l-spoelbak-kookpl-13" data-rang="12" data-prijs="349" data-jaar="0" data-zoek="dometic 9222l spoelbak-kookplaat combinatie op=op">
   <div class="st-shot"><a class="st-link" href="v/camper-accessoires-dometic-9222l-spoelbak-kookpl-13/" aria-label="Dometic 9222L Spoelbak-kookplaat combinatie op=op"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/689e6082-3c11-4be5-882a-6f92f043126d?rule=ecg_mp_eps$_85.jpg" alt="Dometic 9222L Spoelbak-kookplaat combinatie op=op" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="camper-accessoires-dometic-9222l-spoelbak-kookpl-13" aria-pressed="false" aria-label="Bewaar Dometic 9222L Spoelbak-kookplaat combinatie op=op"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/camper-accessoires-dometic-9222l-spoelbak-kookpl-13/">Dometic 9222L Spoelbak-kookplaat combinatie op=op</a></h3>
@@ -730,7 +746,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="camper-accessoires-dometic-s7p-verduistering-voo-14" data-rang="13" data-merk="Camper Accessoires" data-prijs="199" data-jaar="0" data-zoek="dometic s7p verduistering voor 703x437 op=op nieuw camper accessoires">
+</article><article class="st-card " data-slug="camper-accessoires-dometic-s7p-verduistering-voo-14" data-rang="13" data-prijs="199" data-jaar="0" data-zoek="dometic s7p verduistering voor 703x437 op=op nieuw">
   <div class="st-shot"><a class="st-link" href="v/camper-accessoires-dometic-s7p-verduistering-voo-14/" aria-label="Dometic S7P verduistering voor 703x437 OP=OP NIEUW"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a7fe2374-968b-4897-b004-843f142f430e?rule=ecg_mp_eps$_85.jpg" alt="Dometic S7P verduistering voor 703x437 OP=OP NIEUW" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="camper-accessoires-dometic-s7p-verduistering-voo-14" aria-pressed="false" aria-label="Bewaar Dometic S7P verduistering voor 703x437 OP=OP NIEUW"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/camper-accessoires-dometic-s7p-verduistering-voo-14/">Dometic S7P verduistering voor 703x437 OP=OP NIEUW</a></h3>
@@ -750,7 +766,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="fietsendragers-thule-clipon-910401-fietsendrager-16" data-rang="15" data-merk="Fietsendragers" data-prijs="159" data-jaar="0" data-zoek="thule clipon 910401 fietsendrager voor 3 fietsen - op=op! fietsendragers">
+</article><article class="st-card " data-slug="fietsendragers-thule-clipon-910401-fietsendrager-16" data-rang="15" data-prijs="159" data-jaar="0" data-zoek="thule clipon 910401 fietsendrager voor 3 fietsen - op=op!">
   <div class="st-shot"><a class="st-link" href="v/fietsendragers-thule-clipon-910401-fietsendrager-16/" aria-label="Thule ClipOn 910401 fietsendrager voor 3 fietsen - OP=OP!"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/12fd851a-5334-4190-ab9f-b0e6f7fdb5ba?rule=ecg_mp_eps$_85.jpg" alt="Thule ClipOn 910401 fietsendrager voor 3 fietsen - OP=OP!" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="fietsendragers-thule-clipon-910401-fietsendrager-16" aria-pressed="false" aria-label="Bewaar Thule ClipOn 910401 fietsendrager voor 3 fietsen - OP=OP!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/fietsendragers-thule-clipon-910401-fietsendrager-16/">Thule ClipOn 910401 fietsendrager voor 3 fietsen - OP=OP!</a></h3>
@@ -770,7 +786,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31625022901">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="caravan-accessoires-fiamma-camper-caravan-daklui-18" data-rang="17" data-merk="Caravan Accessoires" data-prijs="59" data-jaar="0" data-zoek="fiamma camper - caravan dakluik op=op 40x40 caravan accessoires">
+</article><article class="st-card " data-slug="caravan-accessoires-fiamma-camper-caravan-daklui-18" data-rang="17" data-prijs="59" data-jaar="0" data-zoek="fiamma camper - caravan dakluik op=op 40x40">
   <div class="st-shot"><a class="st-link" href="v/caravan-accessoires-fiamma-camper-caravan-daklui-18/" aria-label="fiamma camper - caravan dakluik OP=OP 40x40"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/16019301-8796-4da4-80e0-5aa49ac9f992?rule=ecg_mp_eps$_85.jpg" alt="fiamma camper - caravan dakluik OP=OP 40x40" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravan-accessoires-fiamma-camper-caravan-daklui-18" aria-pressed="false" aria-label="Bewaar fiamma camper - caravan dakluik OP=OP 40x40"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/caravan-accessoires-fiamma-camper-caravan-daklui-18/">fiamma camper - caravan dakluik OP=OP 40x40</a></h3>

@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#6d6459;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#6d6459;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e9e1d5}
+.kenmerk-bewijs b{display:block;font-family:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:700;font-size:clamp(26px,3vw,38px);letter-spacing:-0.02em;color:#9e6524;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#6d6459;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -498,7 +507,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Hulsebosch campers (reizen, mediaanprijs EUR 36950, 29 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet duin, 'Bricolage Grotesque' als display op 'Manrope', hoeken 20px, accent #9e6524.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > uitgelicht > stock > process > brands > about > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties kenmerk > trust > uitgelicht > stock > process > brands > about > contact.
 FORM: reizen-duin-cinematic-mosaic-bricolagegrotesque-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->

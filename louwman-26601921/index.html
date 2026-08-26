@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#5c626c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#5c626c;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e2e5ea}
+.kenmerk-bewijs b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#22439b;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#5c626c;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -502,7 +511,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Louwman (familie, mediaanprijs EUR 35423, 2444 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet kobalt, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #22439b.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > uitgelicht > stock > process > about > promise > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties kenmerk > trust > uitgelicht > stock > process > about > promise > contact.
 FORM: familie-kobalt-cinematic-grid-gabarito-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -518,6 +527,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Lexus RZ 550e DIRECT-4 AWD F-SPORT (77 kWh) | Steer-By-Wire" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Lexus RZ 550e DIRECT-4 AWD F-SPORT (77 kWh) | Steer-By-Wire</span><span class="h-plate-p">€ 74.950</span></figcaption></figure>
   <div class="wrap h-words"><h1>Kom kijken wanneer het u schikt <em>in 's-Gravenhage</em></h1><p class="h-lede">100 jaar geleden zijn we begonnen met een passie om mensen te bewegen. Wij zijn een familiebedrijf dat zich niet laat leiden door de waan van de dag en altijd kiest voor lange termijn r</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31705690502">Bel 070-5690502</a><a class="h-tweede" href="#contact">Plan een bezichtiging</a></div></div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Hier staat vooral Toyota.</h2>
+    <p>56% van wat er staat is een Toyota. Dat betekent dat we het merk kennen: wat eraan opvalt, wat je moet nakijken, en wat een eerlijke prijs is.</p>
+    <div class="kenmerk-bewijs"><div><b>56%</b><span>van de voorraad is Toyota</span></div><div><b>4</b><span>merken in totaal</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.2</b><span>gemiddeld uit 690 beoordelingen</span></div><div><b>16</b><span>jaar op Marktplaats</span></div><div><b>4</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>'s-Gravenhage</strong> · <a href="https://maps.google.com/?q='s-Gravenhage" target="_blank" rel="noreferrer">'s-Gravenhage</a></p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">

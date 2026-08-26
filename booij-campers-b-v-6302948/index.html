@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#586268;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#586268;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dde5e8}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(26px,3vw,38px);letter-spacing:-0.02em;color:#125a72;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#586268;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -498,7 +507,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Booij Campers B.V. (reizen, mediaanprijs EUR 88200, 32 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet diepwater, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #125a72.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties about > uitgelicht > stock > process > brands > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties kenmerk > about > uitgelicht > stock > process > brands > hours > contact.
 FORM: reizen-diepwater-split-mosaic-archivoexpanded-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -516,6 +525,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c9999920-4806-449a-b550-22b2241ebe83?rule=ecg_mp_eps$_85.jpg" alt="Sunlight I 68 Adventure Edition [AUTOMAAT]" decoding="async" fetchpriority="high"><figcaption><span>Sunlight I 68 Adventure Edition [AUTOMAA</span><span>€ 109.515</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dafdf0d5-9528-489d-8da3-3b9be366c14c?rule=ecg_mp_eps$_85.jpg" alt="Dethleffs Trend T 7057 EBL" decoding="async"><figcaption><span>Dethleffs Trend T 7057 EBL</span><span>€ 103.990</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7531a92d-e476-4794-8690-9cf1f8dd3b6b?rule=ecg_mp_eps$_85.jpg" alt="Dethleffs Just Camp T 7052 EB Zomer Voordeel" decoding="async"><figcaption><span>Dethleffs Just Camp T 7052 EB Zomer Voor</span><span>€ 101.950</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Jong, en met weinig kilometers.</h2>
+    <p>De helft van wat hier staat is van na 2024 en heeft minder dan 35.000 kilometer gelopen. Geen project, geen verrassingen onderweg.</p>
+    <div class="kenmerk-bewijs"><div><b>2025</b><span>mediaan bouwjaar</span></div><div><b>35.000 km</b><span>mediaan kilometerstand</span></div></div>
+  </div>
+</section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>

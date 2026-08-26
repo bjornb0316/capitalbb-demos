@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#575c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#575c62;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dadde0}
+.kenmerk-bewijs b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:0;color:#1a1c1f;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#575c62;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -437,7 +446,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Pels Motoren (motoren, mediaanprijs EUR 8374, 115 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet chroom, 'Anton' als display op 'Chivo', hoeken 0px, accent #1a1c1f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "rail", secties trust > uitgelicht > stock > process > about > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "rail", secties kenmerk > trust > uitgelicht > stock > process > about > promise > hours > contact.
 FORM: motoren-chroom-panorama-rail-anton-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -455,6 +464,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-facts"><span>5.0 uit 18 beoordelingen</span><span>15 jaar op Marktplaats</span><span>10 merken in huis</span><span>Kom langs in De Meern</span></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>115 voertuigen, op één adres.</h2>
+    <p>Genoeg om naast elkaar te zetten en te vergelijken, zonder van de ene naar de andere handelaar te rijden. Bel even welke u wilt zien, dan staat hij klaar.</p>
+    <div class="kenmerk-bewijs"><div><b>115</b><span>op voorraad</span></div><div><b>10</b><span>merken in huis</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>5.0</b><span>gemiddeld uit 18 beoordelingen</span></div><div><b>15</b><span>jaar op Marktplaats</span></div><div><b>10</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>De Meern</strong> · <a href="https://maps.google.com/?q=De%20Meern" target="_blank" rel="noreferrer">De Meern</a></p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">

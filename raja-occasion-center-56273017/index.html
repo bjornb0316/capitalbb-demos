@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#5f646c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#5f646c;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e4e4df}
+.kenmerk-bewijs b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#1f5f4f;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#5f646c;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -432,7 +441,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van RAJA Occasion Center (familie, mediaanprijs EUR 9995, 5 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet daglicht, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #1f5f4f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties brands > uitgelicht > stock > process > about > trust > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties kenmerk > brands > uitgelicht > stock > process > about > trust > hours > contact.
 FORM: familie-daglicht-split-grid-gabarito-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -450,6 +459,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8f5852b1-d6c7-45ce-80df-c47e4784dec7?rule=ecg_mp_eps$_85.jpg" alt="Toyota Auris Touring Sports 1.8 Hybrid Lease pro NAP Clima C" decoding="async" fetchpriority="high"><figcaption><span>Toyota Auris Touring Sports 1.8 Hybrid L</span><span>€ 11.250</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4f9b6410-c689-474a-bd67-3e2cb9e9135d?rule=ecg_mp_eps$_85.jpg" alt="Toyota Auris Touring Sports 1.8 Hybrid Executive Pano JBL Na" decoding="async"><figcaption><span>Toyota Auris Touring Sports 1.8 Hybrid E</span><span>€ 10.250</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0d3db0fa-41c0-4d68-8027-dd1a8a58b685?rule=ecg_mp_eps$_85.jpg" alt="Toyota Auris Touring Sports 1.8 Hybrid Lease NAP Clima Cruis" decoding="async"><figcaption><span>Toyota Auris Touring Sports 1.8 Hybrid L</span><span>€ 9.995</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Hier staat vooral Toyota.</h2>
+    <p>80% van wat er staat is een Toyota. Dat betekent dat we het merk kennen: wat eraan opvalt, wat je moet nakijken, en wat een eerlijke prijs is.</p>
+    <div class="kenmerk-bewijs"><div><b>80%</b><span>van de voorraad is Toyota</span></div><div><b>2</b><span>merken in totaal</span></div></div>
+  </div>
+</section>
 <section class="sec-uitgelicht">
   <div class="wrap">
     <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>

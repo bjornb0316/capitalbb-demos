@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#9aa0a6;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#9aa0a6;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #26292e}
+.kenmerk-bewijs b{display:block;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-0.02em;color:#c8a97e;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#9aa0a6;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -425,7 +434,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Carpoint Woerden (prestige, mediaanprijs EUR 34990, 36 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet nachtshowroom, 'Bodoni Moda' als display op 'Archivo', hoeken 2px, accent #c8a97e.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties about > uitgelicht > stock > trust > process > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties kenmerk > about > uitgelicht > stock > trust > process > contact.
 FORM: prestige-nachtshowroom-stack-rail-bodonimoda-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -441,6 +450,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><h1>De collectie <em>vanaf € 30.990</em></h1><p class="h-lede">Carpoint Woerden is een jong en dynamisch autobedrijf waarbij kwaliteit centraal staat. Dit geldt voor onze inkoop, verkoop, onderhoud en reparatie!</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31616622922">Bel 06-1662 2922</a><a class="h-tweede" href="https://wa.me/31616622922?text=Hallo%20Carpoint%20Woerden%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa1bcad7-fea4-4b83-9c96-5e09c71097f7?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa1bcad7-fea4-4b83-9c96-5e09c71097f7?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa1bcad7-fea4-4b83-9c96-5e09c71097f7?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa1bcad7-fea4-4b83-9c96-5e09c71097f7?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa1bcad7-fea4-4b83-9c96-5e09c71097f7?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Audi RS3 2.5 TFSI RS 3 quattro | SCHAALSTOELEN | ALCANTARA |" fetchpriority="high"></figure>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>78 keer beoordeeld met een 4.9.</h2>
+    <p>Dat cijfer hebben we niet zelf bedacht; het staat op ons Marktplaats-profiel en iedereen kan het nakijken. Kom gerust langs en vorm uw eigen oordeel.</p>
+    <div class="kenmerk-bewijs"><div><b>4.9</b><span>gemiddeld cijfer</span></div><div><b>78</b><span>beoordelingen</span></div></div>
+  </div>
+</section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>

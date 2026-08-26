@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#6b625a;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#6b625a;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e8e1da}
+.kenmerk-bewijs b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#a4482a;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#6b625a;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -502,7 +511,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Louwman Kia (familie, mediaanprijs EUR 32940, 392 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet terra, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #a4482a.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties trust > uitgelicht > stock > process > brands > about > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties kenmerk > trust > uitgelicht > stock > process > brands > about > contact.
 FORM: familie-terra-split-mosaic-gabarito-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -520,6 +529,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/67abef36-4487-4e04-8f8b-c61f84a74497?rule=ecg_mp_eps$_85.jpg" alt="Kia EV9 GT-Line AWD 99.8 kWh | Schuifdak | Stoelverwarming/-" decoding="async" fetchpriority="high"><figcaption><span>Kia EV9 GT-Line AWD 99.8 kWh | Schuifdak</span><span>€ 74.940</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2eb929ff-980f-4e65-bbfd-4e56c6af9a87?rule=ecg_mp_eps$_85.jpg" alt="Kia Ev6 GT AWD 84 kWh | 650 pk | Panoramadak | Matrix Led Ko" decoding="async"><figcaption><span>Kia Ev6 GT AWD 84 kWh | 650 pk | Panoram</span><span>€ 66.900</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/61ef361e-658f-412e-bdf3-67ce5a0c5380?rule=ecg_mp_eps$_85.jpg" alt="Kia EV4 GT-Line Business Edition 81.4 kWh Stoel en stuurverw" decoding="async"><figcaption><span>Kia EV4 GT-Line Business Edition 81.4 kW</span><span>€ 41.640</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Hier staat vooral Kia.</h2>
+    <p>100% van wat er staat is een Kia. Dat betekent dat we het merk kennen: wat eraan opvalt, wat je moet nakijken, en wat een eerlijke prijs is.</p>
+    <div class="kenmerk-bewijs"><div><b>100%</b><span>van de voorraad is Kia</span></div><div><b>1</b><span>merken in totaal</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.8</b><span>gemiddeld uit 602 beoordelingen</span></div></div><p class="sec-vestiging"><strong>Etten-Leur</strong> · <a href="https://maps.google.com/?q=Etten-Leur" target="_blank" rel="noreferrer">Etten-Leur</a></p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">

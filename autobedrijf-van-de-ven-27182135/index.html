@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#5c626c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#5c626c;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e2e5ea}
+.kenmerk-bewijs b{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(26px,3vw,38px);letter-spacing:-0.035em;color:#22439b;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#5c626c;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -432,7 +441,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autobedrijf van de Ven (familie, mediaanprijs EUR 10990, 8 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet kobalt, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #22439b.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties about > uitgelicht > stock > process > trust > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties kenmerk > about > uitgelicht > stock > process > trust > contact.
 FORM: familie-kobalt-cinematic-mosaic-schibstedgrotesk-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -448,6 +457,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cf4163ff-7066-456b-a0d0-d54cf0a55009?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cf4163ff-7066-456b-a0d0-d54cf0a55009?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cf4163ff-7066-456b-a0d0-d54cf0a55009?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cf4163ff-7066-456b-a0d0-d54cf0a55009?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cf4163ff-7066-456b-a0d0-d54cf0a55009?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Ford Westfalia Nugget | Hoog Dak | Airco | 1e Eigenaar" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Ford Westfalia Nugget | Hoog Dak | Airco | 1e Eigenaar</span><span class="h-plate-p">€ 21.990</span></figcaption></figure>
   <div class="wrap h-words"><h1>Uw volgende auto staat klaar <em>in Apeldoorn</em></h1><p class="h-lede">Autobedrijf van de Ven is een familiebedrijf met tientallen jaren ervaring dat zich richt op het verkopen van personenauto's en lichte bedrijfswagens</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-tweede" href="tel:+31552032516">Bel 055-2032516</a></div></div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>45 keer beoordeeld met een 4.9.</h2>
+    <p>Dat cijfer hebben we niet zelf bedacht; het staat op ons Marktplaats-profiel en iedereen kan het nakijken. Kom gerust langs en vorm uw eigen oordeel.</p>
+    <div class="kenmerk-bewijs"><div><b>4.9</b><span>gemiddeld cijfer</span></div><div><b>45</b><span>beoordelingen</span></div></div>
+  </div>
+</section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>

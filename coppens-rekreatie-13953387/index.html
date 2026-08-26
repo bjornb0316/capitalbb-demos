@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#61665f;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#61665f;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e5e3db}
+.kenmerk-bewijs b{display:block;font-family:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:700;font-size:clamp(26px,3vw,38px);letter-spacing:-0.02em;color:#2f6b52;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#61665f;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -498,7 +507,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Coppens rekreatie (reizen, mediaanprijs EUR 31660, 153 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet horizon, 'Bricolage Grotesque' als display op 'Manrope', hoeken 20px, accent #2f6b52.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties trust > uitgelicht > stock > brands > about > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties kenmerk > trust > uitgelicht > stock > brands > about > promise > process > hours > contact.
 FORM: reizen-horizon-split-grid-bricolagegrotesque-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -516,6 +525,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4f140227-e432-406d-9fe9-00317acf0448?rule=ecg_mp_eps$_85.jpg" alt="Carado T T337" decoding="async" fetchpriority="high"><figcaption><span>Carado T T337</span><span>€ 59.950</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4d7b22aa-ad31-4645-a1a3-425bcd817d4b?rule=ecg_mp_eps$_85.jpg" alt="Fendt Tendenza 515 SG 2026 BLACKLINE ACTIE!!!!" decoding="async"><figcaption><span>Fendt Tendenza 515 SG 2026 BLACKLINE ACT</span><span>€ 40.900</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/078ff096-ecad-43cc-8303-510cc046b818?rule=ecg_mp_eps$_85.jpg" alt="Fendt Bianco Activ 515 SGE 2026 BLACKLINE ACTIE!!!" decoding="async"><figcaption><span>Fendt Bianco Activ 515 SGE 2026 BLACKLIN</span><span>€ 38.200</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Jong, en met weinig kilometers.</h2>
+    <p>De helft van wat hier staat is van na 2025 en heeft minder dan 23.000 kilometer gelopen. Geen project, geen verrassingen onderweg.</p>
+    <div class="kenmerk-bewijs"><div><b>2026</b><span>mediaan bouwjaar</span></div><div><b>23.000 km</b><span>mediaan kilometerstand</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>5.0</b><span>gemiddeld uit 16 beoordelingen</span></div><div><b>16</b><span>jaar op Marktplaats</span></div></div><p class="sec-vestiging"><strong>Best</strong> · <a href="https://maps.google.com/?q=IBC%20weg%201%2C%205683PK%20Best" target="_blank" rel="noreferrer">IBC weg 1, 5683PK Best</a></p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">

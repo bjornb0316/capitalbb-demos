@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#5a5e63;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#5a5e63;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e0e0dc}
+.kenmerk-bewijs b{display:block;font-family:'Barlow Condensed', 'Arial Narrow', sans-serif;font-weight:700;font-size:clamp(26px,3vw,38px);letter-spacing:0;color:#1d4ed8;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#5a5e63;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -499,7 +508,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Van Den Hadelkamp Auto's (bedrijfswagens, mediaanprijs EUR 40450, 48 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet bouwplaats, 'Barlow Condensed' als display op 'Public Sans', hoeken 4px, accent #1d4ed8.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar offerte geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "list", secties about > uitgelicht > stock > process > trust > brands > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "list", secties kenmerk > about > uitgelicht > stock > process > trust > brands > promise > hours > contact.
 FORM: bedrijfswagens-bouwplaats-stack-list-barlowcondensed-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -515,6 +524,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><h1>Bedrijfswagens in Montfoort <em>vanaf € 25.950</em></h1><div class="h-cta"><a class="h-btn is-primary" href="#contact">Vraag een offerte aan<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-tweede" href="tel:+31621888702">Bel 06-2188 8702</a></div><p class="h-lede">Alle gegevens staan hieronder in één lijst: bouwjaar, kilometerstand, brandstof en prijs.</p></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c5b99fd-e1e5-45dc-b404-d8a9b665119e?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c5b99fd-e1e5-45dc-b404-d8a9b665119e?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c5b99fd-e1e5-45dc-b404-d8a9b665119e?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c5b99fd-e1e5-45dc-b404-d8a9b665119e?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c5b99fd-e1e5-45dc-b404-d8a9b665119e?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="MAN TGX 18.470 met Race Trailer * Origineel NL * (bj 2019)" fetchpriority="high"></figure>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Jong, en met weinig kilometers.</h2>
+    <p>De helft van wat hier staat is van na 2021 en heeft minder dan 46.000 kilometer gelopen. Geen project, geen verrassingen onderweg.</p>
+    <div class="kenmerk-bewijs"><div><b>2022</b><span>mediaan bouwjaar</span></div><div><b>46.000 km</b><span>mediaan kilometerstand</span></div></div>
+  </div>
+</section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>
@@ -566,13 +582,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
         <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
     </div>
-    <div class="sa-veld">
-  <label for="sa-merk">Merk</label>
-  <select id="sa-merk" data-select="merk">
-    <option value="">Alle 3 merken</option>
-    <option value="Mercedes-Benz">Mercedes-Benz (1)</option><option value="Paarden En Pony S Trailers En Aanhangwagens">Paarden En Pony S Trailers En Aanhangwagens (1)</option><option value="Vrachtwagens">Vrachtwagens (1)</option>
-  </select>
-</div>
+    
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
     <label class="sa-sorteer"><span class="sr">Sorteren op</span>
       <select id="sa-sorteer">
@@ -603,7 +613,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
     <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
   </div>
-</div><div class="st-list" data-voorraad><div class="st-row" data-slug="vrachtwagens-man-tgx-18-470-met-race-trailer-ori-1" data-rang="0" data-merk="Vrachtwagens" data-prijs="179950" data-jaar="2019" data-zoek="man tgx 18.470 met race trailer * origineel nl * (bj 2019) vrachtwagens">
+</div><div class="st-list" data-voorraad><div class="st-row" data-slug="vrachtwagens-man-tgx-18-470-met-race-trailer-ori-1" data-rang="0" data-prijs="179950" data-jaar="2019" data-zoek="man tgx 18.470 met race trailer * origineel nl * (bj 2019)">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c5b99fd-e1e5-45dc-b404-d8a9b665119e?rule=ecg_mp_eps$_84.jpg" alt="MAN TGX 18.470 met Race Trailer * Origineel NL * (bj 2019)" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3><a href="v/vrachtwagens-man-tgx-18-470-met-race-trailer-ori-1/">MAN TGX 18.470 met Race Trailer * Origineel NL * (bj 2019)</a></h3><p class="st-spec">2019 · 5.304 km</p></div>
   <span class="st-price">€ 179.950</span>
@@ -709,7 +719,6 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   </div>
 </section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.4</b><span>gemiddeld uit 113 beoordelingen</span></div><div><b>20</b><span>jaar op Marktplaats</span></div><div><b>5</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Montfoort</strong> · <a href="https://maps.google.com/?q=Krekenburg%2C%207%2C%203417MH%20Montfoort" target="_blank" rel="noreferrer">Krekenburg, 7, 3417MH Montfoort</a></p></div></section>
-<div class="sec-brands"><div class="wrap"><span>Vrachtwagens</span><span>Mercedes-Benz</span><span>Paarden En Pony S Trailers En Aanhangwagens</span></div></div>
 <section class="sec-belofte"><div class="wrap rv">
   <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Montfoort.</p>
   <ul class="sec-belofte-lijst"><li><b>48</b> voertuigen staan klaar</li><li>vanaf <b>€ 25.950</b></li><li>gemiddeld bouwjaar <b>2022</b></li></ul>

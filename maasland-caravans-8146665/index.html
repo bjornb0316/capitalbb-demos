@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#586268;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#586268;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dde5e8}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(26px,3vw,38px);letter-spacing:-0.02em;color:#125a72;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#586268;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -498,7 +507,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Maasland Caravans (reizen, mediaanprijs EUR 4123, 21 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet diepwater, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #125a72.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties about > uitgelicht > stock > brands > process > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties kenmerk > about > uitgelicht > stock > brands > process > contact.
 FORM: reizen-diepwater-cinematic-grid-archivoexpanded-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -514,6 +523,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8b830402-03b9-41df-b174-ff7504e345a0?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8b830402-03b9-41df-b174-ff7504e345a0?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8b830402-03b9-41df-b174-ff7504e345a0?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8b830402-03b9-41df-b174-ff7504e345a0?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8b830402-03b9-41df-b174-ff7504e345a0?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Hobby De Luxe 520 TMF 2008; vastbed rondzit mover" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Hobby De Luxe 520 TMF 2008; vastbed rondzit mover</span><span class="h-plate-p">€ 10.995</span></figcaption></figure>
   <div class="wrap h-words"><h1>Stap in en kijk rustig rond <em>in Cuijk</em></h1><p class="h-lede">Kom rustig kijken en stap in. We nemen de tijd om alles met u door te lopen.</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31478854717">Bel 047-8854717</a><a class="h-tweede" href="#contact">Plan een bezichtiging</a></div></div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Alles onder de € 10.995.</h2>
+    <p>Geen showroomprijzen en geen verrassingen: wat hier staat is bedoeld om gewoon te rijden. De prijs die u ziet is de prijs waarover we praten.</p>
+    <div class="kenmerk-bewijs"><div><b>€ 2.095</b><span>de goedkoopste nu</span></div><div><b>€ 10.995</b><span>de duurste nu</span></div></div>
+  </div>
+</section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>

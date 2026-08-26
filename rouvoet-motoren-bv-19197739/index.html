@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#575c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#575c62;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dadde0}
+.kenmerk-bewijs b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:0;color:#1a1c1f;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#575c62;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -437,7 +446,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Rouvoet Motoren BV (motoren, mediaanprijs EUR 13225, 55 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet chroom, 'Anton' als display op 'Chivo', hoeken 0px, accent #1a1c1f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar proefrit geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "rail", secties brands > uitgelicht > stock > process > about > trust > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "rail", secties kenmerk > brands > uitgelicht > stock > process > about > trust > hours > contact.
 FORM: motoren-chroom-cinematic-rail-anton-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -453,6 +462,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c8f1a09-b8c1-48ee-ad17-a64a5008b24c?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c8f1a09-b8c1-48ee-ad17-a64a5008b24c?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c8f1a09-b8c1-48ee-ad17-a64a5008b24c?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c8f1a09-b8c1-48ee-ad17-a64a5008b24c?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c8f1a09-b8c1-48ee-ad17-a64a5008b24c?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="BMW R 1250 RT R1250RT" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">BMW R 1250 RT R1250RT</span><span class="h-plate-p">€ 19.950</span></figcaption></figure>
   <div class="wrap h-words"><h1>Uw volgende motor <em>staat in Hilversum</em></h1><div class="h-cta"><a class="h-btn is-primary" href="#contact">Boek een proefrit<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-tweede" href="tel:+31356210343">Bel 035-6210343</a></div><p class="h-lede">Bekijk de voorraad, kom langs en rij hem zelf. Bellen mag altijd, ook als u nog twijfelt.</p></div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Hier staat vooral BMW.</h2>
+    <p>61% van wat er staat is een BMW. Dat betekent dat we het merk kennen: wat eraan opvalt, wat je moet nakijken, en wat een eerlijke prijs is.</p>
+    <div class="kenmerk-bewijs"><div><b>61%</b><span>van de voorraad is BMW</span></div><div><b>5</b><span>merken in totaal</span></div></div>
+  </div>
+</section>
 <div class="sec-brands"><div class="wrap"><span>BMW</span><span>KTM</span><span>Triumph</span><span>Honda</span><span>Yamaha</span></div></div>
 <section class="sec-uitgelicht">
   <div class="wrap">

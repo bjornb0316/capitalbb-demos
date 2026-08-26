@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#a3a19c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#a3a19c;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #272b2d}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(26px,3vw,38px);letter-spacing:-0.02em;color:#e8b06a;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#a3a19c;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -498,7 +507,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Akro Handelsonderneming (reizen, mediaanprijs EUR 11450, 55 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet avondlicht, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #e8b06a.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties trust > uitgelicht > stock > about > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties kenmerk > trust > uitgelicht > stock > about > promise > process > hours > contact.
 FORM: reizen-avondlicht-split-grid-archivoexpanded-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -516,6 +525,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/916f51ba-09e1-4fc7-ba5d-4906122de6cc?rule=ecg_mp_eps$_85.jpg" alt="Chausson Flash 08 | Fiat Ducato 130 MultiJet | Luifel | Came" decoding="async" fetchpriority="high"><figcaption><span>Chausson Flash 08 | Fiat Ducato 130 Mult</span><span>€ 33.950</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c7b2f86d-89d9-4a4b-96c5-795c62f4c02b?rule=ecg_mp_eps$_85.jpg" alt="Knaus Sun Ti Renault Master 2.5 dCi | Camper | Cassetteluife" decoding="async"><figcaption><span>Knaus Sun Ti Renault Master 2.5 dCi | Ca</span><span>€ 29.950</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d2622ae0-cbb8-4859-8ca8-3785d7282b7c?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz B-klasse 200 Business Solution AMG | 360° Cam" decoding="async"><figcaption><span>Mercedes-Benz B-klasse 200 Business Solu</span><span>€ 27.950</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>240 keer beoordeeld met een 4.7.</h2>
+    <p>Dat cijfer hebben we niet zelf bedacht; het staat op ons Marktplaats-profiel en iedereen kan het nakijken. Kom gerust langs en vorm uw eigen oordeel.</p>
+    <div class="kenmerk-bewijs"><div><b>4.7</b><span>gemiddeld cijfer</span></div><div><b>240</b><span>beoordelingen</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.7</b><span>gemiddeld uit 240 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>7</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Nijverdal</strong> · <a href="https://maps.google.com/?q=Fuutweg%2013%2C%207442CL%20Nijverdal" target="_blank" rel="noreferrer">Fuutweg 13, 7442CL Nijverdal</a></p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">

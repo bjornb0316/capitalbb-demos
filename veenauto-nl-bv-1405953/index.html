@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#9aa0a6;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#9aa0a6;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #26292e}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#c8a97e;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#9aa0a6;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -425,7 +434,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Veenauto.nl BV (prestige, mediaanprijs EUR 33945, 74 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet nachtshowroom, 'Archivo Expanded' als display op 'Archivo', hoeken 2px, accent #c8a97e.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "rail", secties brands > uitgelicht > stock > about > trust > process > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "rail", secties kenmerk > brands > uitgelicht > stock > about > trust > process > hours > contact.
 FORM: prestige-nachtshowroom-split-rail-archivoexpanded-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -443,6 +452,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dbdff327-28af-4ba4-8ef4-4284e434bcca?rule=ecg_mp_eps$_85.jpg" alt="Audi Q7 55 TFSI e quattro S-Line Pano/B&amp;O/Trekhaak/360cam/So" decoding="async" fetchpriority="high"><figcaption><span>Audi Q7 55 TFSI e quattro S-Line Pano/B&amp;</span><span>€ 67.945</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cf1042c1-f5b3-43f0-9c65-b7e9bc9192b0?rule=ecg_mp_eps$_85.jpg" alt="BMW X1 xDrive30e M-Sport Trekhaak/Pano/H&amp;K/360cam (bj 2024)" decoding="async"><figcaption><span>BMW X1 xDrive30e M-Sport Trekhaak/Pano/H</span><span>€ 49.845</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7b67f338-b7fa-4c70-a7d4-2fd291eb926c?rule=ecg_mp_eps$_85.jpg" alt="MINI Countryman 1.5 C John Cooper Works L (bj 2025)" decoding="async"><figcaption><span>MINI Countryman 1.5 C John Cooper Works </span><span>€ 44.945</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Hier staat vooral MINI.</h2>
+    <p>78% van wat er staat is een MINI. Dat betekent dat we het merk kennen: wat eraan opvalt, wat je moet nakijken, en wat een eerlijke prijs is.</p>
+    <div class="kenmerk-bewijs"><div><b>78%</b><span>van de voorraad is MINI</span></div><div><b>3</b><span>merken in totaal</span></div></div>
+  </div>
+</section>
 <div class="sec-brands"><div class="wrap"><span>MINI</span><span>Audi</span><span>BMW</span></div></div>
 <section class="sec-uitgelicht">
   <div class="wrap">

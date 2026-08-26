@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#585c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#585c62;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dcdcd8}
+.kenmerk-bewijs b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-0.01em;color:#cd4217;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#585c62;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -509,7 +518,7 @@ footer{border-top:2px solid #141518}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autopark Brabant (buurtgarage, mediaanprijs EUR 4470, 110 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet staal, 'Anton' als display op 'Barlow', hoeken 0px, accent #cd4217.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties promise > uitgelicht > stock > process > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties kenmerk > promise > uitgelicht > stock > process > contact.
 FORM: buurtgarage-staal-cinematic-grid-anton-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -525,6 +534,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a98f570f-7d2e-4879-bb4c-5ea77948d17e?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a98f570f-7d2e-4879-bb4c-5ea77948d17e?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a98f570f-7d2e-4879-bb4c-5ea77948d17e?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a98f570f-7d2e-4879-bb4c-5ea77948d17e?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a98f570f-7d2e-4879-bb4c-5ea77948d17e?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Mercedes-Benz 450SL" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Mercedes-Benz 450SL</span><span class="h-plate-p">€ 14.995</span></figcaption></figure>
   <div class="wrap h-words"><h1><a href="tel:+31412640278">041-2640278</a></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31412640278">Bel 041-2640278</a><a class="h-tweede" href="#contact">Plan een bezichtiging</a></div></div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>110 voertuigen, op één adres.</h2>
+    <p>Genoeg om naast elkaar te zetten en te vergelijken, zonder van de ene naar de andere handelaar te rijden. Bel even welke u wilt zien, dan staat hij klaar.</p>
+    <div class="kenmerk-bewijs"><div><b>110</b><span>op voorraad</span></div><div><b>12</b><span>merken in huis</span></div></div>
+  </div>
+</section>
 <section class="sec-belofte"><div class="wrap rv">
   <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Oss.</p>
   <ul class="sec-belofte-lijst"><li><b>110</b> voertuigen staan klaar</li><li>vanaf <b>€ 1.995</b></li><li>gemiddeld bouwjaar <b>2015</b></li></ul>

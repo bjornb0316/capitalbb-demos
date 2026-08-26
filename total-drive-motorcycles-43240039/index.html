@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#575c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#575c62;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dadde0}
+.kenmerk-bewijs b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:0;color:#1a1c1f;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#575c62;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -507,7 +516,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Total drive motorcycles (motoren, mediaanprijs EUR 9740, 17 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet chroom, 'Anton' als display op 'Chivo', hoeken 0px, accent #1a1c1f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar proefrit geleid.
-FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "grid", secties about > uitgelicht > stock > process > contact.
+FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "grid", secties kenmerk > about > uitgelicht > stock > process > contact.
 FORM: motoren-chroom-panorama-grid-anton-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -579,8 +588,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="sa-veld">
   <label for="sa-merk">Merk</label>
   <select id="sa-merk" data-select="merk">
-    <option value="">Alle 10 merken</option>
-    <option value="Triumph">Triumph (4)</option><option value="Honda">Honda (3)</option><option value="BMW">BMW (2)</option><option value="Yamaha">Yamaha (2)</option><option value="Aprilia">Aprilia (1)</option><option value="Ducati">Ducati (1)</option><option value="KTM">KTM (1)</option><option value="MV Agusta">MV Agusta (1)</option><option value="Onderdelen Overige">Onderdelen Overige (1)</option><option value="Suzuki">Suzuki (1)</option>
+    <option value="">Alle 9 merken</option>
+    <option value="Triumph">Triumph (4)</option><option value="Honda">Honda (3)</option><option value="BMW">BMW (2)</option><option value="Yamaha">Yamaha (2)</option><option value="Aprilia">Aprilia (1)</option><option value="Ducati">Ducati (1)</option><option value="KTM">KTM (1)</option><option value="MV Agusta">MV Agusta (1)</option><option value="Suzuki">Suzuki (1)</option>
   </select>
 </div>
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
@@ -773,7 +782,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31621340524?text=Hallo%20Total%20drive%20motorcycles%2C%20ik%20zag%20de%20YAMAHA%20YZF%20750%20R%20YZF750R%20Extreem%20nette%20staat!%20(bj%201995)%20(%E2%82%AC%203.840)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="onderdelen-overige-rem-en-schakelset-bonamici-tr-17" data-rang="16" data-merk="Onderdelen Overige" data-prijs="350" data-jaar="0" data-zoek="rem en schakelset bonamici triumph street triple 765rs onderdelen overige">
+</article><article class="st-card " data-slug="onderdelen-overige-rem-en-schakelset-bonamici-tr-17" data-rang="16" data-prijs="350" data-jaar="0" data-zoek="rem en schakelset bonamici triumph street triple 765rs">
   <div class="st-shot"><a class="st-link" href="v/onderdelen-overige-rem-en-schakelset-bonamici-tr-17/" aria-label="Rem en schakelset Bonamici Triumph street triple 765RS"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d632e5b-1d2d-4a45-b9cb-1db419654a85?rule=ecg_mp_eps$_85.jpg" alt="Rem en schakelset Bonamici Triumph street triple 765RS" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="onderdelen-overige-rem-en-schakelset-bonamici-tr-17" aria-pressed="false" aria-label="Bewaar Rem en schakelset Bonamici Triumph street triple 765RS"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/onderdelen-overige-rem-en-schakelset-bonamici-tr-17/">Rem en schakelset Bonamici Triumph street triple 765RS</a></h3>

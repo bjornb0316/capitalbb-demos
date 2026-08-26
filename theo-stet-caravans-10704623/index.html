@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#586268;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#586268;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dde5e8}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(26px,3vw,38px);letter-spacing:-0.02em;color:#125a72;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#586268;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -498,7 +507,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Theo Stet Caravans (reizen, mediaanprijs EUR 24950, 61 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet diepwater, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #125a72.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties about > uitgelicht > stock > process > brands > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties kenmerk > about > uitgelicht > stock > process > brands > hours > contact.
 FORM: reizen-diepwater-split-grid-archivoexpanded-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -516,6 +525,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8ef3b354-7e81-4e36-a3cf-13add290ba7e?rule=ecg_mp_eps$_85.jpg" alt="Tabbert Puccini 550 E met mover, ATC, vloerverwarming" decoding="async" fetchpriority="high"><figcaption><span>Tabbert Puccini 550 E met mover, ATC, vl</span><span>€ 52.638</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a3fb0678-bbc0-466f-af51-54ca2af756a3?rule=ecg_mp_eps$_85.jpg" alt="Tabbert Cazadora 550 DMK, Stapelbed en Met gratis mover" decoding="async"><figcaption><span>Tabbert Cazadora 550 DMK, Stapelbed en M</span><span>€ 37.836</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3b28ee12-4a3a-4539-ac96-0e3e255f5bb4?rule=ecg_mp_eps$_85.jpg" alt="LMC Videro 580D &amp; badkamer &amp; vloerverwarming" decoding="async"><figcaption><span>LMC Videro 580D &amp; badkamer &amp; vloerverwar</span><span>€ 34.500</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>61 voertuigen, op één adres.</h2>
+    <p>Genoeg om naast elkaar te zetten en te vergelijken, zonder van de ene naar de andere handelaar te rijden. Bel even welke u wilt zien, dan staat hij klaar.</p>
+    <div class="kenmerk-bewijs"><div><b>61</b><span>op voorraad</span></div><div><b>1</b><span>merken in huis</span></div></div>
+  </div>
+</section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>

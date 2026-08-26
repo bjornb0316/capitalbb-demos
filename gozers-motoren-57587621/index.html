@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#989da4;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#989da4;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #25282d}
+.kenmerk-bewijs b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:0;color:#ff5b19;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#989da4;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -507,7 +516,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Gozers Motoren (motoren, mediaanprijs EUR 19975, 28 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet asfalt, 'Anton' als display op 'Chivo', hoeken 0px, accent #ff5b19.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar proefrit geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties brands > uitgelicht > stock > process > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties kenmerk > brands > uitgelicht > stock > process > contact.
 FORM: motoren-asfalt-stack-grid-anton-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -523,7 +532,14 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><h1>Uw volgende motor <em>staat in Oud-Beijerland</em></h1><div class="h-cta"><a class="h-btn is-primary" href="#contact">Boek een proefrit<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-tweede" href="tel:+31623090576">Bel 06-2309 0576</a></div><p class="h-lede">Bekijk de voorraad, kom langs en rij hem zelf. Bellen mag altijd, ook als u nog twijfelt.</p></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/908b6719-3da1-4de6-b3e9-b461d5ee5297?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/908b6719-3da1-4de6-b3e9-b461d5ee5297?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/908b6719-3da1-4de6-b3e9-b461d5ee5297?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/908b6719-3da1-4de6-b3e9-b461d5ee5297?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/908b6719-3da1-4de6-b3e9-b461d5ee5297?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="HARLEY-DAVIDSON STREET GLIDE 117 CVO" fetchpriority="high"></figure>
 </header>
-<div class="sec-brands"><div class="wrap"><span>Harley-Davidson</span><span>Land Rover</span><span>Toyota</span><span>Overige Merken</span><span>MV Agusta</span><span>BMW</span></div></div>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Hier staat vooral Harley-Davidson.</h2>
+    <p>61% van wat er staat is een Harley-Davidson. Dat betekent dat we het merk kennen: wat eraan opvalt, wat je moet nakijken, en wat een eerlijke prijs is.</p>
+    <div class="kenmerk-bewijs"><div><b>61%</b><span>van de voorraad is Harley-Davidson</span></div><div><b>7</b><span>merken in totaal</span></div></div>
+  </div>
+</section>
+<div class="sec-brands"><div class="wrap"><span>Harley-Davidson</span><span>Land Rover</span><span>Toyota</span><span>MV Agusta</span><span>BMW</span></div></div>
 <section class="sec-uitgelicht">
   <div class="wrap">
     <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
@@ -569,8 +585,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="sa-veld">
   <label for="sa-merk">Merk</label>
   <select id="sa-merk" data-select="merk">
-    <option value="">Alle 6 merken</option>
-    <option value="Harley-Davidson">Harley-Davidson (11)</option><option value="BMW">BMW (1)</option><option value="Land Rover">Land Rover (1)</option><option value="MV Agusta">MV Agusta (1)</option><option value="Overige Merken">Overige Merken (1)</option><option value="Toyota">Toyota (1)</option>
+    <option value="">Alle 5 merken</option>
+    <option value="Harley-Davidson">Harley-Davidson (11)</option><option value="BMW">BMW (1)</option><option value="Land Rover">Land Rover (1)</option><option value="MV Agusta">MV Agusta (1)</option><option value="Toyota">Toyota (1)</option>
   </select>
 </div>
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
@@ -733,7 +749,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31623090576?text=Hallo%20Gozers%20Motoren%2C%20ik%20zag%20de%20HARLEY-DAVIDSON%20NIGHT%20TRAIN%20FXSTB%20(bj%202007)%20(%E2%82%AC%2014.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-verkocht-indian-motorcycl-14" data-rang="13" data-merk="Overige Merken" data-prijs="12999" data-jaar="2018" data-zoek="*verkocht* indian motorcycle scout bobber (bj 2018) overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-verkocht-indian-motorcycl-14" data-rang="13" data-prijs="12999" data-jaar="2018" data-zoek="*verkocht* indian motorcycle scout bobber (bj 2018)">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-verkocht-indian-motorcycl-14/" aria-label="*VERKOCHT* INDIAN MOTORCYCLE SCOUT BOBBER (bj 2018)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8997234c-8081-4c9b-b063-c8ff2010b6d9?rule=ecg_mp_eps$_85.jpg" alt="*VERKOCHT* INDIAN MOTORCYCLE SCOUT BOBBER (bj 2018)" loading="lazy" decoding="async"></a><span class="st-year">2018</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-verkocht-indian-motorcycl-14" aria-pressed="false" aria-label="Bewaar *VERKOCHT* INDIAN MOTORCYCLE SCOUT BOBBER (bj 2018)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-verkocht-indian-motorcycl-14/">*VERKOCHT* INDIAN MOTORCYCLE SCOUT BOBBER (bj 2018)</a></h3>

@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#585c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#585c62;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dcdcd8}
+.kenmerk-bewijs b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-0.01em;color:#cd4217;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#585c62;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -509,7 +518,7 @@ footer{border-top:2px solid #141518}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Groene Hart Scooters B.V. (buurtgarage, mediaanprijs EUR 5795, 54 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet staal, 'Anton' als display op 'Barlow', hoeken 0px, accent #cd4217.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > uitgelicht > stock > process > about > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties kenmerk > trust > uitgelicht > stock > process > about > promise > hours > contact.
 FORM: buurtgarage-staal-cinematic-grid-anton-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -525,6 +534,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/96acf1f1-4fee-4c5a-824f-c6ba90805452?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/96acf1f1-4fee-4c5a-824f-c6ba90805452?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/96acf1f1-4fee-4c5a-824f-c6ba90805452?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/96acf1f1-4fee-4c5a-824f-c6ba90805452?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/96acf1f1-4fee-4c5a-824f-c6ba90805452?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Opel Rocks-E Tekno Custom Guerilla Green, NIEUW!" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Opel Rocks-E Tekno Custom Guerilla Green, NIEUW!</span><span class="h-plate-p">€ 13.950</span></figcaption></figure>
   <div class="wrap h-words"><h1><a href="tel:+31348785033">034-8785033</a></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31348785033">Bel 034-8785033</a><a class="h-tweede" href="#contact">Plan een bezichtiging</a></div></div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Hier staat vooral Vespa.</h2>
+    <p>50% van wat er staat is een Vespa. Dat betekent dat we het merk kennen: wat eraan opvalt, wat je moet nakijken, en wat een eerlijke prijs is.</p>
+    <div class="kenmerk-bewijs"><div><b>50%</b><span>van de voorraad is Vespa</span></div><div><b>4</b><span>merken in totaal</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.5</b><span>gemiddeld uit 42 beoordelingen</span></div><div><b>13</b><span>jaar op Marktplaats</span></div><div><b>4</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Moordrecht</strong> · <a href="https://maps.google.com/?q=Zuidbaan%20589%2C%202841MD%20Moordrecht" target="_blank" rel="noreferrer">Zuidbaan 589, 2841MD Moordrecht</a></p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">
@@ -571,8 +587,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="sa-veld">
   <label for="sa-merk">Merk</label>
   <select id="sa-merk" data-select="merk">
-    <option value="">Alle 4 merken</option>
-    <option value="Vespa">Vespa (9)</option><option value="Piaggio">Piaggio (6)</option><option value="Brommobielen En Scootmobielen">Brommobielen En Scootmobielen (2)</option><option value="Snorfietsen En Snorscooters">Snorfietsen En Snorscooters (1)</option>
+    <option value="">Alle 3 merken</option>
+    <option value="Vespa">Vespa (9)</option><option value="Piaggio">Piaggio (6)</option><option value="Brommobielen En Scootmobielen">Brommobielen En Scootmobielen (2)</option>
   </select>
 </div>
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
@@ -665,7 +681,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31348785033">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="snorfietsen-en-snorscooters-vespa-sprint-black-o-7" data-rang="6" data-merk="Snorfietsen En Snorscooters" data-prijs="6195" data-jaar="2026" data-zoek="vespa sprint black on black nieuw 0 km snorfietsen en snorscooters">
+</article><article class="st-card " data-slug="snorfietsen-en-snorscooters-vespa-sprint-black-o-7" data-rang="6" data-prijs="6195" data-jaar="2026" data-zoek="vespa sprint black on black nieuw 0 km">
   <div class="st-shot"><a class="st-link" href="v/snorfietsen-en-snorscooters-vespa-sprint-black-o-7/" aria-label="Vespa Sprint Black on Black NIEUW 0 KM"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/be00d8ca-1ff2-40f0-bc56-e8e5be9bf921?rule=ecg_mp_eps$_85.jpg" alt="Vespa Sprint Black on Black NIEUW 0 KM" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="snorfietsen-en-snorscooters-vespa-sprint-black-o-7" aria-pressed="false" aria-label="Bewaar Vespa Sprint Black on Black NIEUW 0 KM"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/snorfietsen-en-snorscooters-vespa-sprint-black-o-7/">Vespa Sprint Black on Black NIEUW 0 KM</a></h3>

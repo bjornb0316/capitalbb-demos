@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#989da4;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#989da4;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #25282d}
+.kenmerk-bewijs b{display:block;font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:clamp(26px,3vw,38px);letter-spacing:0.01em;color:#ff5b19;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#989da4;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -437,7 +446,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Motorhuis Seppe (motoren, mediaanprijs EUR 21349, 43 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet asfalt, 'Oswald' als display op 'Chivo', hoeken 0px, accent #ff5b19.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar proefrit geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties about > uitgelicht > stock > brands > process > hours > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties kenmerk > about > uitgelicht > stock > brands > process > hours > contact.
 FORM: motoren-asfalt-stack-rail-oswald-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -453,6 +462,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><h1>Uw volgende motor <em>staat in Bosschenhoofd</em></h1><div class="h-cta"><a class="h-btn is-primary" href="#contact">Boek een proefrit<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-tweede" href="tel:+31165312348">Bel 016-5312348</a></div><p class="h-lede">Bekijk de voorraad, kom langs en rij hem zelf. Bellen mag altijd, ook als u nog twijfelt.</p></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f3104e6a-bc8a-498e-ae47-fa442cdc61c2?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f3104e6a-bc8a-498e-ae47-fa442cdc61c2?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f3104e6a-bc8a-498e-ae47-fa442cdc61c2?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f3104e6a-bc8a-498e-ae47-fa442cdc61c2?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f3104e6a-bc8a-498e-ae47-fa442cdc61c2?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="HARLEY-DAVIDSON TRI GLIDE ULTRA 114" fetchpriority="high"></figure>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Hier staat vooral Harley-Davidson.</h2>
+    <p>94% van wat er staat is een Harley-Davidson. Dat betekent dat we het merk kennen: wat eraan opvalt, wat je moet nakijken, en wat een eerlijke prijs is.</p>
+    <div class="kenmerk-bewijs"><div><b>94%</b><span>van de voorraad is Harley-Davidson</span></div><div><b>2</b><span>merken in totaal</span></div></div>
+  </div>
+</section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>

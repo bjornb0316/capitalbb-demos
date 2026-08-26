@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#586268;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#586268;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dde5e8}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(26px,3vw,38px);letter-spacing:-0.02em;color:#125a72;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#586268;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -428,7 +437,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Familie (reizen, mediaanprijs EUR 8999, 2 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet diepwater, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #125a72.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties brands > uitgelicht > stock > trust > process > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties kenmerk > brands > uitgelicht > stock > trust > process > contact.
 FORM: reizen-diepwater-cinematic-mosaic-archivoexpanded-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -444,6 +453,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/20ebc28a-dc24-4fc5-acb2-fbf1831a921c?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/20ebc28a-dc24-4fc5-acb2-fbf1831a921c?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/20ebc28a-dc24-4fc5-acb2-fbf1831a921c?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/20ebc28a-dc24-4fc5-acb2-fbf1831a921c?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/20ebc28a-dc24-4fc5-acb2-fbf1831a921c?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Mooie Knaus Sport 500 FU Premium Line" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Mooie Knaus Sport 500 FU Premium Line</span><span class="h-plate-p">€ 8.999</span></figcaption></figure>
   <div class="wrap h-words"><h1>Uw volgende reis begint <em>in Barneveld</em></h1><p class="h-lede">Kom rustig kijken en stap in. We nemen de tijd om alles met u door te lopen.</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a></div></div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>47 keer beoordeeld met een 5.0.</h2>
+    <p>Dat cijfer hebben we niet zelf bedacht; het staat op ons Marktplaats-profiel en iedereen kan het nakijken. Kom gerust langs en vorm uw eigen oordeel.</p>
+    <div class="kenmerk-bewijs"><div><b>5.0</b><span>gemiddeld cijfer</span></div><div><b>47</b><span>beoordelingen</span></div></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>

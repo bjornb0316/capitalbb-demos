@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#5b6067;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#5b6067;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e1e3e6}
+.kenmerk-bewijs b{display:block;font-family:'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:700;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#0d6e5c;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#5b6067;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -499,7 +508,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van JHL Automotive (bedrijfswagens, mediaanprijs EUR 15200, 224 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet depot, 'Archivo' als display op 'Public Sans', hoeken 4px, accent #0d6e5c.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "table", secties about > uitgelicht > stock > process > brands > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "table", secties kenmerk > about > uitgelicht > stock > process > brands > hours > contact.
 FORM: bedrijfswagens-depot-split-table-archivo-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -517,6 +526,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9010c504-6837-428f-82d5-22c6e4499f50?rule=ecg_mp_eps$_85.jpg" alt="Iveco Daily 35S21H 3.0 410*OPRIJWAGEN*AUTOM*LIER*NAVI*ECC*HA" decoding="async" fetchpriority="high"><figcaption><span>Iveco Daily 35S21H 3.0 410*OPRIJWAGEN*AU</span><span>€ 29.900</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b2e5766f-1e0d-4e65-a508-1093fad20951?rule=ecg_mp_eps$_85.jpg" alt="Nissan Navara 2.3 dCi Acenta DoubleCab Veth*5PERS*A/C*CRUISE" decoding="async"><figcaption><span>Nissan Navara 2.3 dCi Acenta DoubleCab V</span><span>€ 23.440</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fdc4a427-bea1-43b2-b586-bbb9ddb86b7e?rule=ecg_mp_eps$_85.jpg" alt="Kia ProCeed 1.5 T-GDI GT-Line*ACC*ECC*LED*ALCANTARA*STOELVER" decoding="async"><figcaption><span>Kia ProCeed 1.5 T-GDI GT-Line*ACC*ECC*LE</span><span>€ 21.500</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>224 voertuigen, op één adres.</h2>
+    <p>Genoeg om naast elkaar te zetten en te vergelijken, zonder van de ene naar de andere handelaar te rijden. Bel even welke u wilt zien, dan staat hij klaar.</p>
+    <div class="kenmerk-bewijs"><div><b>224</b><span>op voorraad</span></div><div><b>5</b><span>merken in huis</span></div></div>
+  </div>
+</section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>

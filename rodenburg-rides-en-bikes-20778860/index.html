@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#575c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#575c62;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dadde0}
+.kenmerk-bewijs b{display:block;font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:clamp(26px,3vw,38px);letter-spacing:0.01em;color:#1a1c1f;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#575c62;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -507,7 +516,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Rodenburg Rides en Bikes (motoren, mediaanprijs EUR 12600, 20 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet chroom, 'Oswald' als display op 'Chivo', hoeken 0px, accent #1a1c1f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar proefrit geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > uitgelicht > stock > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties kenmerk > trust > uitgelicht > stock > promise > process > hours > contact.
 FORM: motoren-chroom-cinematic-grid-oswald-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -523,6 +532,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42e7a3ca-2166-49ff-bd15-02ff60053ab4?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42e7a3ca-2166-49ff-bd15-02ff60053ab4?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42e7a3ca-2166-49ff-bd15-02ff60053ab4?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42e7a3ca-2166-49ff-bd15-02ff60053ab4?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42e7a3ca-2166-49ff-bd15-02ff60053ab4?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Audi A4 Avant 40 TFSI 3x S-Line Launch edition BTW AUTO" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Audi A4 Avant 40 TFSI 3x S-Line Launch edition BTW AUTO</span><span class="h-plate-p">€ 23.450</span></figcaption></figure>
   <div class="wrap h-words"><h1>Uw volgende motor <em>staat in Sneek</em></h1><div class="h-cta"><a class="h-btn is-primary" href="#contact">Boek een proefrit<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-tweede" href="tel:+31652789881">Bel 06-5278 9881</a></div><p class="h-lede">Bekijk de voorraad, kom langs en rij hem zelf. Bellen mag altijd, ook als u nog twijfelt.</p></div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>66 keer beoordeeld met een 5.0.</h2>
+    <p>Dat cijfer hebben we niet zelf bedacht; het staat op ons Marktplaats-profiel en iedereen kan het nakijken. Kom gerust langs en vorm uw eigen oordeel.</p>
+    <div class="kenmerk-bewijs"><div><b>5.0</b><span>gemiddeld cijfer</span></div><div><b>66</b><span>beoordelingen</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>5.0</b><span>gemiddeld uit 66 beoordelingen</span></div><div><b>12</b><span>jaar op Marktplaats</span></div><div><b>12</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Sneek</strong> · <a href="https://maps.google.com/?q=Zonnedauw%2033%2C%208607DX%20Sneek" target="_blank" rel="noreferrer">Zonnedauw 33, 8607DX Sneek</a> · KvK 92929257</p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">

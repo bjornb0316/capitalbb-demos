@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#6b625a;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#6b625a;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e8e1da}
+.kenmerk-bewijs b{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(26px,3vw,38px);letter-spacing:-0.035em;color:#a4482a;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#6b625a;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -502,7 +511,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Troostwijk Auctions (familie, mediaanprijs onbekend, 3052 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet terra, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #a4482a.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties about > uitgelicht > stock > process > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties kenmerk > about > uitgelicht > stock > process > contact.
 FORM: familie-terra-split-mosaic-schibstedgrotesk-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -520,6 +529,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a5fdd767-ef13-4bf9-aa92-dc81c6f05504?rule=ecg_mp_eps$_85.jpg" alt="Ducati Tour Monster Motorfiets" decoding="async" fetchpriority="high"><figcaption><span>Ducati Tour Monster Motorfiets</span><span></span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c969964f-2b3b-44b1-9943-b1c99ffed076?rule=ecg_mp_eps$_85.jpg" alt="Honda - Scooter - SES 150 Dylan-Rossi - MR-GN-30" decoding="async"><figcaption><span>Honda - Scooter - SES 150 Dylan-Rossi - </span><span></span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/681f5b3e-6607-4d52-a3aa-43580c8ff099?rule=ecg_mp_eps$_85.jpg" alt="Husqvarna Super Motard 125 Motorfiets" decoding="async"><figcaption><span>Husqvarna Super Motard 125 Motorfiets</span><span></span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>3052 voertuigen, op één adres.</h2>
+    <p>Genoeg om naast elkaar te zetten en te vergelijken, zonder van de ene naar de andere handelaar te rijden. Bel even welke u wilt zien, dan staat hij klaar.</p>
+    <div class="kenmerk-bewijs"><div><b>3052</b><span>op voorraad</span></div><div><b>10</b><span>merken in huis</span></div></div>
+  </div>
+</section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>
@@ -574,8 +590,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="sa-veld">
   <label for="sa-merk">Merk</label>
   <select id="sa-merk" data-select="merk">
-    <option value="">Alle 8 merken</option>
-    <option value="Machines En Bouw Liften Steigers En Ladders">Machines En Bouw Liften Steigers En Ladders (3)</option><option value="Machines En Bouw Heftrucks En Intern Transport">Machines En Bouw Heftrucks En Intern Transport (2)</option><option value="Overige Zakelijke Goederen">Overige Zakelijke Goederen (2)</option><option value="Ducati">Ducati (1)</option><option value="Honda">Honda (1)</option><option value="Husqvarna">Husqvarna (1)</option><option value="Machines En Bouw Kranen En Graafmachines">Machines En Bouw Kranen En Graafmachines (1)</option><option value="Vrachtwagens">Vrachtwagens (1)</option>
+    <option value="">Alle 6 merken</option>
+    <option value="Machines En Bouw Liften Steigers En Ladders">Machines En Bouw Liften Steigers En Ladders (3)</option><option value="Machines En Bouw Heftrucks En Intern Transport">Machines En Bouw Heftrucks En Intern Transport (2)</option><option value="Ducati">Ducati (1)</option><option value="Honda">Honda (1)</option><option value="Husqvarna">Husqvarna (1)</option><option value="Machines En Bouw Kranen En Graafmachines">Machines En Bouw Kranen En Graafmachines (1)</option>
   </select>
 </div>
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
@@ -743,7 +759,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="#contact">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="overige-zakelijke-goederen-giyi-schrankladerboor-15" data-rang="14" data-merk="Overige Zakelijke Goederen" data-prijs="0" data-jaar="0" data-zoek="giyi schrankladerboor voorzetapparatuur overige zakelijke goederen">
+</article><article class="st-card " data-slug="overige-zakelijke-goederen-giyi-schrankladerboor-15" data-rang="14" data-prijs="0" data-jaar="0" data-zoek="giyi schrankladerboor voorzetapparatuur">
   <div class="st-shot"><a class="st-link" href="v/overige-zakelijke-goederen-giyi-schrankladerboor-15/" aria-label="Giyi Schrankladerboor Voorzetapparatuur"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fc321dac-b3e1-417d-b79d-c392cbd23834?rule=ecg_mp_eps$_85.jpg" alt="Giyi Schrankladerboor Voorzetapparatuur" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="overige-zakelijke-goederen-giyi-schrankladerboor-15" aria-pressed="false" aria-label="Bewaar Giyi Schrankladerboor Voorzetapparatuur"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/overige-zakelijke-goederen-giyi-schrankladerboor-15/">Giyi Schrankladerboor Voorzetapparatuur</a></h3>
@@ -753,7 +769,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="#contact">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="overige-zakelijke-goederen-hdr-r-hrx-225s-hydrau-16" data-rang="15" data-merk="Overige Zakelijke Goederen" data-prijs="0" data-jaar="0" data-zoek="hdr.r hrx-225s hydraulische sloophamer voorzetapparatuur overige zakelijke goederen">
+</article><article class="st-card " data-slug="overige-zakelijke-goederen-hdr-r-hrx-225s-hydrau-16" data-rang="15" data-prijs="0" data-jaar="0" data-zoek="hdr.r hrx-225s hydraulische sloophamer voorzetapparatuur">
   <div class="st-shot"><a class="st-link" href="v/overige-zakelijke-goederen-hdr-r-hrx-225s-hydrau-16/" aria-label="HDR.R HRX-225S Hydraulische Sloophamer Voorzetapparatuur"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b1001ef1-f18f-4648-9512-4c04bf4119cc?rule=ecg_mp_eps$_85.jpg" alt="HDR.R HRX-225S Hydraulische Sloophamer Voorzetapparatuur" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="overige-zakelijke-goederen-hdr-r-hrx-225s-hydrau-16" aria-pressed="false" aria-label="Bewaar HDR.R HRX-225S Hydraulische Sloophamer Voorzetapparatuur"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/overige-zakelijke-goederen-hdr-r-hrx-225s-hydrau-16/">HDR.R HRX-225S Hydraulische Sloophamer Voorzetapparatuur</a></h3>
@@ -763,7 +779,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="#contact">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="vrachtwagens-1952-reo-m35-legervoertuig-17" data-rang="16" data-merk="Vrachtwagens" data-prijs="0" data-jaar="1952" data-brandstof="Overige brandstoffen" data-zoek="1952 reo m35 legervoertuig vrachtwagens overige brandstoffen">
+</article><article class="st-card " data-slug="vrachtwagens-1952-reo-m35-legervoertuig-17" data-rang="16" data-prijs="0" data-jaar="1952" data-brandstof="Overige brandstoffen" data-zoek="1952 reo m35 legervoertuig overige brandstoffen">
   <div class="st-shot"><a class="st-link" href="v/vrachtwagens-1952-reo-m35-legervoertuig-17/" aria-label="1952 reo M35 Legervoertuig"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7cfcdb89-61f7-468c-92ee-0fd8e81687b9?rule=ecg_mp_eps$_85.jpg" alt="1952 reo M35 Legervoertuig" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="vrachtwagens-1952-reo-m35-legervoertuig-17" aria-pressed="false" aria-label="Bewaar 1952 reo M35 Legervoertuig"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/vrachtwagens-1952-reo-m35-legervoertuig-17/">1952 reo M35 Legervoertuig</a></h3>

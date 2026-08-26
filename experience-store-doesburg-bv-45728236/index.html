@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#5f646c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#5f646c;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e4e4df}
+.kenmerk-bewijs b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#1f5f4f;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#5f646c;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -502,7 +511,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Experience Store Doesburg BV (familie, mediaanprijs EUR 27250, 45 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet daglicht, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #1f5f4f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties trust > uitgelicht > stock > process > about > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties kenmerk > trust > uitgelicht > stock > process > about > promise > hours > contact.
 FORM: familie-daglicht-stack-grid-gabarito-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -518,6 +527,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><h1>Occasions in Doesburg <em>vanaf € 22.500</em></h1><p class="h-lede">Welkom bij Experience Store Doesburg , dé specialist in jonge, zorgvuldig geselecteerde occasions. Wij geloven dat een auto kopen eenvoudig, transparant en vooral prettig moet zijn. Daa</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31313728112">Bel 031-3728112</a><a class="h-tweede" href="#contact">Plan een bezichtiging</a></div></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b06139ac-d244-4995-8b33-171dd0d4b233?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b06139ac-d244-4995-8b33-171dd0d4b233?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b06139ac-d244-4995-8b33-171dd0d4b233?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b06139ac-d244-4995-8b33-171dd0d4b233?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b06139ac-d244-4995-8b33-171dd0d4b233?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Lynk en Co 8 1.5 TD PHEV - Luxe van een hoger niveau" fetchpriority="high"></figure>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Hier staat vooral Lynk Co.</h2>
+    <p>56% van wat er staat is een Lynk Co. Dat betekent dat we het merk kennen: wat eraan opvalt, wat je moet nakijken, en wat een eerlijke prijs is.</p>
+    <div class="kenmerk-bewijs"><div><b>56%</b><span>van de voorraad is Lynk Co</span></div><div><b>4</b><span>merken in totaal</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.9</b><span>gemiddeld uit 141 beoordelingen</span></div><div><b>4</b><span>jaar op Marktplaats</span></div><div><b>4</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Doesburg</strong> · <a href="https://maps.google.com/?q=Leigraafseweg%2015F%2C%206983BR%20Doesburg" target="_blank" rel="noreferrer">Leigraafseweg 15F, 6983BR Doesburg</a> · KvK 86258187</p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">

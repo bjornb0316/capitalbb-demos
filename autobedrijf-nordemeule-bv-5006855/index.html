@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#5c626c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#5c626c;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e2e5ea}
+.kenmerk-bewijs b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#22439b;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#5c626c;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -502,7 +511,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autobedrijf Nordemeule BV (familie, mediaanprijs EUR 19323, 183 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet kobalt, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #22439b.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties about > uitgelicht > stock > trust > process > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties kenmerk > about > uitgelicht > stock > trust > process > contact.
 FORM: familie-kobalt-split-mosaic-gabarito-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -520,6 +529,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/254552f6-baf2-42c0-bee3-9c6befd091ee?rule=ecg_mp_eps$_85.jpg" alt="Land rover RANGE ROVER SPORT 2.0 P400E AUTO. Dynamic, LED, P" decoding="async" fetchpriority="high"><figcaption><span>Land rover RANGE ROVER SPORT 2.0 P400E A</span><span>€ 33.500</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2cb2f51f-6ee3-4e55-8f3a-e92c9983b1a3?rule=ecg_mp_eps$_85.jpg" alt="Audi S5 3.0 TFSI S5 QUATTRO PRO LINE+. PANO, TREKHAAK, HEADU" decoding="async"><figcaption><span>Audi S5 3.0 TFSI S5 QUATTRO PRO LINE+. P</span><span>€ 32.900</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0078f72f-961f-4def-94ac-4ef4b944dbce?rule=ecg_mp_eps$_85.jpg" alt="Bmw X4 XDRIVE30D M-Sport HI. EX. ED PANO, CARPLAY, ADAPTIVE" decoding="async"><figcaption><span>Bmw X4 XDRIVE30D M-Sport HI. EX. ED PANO</span><span>€ 29.900</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>161 keer beoordeeld met een 4.9.</h2>
+    <p>Dat cijfer hebben we niet zelf bedacht; het staat op ons Marktplaats-profiel en iedereen kan het nakijken. Kom gerust langs en vorm uw eigen oordeel.</p>
+    <div class="kenmerk-bewijs"><div><b>4.9</b><span>gemiddeld cijfer</span></div><div><b>161</b><span>beoordelingen</span></div></div>
+  </div>
+</section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>

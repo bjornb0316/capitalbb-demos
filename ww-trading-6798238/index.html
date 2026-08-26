@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#a0a4aa;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#a0a4aa;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #2e3238}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#f2c230;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#a0a4aa;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -509,7 +518,7 @@ footer{border-top:2px solid #f6f6f4}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van WW-Trading (buurtgarage, mediaanprijs EUR 250, 15 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet werkplaats, 'Archivo Black' als display op 'Barlow', hoeken 0px, accent #f2c230.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "list", secties about > uitgelicht > stock > trust > process > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "list", secties kenmerk > about > uitgelicht > stock > trust > process > hours > contact.
 FORM: buurtgarage-werkplaats-cinematic-list-archivoblack-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -525,6 +534,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b6504e17-6096-4868-af04-51e353546c87?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b6504e17-6096-4868-af04-51e353546c87?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b6504e17-6096-4868-af04-51e353546c87?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b6504e17-6096-4868-af04-51e353546c87?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b6504e17-6096-4868-af04-51e353546c87?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Fiat 280" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Fiat 280</span><span class="h-plate-p">€ 1.250</span></figcaption></figure>
   <div class="wrap h-words"><h1><a href="tel:+31657944679">06-5794 4679</a></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31657944679">Bel 06-5794 4679</a><a class="h-tweede" href="https://wa.me/31657944679?text=Hallo%20WW-Trading%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div></div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Alles onder de € 1.250.</h2>
+    <p>Geen showroomprijzen en geen verrassingen: wat hier staat is bedoeld om gewoon te rijden. De prijs die u ziet is de prijs waarover we praten.</p>
+    <div class="kenmerk-bewijs"><div><b>€ 35</b><span>de goedkoopste nu</span></div><div><b>€ 1.250</b><span>de duurste nu</span></div></div>
+  </div>
+</section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>
@@ -579,8 +595,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="sa-veld">
   <label for="sa-merk">Merk</label>
   <select id="sa-merk" data-select="merk">
-    <option value="">Alle 5 merken</option>
-    <option value="Slopers En Sloopwerkzaamheden">Slopers En Sloopwerkzaamheden (7)</option><option value="Overige Auto Onderdelen">Overige Auto Onderdelen (2)</option><option value="Aanhangers En Bagagewagens">Aanhangers En Bagagewagens (1)</option><option value="Bouwketen En Schaftketen">Bouwketen En Schaftketen (1)</option><option value="Caravancentra">Caravancentra (1)</option>
+    <option value="">Alle 3 merken</option>
+    <option value="Slopers En Sloopwerkzaamheden">Slopers En Sloopwerkzaamheden (7)</option><option value="Bouwketen En Schaftketen">Bouwketen En Schaftketen (1)</option><option value="Caravancentra">Caravancentra (1)</option>
   </select>
 </div>
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
@@ -628,17 +644,17 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="st-what"><h3><a href="v/caravans-scout-vouwwagen-750-kg-4/">Scout Vouwwagen 750 KG</a></h3><p class="st-spec">Gegevens op aanvraag</p></div>
   <span class="st-price">€ 250</span>
   <a class="st-act" href="tel:+31657944679">Bel hierover</a>
-</div><div class="st-row" data-slug="aanhangers-en-bagagewagens-enkelasser-onderstel--5" data-rang="4" data-merk="Aanhangers En Bagagewagens" data-prijs="150" data-jaar="0" data-zoek="enkelasser onderstel zonder kenteken aanhangers en bagagewagens">
+</div><div class="st-row" data-slug="aanhangers-en-bagagewagens-enkelasser-onderstel--5" data-rang="4" data-prijs="150" data-jaar="0" data-zoek="enkelasser onderstel zonder kenteken">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/48c8fa70-85a2-46f0-b58e-8b81d866ecde?rule=ecg_mp_eps$_84.jpg" alt="Enkelasser Onderstel Zonder kenteken" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3><a href="v/aanhangers-en-bagagewagens-enkelasser-onderstel--5/">Enkelasser Onderstel Zonder kenteken</a></h3><p class="st-spec">Gegevens op aanvraag</p></div>
   <span class="st-price">€ 150</span>
   <a class="st-act" href="tel:+31657944679">Bel hierover</a>
-</div><div class="st-row" data-slug="overige-auto-onderdelen-viamondo-6" data-rang="5" data-merk="Overige Auto Onderdelen" data-prijs="35" data-jaar="0" data-zoek="viamondo overige auto onderdelen">
+</div><div class="st-row" data-slug="overige-auto-onderdelen-viamondo-6" data-rang="5" data-prijs="35" data-jaar="0" data-zoek="viamondo">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c56b612c-3dfe-4a28-ace4-8a698e656ac8?rule=ecg_mp_eps$_84.jpg" alt="ViaMondo" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3><a href="v/overige-auto-onderdelen-viamondo-6/">ViaMondo</a></h3><p class="st-spec">Gegevens op aanvraag</p></div>
   <span class="st-price">€ 35</span>
   <a class="st-act" href="tel:+31657944679">Bel hierover</a>
-</div><div class="st-row" data-slug="overige-auto-onderdelen-viamondo-7" data-rang="6" data-merk="Overige Auto Onderdelen" data-prijs="35" data-jaar="0" data-zoek="viamondo overige auto onderdelen">
+</div><div class="st-row" data-slug="overige-auto-onderdelen-viamondo-7" data-rang="6" data-prijs="35" data-jaar="0" data-zoek="viamondo">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ec660426-cf06-444d-9428-1f85aba69537?rule=ecg_mp_eps$_84.jpg" alt="ViaMondo" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3><a href="v/overige-auto-onderdelen-viamondo-7/">ViaMondo</a></h3><p class="st-spec">Gegevens op aanvraag</p></div>
   <span class="st-price">€ 35</span>

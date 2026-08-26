@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#575c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#575c62;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dadde0}
+.kenmerk-bewijs b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:0;color:#1a1c1f;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#575c62;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -437,7 +446,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Een Goeie Motor (motoren, mediaanprijs EUR 7576, 12 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet chroom, 'Anton' als display op 'Chivo', hoeken 0px, accent #1a1c1f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties trust > uitgelicht > stock > process > about > promise > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties kenmerk > trust > uitgelicht > stock > process > about > promise > contact.
 FORM: motoren-chroom-stack-rail-anton-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -453,6 +462,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><h1>Yamaha <em>en 6 andere merken</em></h1><div class="h-cta"><a class="h-btn is-primary" href="https://wa.me/31683823095?text=Hallo%20Een%20Goeie%20Motor%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a><a class="h-tweede" href="tel:+31683823095">Bel 06-8382 3095</a></div><p class="h-lede">Bekijk de voorraad, kom langs en rij hem zelf. Bellen mag altijd, ook als u nog twijfelt.</p></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f7b7a87-5de9-429d-b832-3ce73bc365b5?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f7b7a87-5de9-429d-b832-3ce73bc365b5?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f7b7a87-5de9-429d-b832-3ce73bc365b5?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f7b7a87-5de9-429d-b832-3ce73bc365b5?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f7b7a87-5de9-429d-b832-3ce73bc365b5?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="BMW R 1250 GS ADVENTURE (bj 2019)  ((( Veel Opties!  ESA )))" fetchpriority="high"></figure>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>43 keer beoordeeld met een 5.0.</h2>
+    <p>Dat cijfer hebben we niet zelf bedacht; het staat op ons Marktplaats-profiel en iedereen kan het nakijken. Kom gerust langs en vorm uw eigen oordeel.</p>
+    <div class="kenmerk-bewijs"><div><b>5.0</b><span>gemiddeld cijfer</span></div><div><b>43</b><span>beoordelingen</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>5.0</b><span>gemiddeld uit 43 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>7</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Nunspeet</strong> · <a href="https://maps.google.com/?q=De%20Visserlaan%2C%2088%2C%208072XJ%20Nunspeet" target="_blank" rel="noreferrer">De Visserlaan, 88, 8072XJ Nunspeet</a> · KvK 75929171</p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">

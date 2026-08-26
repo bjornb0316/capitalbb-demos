@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#585c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#585c62;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dcdcd8}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#cd4217;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#585c62;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -509,7 +518,7 @@ footer{border-top:2px solid #141518}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Dutch b.v (buurtgarage, mediaanprijs EUR 250, 31 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet staal, 'Archivo Black' als display op 'Barlow', hoeken 0px, accent #cd4217.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties promise > uitgelicht > stock > process > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties kenmerk > promise > uitgelicht > stock > process > contact.
 FORM: buurtgarage-staal-stack-grid-archivoblack-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -525,6 +534,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><h1><a href="tel:+31645652534">06-4565 2534</a></h1><div class="h-cta"><a class="h-btn is-primary" href="https://wa.me/31645652534?text=Hallo%20Dutch%20b.v%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a><a class="h-tweede" href="tel:+31645652534">Bel 06-4565 2534</a></div></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/034f0c0b-f322-4207-8bb6-fd454d5de65f?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/034f0c0b-f322-4207-8bb6-fd454d5de65f?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/034f0c0b-f322-4207-8bb6-fd454d5de65f?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/034f0c0b-f322-4207-8bb6-fd454d5de65f?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/034f0c0b-f322-4207-8bb6-fd454d5de65f?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Ford 1999" fetchpriority="high"></figure>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Alles onder de € 2.750.</h2>
+    <p>Geen showroomprijzen en geen verrassingen: wat hier staat is bedoeld om gewoon te rijden. De prijs die u ziet is de prijs waarover we praten.</p>
+    <div class="kenmerk-bewijs"><div><b>€ 80</b><span>de goedkoopste nu</span></div><div><b>€ 2.750</b><span>de duurste nu</span></div></div>
+  </div>
+</section>
 <section class="sec-belofte"><div class="wrap rv">
   <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Goes.</p>
   <ul class="sec-belofte-lijst"><li><b>31</b> voertuigen staan klaar</li><li>vanaf <b>€ 80</b></li><li>gemiddeld bouwjaar <b>2002</b></li></ul>
@@ -574,8 +590,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="sa-veld">
   <label for="sa-merk">Merk</label>
   <select id="sa-merk" data-select="merk">
-    <option value="">Alle 14 merken</option>
-    <option value="Ovens">Ovens (4)</option><option value="Apple Macbooks">Apple Macbooks (1)</option><option value="Banken Bankstellen">Banken Bankstellen (1)</option><option value="Fietsaccessoires Fietscomputers">Fietsaccessoires Fietscomputers (1)</option><option value="Fietsen Dames Damesfietsen">Fietsen Dames Damesfietsen (1)</option><option value="Horeca Keukenapparatuur">Horeca Keukenapparatuur (1)</option><option value="Hout En Planken">Hout En Planken (1)</option><option value="Karaoke Apparatuur">Karaoke Apparatuur (1)</option><option value="Koffiemachine Accessoires">Koffiemachine Accessoires (1)</option><option value="Krikken">Krikken (1)</option><option value="Speelgoed Buiten Trampolines">Speelgoed Buiten Trampolines (1)</option><option value="Ventilatoren">Ventilatoren (1)</option><option value="Volkswagen">Volkswagen (1)</option><option value="Wasmachines">Wasmachines (1)</option>
+    <option value="">Alle 11 merken</option>
+    <option value="Ovens">Ovens (4)</option><option value="Apple Macbooks">Apple Macbooks (1)</option><option value="Banken Bankstellen">Banken Bankstellen (1)</option><option value="Horeca Keukenapparatuur">Horeca Keukenapparatuur (1)</option><option value="Hout En Planken">Hout En Planken (1)</option><option value="Karaoke Apparatuur">Karaoke Apparatuur (1)</option><option value="Krikken">Krikken (1)</option><option value="Speelgoed Buiten Trampolines">Speelgoed Buiten Trampolines (1)</option><option value="Ventilatoren">Ventilatoren (1)</option><option value="Volkswagen">Volkswagen (1)</option><option value="Wasmachines">Wasmachines (1)</option>
   </select>
 </div>
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
@@ -673,7 +689,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31645652534">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="fietsen-dames-damesfietsen-fiets-8" data-rang="7" data-merk="Fietsen Dames Damesfietsen" data-prijs="400" data-jaar="0" data-zoek="fiets fietsen dames damesfietsen">
+</article><article class="st-card " data-slug="fietsen-dames-damesfietsen-fiets-8" data-rang="7" data-prijs="400" data-jaar="0" data-zoek="fiets">
   <div class="st-shot"><a class="st-link" href="v/fietsen-dames-damesfietsen-fiets-8/" aria-label="fiets"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ab1bd622-0691-4585-812b-40a1c2484764?rule=ecg_mp_eps$_85.jpg" alt="fiets" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="fietsen-dames-damesfietsen-fiets-8" aria-pressed="false" aria-label="Bewaar fiets"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/fietsen-dames-damesfietsen-fiets-8/">fiets</a></h3>
@@ -683,7 +699,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31645652534">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="fietsaccessoires-fietscomputers-wahoo-elemnt-roa-9" data-rang="8" data-merk="Fietsaccessoires Fietscomputers" data-prijs="300" data-jaar="0" data-zoek="wahoo elemnt roam gps fietscomputer - zeer goede staat fietsaccessoires fietscomputers">
+</article><article class="st-card " data-slug="fietsaccessoires-fietscomputers-wahoo-elemnt-roa-9" data-rang="8" data-prijs="300" data-jaar="0" data-zoek="wahoo elemnt roam gps fietscomputer - zeer goede staat">
   <div class="st-shot"><a class="st-link" href="v/fietsaccessoires-fietscomputers-wahoo-elemnt-roa-9/" aria-label="Wahoo Elemnt Roam GPS Fietscomputer - Zeer Goede Staat"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/51cd779e-d3bc-48ff-b5ba-9cc47dbb6ad0?rule=ecg_mp_eps$_85.jpg" alt="Wahoo Elemnt Roam GPS Fietscomputer - Zeer Goede Staat" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="fietsaccessoires-fietscomputers-wahoo-elemnt-roa-9" aria-pressed="false" aria-label="Bewaar Wahoo Elemnt Roam GPS Fietscomputer - Zeer Goede Staat"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/fietsaccessoires-fietscomputers-wahoo-elemnt-roa-9/">Wahoo Elemnt Roam GPS Fietscomputer - Zeer Goede Staat</a></h3>
@@ -773,7 +789,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31645652534">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="koffiemachine-accessoires-swiss-haus-nes23-capsu-18" data-rang="17" data-merk="Koffiemachine Accessoires" data-prijs="80" data-jaar="0" data-zoek="swiss haus nes23 capsule coffee machine koffiemachine accessoires">
+</article><article class="st-card " data-slug="koffiemachine-accessoires-swiss-haus-nes23-capsu-18" data-rang="17" data-prijs="80" data-jaar="0" data-zoek="swiss haus nes23 capsule coffee machine">
   <div class="st-shot"><a class="st-link" href="v/koffiemachine-accessoires-swiss-haus-nes23-capsu-18/" aria-label="Swiss Haus NES23 Capsule Coffee Machine"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/012d675c-28db-46e3-b712-9aaa1f37d878?rule=ecg_mp_eps$_85.jpg" alt="Swiss Haus NES23 Capsule Coffee Machine" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="koffiemachine-accessoires-swiss-haus-nes23-capsu-18" aria-pressed="false" aria-label="Bewaar Swiss Haus NES23 Capsule Coffee Machine"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/koffiemachine-accessoires-swiss-haus-nes23-capsu-18/">Swiss Haus NES23 Capsule Coffee Machine</a></h3>

@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#989da4;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#989da4;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #25282d}
+.kenmerk-bewijs b{display:block;font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:clamp(26px,3vw,38px);letter-spacing:0.01em;color:#ff5b19;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#989da4;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -507,7 +516,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Maeijer Motors (motoren, mediaanprijs EUR 17950, 19 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet asfalt, 'Oswald' als display op 'Chivo', hoeken 0px, accent #ff5b19.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar proefrit geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties brands > uitgelicht > stock > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties kenmerk > brands > uitgelicht > stock > promise > process > hours > contact.
 FORM: motoren-asfalt-cinematic-grid-oswald-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -596,7 +605,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
     <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
   </div>
-</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-scout-sixt-1" data-rang="0" data-merk="Overige Merken" data-prijs="22450" data-jaar="0" data-zoek="indian chopper scout sixty bobber maeijer motors ombouw. overige merken">
+</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-scout-sixt-1" data-rang="0" data-prijs="22450" data-jaar="0" data-zoek="indian chopper scout sixty bobber maeijer motors ombouw.">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-scout-sixt-1/" aria-label="Indian Chopper Scout Sixty Bobber Maeijer Motors Ombouw."><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4bf23ff4-9977-428d-8b1d-d67347ce31a9?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper Scout Sixty Bobber Maeijer Motors Ombouw." loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-scout-sixt-1" aria-pressed="false" aria-label="Bewaar Indian Chopper Scout Sixty Bobber Maeijer Motors Ombouw."><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-scout-sixt-1/">Indian Chopper Scout Sixty Bobber Maeijer Motors Ombouw.</a></h3>
@@ -606,7 +615,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-101-scout--2" data-rang="1" data-merk="Overige Merken" data-prijs="22390" data-jaar="0" data-zoek="indian chopper 101 scout , nieuw! overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-101-scout--2" data-rang="1" data-prijs="22390" data-jaar="0" data-zoek="indian chopper 101 scout , nieuw!">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-101-scout--2/" aria-label="Indian Chopper 101 Scout , Nieuw!"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/affdc508-7776-42fd-8f53-adea6bb25231?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper 101 Scout , Nieuw!" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-101-scout--2" aria-pressed="false" aria-label="Bewaar Indian Chopper 101 Scout , Nieuw!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-101-scout--2/">Indian Chopper 101 Scout , Nieuw!</a></h3>
@@ -616,7 +625,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-sport-scou-3" data-rang="2" data-merk="Overige Merken" data-prijs="21990" data-jaar="0" data-zoek="indian chopper sport scout rt ,nieuw! overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-sport-scou-3" data-rang="2" data-prijs="21990" data-jaar="0" data-zoek="indian chopper sport scout rt ,nieuw!">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-sport-scou-3/" aria-label="Indian Chopper Sport Scout RT ,Nieuw!"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b9b30c64-8f5f-415a-9dc2-574428a70413?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper Sport Scout RT ,Nieuw!" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-sport-scou-3" aria-pressed="false" aria-label="Bewaar Indian Chopper Sport Scout RT ,Nieuw!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-sport-scou-3/">Indian Chopper Sport Scout RT ,Nieuw!</a></h3>
@@ -626,7 +635,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-ftr-x-100-r-carbon-4" data-rang="3" data-merk="Overige Merken" data-prijs="20950" data-jaar="0" data-zoek="indian ftr x 100% r carbon 1200 , nr 71 van 400,nieuw! overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-ftr-x-100-r-carbon-4" data-rang="3" data-prijs="20950" data-jaar="0" data-zoek="indian ftr x 100% r carbon 1200 , nr 71 van 400,nieuw!">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-ftr-x-100-r-carbon-4/" aria-label="Indian FTR X 100% R Carbon 1200 , Nr 71 van 400,Nieuw!"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4ea5bf17-7410-41db-8a7b-51a43936c472?rule=ecg_mp_eps$_85.jpg" alt="Indian FTR X 100% R Carbon 1200 , Nr 71 van 400,Nieuw!" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-ftr-x-100-r-carbon-4" aria-pressed="false" aria-label="Bewaar Indian FTR X 100% R Carbon 1200 , Nr 71 van 400,Nieuw!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-ftr-x-100-r-carbon-4/">Indian FTR X 100% R Carbon 1200 , Nr 71 van 400,Nieuw!</a></h3>
@@ -636,7 +645,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-116-chief--5" data-rang="4" data-merk="Overige Merken" data-prijs="20950" data-jaar="2023" data-zoek="indian chopper 116 chief bobber dark horse, 24 maanden exclu overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-116-chief--5" data-rang="4" data-prijs="20950" data-jaar="2023" data-zoek="indian chopper 116 chief bobber dark horse, 24 maanden exclu">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-116-chief--5/" aria-label="Indian Chopper 116 Chief Bobber Dark Horse, 24 maanden exclu"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a0b15245-1d69-49aa-90c6-3eb3050b0b09?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper 116 Chief Bobber Dark Horse, 24 maanden exclu" loading="lazy" decoding="async"></a><span class="st-year">2023</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-116-chief--5" aria-pressed="false" aria-label="Bewaar Indian Chopper 116 Chief Bobber Dark Horse, 24 maanden exclu"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-116-chief--5/">Indian Chopper 116 Chief Bobber Dark Horse, 24 maanden exclu</a></h3>
@@ -646,7 +655,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-scout-bobb-6" data-rang="5" data-merk="Overige Merken" data-prijs="20890" data-jaar="0" data-zoek="indian chopper scout bobber limited +tech, nieuw! overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-scout-bobb-6" data-rang="5" data-prijs="20890" data-jaar="0" data-zoek="indian chopper scout bobber limited +tech, nieuw!">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-scout-bobb-6/" aria-label="Indian Chopper Scout Bobber Limited +Tech, Nieuw!"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9d3f5947-67f7-4d59-80d6-dc434b8ce7f8?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper Scout Bobber Limited +Tech, Nieuw!" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-scout-bobb-6" aria-pressed="false" aria-label="Bewaar Indian Chopper Scout Bobber Limited +Tech, Nieuw!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-scout-bobb-6/">Indian Chopper Scout Bobber Limited +Tech, Nieuw!</a></h3>
@@ -656,7 +665,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-116-chief--7" data-rang="6" data-merk="Overige Merken" data-prijs="18950" data-jaar="2022" data-zoek="indian chopper 116 chief bobber dark horse , 24 maanden gara overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-116-chief--7" data-rang="6" data-prijs="18950" data-jaar="2022" data-zoek="indian chopper 116 chief bobber dark horse , 24 maanden gara">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-116-chief--7/" aria-label="Indian Chopper 116 Chief Bobber Dark Horse , 24 maanden gara"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/50e6fb42-1787-49a4-a7ff-ee3ea77666f8?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper 116 Chief Bobber Dark Horse , 24 maanden gara" loading="lazy" decoding="async"></a><span class="st-year">2022</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-116-chief--7" aria-pressed="false" aria-label="Bewaar Indian Chopper 116 Chief Bobber Dark Horse , 24 maanden gara"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-116-chief--7/">Indian Chopper 116 Chief Bobber Dark Horse , 24 maanden gara</a></h3>
@@ -666,7 +675,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-sport-scou-8" data-rang="7" data-merk="Overige Merken" data-prijs="18590" data-jaar="0" data-zoek="indian chopper sport scout 1250 , nieuw op voorraad overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-sport-scou-8" data-rang="7" data-prijs="18590" data-jaar="0" data-zoek="indian chopper sport scout 1250 , nieuw op voorraad">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-sport-scou-8/" aria-label="Indian Chopper Sport Scout 1250 , Nieuw op Voorraad"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2f690885-87b1-4e88-a8f8-9fa20cbede0b?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper Sport Scout 1250 , Nieuw op Voorraad" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-sport-scou-8" aria-pressed="false" aria-label="Bewaar Indian Chopper Sport Scout 1250 , Nieuw op Voorraad"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-sport-scou-8/">Indian Chopper Sport Scout 1250 , Nieuw op Voorraad</a></h3>
@@ -676,7 +685,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-116-chief--9" data-rang="8" data-merk="Overige Merken" data-prijs="17950" data-jaar="2021" data-zoek="indian chopper 116 chief bobber dark horse , 24 maanden gara overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-116-chief--9" data-rang="8" data-prijs="17950" data-jaar="2021" data-zoek="indian chopper 116 chief bobber dark horse , 24 maanden gara">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-116-chief--9/" aria-label="Indian Chopper 116 Chief Bobber Dark Horse , 24 maanden Gara"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/33305a92-3ab6-4bc1-a96d-958eb1da9b2c?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper 116 Chief Bobber Dark Horse , 24 maanden Gara" loading="lazy" decoding="async"></a><span class="st-year">2021</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-116-chief--9" aria-pressed="false" aria-label="Bewaar Indian Chopper 116 Chief Bobber Dark Horse , 24 maanden Gara"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-116-chief--9/">Indian Chopper 116 Chief Bobber Dark Horse , 24 maanden Gara</a></h3>
@@ -686,7 +695,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-scout-spor-10" data-rang="9" data-merk="Overige Merken" data-prijs="17950" data-jaar="2025" data-zoek="indian chopper scout sport scout limited +tech incl 24 maand overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-scout-spor-10" data-rang="9" data-prijs="17950" data-jaar="2025" data-zoek="indian chopper scout sport scout limited +tech incl 24 maand">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-scout-spor-10/" aria-label="Indian Chopper Scout Sport Scout Limited +Tech Incl 24 maand"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fe2496d8-495d-4d85-9440-22887c66d9da?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper Scout Sport Scout Limited +Tech Incl 24 maand" loading="lazy" decoding="async"></a><span class="st-year">2025</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-scout-spor-10" aria-pressed="false" aria-label="Bewaar Indian Chopper Scout Sport Scout Limited +Tech Incl 24 maand"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-scout-spor-10/">Indian Chopper Scout Sport Scout Limited +Tech Incl 24 maand</a></h3>
@@ -696,7 +705,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-tour-111-chieftain-11" data-rang="10" data-merk="Overige Merken" data-prijs="16950" data-jaar="2016" data-kenmerk="Garantie" data-zoek="indian tour 111 chieftain , 24 maanden garantie overige merken garantie">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-tour-111-chieftain-11" data-rang="10" data-prijs="16950" data-jaar="2016" data-kenmerk="Garantie" data-zoek="indian tour 111 chieftain , 24 maanden garantie garantie">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-tour-111-chieftain-11/" aria-label="Indian Tour 111 Chieftain , 24 Maanden Garantie"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7cc158a8-5f0d-4009-a1f1-c6939ed1082b?rule=ecg_mp_eps$_85.jpg" alt="Indian Tour 111 Chieftain , 24 Maanden Garantie" loading="lazy" decoding="async"></a><span class="st-year">2016</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-tour-111-chieftain-11" aria-pressed="false" aria-label="Bewaar Indian Tour 111 Chieftain , 24 Maanden Garantie"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-tour-111-chieftain-11/">Indian Tour 111 Chieftain , 24 Maanden Garantie</a></h3>
@@ -706,7 +715,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-tour-ftr-1200-spor-12" data-rang="11" data-merk="Overige Merken" data-prijs="16950" data-jaar="2026" data-zoek="indian tour ftr 1200 sport , full option, 24 maanden gar overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-tour-ftr-1200-spor-12" data-rang="11" data-prijs="16950" data-jaar="2026" data-zoek="indian tour ftr 1200 sport , full option, 24 maanden gar">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-tour-ftr-1200-spor-12/" aria-label="Indian Tour FTR 1200 Sport , Full Option, 24 maanden Gar"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1ba57505-0b28-44d6-bd02-60a9a7218ebd?rule=ecg_mp_eps$_85.jpg" alt="Indian Tour FTR 1200 Sport , Full Option, 24 maanden Gar" loading="lazy" decoding="async"></a><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-tour-ftr-1200-spor-12" aria-pressed="false" aria-label="Bewaar Indian Tour FTR 1200 Sport , Full Option, 24 maanden Gar"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-tour-ftr-1200-spor-12/">Indian Tour FTR 1200 Sport , Full Option, 24 maanden Gar</a></h3>
@@ -716,7 +725,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-scout-sixt-13" data-rang="12" data-merk="Overige Merken" data-prijs="16290" data-jaar="0" data-zoek="indian chopper scout sixty classic , nieuw op voorraad! overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-scout-sixt-13" data-rang="12" data-prijs="16290" data-jaar="0" data-zoek="indian chopper scout sixty classic , nieuw op voorraad!">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-scout-sixt-13/" aria-label="Indian Chopper Scout Sixty Classic , Nieuw op Voorraad!"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6e22aee7-e188-4b6c-ab05-082a7487c8d1?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper Scout Sixty Classic , Nieuw op Voorraad!" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-scout-sixt-13" aria-pressed="false" aria-label="Bewaar Indian Chopper Scout Sixty Classic , Nieuw op Voorraad!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-scout-sixt-13/">Indian Chopper Scout Sixty Classic , Nieuw op Voorraad!</a></h3>
@@ -726,7 +735,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-69-scout-b-14" data-rang="13" data-merk="Overige Merken" data-prijs="14950" data-jaar="2024" data-zoek="indian chopper 69 scout bobber twenty , 24 maanden exclusive overige merken">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-69-scout-b-14" data-rang="13" data-prijs="14950" data-jaar="2024" data-zoek="indian chopper 69 scout bobber twenty , 24 maanden exclusive">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-69-scout-b-14/" aria-label="Indian Chopper 69 Scout Bobber Twenty , 24 maanden Exclusive"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f35be4c2-fc17-4879-814e-6872757fe993?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper 69 Scout Bobber Twenty , 24 maanden Exclusive" loading="lazy" decoding="async"></a><span class="st-year">2024</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-69-scout-b-14" aria-pressed="false" aria-label="Bewaar Indian Chopper 69 Scout Bobber Twenty , 24 maanden Exclusive"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-69-scout-b-14/">Indian Chopper 69 Scout Bobber Twenty , 24 maanden Exclusive</a></h3>
@@ -736,7 +745,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-scout-bobb-15" data-rang="14" data-merk="Overige Merken" data-prijs="13950" data-jaar="2021" data-kenmerk="Garantie" data-zoek="indian chopper scout bobber , 24 maanden garantie! inruil mo overige merken garantie">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-scout-bobb-15" data-rang="14" data-prijs="13950" data-jaar="2021" data-kenmerk="Garantie" data-zoek="indian chopper scout bobber , 24 maanden garantie! inruil mo garantie">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-scout-bobb-15/" aria-label="Indian Chopper Scout Bobber , 24 maanden Garantie! Inruil Mo"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f63d99d1-c9a2-4661-b99b-431c11575c75?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper Scout Bobber , 24 maanden Garantie! Inruil Mo" loading="lazy" decoding="async"></a><span class="st-year">2021</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-scout-bobb-15" aria-pressed="false" aria-label="Bewaar Indian Chopper Scout Bobber , 24 maanden Garantie! Inruil Mo"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-scout-bobb-15/">Indian Chopper Scout Bobber , 24 maanden Garantie! Inruil Mo</a></h3>
@@ -746,7 +755,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-61-scout-b-16" data-rang="15" data-merk="Overige Merken" data-prijs="12950" data-jaar="2021" data-kenmerk="Garantie" data-zoek="indian chopper 61 scout bobber sixty , 24 maanden garantie! overige merken garantie">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-61-scout-b-16" data-rang="15" data-prijs="12950" data-jaar="2021" data-kenmerk="Garantie" data-zoek="indian chopper 61 scout bobber sixty , 24 maanden garantie! garantie">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-61-scout-b-16/" aria-label="Indian Chopper 61 Scout Bobber Sixty , 24 Maanden Garantie!"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6a52bcab-b341-449a-b721-b875c29ac69d?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper 61 Scout Bobber Sixty , 24 Maanden Garantie!" loading="lazy" decoding="async"></a><span class="st-year">2021</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-61-scout-b-16" aria-pressed="false" aria-label="Bewaar Indian Chopper 61 Scout Bobber Sixty , 24 Maanden Garantie!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-61-scout-b-16/">Indian Chopper 61 Scout Bobber Sixty , 24 Maanden Garantie!</a></h3>
@@ -756,7 +765,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-69-scout-2-17" data-rang="16" data-merk="Overige Merken" data-prijs="12450" data-jaar="2017" data-kenmerk="Garantie" data-zoek="indian chopper 69 scout , 24 maanden dealer garantie overige merken garantie">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-69-scout-2-17" data-rang="16" data-prijs="12450" data-jaar="2017" data-kenmerk="Garantie" data-zoek="indian chopper 69 scout , 24 maanden dealer garantie garantie">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-69-scout-2-17/" aria-label="Indian Chopper 69 Scout , 24 maanden dealer garantie"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7eb35f7c-b3e8-4919-90a1-604157429c15?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper 69 Scout , 24 maanden dealer garantie" loading="lazy" decoding="async"></a><span class="st-year">2017</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-69-scout-2-17" aria-pressed="false" aria-label="Bewaar Indian Chopper 69 Scout , 24 maanden dealer garantie"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-69-scout-2-17/">Indian Chopper 69 Scout , 24 maanden dealer garantie</a></h3>
@@ -766,7 +775,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31263796311">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-69-scout-b-18" data-rang="17" data-merk="Overige Merken" data-prijs="11950" data-jaar="2018" data-kenmerk="Garantie" data-zoek="indian chopper 69 scout bobber , 24 maanden garantie! overige merken garantie">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-chopper-69-scout-b-18" data-rang="17" data-prijs="11950" data-jaar="2018" data-kenmerk="Garantie" data-zoek="indian chopper 69 scout bobber , 24 maanden garantie! garantie">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-chopper-69-scout-b-18/" aria-label="Indian Chopper 69 Scout Bobber , 24 maanden Garantie!"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/579e1748-9b91-42a1-b16e-1df74e98e5e9?rule=ecg_mp_eps$_85.jpg" alt="Indian Chopper 69 Scout Bobber , 24 maanden Garantie!" loading="lazy" decoding="async"></a><span class="st-year">2018</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-chopper-69-scout-b-18" aria-pressed="false" aria-label="Bewaar Indian Chopper 69 Scout Bobber , 24 maanden Garantie!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-chopper-69-scout-b-18/">Indian Chopper 69 Scout Bobber , 24 maanden Garantie!</a></h3>

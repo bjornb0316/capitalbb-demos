@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#575c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#575c62;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dadde0}
+.kenmerk-bewijs b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:0;color:#1a1c1f;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#575c62;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -507,7 +516,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van HP-Motoren (motoren, mediaanprijs EUR 9950, 52 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet chroom, 'Anton' als display op 'Chivo', hoeken 0px, accent #1a1c1f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "grid", secties trust > uitgelicht > stock > about > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "grid", secties kenmerk > trust > uitgelicht > stock > about > promise > process > hours > contact.
 FORM: motoren-chroom-panorama-grid-anton-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -525,6 +534,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-facts"><span>4.5 uit 49 beoordelingen</span><span>21 jaar op Marktplaats</span><span>8 merken in huis</span><span>Kom langs in Eemnes</span></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Hier staat vooral Harley-Davidson.</h2>
+    <p>56% van wat er staat is een Harley-Davidson. Dat betekent dat we het merk kennen: wat eraan opvalt, wat je moet nakijken, en wat een eerlijke prijs is.</p>
+    <div class="kenmerk-bewijs"><div><b>56%</b><span>van de voorraad is Harley-Davidson</span></div><div><b>8</b><span>merken in totaal</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.5</b><span>gemiddeld uit 49 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>8</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Eemnes</strong> · <a href="https://maps.google.com/?q=Bramenberg%2023A%2C%203755BW%20Eemnes" target="_blank" rel="noreferrer">Bramenberg 23A, 3755BW Eemnes</a> · KvK 30133870</p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">
@@ -571,8 +587,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="sa-veld">
   <label for="sa-merk">Merk</label>
   <select id="sa-merk" data-select="merk">
-    <option value="">Alle 8 merken</option>
-    <option value="Harley-Davidson">Harley-Davidson (10)</option><option value="Honda">Honda (2)</option><option value="Ducati">Ducati (1)</option><option value="Kawasaki">Kawasaki (1)</option><option value="KTM">KTM (1)</option><option value="MV Agusta">MV Agusta (1)</option><option value="Overige Merken">Overige Merken (1)</option><option value="Suzuki">Suzuki (1)</option>
+    <option value="">Alle 7 merken</option>
+    <option value="Harley-Davidson">Harley-Davidson (10)</option><option value="Honda">Honda (2)</option><option value="Ducati">Ducati (1)</option><option value="Kawasaki">Kawasaki (1)</option><option value="KTM">KTM (1)</option><option value="MV Agusta">MV Agusta (1)</option><option value="Suzuki">Suzuki (1)</option>
   </select>
 </div>
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
@@ -675,7 +691,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31657744685?text=Hallo%20HP-Motoren%2C%20ik%20zag%20de%20Harley%20Davidson%20FXDB%20DYNA%20STREET%20BOB%20STREETBOB%201690%20CLUB%20STY%20(%E2%82%AC%2010.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="motoren-overige-merken-indian-ftr-1200-s-race-re-8" data-rang="7" data-merk="Overige Merken" data-prijs="9950" data-jaar="2021" data-kenmerk="ABS" data-zoek="indian ftr 1200 s race replica abs tc bovaggarantie overige merken abs">
+</article><article class="st-card " data-slug="motoren-overige-merken-indian-ftr-1200-s-race-re-8" data-rang="7" data-prijs="9950" data-jaar="2021" data-kenmerk="ABS" data-zoek="indian ftr 1200 s race replica abs tc bovaggarantie abs">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-indian-ftr-1200-s-race-re-8/" aria-label="Indian FTR 1200 S RACE REPLICA ABS TC BOVAGGARANTIE"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f5a3ad4e-7e96-432b-b4f9-e4aa297e29ef?rule=ecg_mp_eps$_85.jpg" alt="Indian FTR 1200 S RACE REPLICA ABS TC BOVAGGARANTIE" loading="lazy" decoding="async"></a><span class="st-year">2021</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-indian-ftr-1200-s-race-re-8" aria-pressed="false" aria-label="Bewaar Indian FTR 1200 S RACE REPLICA ABS TC BOVAGGARANTIE"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/motoren-overige-merken-indian-ftr-1200-s-race-re-8/">Indian FTR 1200 S RACE REPLICA ABS TC BOVAGGARANTIE</a></h3>

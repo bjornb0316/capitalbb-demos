@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#a3a19c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#a3a19c;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #272b2d}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(26px,3vw,38px);letter-spacing:-0.02em;color:#e8b06a;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#a3a19c;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -498,7 +507,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van VB Caravans (reizen, mediaanprijs EUR 4999, 18 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet avondlicht, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #e8b06a.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties brands > uitgelicht > stock > about > trust > process > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties kenmerk > brands > uitgelicht > stock > about > trust > process > contact.
 FORM: reizen-avondlicht-split-mosaic-archivoexpanded-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -516,6 +525,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f460e99c-ce41-4da8-acba-48cbc5678f5a?rule=ecg_mp_eps$_85.jpg" alt="Wilk Vida 450 HTD + Voortent Mover Fietsendrager" decoding="async" fetchpriority="high"><figcaption><span>Wilk Vida 450 HTD + Voortent Mover Fiets</span><span>€ 10.950</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fcfe6677-f0c5-4692-a1d8-7b6a7d63a6c0?rule=ecg_mp_eps$_85.jpg" alt="Caravelair Ambiance 440 + Voortent + Mover + Boiler" decoding="async"><figcaption><span>Caravelair Ambiance 440 + Voortent + Mov</span><span>€ 6.999</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2aa9dc2f-7104-4757-a1e2-bbb32032b1c6?rule=ecg_mp_eps$_85.jpg" alt="Hobby de luxe 400 SB + Voortent Mover Fietsendrager" decoding="async"><figcaption><span>Hobby de luxe 400 SB + Voortent Mover Fi</span><span>€ 6.250</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>54 keer beoordeeld met een 4.5.</h2>
+    <p>Dat cijfer hebben we niet zelf bedacht; het staat op ons Marktplaats-profiel en iedereen kan het nakijken. Kom gerust langs en vorm uw eigen oordeel.</p>
+    <div class="kenmerk-bewijs"><div><b>4.5</b><span>gemiddeld cijfer</span></div><div><b>54</b><span>beoordelingen</span></div></div>
+  </div>
+</section>
 <section class="sec-uitgelicht">
   <div class="wrap">
     <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>

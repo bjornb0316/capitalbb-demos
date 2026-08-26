@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#a0a4aa;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#a0a4aa;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #2e3238}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#f2c230;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#a0a4aa;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -509,7 +518,7 @@ footer{border-top:2px solid #f6f6f4}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Mooties (buurtgarage, mediaanprijs EUR 2099, 12 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet werkplaats, 'Archivo Black' als display op 'Barlow', hoeken 0px, accent #f2c230.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > uitgelicht > stock > process > about > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties kenmerk > trust > uitgelicht > stock > process > about > promise > hours > contact.
 FORM: buurtgarage-werkplaats-cinematic-grid-archivoblack-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -525,6 +534,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c3/c3b204e2-660d-438f-827b-03fefc52b900?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c3/c3b204e2-660d-438f-827b-03fefc52b900?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c3/c3b204e2-660d-438f-827b-03fefc52b900?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c3/c3b204e2-660d-438f-827b-03fefc52b900?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c3/c3b204e2-660d-438f-827b-03fefc52b900?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Mooties Qwic Atlas Adventure E-bike  va € 3699,-" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Mooties Qwic Atlas Adventure E-bike  va € 3699,-</span><span class="h-plate-p">€ 3.699</span></figcaption></figure>
   <div class="wrap h-words"><h1><a href="tel:+31654733123">06-5473 3123</a></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31654733123">Bel 06-5473 3123</a><a class="h-tweede" href="https://wa.me/31654733123?text=Hallo%20Mooties%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div></div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Jong, en met weinig kilometers.</h2>
+    <p>De helft van wat hier staat is van na 2022 en heeft minder dan 18.000 kilometer gelopen. Geen project, geen verrassingen onderweg.</p>
+    <div class="kenmerk-bewijs"><div><b>2023</b><span>mediaan bouwjaar</span></div><div><b>18.000 km</b><span>mediaan kilometerstand</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>5.0</b><span>gemiddeld uit 24 beoordelingen</span></div><div><b>6</b><span>jaar op Marktplaats</span></div><div><b>5</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Dronten</strong> · <a href="https://maps.google.com/?q=De%20Linge%2C%2023%2C%208253PJ%20Dronten" target="_blank" rel="noreferrer">De Linge, 23, 8253PJ Dronten</a> · KvK 39078250</p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">
@@ -568,13 +584,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
         <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
     </div>
-    <div class="sa-veld">
-  <label for="sa-merk">Merk</label>
-  <select id="sa-merk" data-select="merk">
-    <option value="">Alle 5 merken</option>
-    <option value="Elektrische Fietsen">Elektrische Fietsen (6)</option><option value="Brommers Overige Merken">Brommers Overige Merken (3)</option><option value="Brommers Crossbrommers">Brommers Crossbrommers (1)</option><option value="Overige Diversen">Overige Diversen (1)</option><option value="Triumph">Triumph (1)</option>
-  </select>
-</div>
+    
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
     <label class="sa-sorteer"><span class="sr">Sorteren op</span>
       <select id="sa-sorteer">
@@ -605,7 +615,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
     <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
   </div>
-</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="elektrische-fietsen-mooties-qwic-atlas-adventure-1" data-rang="0" data-merk="Elektrische Fietsen" data-prijs="3699" data-jaar="0" data-zoek="mooties qwic atlas adventure e-bike  va € 3699,- elektrische fietsen">
+</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="elektrische-fietsen-mooties-qwic-atlas-adventure-1" data-rang="0" data-prijs="3699" data-jaar="0" data-zoek="mooties qwic atlas adventure e-bike  va € 3699,-">
   <div class="st-shot"><a class="st-link" href="v/elektrische-fietsen-mooties-qwic-atlas-adventure-1/" aria-label="Mooties Qwic Atlas Adventure E-bike  va € 3699,-"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c3/c3b204e2-660d-438f-827b-03fefc52b900?rule=ecg_mp_eps$_85.jpg" alt="Mooties Qwic Atlas Adventure E-bike  va € 3699,-" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="elektrische-fietsen-mooties-qwic-atlas-adventure-1" aria-pressed="false" aria-label="Bewaar Mooties Qwic Atlas Adventure E-bike  va € 3699,-"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/elektrische-fietsen-mooties-qwic-atlas-adventure-1/">Mooties Qwic Atlas Adventure E-bike  va € 3699,-</a></h3>
@@ -625,7 +635,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654733123">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="elektrische-fietsen-3x-qwic-mira-daily-tour-belt-3" data-rang="2" data-merk="Elektrische Fietsen" data-prijs="2099" data-jaar="0" data-zoek="3x qwic mira daily, tour belt jong gebruikt elektrischefiets elektrische fietsen">
+</article><article class="st-card " data-slug="elektrische-fietsen-3x-qwic-mira-daily-tour-belt-3" data-rang="2" data-prijs="2099" data-jaar="0" data-zoek="3x qwic mira daily, tour belt jong gebruikt elektrischefiets">
   <div class="st-shot"><a class="st-link" href="v/elektrische-fietsen-3x-qwic-mira-daily-tour-belt-3/" aria-label="3x Qwic Mira Daily, Tour Belt jong gebruikt elektrischefiets"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/54bfdae3-fe4a-4cef-8217-34886f493c85?rule=ecg_mp_eps$_85.jpg" alt="3x Qwic Mira Daily, Tour Belt jong gebruikt elektrischefiets" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="elektrische-fietsen-3x-qwic-mira-daily-tour-belt-3" aria-pressed="false" aria-label="Bewaar 3x Qwic Mira Daily, Tour Belt jong gebruikt elektrischefiets"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/elektrische-fietsen-3x-qwic-mira-daily-tour-belt-3/">3x Qwic Mira Daily, Tour Belt jong gebruikt elektrischefiets</a></h3>
@@ -645,7 +655,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654733123">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="elektrische-fietsen-huyser-ebike-maleo-jong-gebr-5" data-rang="4" data-merk="Elektrische Fietsen" data-prijs="1799" data-jaar="0" data-zoek="huyser ebike maleo jong gebruikt electrische fiets elektrische fietsen">
+</article><article class="st-card " data-slug="elektrische-fietsen-huyser-ebike-maleo-jong-gebr-5" data-rang="4" data-prijs="1799" data-jaar="0" data-zoek="huyser ebike maleo jong gebruikt electrische fiets">
   <div class="st-shot"><a class="st-link" href="v/elektrische-fietsen-huyser-ebike-maleo-jong-gebr-5/" aria-label="Huyser Ebike Maleo jong gebruikt electrische fiets"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cae69348-f982-4913-bef8-e6b6104dc01e?rule=ecg_mp_eps$_85.jpg" alt="Huyser Ebike Maleo jong gebruikt electrische fiets" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="elektrische-fietsen-huyser-ebike-maleo-jong-gebr-5" aria-pressed="false" aria-label="Bewaar Huyser Ebike Maleo jong gebruikt electrische fiets"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/elektrische-fietsen-huyser-ebike-maleo-jong-gebr-5/">Huyser Ebike Maleo jong gebruikt electrische fiets</a></h3>
@@ -655,7 +665,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654733123">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="elektrische-fietsen-bij-mooties-qwic-e-bikes-ele-6" data-rang="5" data-merk="Elektrische Fietsen" data-prijs="0" data-jaar="0" data-zoek="bij mooties qwic e bikes electrische fiets prijzen va € 1799 elektrische fietsen">
+</article><article class="st-card " data-slug="elektrische-fietsen-bij-mooties-qwic-e-bikes-ele-6" data-rang="5" data-prijs="0" data-jaar="0" data-zoek="bij mooties qwic e bikes electrische fiets prijzen va € 1799">
   <div class="st-shot"><a class="st-link" href="v/elektrische-fietsen-bij-mooties-qwic-e-bikes-ele-6/" aria-label="Bij Mooties Qwic E bikes electrische fiets prijzen va € 1799"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d9/d92988c1-0088-41d3-bef9-2c8b4a505588?rule=ecg_mp_eps$_85.jpg" alt="Bij Mooties Qwic E bikes electrische fiets prijzen va € 1799" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="elektrische-fietsen-bij-mooties-qwic-e-bikes-ele-6" aria-pressed="false" aria-label="Bewaar Bij Mooties Qwic E bikes electrische fiets prijzen va € 1799"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/elektrische-fietsen-bij-mooties-qwic-e-bikes-ele-6/">Bij Mooties Qwic E bikes electrische fiets prijzen va € 1799</a></h3>
@@ -665,7 +675,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654733123">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="brommers-overige-merken-killerbee-schakels-db50s-7" data-rang="6" data-merk="Brommers Overige Merken" data-prijs="0" data-jaar="2023" data-zoek="killerbee schakels  db50sm  f21 f31 f51 f66 f99 va € 2399 brommers overige merken">
+</article><article class="st-card " data-slug="brommers-overige-merken-killerbee-schakels-db50s-7" data-rang="6" data-prijs="0" data-jaar="2023" data-zoek="killerbee schakels  db50sm  f21 f31 f51 f66 f99 va € 2399">
   <div class="st-shot"><a class="st-link" href="v/brommers-overige-merken-killerbee-schakels-db50s-7/" aria-label="Killerbee Schakels  DB50SM  F21 F31 F51 F66 F99 va € 2399"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7d/7db71c66-7c0f-42d6-94c5-6be90f65d87e?rule=ecg_mp_eps$_85.jpg" alt="Killerbee Schakels  DB50SM  F21 F31 F51 F66 F99 va € 2399" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="brommers-overige-merken-killerbee-schakels-db50s-7" aria-pressed="false" aria-label="Bewaar Killerbee Schakels  DB50SM  F21 F31 F51 F66 F99 va € 2399"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/brommers-overige-merken-killerbee-schakels-db50s-7/">Killerbee Schakels  DB50SM  F21 F31 F51 F66 F99 va € 2399</a></h3>
@@ -675,7 +685,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654733123">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="brommers-overige-merken-killerbee-schakels-db50s-8" data-rang="7" data-merk="Brommers Overige Merken" data-prijs="0" data-jaar="2023" data-zoek="killerbee schakels db50sm f21 f31 f51 f66 f99 va € 2399 brommers overige merken">
+</article><article class="st-card " data-slug="brommers-overige-merken-killerbee-schakels-db50s-8" data-rang="7" data-prijs="0" data-jaar="2023" data-zoek="killerbee schakels db50sm f21 f31 f51 f66 f99 va € 2399">
   <div class="st-shot"><a class="st-link" href="v/brommers-overige-merken-killerbee-schakels-db50s-8/" aria-label="Killerbee Schakels DB50SM F21 F31 F51 F66 F99 va € 2399"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad/ad489467-0f85-4e0d-9d09-96211c163d3c?rule=ecg_mp_eps$_85.jpg" alt="Killerbee Schakels DB50SM F21 F31 F51 F66 F99 va € 2399" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="brommers-overige-merken-killerbee-schakels-db50s-8" aria-pressed="false" aria-label="Bewaar Killerbee Schakels DB50SM F21 F31 F51 F66 F99 va € 2399"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/brommers-overige-merken-killerbee-schakels-db50s-8/">Killerbee Schakels DB50SM F21 F31 F51 F66 F99 va € 2399</a></h3>
@@ -685,7 +695,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654733123">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="brommers-overige-merken-killerbee-f99-schakelbro-9" data-rang="8" data-merk="Brommers Overige Merken" data-prijs="0" data-jaar="2025" data-zoek="killerbee f99 schakelbrommer raw 99  sp edition brommers overige merken">
+</article><article class="st-card " data-slug="brommers-overige-merken-killerbee-f99-schakelbro-9" data-rang="8" data-prijs="0" data-jaar="2025" data-zoek="killerbee f99 schakelbrommer raw 99  sp edition">
   <div class="st-shot"><a class="st-link" href="v/brommers-overige-merken-killerbee-f99-schakelbro-9/" aria-label="Killerbee F99 schakelbrommer Raw 99  SP Edition"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cf/cf3a5282-88fc-45dc-9d41-e679f679a2ce?rule=ecg_mp_eps$_85.jpg" alt="Killerbee F99 schakelbrommer Raw 99  SP Edition" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="brommers-overige-merken-killerbee-f99-schakelbro-9" aria-pressed="false" aria-label="Bewaar Killerbee F99 schakelbrommer Raw 99  SP Edition"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/brommers-overige-merken-killerbee-f99-schakelbro-9/">Killerbee F99 schakelbrommer Raw 99  SP Edition</a></h3>
@@ -695,7 +705,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654733123">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="overige-diversen-qwic-e-bikes-nieuwe-modellen-20-10" data-rang="9" data-merk="Overige Diversen" data-prijs="0" data-jaar="0" data-zoek="qwic e bikes nieuwe modellen 2026 elan signal overige diversen">
+</article><article class="st-card " data-slug="overige-diversen-qwic-e-bikes-nieuwe-modellen-20-10" data-rang="9" data-prijs="0" data-jaar="0" data-zoek="qwic e bikes nieuwe modellen 2026 elan signal">
   <div class="st-shot"><a class="st-link" href="v/overige-diversen-qwic-e-bikes-nieuwe-modellen-20-10/" aria-label="Qwic E bikes Nieuwe Modellen 2026 Elan Signal"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7946dbf2-5d33-48a9-b92a-9bfe7d487c34?rule=ecg_mp_eps$_85.jpg" alt="Qwic E bikes Nieuwe Modellen 2026 Elan Signal" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="overige-diversen-qwic-e-bikes-nieuwe-modellen-20-10" aria-pressed="false" aria-label="Bewaar Qwic E bikes Nieuwe Modellen 2026 Elan Signal"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/overige-diversen-qwic-e-bikes-nieuwe-modellen-20-10/">Qwic E bikes Nieuwe Modellen 2026 Elan Signal</a></h3>
@@ -705,7 +715,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654733123">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="elektrische-fietsen-diverse-jong-gebruikte-ebike-11" data-rang="10" data-merk="Elektrische Fietsen" data-prijs="0" data-jaar="0" data-zoek="diverse jong gebruikte ebikes en speedpedelec va € 999.- elektrische fietsen">
+</article><article class="st-card " data-slug="elektrische-fietsen-diverse-jong-gebruikte-ebike-11" data-rang="10" data-prijs="0" data-jaar="0" data-zoek="diverse jong gebruikte ebikes en speedpedelec va € 999.-">
   <div class="st-shot"><a class="st-link" href="v/elektrische-fietsen-diverse-jong-gebruikte-ebike-11/" aria-label="Diverse jong gebruikte Ebikes en Speedpedelec va € 999.-"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f1/f1c3033d-0784-48e5-8eab-664f18289f60?rule=ecg_mp_eps$_85.jpg" alt="Diverse jong gebruikte Ebikes en Speedpedelec va € 999.-" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="elektrische-fietsen-diverse-jong-gebruikte-ebike-11" aria-pressed="false" aria-label="Bewaar Diverse jong gebruikte Ebikes en Speedpedelec va € 999.-"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/elektrische-fietsen-diverse-jong-gebruikte-ebike-11/">Diverse jong gebruikte Ebikes en Speedpedelec va € 999.-</a></h3>
@@ -715,7 +725,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654733123">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="elektrische-fietsen-mooties-husqvarna-e-bikes-ak-12" data-rang="11" data-merk="Elektrische Fietsen" data-prijs="0" data-jaar="0" data-zoek="mooties husqvarna e-bikes aktie nu vanaf € 2199.- elektrische fietsen">
+</article><article class="st-card " data-slug="elektrische-fietsen-mooties-husqvarna-e-bikes-ak-12" data-rang="11" data-prijs="0" data-jaar="0" data-zoek="mooties husqvarna e-bikes aktie nu vanaf € 2199.-">
   <div class="st-shot"><a class="st-link" href="v/elektrische-fietsen-mooties-husqvarna-e-bikes-ak-12/" aria-label="Mooties Husqvarna E-bikes aktie nu vanaf € 2199.-"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/03d5c681-1794-4cf1-abc5-ab38f188e072?rule=ecg_mp_eps$_85.jpg" alt="Mooties Husqvarna E-bikes aktie nu vanaf € 2199.-" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="elektrische-fietsen-mooties-husqvarna-e-bikes-ak-12" aria-pressed="false" aria-label="Bewaar Mooties Husqvarna E-bikes aktie nu vanaf € 2199.-"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/elektrische-fietsen-mooties-husqvarna-e-bikes-ak-12/">Mooties Husqvarna E-bikes aktie nu vanaf € 2199.-</a></h3>

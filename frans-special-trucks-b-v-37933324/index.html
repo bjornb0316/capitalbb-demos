@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#6b625a;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#6b625a;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #e8e1da}
+.kenmerk-bewijs b{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(26px,3vw,38px);letter-spacing:-0.035em;color:#a4482a;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#6b625a;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -502,7 +511,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Frans ~ Special Trucks B.V. (familie, mediaanprijs onbekend, 11 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet terra, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #a4482a.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties promise > uitgelicht > stock > process > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties kenmerk > promise > uitgelicht > stock > process > contact.
 FORM: familie-terra-split-mosaic-schibstedgrotesk-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -569,8 +578,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="sa-veld">
   <label for="sa-merk">Merk</label>
   <select id="sa-merk" data-select="merk">
-    <option value="">Alle 6 merken</option>
-    <option value="Vrachtwagens">Vrachtwagens (6)</option><option value="Honda">Honda (1)</option><option value="Kawasaki">Kawasaki (1)</option><option value="Machines En Bouw Keten En Containers">Machines En Bouw Keten En Containers (1)</option><option value="Machines En Bouw Onderdelen">Machines En Bouw Onderdelen (1)</option><option value="Suzuki">Suzuki (1)</option>
+    <option value="">Alle 4 merken</option>
+    <option value="Honda">Honda (1)</option><option value="Kawasaki">Kawasaki (1)</option><option value="Machines En Bouw Keten En Containers">Machines En Bouw Keten En Containers (1)</option><option value="Suzuki">Suzuki (1)</option>
   </select>
 </div>
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
@@ -603,7 +612,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
     <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
   </div>
-</div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="vrachtwagens-mercedes-benz-actros-4144-k-8x6-dum-1" data-rang="0" data-merk="Vrachtwagens" data-prijs="0" data-jaar="2012" data-brandstof="Diesel" data-zoek="mercedes-benz actros 4144 k 8x6 / dumper / euro 5 / eps / bl vrachtwagens diesel">
+</div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="vrachtwagens-mercedes-benz-actros-4144-k-8x6-dum-1" data-rang="0" data-prijs="0" data-jaar="2012" data-brandstof="Diesel" data-zoek="mercedes-benz actros 4144 k 8x6 / dumper / euro 5 / eps / bl diesel">
   <div class="st-shot"><a class="st-link" href="v/vrachtwagens-mercedes-benz-actros-4144-k-8x6-dum-1/" aria-label="Mercedes-Benz Actros 4144 K 8x6 / Dumper / Euro 5 / EPS / Bl"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1ee0e374-38fc-41e8-abc3-43334469cc9b?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz Actros 4144 K 8x6 / Dumper / Euro 5 / EPS / Bl" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="vrachtwagens-mercedes-benz-actros-4144-k-8x6-dum-1" aria-pressed="false" aria-label="Bewaar Mercedes-Benz Actros 4144 K 8x6 / Dumper / Euro 5 / EPS / Bl"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/vrachtwagens-mercedes-benz-actros-4144-k-8x6-dum-1/">Mercedes-Benz Actros 4144 K 8x6 / Dumper / Euro 5 / EPS / Bl</a></h3>
@@ -613,7 +622,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+312438200244">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="vrachtwagens-ackermann-pa-f-18-6-4e-2-assige-sch-2" data-rang="1" data-merk="Vrachtwagens" data-prijs="0" data-jaar="2010" data-brandstof="Overige brandstoffen" data-zoek="ackermann pa-f 18/6.4e / 2-assige schuifzeilaanhanger / 18.0 vrachtwagens overige brandstoffen">
+</article><article class="st-card " data-slug="vrachtwagens-ackermann-pa-f-18-6-4e-2-assige-sch-2" data-rang="1" data-prijs="0" data-jaar="2010" data-brandstof="Overige brandstoffen" data-zoek="ackermann pa-f 18/6.4e / 2-assige schuifzeilaanhanger / 18.0 overige brandstoffen">
   <div class="st-shot"><a class="st-link" href="v/vrachtwagens-ackermann-pa-f-18-6-4e-2-assige-sch-2/" aria-label="Ackermann PA-F 18/6.4E / 2-assige schuifzeilaanhanger / 18.0"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d6693eac-ef17-4dbf-bc53-53f117b6e234?rule=ecg_mp_eps$_85.jpg" alt="Ackermann PA-F 18/6.4E / 2-assige schuifzeilaanhanger / 18.0" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="vrachtwagens-ackermann-pa-f-18-6-4e-2-assige-sch-2" aria-pressed="false" aria-label="Bewaar Ackermann PA-F 18/6.4E / 2-assige schuifzeilaanhanger / 18.0"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/vrachtwagens-ackermann-pa-f-18-6-4e-2-assige-sch-2/">Ackermann PA-F 18/6.4E / 2-assige schuifzeilaanhanger / 18.0</a></h3>
@@ -623,7 +632,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+312438200244">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card is-wide" data-slug="machines-en-bouw-onderdelen-palfinger-epsilon-q1-3" data-rang="2" data-merk="Machines En Bouw Onderdelen" data-prijs="0" data-jaar="0" data-zoek="palfinger epsilon q170l97 crane / kraan / autolaadkraan / la machines en bouw onderdelen">
+</article><article class="st-card is-wide" data-slug="machines-en-bouw-onderdelen-palfinger-epsilon-q1-3" data-rang="2" data-prijs="0" data-jaar="0" data-zoek="palfinger epsilon q170l97 crane / kraan / autolaadkraan / la">
   <div class="st-shot"><a class="st-link" href="v/machines-en-bouw-onderdelen-palfinger-epsilon-q1-3/" aria-label="Palfinger Epsilon Q170L97 Crane / Kraan / Autolaadkraan / La"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/507200cf-ba09-463d-a5a5-b16bd06f7804?rule=ecg_mp_eps$_86.jpg" alt="Palfinger Epsilon Q170L97 Crane / Kraan / Autolaadkraan / La" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="machines-en-bouw-onderdelen-palfinger-epsilon-q1-3" aria-pressed="false" aria-label="Bewaar Palfinger Epsilon Q170L97 Crane / Kraan / Autolaadkraan / La"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/machines-en-bouw-onderdelen-palfinger-epsilon-q1-3/">Palfinger Epsilon Q170L97 Crane / Kraan / Autolaadkraan / La</a></h3>
@@ -643,7 +652,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+312438200244">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="vrachtwagens-iveco-stralis-310-6x2-euro-6-palfin-5" data-rang="4" data-merk="Vrachtwagens" data-prijs="0" data-jaar="2015" data-zoek="iveco stralis 310 6x2 / euro 6 / palfinger pk 23001-eh b / o vrachtwagens">
+</article><article class="st-card " data-slug="vrachtwagens-iveco-stralis-310-6x2-euro-6-palfin-5" data-rang="4" data-prijs="0" data-jaar="2015" data-zoek="iveco stralis 310 6x2 / euro 6 / palfinger pk 23001-eh b / o">
   <div class="st-shot"><a class="st-link" href="v/vrachtwagens-iveco-stralis-310-6x2-euro-6-palfin-5/" aria-label="Iveco Stralis 310 6x2 / Euro 6 / Palfinger PK 23001-EH B / O"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8d2887da-8e86-4901-ab43-8ab250552714?rule=ecg_mp_eps$_85.jpg" alt="Iveco Stralis 310 6x2 / Euro 6 / Palfinger PK 23001-EH B / O" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="vrachtwagens-iveco-stralis-310-6x2-euro-6-palfin-5" aria-pressed="false" aria-label="Bewaar Iveco Stralis 310 6x2 / Euro 6 / Palfinger PK 23001-EH B / O"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/vrachtwagens-iveco-stralis-310-6x2-euro-6-palfin-5/">Iveco Stralis 310 6x2 / Euro 6 / Palfinger PK 23001-EH B / O</a></h3>
@@ -653,7 +662,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+312438200244">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="vrachtwagens-mercedes-benz-710-4x4-palfinger-kra-6" data-rang="5" data-merk="Vrachtwagens" data-prijs="0" data-jaar="1966" data-zoek="mercedes-benz 710 4x4 + palfinger kraan / oldtimer / 52.539k vrachtwagens">
+</article><article class="st-card " data-slug="vrachtwagens-mercedes-benz-710-4x4-palfinger-kra-6" data-rang="5" data-prijs="0" data-jaar="1966" data-zoek="mercedes-benz 710 4x4 + palfinger kraan / oldtimer / 52.539k">
   <div class="st-shot"><a class="st-link" href="v/vrachtwagens-mercedes-benz-710-4x4-palfinger-kra-6/" aria-label="Mercedes-Benz 710 4X4 + Palfinger kraan / Oldtimer / 52.539k"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/98a74458-6a91-4af9-93f9-5adcdb5b5388?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz 710 4X4 + Palfinger kraan / Oldtimer / 52.539k" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="vrachtwagens-mercedes-benz-710-4x4-palfinger-kra-6" aria-pressed="false" aria-label="Bewaar Mercedes-Benz 710 4X4 + Palfinger kraan / Oldtimer / 52.539k"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/vrachtwagens-mercedes-benz-710-4x4-palfinger-kra-6/">Mercedes-Benz 710 4X4 + Palfinger kraan / Oldtimer / 52.539k</a></h3>
@@ -663,7 +672,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+312438200244">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="vrachtwagens-opel-blitz-k62-76-h-maar-8662km-165-7" data-rang="6" data-merk="Vrachtwagens" data-prijs="0" data-jaar="1974" data-zoek="opel blitz k62 76 h maar 8662km / 165pk / oldtimer / ex bran vrachtwagens">
+</article><article class="st-card " data-slug="vrachtwagens-opel-blitz-k62-76-h-maar-8662km-165-7" data-rang="6" data-prijs="0" data-jaar="1974" data-zoek="opel blitz k62 76 h maar 8662km / 165pk / oldtimer / ex bran">
   <div class="st-shot"><a class="st-link" href="v/vrachtwagens-opel-blitz-k62-76-h-maar-8662km-165-7/" aria-label="Opel Blitz K62 76 H Maar 8662km / 165pk / Oldtimer / Ex bran"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6807f9fd-b678-44b5-bd24-3cd6abdbd4d7?rule=ecg_mp_eps$_85.jpg" alt="Opel Blitz K62 76 H Maar 8662km / 165pk / Oldtimer / Ex bran" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="vrachtwagens-opel-blitz-k62-76-h-maar-8662km-165-7" aria-pressed="false" aria-label="Bewaar Opel Blitz K62 76 H Maar 8662km / 165pk / Oldtimer / Ex bran"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/vrachtwagens-opel-blitz-k62-76-h-maar-8662km-165-7/">Opel Blitz K62 76 H Maar 8662km / 165pk / Oldtimer / Ex bran</a></h3>
@@ -673,7 +682,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+312438200244">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card is-wide" data-slug="vrachtwagens-ford-6x4-trekker-uniek-show-truck-h-8" data-rang="7" data-merk="Vrachtwagens" data-prijs="0" data-jaar="2024" data-brandstof="Overige brandstoffen" data-zoek="ford 6x4 trekker / uniek / show truck / hobby truck / mini t vrachtwagens overige brandstoffen">
+</article><article class="st-card is-wide" data-slug="vrachtwagens-ford-6x4-trekker-uniek-show-truck-h-8" data-rang="7" data-prijs="0" data-jaar="2024" data-brandstof="Overige brandstoffen" data-zoek="ford 6x4 trekker / uniek / show truck / hobby truck / mini t overige brandstoffen">
   <div class="st-shot"><a class="st-link" href="v/vrachtwagens-ford-6x4-trekker-uniek-show-truck-h-8/" aria-label="Ford 6x4 Trekker / Uniek / Show truck / Hobby truck / Mini t"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d3a17811-72d7-4c60-bed7-b3bfb6d31095?rule=ecg_mp_eps$_86.jpg" alt="Ford 6x4 Trekker / Uniek / Show truck / Hobby truck / Mini t" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="vrachtwagens-ford-6x4-trekker-uniek-show-truck-h-8" aria-pressed="false" aria-label="Bewaar Ford 6x4 Trekker / Uniek / Show truck / Hobby truck / Mini t"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/vrachtwagens-ford-6x4-trekker-uniek-show-truck-h-8/">Ford 6x4 Trekker / Uniek / Show truck / Hobby truck / Mini t</a></h3>

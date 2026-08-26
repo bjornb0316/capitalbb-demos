@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#a0a4aa;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#a0a4aa;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #2e3238}
+.kenmerk-bewijs b{display:block;font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-0.03em;color:#f2c230;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#a0a4aa;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -509,7 +518,7 @@ footer{border-top:2px solid #f6f6f4}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Zaanse Bandencentrum (buurtgarage, mediaanprijs EUR 725, 23 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet werkplaats, 'Archivo Black' als display op 'Barlow', hoeken 0px, accent #f2c230.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties trust > uitgelicht > stock > process > brands > about > promise > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties kenmerk > trust > uitgelicht > stock > process > brands > about > promise > contact.
 FORM: buurtgarage-werkplaats-stack-grid-archivoblack-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -525,6 +534,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><h1><a href="tel:+31648239373">06-4823 9373</a></h1><div class="h-cta"><a class="h-btn is-primary" href="https://wa.me/31648239373?text=Hallo%20Zaanse%20Bandencentrum%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a><a class="h-tweede" href="tel:+31648239373">Bel 06-4823 9373</a></div></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/37/377b8e86-a192-41fc-876f-adeab52066ff?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/37/377b8e86-a192-41fc-876f-adeab52066ff?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/37/377b8e86-a192-41fc-876f-adeab52066ff?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/37/377b8e86-a192-41fc-876f-adeab52066ff?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/37/377b8e86-a192-41fc-876f-adeab52066ff?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="NISSAN QASHQAI 1.2 TEKNA / PANO / LEER / 360 CAMERA / BOMVOL" fetchpriority="high"></figure>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Alles onder de € 6.999.</h2>
+    <p>Geen showroomprijzen en geen verrassingen: wat hier staat is bedoeld om gewoon te rijden. De prijs die u ziet is de prijs waarover we praten.</p>
+    <div class="kenmerk-bewijs"><div><b>€ 650</b><span>de goedkoopste nu</span></div><div><b>€ 6.999</b><span>de duurste nu</span></div></div>
+  </div>
+</section>
 <section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>5.0</b><span>gemiddeld uit 22 beoordelingen</span></div><div><b>16</b><span>jaar op Marktplaats</span></div><div><b>4</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Zaandam</strong> · <a href="https://maps.google.com/?q=Penningweg%2067G%2C%201507DE%20Zaandam" target="_blank" rel="noreferrer">Penningweg 67G, 1507DE Zaandam</a> · KvK 72514337</p></div></section>
 <section class="sec-uitgelicht">
   <div class="wrap">
@@ -571,8 +587,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="sa-veld">
   <label for="sa-merk">Merk</label>
   <select id="sa-merk" data-select="merk">
-    <option value="">Alle 4 merken</option>
-    <option value="Banden En Velgen">Banden En Velgen (15)</option><option value="Autogereedschap">Autogereedschap (1)</option><option value="Nissan">Nissan (1)</option><option value="Volvo">Volvo (1)</option>
+    <option value="">Alle 3 merken</option>
+    <option value="Autogereedschap">Autogereedschap (1)</option><option value="Nissan">Nissan (1)</option><option value="Volvo">Volvo (1)</option>
   </select>
 </div>
     <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
@@ -630,7 +646,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-originele-audi-blade-velgen-21--4" data-rang="3" data-merk="Banden En Velgen" data-prijs="1499" data-jaar="0" data-zoek="originele audi blade velgen / 21 inch / 5x112 / a6 a7 s6 s7 banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-originele-audi-blade-velgen-21--4" data-rang="3" data-prijs="1499" data-jaar="0" data-zoek="originele audi blade velgen / 21 inch / 5x112 / a6 a7 s6 s7">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-originele-audi-blade-velgen-21--4/" aria-label="ORIGINELE AUDI BLADE VELGEN / 21 INCH / 5X112 / A6 A7 S6 S7"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/83800610-85e8-4837-99d1-d3839b6a6da1?rule=ecg_mp_eps$_85.jpg" alt="ORIGINELE AUDI BLADE VELGEN / 21 INCH / 5X112 / A6 A7 S6 S7" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-originele-audi-blade-velgen-21--4" aria-pressed="false" aria-label="Bewaar ORIGINELE AUDI BLADE VELGEN / 21 INCH / 5X112 / A6 A7 S6 S7"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-originele-audi-blade-velgen-21--4/">ORIGINELE AUDI BLADE VELGEN / 21 INCH / 5X112 / A6 A7 S6 S7</a></h3>
@@ -640,7 +656,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-bmw-m-look-velgen-20-inch-breed-5" data-rang="4" data-merk="Banden En Velgen" data-prijs="900" data-jaar="0" data-zoek="bmw m look velgen 20 inch breedset zwart gepolijst 5x112 banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-bmw-m-look-velgen-20-inch-breed-5" data-rang="4" data-prijs="900" data-jaar="0" data-zoek="bmw m look velgen 20 inch breedset zwart gepolijst 5x112">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-bmw-m-look-velgen-20-inch-breed-5/" aria-label="BMW M LOOK VELGEN 20 INCH BREEDSET ZWART GEPOLIJST 5X112"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42/42505c5d-c851-488a-a3a3-cd837c3b55ad?rule=ecg_mp_eps$_85.jpg" alt="BMW M LOOK VELGEN 20 INCH BREEDSET ZWART GEPOLIJST 5X112" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-bmw-m-look-velgen-20-inch-breed-5" aria-pressed="false" aria-label="Bewaar BMW M LOOK VELGEN 20 INCH BREEDSET ZWART GEPOLIJST 5X112"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-bmw-m-look-velgen-20-inch-breed-5/">BMW M LOOK VELGEN 20 INCH BREEDSET ZWART GEPOLIJST 5X112</a></h3>
@@ -650,7 +666,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-bmw-m-look-velgen-20-inch-breed-6" data-rang="5" data-merk="Banden En Velgen" data-prijs="900" data-jaar="0" data-zoek="bmw m look velgen 20 inch breedset zwart gepolijst 5x112 banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-bmw-m-look-velgen-20-inch-breed-6" data-rang="5" data-prijs="900" data-jaar="0" data-zoek="bmw m look velgen 20 inch breedset zwart gepolijst 5x112">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-bmw-m-look-velgen-20-inch-breed-6/" aria-label="BMW M LOOK VELGEN 20 INCH BREEDSET ZWART GEPOLIJST 5X112"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7a/7ad0a379-d753-420e-9891-f1b40149a920?rule=ecg_mp_eps$_85.jpg" alt="BMW M LOOK VELGEN 20 INCH BREEDSET ZWART GEPOLIJST 5X112" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-bmw-m-look-velgen-20-inch-breed-6" aria-pressed="false" aria-label="Bewaar BMW M LOOK VELGEN 20 INCH BREEDSET ZWART GEPOLIJST 5X112"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-bmw-m-look-velgen-20-inch-breed-6/">BMW M LOOK VELGEN 20 INCH BREEDSET ZWART GEPOLIJST 5X112</a></h3>
@@ -660,7 +676,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-originele-volkswagen-velgen-ban-7" data-rang="6" data-merk="Banden En Velgen" data-prijs="799" data-jaar="0" data-zoek="originele volkswagen velgen + banden 5x112 / 17 inch netjes banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-originele-volkswagen-velgen-ban-7" data-rang="6" data-prijs="799" data-jaar="0" data-zoek="originele volkswagen velgen + banden 5x112 / 17 inch netjes">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-originele-volkswagen-velgen-ban-7/" aria-label="ORIGINELE VOLKSWAGEN VELGEN + BANDEN 5X112 / 17 INCH NETJES"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e62eb4cb-2477-4bc4-bccd-62755d49c82b?rule=ecg_mp_eps$_85.jpg" alt="ORIGINELE VOLKSWAGEN VELGEN + BANDEN 5X112 / 17 INCH NETJES" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-originele-volkswagen-velgen-ban-7" aria-pressed="false" aria-label="Bewaar ORIGINELE VOLKSWAGEN VELGEN + BANDEN 5X112 / 17 INCH NETJES"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-originele-volkswagen-velgen-ban-7/">ORIGINELE VOLKSWAGEN VELGEN + BANDEN 5X112 / 17 INCH NETJES</a></h3>
@@ -670,7 +686,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-originele-mercedes-amg-velgen-1-8" data-rang="7" data-merk="Banden En Velgen" data-prijs="799" data-jaar="0" data-zoek="originele mercedes amg velgen 18 inch breedset 5x112 banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-originele-mercedes-amg-velgen-1-8" data-rang="7" data-prijs="799" data-jaar="0" data-zoek="originele mercedes amg velgen 18 inch breedset 5x112">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-originele-mercedes-amg-velgen-1-8/" aria-label="ORIGINELE MERCEDES AMG VELGEN 18 INCH BREEDSET 5X112"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42/42e5e792-57aa-4497-8559-ab17b6e91b01?rule=ecg_mp_eps$_85.jpg" alt="ORIGINELE MERCEDES AMG VELGEN 18 INCH BREEDSET 5X112" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-originele-mercedes-amg-velgen-1-8" aria-pressed="false" aria-label="Bewaar ORIGINELE MERCEDES AMG VELGEN 18 INCH BREEDSET 5X112"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-originele-mercedes-amg-velgen-1-8/">ORIGINELE MERCEDES AMG VELGEN 18 INCH BREEDSET 5X112</a></h3>
@@ -680,7 +696,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-velgen-19-inch-5x112-audi-merce-9" data-rang="8" data-merk="Banden En Velgen" data-prijs="750" data-jaar="0" data-zoek="velgen 19 inch 5x112 audi / mercedes / bmw / volkswagen banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-velgen-19-inch-5x112-audi-merce-9" data-rang="8" data-prijs="750" data-jaar="0" data-zoek="velgen 19 inch 5x112 audi / mercedes / bmw / volkswagen">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-velgen-19-inch-5x112-audi-merce-9/" aria-label="VELGEN 19 INCH 5X112 AUDI / MERCEDES / BMW / VOLKSWAGEN"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/538f0026-a83e-40ac-85c3-c03ee9d48e1a?rule=ecg_mp_eps$_85.jpg" alt="VELGEN 19 INCH 5X112 AUDI / MERCEDES / BMW / VOLKSWAGEN" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-velgen-19-inch-5x112-audi-merce-9" aria-pressed="false" aria-label="Bewaar VELGEN 19 INCH 5X112 AUDI / MERCEDES / BMW / VOLKSWAGEN"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-velgen-19-inch-5x112-audi-merce-9/">VELGEN 19 INCH 5X112 AUDI / MERCEDES / BMW / VOLKSWAGEN</a></h3>
@@ -690,7 +706,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-ford-transit-custom-look-velgen-10" data-rang="9" data-merk="Banden En Velgen" data-prijs="700" data-jaar="0" data-zoek="ford transit custom look velgen 18 / 19 / 20 inch 6x120 banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-ford-transit-custom-look-velgen-10" data-rang="9" data-prijs="700" data-jaar="0" data-zoek="ford transit custom look velgen 18 / 19 / 20 inch 6x120">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-ford-transit-custom-look-velgen-10/" aria-label="FORD TRANSIT CUSTOM LOOK VELGEN 18 / 19 / 20 INCH 6X120"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ee/ee8835bd-fc12-4177-a676-9cc205badbf7?rule=ecg_mp_eps$_85.jpg" alt="FORD TRANSIT CUSTOM LOOK VELGEN 18 / 19 / 20 INCH 6X120" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-ford-transit-custom-look-velgen-10" aria-pressed="false" aria-label="Bewaar FORD TRANSIT CUSTOM LOOK VELGEN 18 / 19 / 20 INCH 6X120"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-ford-transit-custom-look-velgen-10/">FORD TRANSIT CUSTOM LOOK VELGEN 18 / 19 / 20 INCH 6X120</a></h3>
@@ -700,7 +716,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-mercedes-new-amg-look-18-19-inc-11" data-rang="10" data-merk="Banden En Velgen" data-prijs="650" data-jaar="0" data-zoek="mercedes new amg look 18 / 19 inch 5x112 multispaak velgen banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-mercedes-new-amg-look-18-19-inc-11" data-rang="10" data-prijs="650" data-jaar="0" data-zoek="mercedes new amg look 18 / 19 inch 5x112 multispaak velgen">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-mercedes-new-amg-look-18-19-inc-11/" aria-label="MERCEDES NEW AMG LOOK 18 / 19 INCH 5X112 MULTISPAAK VELGEN"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a/9af1f233-6743-480b-8c59-01b91b403c3e?rule=ecg_mp_eps$_85.jpg" alt="MERCEDES NEW AMG LOOK 18 / 19 INCH 5X112 MULTISPAAK VELGEN" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-mercedes-new-amg-look-18-19-inc-11" aria-pressed="false" aria-label="Bewaar MERCEDES NEW AMG LOOK 18 / 19 INCH 5X112 MULTISPAAK VELGEN"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-mercedes-new-amg-look-18-19-inc-11/">MERCEDES NEW AMG LOOK 18 / 19 INCH 5X112 MULTISPAAK VELGEN</a></h3>
@@ -710,7 +726,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-mercedes-new-amg-look-18-19-inc-12" data-rang="11" data-merk="Banden En Velgen" data-prijs="650" data-jaar="0" data-zoek="mercedes new amg look 18 / 19 inch 5x112 multispaak velgen banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-mercedes-new-amg-look-18-19-inc-12" data-rang="11" data-prijs="650" data-jaar="0" data-zoek="mercedes new amg look 18 / 19 inch 5x112 multispaak velgen">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-mercedes-new-amg-look-18-19-inc-12/" aria-label="MERCEDES NEW AMG LOOK 18 / 19 INCH 5X112 MULTISPAAK VELGEN"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/67/671d5476-d11b-4ae0-912d-b7afcc7fdfb1?rule=ecg_mp_eps$_85.jpg" alt="MERCEDES NEW AMG LOOK 18 / 19 INCH 5X112 MULTISPAAK VELGEN" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-mercedes-new-amg-look-18-19-inc-12" aria-pressed="false" aria-label="Bewaar MERCEDES NEW AMG LOOK 18 / 19 INCH 5X112 MULTISPAAK VELGEN"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-mercedes-new-amg-look-18-19-inc-12/">MERCEDES NEW AMG LOOK 18 / 19 INCH 5X112 MULTISPAAK VELGEN</a></h3>
@@ -720,7 +736,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-vossen-look-18-19-inch-5x112-au-13" data-rang="12" data-merk="Banden En Velgen" data-prijs="650" data-jaar="0" data-zoek="vossen look 18 / 19 inch 5x112 audi / bmw / mercedes / vw banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-vossen-look-18-19-inch-5x112-au-13" data-rang="12" data-prijs="650" data-jaar="0" data-zoek="vossen look 18 / 19 inch 5x112 audi / bmw / mercedes / vw">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-vossen-look-18-19-inch-5x112-au-13/" aria-label="VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e429bfd2-3ae3-49c7-828f-d22523952818?rule=ecg_mp_eps$_85.jpg" alt="VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-vossen-look-18-19-inch-5x112-au-13" aria-pressed="false" aria-label="Bewaar VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-vossen-look-18-19-inch-5x112-au-13/">VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW</a></h3>
@@ -730,7 +746,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-vossen-look-18-19-inch-5x112-au-14" data-rang="13" data-merk="Banden En Velgen" data-prijs="650" data-jaar="0" data-zoek="vossen look 18 / 19 inch 5x112 audi / bmw / mercedes / vw banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-vossen-look-18-19-inch-5x112-au-14" data-rang="13" data-prijs="650" data-jaar="0" data-zoek="vossen look 18 / 19 inch 5x112 audi / bmw / mercedes / vw">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-vossen-look-18-19-inch-5x112-au-14/" aria-label="VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dcd6da95-966b-4293-a06c-c7672fb76682?rule=ecg_mp_eps$_85.jpg" alt="VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-vossen-look-18-19-inch-5x112-au-14" aria-pressed="false" aria-label="Bewaar VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-vossen-look-18-19-inch-5x112-au-14/">VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW</a></h3>
@@ -740,7 +756,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-vossen-look-18-19-inch-5x112-au-15" data-rang="14" data-merk="Banden En Velgen" data-prijs="650" data-jaar="0" data-zoek="vossen look 18 / 19 inch 5x112 audi / bmw / mercedes / vw banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-vossen-look-18-19-inch-5x112-au-15" data-rang="14" data-prijs="650" data-jaar="0" data-zoek="vossen look 18 / 19 inch 5x112 audi / bmw / mercedes / vw">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-vossen-look-18-19-inch-5x112-au-15/" aria-label="VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc/dc34390c-ae9a-48cd-88dc-c16a0302874e?rule=ecg_mp_eps$_85.jpg" alt="VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-vossen-look-18-19-inch-5x112-au-15" aria-pressed="false" aria-label="Bewaar VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-vossen-look-18-19-inch-5x112-au-15/">VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW</a></h3>
@@ -750,7 +766,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-vossen-look-18-19-inch-5x112-au-16" data-rang="15" data-merk="Banden En Velgen" data-prijs="650" data-jaar="0" data-zoek="vossen look 18 / 19 inch 5x112 audi / bmw / mercedes / vw banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-vossen-look-18-19-inch-5x112-au-16" data-rang="15" data-prijs="650" data-jaar="0" data-zoek="vossen look 18 / 19 inch 5x112 audi / bmw / mercedes / vw">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-vossen-look-18-19-inch-5x112-au-16/" aria-label="VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c6/c673f292-d579-4518-b341-f8fe88be0c87?rule=ecg_mp_eps$_85.jpg" alt="VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-vossen-look-18-19-inch-5x112-au-16" aria-pressed="false" aria-label="Bewaar VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-vossen-look-18-19-inch-5x112-au-16/">VOSSEN LOOK 18 / 19 INCH 5X112 AUDI / BMW / MERCEDES / VW</a></h3>
@@ -760,7 +776,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-volkswagen-golf-8-5-r-look-velg-17" data-rang="16" data-merk="Banden En Velgen" data-prijs="650" data-jaar="0" data-zoek="volkswagen golf 8.5 r look velgen 18/19 inch 5x112 banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-volkswagen-golf-8-5-r-look-velg-17" data-rang="16" data-prijs="650" data-jaar="0" data-zoek="volkswagen golf 8.5 r look velgen 18/19 inch 5x112">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-volkswagen-golf-8-5-r-look-velg-17/" aria-label="VOLKSWAGEN GOLF 8.5 R LOOK VELGEN 18/19 INCH 5X112"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f/5ffbb639-ce9f-4a35-a64f-910c8e8b1e39?rule=ecg_mp_eps$_85.jpg" alt="VOLKSWAGEN GOLF 8.5 R LOOK VELGEN 18/19 INCH 5X112" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-volkswagen-golf-8-5-r-look-velg-17" aria-pressed="false" aria-label="Bewaar VOLKSWAGEN GOLF 8.5 R LOOK VELGEN 18/19 INCH 5X112"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-volkswagen-golf-8-5-r-look-velg-17/">VOLKSWAGEN GOLF 8.5 R LOOK VELGEN 18/19 INCH 5X112</a></h3>
@@ -770,7 +786,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31648239373">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="banden-en-velgen-volkswagen-golf-8-r-look-velgen-18" data-rang="17" data-merk="Banden En Velgen" data-prijs="650" data-jaar="0" data-zoek="volkswagen golf 8 r look velgen 18 / 19 inch 5x112 zwart banden en velgen">
+</article><article class="st-card " data-slug="banden-en-velgen-volkswagen-golf-8-r-look-velgen-18" data-rang="17" data-prijs="650" data-jaar="0" data-zoek="volkswagen golf 8 r look velgen 18 / 19 inch 5x112 zwart">
   <div class="st-shot"><a class="st-link" href="v/banden-en-velgen-volkswagen-golf-8-r-look-velgen-18/" aria-label="VOLKSWAGEN GOLF 8 R LOOK VELGEN 18 / 19 INCH 5X112 ZWART"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/33/33afb28a-80a2-4a5c-bf1d-331d43806560?rule=ecg_mp_eps$_85.jpg" alt="VOLKSWAGEN GOLF 8 R LOOK VELGEN 18 / 19 INCH 5X112 ZWART" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="banden-en-velgen-volkswagen-golf-8-r-look-velgen-18" aria-pressed="false" aria-label="Bewaar VOLKSWAGEN GOLF 8 R LOOK VELGEN 18 / 19 INCH 5X112 ZWART"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3><a href="v/banden-en-velgen-volkswagen-golf-8-r-look-velgen-18/">VOLKSWAGEN GOLF 8 R LOOK VELGEN 18 / 19 INCH 5X112 ZWART</a></h3>
@@ -795,7 +811,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     </ol>
   </div>
 </section>
-<div class="sec-brands"><div class="wrap"><span>Banden En Velgen</span><span>Nissan</span><span>Volvo</span><span>Autogereedschap</span></div></div>
+<div class="sec-brands"><div class="wrap"><span>Nissan</span><span>Volvo</span><span>Autogereedschap</span></div></div>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>

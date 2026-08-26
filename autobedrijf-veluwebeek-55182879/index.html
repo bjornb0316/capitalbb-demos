@@ -380,6 +380,15 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li p{color:#585c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
+/* Het kenmerk is de enige sectie die een bewering doet. Die krijgt daarom de
+   ruimte van een uitspraak: één kop op leesbreedte, de onderbouwing eronder. */
+.sec-kenmerk .wrap{max-width:none}
+.sec-kenmerk h2{font-size:clamp(28px,4vw,54px);line-height:1.05;max-width:16ch}
+.sec-kenmerk p{margin-top:20px;max-width:56ch;color:#585c62;font-size:clamp(16px,1.6vw,19px);line-height:1.6}
+.kenmerk-bewijs{display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,64px);margin-top:clamp(30px,3.6vw,46px);padding-top:clamp(22px,2.6vw,32px);border-top:1px solid #dcdcd8}
+.kenmerk-bewijs b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-0.01em;color:#cd4217;line-height:1;font-variant-numeric:tabular-nums}
+.kenmerk-bewijs span{display:block;margin-top:8px;color:#585c62;font-size:14.5px}
+
 /* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
    het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
 .ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
@@ -439,7 +448,7 @@ footer{border-top:2px solid #141518}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autobedrijf Veluwebeek (buurtgarage, mediaanprijs EUR 4075, 5 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet staal, 'Anton' als display op 'Barlow', hoeken 0px, accent #cd4217.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "list", secties promise > uitgelicht > stock > process > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "list", secties kenmerk > promise > uitgelicht > stock > process > contact.
 FORM: buurtgarage-staal-split-list-anton-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -457,6 +466,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/90085801-0521-4fc7-a5d7-4054bb4e8ea4?rule=ecg_mp_eps$_85.jpg" alt="Ford Fiësta 1.0 ST-Line 5deurs uit 2017 Nederlandse auto" decoding="async" fetchpriority="high"><figcaption><span>Ford Fiësta 1.0 ST-Line 5deurs uit 2017 </span><span>€ 7.999</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/56468a44-2692-4fa4-9f6f-1e401ccea798?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 108 1.0 12V E-vti (apk tot 01-05-2027)(Nap)" decoding="async"><figcaption><span>Peugeot 108 1.0 12V E-vti (apk tot 01-05</span><span>€ 4.500</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/24b863f0-d488-4b39-b353-d32cadd1e08e?rule=ecg_mp_eps$_85.jpg" alt="Ford Ka 1.2  Zwart slechts 49.000 km(Nap)(Nederlandse auto)" decoding="async"><figcaption><span>Ford Ka 1.2  Zwart slechts 49.000 km(Nap</span><span>€ 3.650</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-kenmerk">
+  <div class="wrap rv">
+    <h2>Alles onder de € 7.999.</h2>
+    <p>Geen showroomprijzen en geen verrassingen: wat hier staat is bedoeld om gewoon te rijden. De prijs die u ziet is de prijs waarover we praten.</p>
+    <div class="kenmerk-bewijs"><div><b>€ 25</b><span>de goedkoopste nu</span></div><div><b>€ 7.999</b><span>de duurste nu</span></div></div>
+  </div>
+</section>
 <section class="sec-belofte"><div class="wrap rv">
   <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Beekbergen.</p>
   <ul class="sec-belofte-lijst"><li><b>5</b> voertuigen staan klaar</li><li>vanaf <b>€ 25</b></li><li>gemiddeld bouwjaar <b>2014</b></li></ul>
