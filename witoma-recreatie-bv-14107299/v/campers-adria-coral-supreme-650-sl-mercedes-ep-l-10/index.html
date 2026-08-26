@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adria Coral Supreme 650 SL Mercedes EP Level/Full Options !! · Witoma Recreatie BV</title>
+<meta name="description" content="Voorbeeldwebsite voor Witoma Recreatie BV.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500;125,600;125,700&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../stijl.css">
+</head>
+<body>
+<!--
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van Witoma Recreatie BV (reizen, mediaanprijs EUR 139748, 53 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+OWN-WORLD: palet avondlicht, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #e8b06a.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > stock > brands > about > process > hours > contact.
+FORM: reizen-avondlicht-cinematic-grid-archivoexpanded-k0
+FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
+-->
+<div class="top" id="top">
+  <div class="wrap">
+    <a class="mark has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>Witoma Recreatie BV</b><em>Rosmalen</em></span></a>
+    <nav><a href="../../#voorraad">Terug naar de voorraad</a></nav>
+    
+    <a class="callbtn" href="tel:+31735219049">073-5219049</a>
+  </div>
+</div>
+
+<main class="vh">
+  <div class="wrap">
+    <a class="vh-terug" href="../../#voorraad">Terug naar de voorraad</a>
+
+    <div class="vh-grid">
+      <div class="vh-beeld">
+        <div class="vh-shot" data-galerij><img class="vh-groot is-aan" data-i="0" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/56921573-df51-4708-901b-55eae5424687?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/56921573-df51-4708-901b-55eae5424687?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/56921573-df51-4708-901b-55eae5424687?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/56921573-df51-4708-901b-55eae5424687?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/56921573-df51-4708-901b-55eae5424687?rule=ecg_mp_eps$_87.jpg 1920w" sizes="(max-width:900px) 100vw, 62vw" alt="Adria Coral Supreme 650 SL Mercedes EP Level/Full Options !!" fetchpriority="high"></div>
+      </div>
+
+      <aside class="vh-kaart">
+        <h1>Adria Coral Supreme 650 SL Mercedes EP Level/Full Options !!</h1>
+        <p class="vh-prijs">€ 129.950</p>
+        
+
+        <dl class="vh-spec">
+          <div><dt>Bouwjaar</dt><dd>2024</dd></div>
+          <div><dt>Kilometerstand</dt><dd>28.383 km</dd></div>
+          <div><dt>Brandstof</dt><dd>Diesel</dd></div>
+          <div><dt>Merk</dt><dd>Campers</dd></div>
+          <div><dt>Staat in</dt><dd>Rosmalen</dd></div>
+        </dl>
+
+        <div class="h-cta vh-acties"><a class="h-btn is-primary" href="tel:+31735219049">Bel over deze caravan</a></div>
+
+        <p class="vh-hint">Bel 073-5219049 en noem "Adria Coral Supreme 650 SL Mercede", dan zetten we hem voor u klaar.</p>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap rowf">
+    <span>Witoma Recreatie BV · Friezenstraat 2-b, 5249JS Rosmalen · KvK 17269681</span>
+    <span>Voorbeeldwebsite, gemaakt door Capital BB</span>
+  </div>
+</footer>
+<div class="bar">
+  <a class="acc" href="tel:+31735219049">Bellen</a>
+  <a href="../../#voorraad">Voorraad</a>
+</div>
+<script>
+(function(){
+  var shot=document.querySelector('[data-galerij]');
+  if(!shot)return;
+  var groot=[].slice.call(shot.querySelectorAll('.vh-groot'));
+  var mini=[].slice.call(document.querySelectorAll('.vh-m'));
+  if(groot.length<2)return;
+  shot.classList.add('js-galerij');
+  function toon(i){
+    groot.forEach(function(el,n){el.classList.toggle('is-aan',n===i)});
+    mini.forEach(function(el,n){el.classList.toggle('is-aan',n===i)});
+  }
+  mini.forEach(function(el,i){el.addEventListener('click',function(){toon(i)})});
+  document.addEventListener('keydown',function(e){
+    var aan=groot.findIndex(function(el){return el.classList.contains('is-aan')});
+    if(e.key==='ArrowRight')toon((aan+1)%groot.length);
+    if(e.key==='ArrowLeft')toon((aan-1+groot.length)%groot.length);
+  });
+})();
+</script>
+
+</body>
+</html>

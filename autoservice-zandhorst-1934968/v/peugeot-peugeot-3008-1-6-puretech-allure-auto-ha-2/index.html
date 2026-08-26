@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peugeot 3008 1.6 PureTech Allure // Auto // Half leer // car · Autoservice Zandhorst</title>
+<meta name="description" content="Voorbeeldwebsite voor Autoservice Zandhorst.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../../stijl.css">
+</head>
+<body>
+<!--
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autoservice Zandhorst (familie, mediaanprijs EUR 14495, 98 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+OWN-WORLD: palet daglicht, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #1f5f4f.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties trust > stock > process > about > promise > hours > contact.
+FORM: familie-daglicht-split-mosaic-gabarito-k1
+FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
+-->
+<div class="top" id="top">
+  <div class="wrap">
+    <a class="mark has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>Autoservice Zandhorst</b><em>Heerhugowaard</em></span></a>
+    <nav><a href="../../#voorraad">Terug naar de voorraad</a></nav>
+    
+    <a class="callbtn" href="tel:+31725727997">072-5727997</a>
+  </div>
+</div>
+
+<main class="vh">
+  <div class="wrap">
+    <a class="vh-terug" href="../../#voorraad">Terug naar de voorraad</a>
+
+    <div class="vh-grid">
+      <div class="vh-beeld">
+        <div class="vh-shot" data-galerij><img class="vh-groot is-aan" data-i="0" src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aa425f09-472e-4b0d-9aad-40025a203338?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aa425f09-472e-4b0d-9aad-40025a203338?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aa425f09-472e-4b0d-9aad-40025a203338?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aa425f09-472e-4b0d-9aad-40025a203338?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aa425f09-472e-4b0d-9aad-40025a203338?rule=ecg_mp_eps$_87.jpg 1920w" sizes="(max-width:900px) 100vw, 62vw" alt="Peugeot 3008 1.6 PureTech Allure // Auto // Half leer // car" fetchpriority="high"></div>
+      </div>
+
+      <aside class="vh-kaart">
+        <h1>Peugeot 3008 1.6 PureTech Allure // Auto // Half leer // car</h1>
+        <p class="vh-prijs">€ 19.995</p>
+        
+
+        <dl class="vh-spec">
+          <div><dt>Bouwjaar</dt><dd>2018</dd></div>
+          <div><dt>Kilometerstand</dt><dd>69.785 km</dd></div>
+          
+          <div><dt>Merk</dt><dd>Peugeot</dd></div>
+          <div><dt>Staat in</dt><dd>Heerhugowaard</dd></div>
+        </dl>
+
+        <div class="h-cta vh-acties"><a class="h-btn is-primary" href="tel:+31725727997">Bel over deze auto</a></div>
+
+        <p class="vh-hint">Bel 072-5727997 en noem "Peugeot 3008 1.6 PureTech Allure /", dan zetten we hem voor u klaar.</p>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap rowf">
+    <span>Autoservice Zandhorst · Celsiusstraat 27-29, 1704RX Heerhugowaard · KvK 37110186</span>
+    <span>Voorbeeldwebsite, gemaakt door Capital BB</span>
+  </div>
+</footer>
+<div class="bar">
+  <a class="acc" href="tel:+31725727997">Bellen</a>
+  <a href="../../#voorraad">Voorraad</a>
+</div>
+<script>
+(function(){
+  var shot=document.querySelector('[data-galerij]');
+  if(!shot)return;
+  var groot=[].slice.call(shot.querySelectorAll('.vh-groot'));
+  var mini=[].slice.call(document.querySelectorAll('.vh-m'));
+  if(groot.length<2)return;
+  shot.classList.add('js-galerij');
+  function toon(i){
+    groot.forEach(function(el,n){el.classList.toggle('is-aan',n===i)});
+    mini.forEach(function(el,n){el.classList.toggle('is-aan',n===i)});
+  }
+  mini.forEach(function(el,i){el.addEventListener('click',function(){toon(i)})});
+  document.addEventListener('keydown',function(e){
+    var aan=groot.findIndex(function(el){return el.classList.contains('is-aan')});
+    if(e.key==='ArrowRight')toon((aan+1)%groot.length);
+    if(e.key==='ArrowLeft')toon((aan-1+groot.length)%groot.length);
+  });
+})();
+</script>
+
+</body>
+</html>
