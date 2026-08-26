@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veerman-Swift Motorenhandel · Almere</title>
+<meta name="description" content="Voorbeeldwebsite voor Veerman-Swift Motorenhandel.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Chivo:wght@400;500;700;900&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#0e0f11;color:#f5f6f7;font-family:'Chivo', 'Helvetica Neue', Arial, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;letter-spacing:0;line-height:1.05;text-transform:uppercase;text-wrap:balance}
+p{margin:0}
+button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid #ff5b19;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+
+
+html,body{overflow-x:clip}
+.wrap{width:min(var(--w,1220px),100% - 48px);margin-inline:auto}
+@media(max-width:720px){.wrap{width:min(var(--w,1220px),100% - 32px)}}
+
+.top{position:sticky;top:0;z-index:50;background:#0e0f11;border-bottom:1px solid #25282d}
+.top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
+.top.is-fixed.solid{background:#0e0f11e6;backdrop-filter:blur(14px);border-bottom-color:#25282d}
+.top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
+.mark{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:20px;letter-spacing:0;margin-right:auto;text-decoration:none}
+.top nav{display:flex;gap:24px;font-size:15px}
+.top nav a{color:#989da4;text-decoration:none}
+.top nav a:hover{color:#f5f6f7}
+.callbtn{display:inline-flex;align-items:center;background:#ff5b19;color:#0e0f11;padding:11px 20px;border-radius:0px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+.callbtn:hover{filter:brightness(1.07)}
+@media(max-width:900px){.top nav{display:none}}
+/* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
+@media(max-width:720px){
+  .top .wrap{gap:14px}
+  .mark{font-size:16px;line-height:1.18;overflow-wrap:break-word}
+  .mark.is-long{font-size:13.5px}
+  .mark.is-xlong{font-size:12px;letter-spacing:0}
+  .callbtn{flex:none;padding:11px 15px}
+}
+
+section{padding:clamp(54px,7vw,108px) 0}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
+.head h2{font-size:clamp(28px,3.9vw,50px)}
+.head .meta{color:#989da4;font-size:15px}
+.head p{margin-top:12px;color:#989da4;max-width:60ch;flex-basis:100%}
+.more{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.more span{color:#989da4;font-size:15px}
+
+.hours{width:100%;border-collapse:collapse;font-size:16px}
+.hours th{text-align:left;font-weight:400;color:#989da4;padding:10px 0;border-bottom:1px solid #25282d}
+.hours td{text-align:right;padding:10px 0;border-bottom:1px solid #25282d;font-variant-numeric:tabular-nums}
+.hours td.closed{color:#989da4}
+.hours tr:last-child th,.hours tr:last-child td{border-bottom:0}
+.hours tr.today th{color:#f5f6f7;font-weight:600}
+.hours tr.today td{font-weight:600}
+.hours .tag{margin-left:10px;color:#ff5b19;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+
+.field{display:block;margin-bottom:13px}
+.field span{display:block;font-size:13.5px;color:#989da4;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:13px 15px;border:1px solid #25282d;border-radius:0px;background:#0e0f11;color:#f5f6f7;font:inherit;font-size:16px}
+.field input:focus,.field textarea:focus{outline:none;border-color:#ff5b19}
+form .h-btn{width:100%;justify-content:center;border:0;cursor:pointer;margin-top:4px}
+.note{margin-top:12px;color:#989da4;font-size:13.5px}
+
+footer{padding:32px 0 calc(32px + var(--bar,0px));color:#989da4;font-size:14px;border-top:1px solid #25282d}
+footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+
+.bar{position:fixed;inset:auto 0 0;z-index:60;display:none;gap:1px;background:#25282d;border-top:1px solid #25282d}
+.bar a{flex:1;padding:15px;text-align:center;background:#17191c;color:#f5f6f7;text-decoration:none;font-weight:600;font-size:15.5px}
+.bar a.acc{background:#ff5b19;color:#0e0f11}
+@media(max-width:720px){.bar{display:flex}body{--bar:58px}}
+
+.js .rv{opacity:0;transform:translateY(14px)}
+.js .rv.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+
+
+.hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
+.hero h1 em{font-style:normal;color:#ff5b19}
+.hero h1 a{text-decoration:none}
+.h-kick{color:#989da4;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
+.h-lede{margin-top:20px;max-width:50ch;color:#989da4;font-size:clamp(16px,1.6vw,19px)}
+.h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:0px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #25282d;background:#17191c;color:#f5f6f7;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
+.h-btn:hover{transform:translateY(-2px)}
+.h-btn.is-primary{background:#ff5b19;color:#0e0f11;border-color:transparent}
+.h-facts{display:flex;flex-wrap:wrap;gap:0 34px;margin-top:38px;padding-top:20px;border-top:1px solid #25282d;color:#989da4;font-size:14.5px}
+.h-facts span{padding:6px 0}
+/* Waar de wereld het bewijs of de cijfers vóór de kop zet, draait de scheiding mee. */
+.h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #25282d}
+.h-words>.h-cta:first-child{margin-top:0}
+.h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#ff8c5e;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#ff5b19;color:#0e0f11;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
+
+/* cinematic: beeld vult het scherm, woorden liggen erin */
+.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+@keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
+.h-cinematic::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#0e0f11a6 0%,#0e0f111a 24%,#0e0f118c 52%,#0e0f11e8 80%,#0e0f11 100%)}
+.h-cinematic .h-words{padding-bottom:clamp(40px,7vw,84px)}
+.h-cinematic h1{text-shadow:0 2px 30px #0e0f11b3}
+.h-cinematic .h-lede{color:#f5f6f7cc;text-shadow:0 1px 18px #0e0f11cc}
+
+/* panorama: liggend beeld in een kader, woorden erin */
+.h-panorama{padding:clamp(22px,3vw,44px) 0 0}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#1c1f23;aspect-ratio:21/9;min-height:320px}
+.h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
+@keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
+.h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
+/* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
+.h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
+.h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
+.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+/* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
+.h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
+.h-panorama .h-lede{color:#ffffffdb}
+.h-panorama .h-btn{border-color:#ffffff4d;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-panorama .h-btn.is-primary{background:#ff5b19;color:#0e0f11;border-color:transparent}
+.h-panorama .h-facts{border-top:0;padding-top:0;margin-top:clamp(26px,3.4vw,44px);gap:0 clamp(20px,3vw,44px)}
+@media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
+
+/* split: woorden naast echte auto's */
+.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
+.h-split h1{font-size:clamp(36px,4.9vw,64px)}
+@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+
+/* stack: woorden boven, beeld als band eronder */
+.h-stack{padding:clamp(44px,6vw,92px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
+.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
+.h-band{margin:0;aspect-ratio:21/8;background:#1c1f23;overflow:hidden}
+.h-band img{width:100%;height:100%;object-fit:cover}
+@media(max-width:720px){.h-band{aspect-ratio:16/10}}
+
+/* poster: de letters doen het werk, foto's als strook */
+.h-poster{padding:clamp(36px,5vw,68px) 0 0}
+.h-poster h1{font-size:clamp(40px,7.6vw,100px);line-height:.95;max-width:16ch}
+.h-poster .h-facts{margin-bottom:clamp(28px,4vw,44px)}
+
+/* index: geen groot beeld, de cijfers staan naast de tekst */
+.h-index{padding:clamp(34px,4.4vw,60px) 0 clamp(24px,3vw,38px);border-bottom:1px solid #25282d}
+.h-index .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(26px,4vw,56px);align-items:center}
+.h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
+.h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#25282d;border:1px solid #25282d;border-radius:0px;overflow:hidden;margin:0}
+.h-panel div{background:#17191c;padding:17px 19px}
+.h-panel dd{margin:0;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(15px,1.7vw,19px);letter-spacing:0;line-height:1.25}
+@media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
+
+/* fotostrook, gedeeld door split en poster */
+.h-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.h-strip figure{margin:0;position:relative;border-radius:0px;overflow:hidden;background:#1c1f23}
+.h-strip figure:first-child{grid-column:1 / -1}
+.h-strip img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+.h-strip figure:first-child img{aspect-ratio:16/9}
+.h-strip .st-noimg{aspect-ratio:16/10;height:auto}
+.h-strip figure:first-child .st-noimg{aspect-ratio:16/9}
+.h-poster .h-strip .st-noimg{aspect-ratio:4/3}
+.h-strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:13px 15px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74));color:#fff;font-size:13.5px;font-weight:600;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.h-strip figcaption span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h-strip figcaption span:last-child{white-space:nowrap}
+.h-poster .h-strip{display:flex;grid-template-columns:none;gap:0}
+.h-poster .h-strip figure{flex:1;border-radius:0}
+.h-poster .h-strip figure:first-child{grid-column:auto}
+.h-poster .h-strip img{aspect-ratio:4/3}
+.h-poster .h-strip figcaption{display:none}
+@media(max-width:720px){.h-poster .h-strip figure:nth-child(n+4){display:none}}
+
+/* bijschrift bij de hoofdfoto */
+.h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#0e0f11d9;backdrop-filter:blur(8px);border:1px solid #25282d;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
+.h-plate-k{color:#989da4;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
+.h-plate-t{font-family:'Anton', 'Arial Narrow', sans-serif;font-size:19px;line-height:1.15}
+.h-plate-p{color:#ff5b19;font-weight:600;font-size:17px;margin-top:4px}
+.h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #25282d;border-radius:0px}
+@media(max-width:900px){.h-plate{display:none}}
+
+
+.st-card{background:#17191c;display:flex;flex-direction:column;overflow:hidden}
+.st-shot{position:relative;aspect-ratio:4/3;background:#1c1f23;overflow:hidden}
+.st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.st-card:hover .st-shot img{transform:scale(1.04)}
+.st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#989da4;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #25282d;border-radius:50%;background:#17191c;color:#989da4;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#ff5b19;border-color:#ff5b19}
+.st-bewaar[aria-pressed="true"]{color:#ff5b19;border-color:#ff5b19}
+.st-bewaar[aria-pressed="true"] svg{fill:#ff5b19}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
+.st-year{position:absolute;left:0;top:0;background:#ff5b19;color:#0e0f11;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
+.st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
+.st-card h3{font-size:17.5px;line-height:1.3}
+.st-spec{color:#989da4;font-size:14.5px;font-variant-numeric:tabular-nums}
+.st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.st-price{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:23px;letter-spacing:0;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#ff5b19;text-decoration:none;white-space:nowrap}
+.st-ask:hover{text-decoration:underline}
+
+.st-rail{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:max(24px,calc(50vw - 620px));padding:0 max(24px,calc(50vw - 620px)) 24px;scrollbar-width:thin;scrollbar-color:#25282d transparent}
+.st-rail::-webkit-scrollbar{height:6px}
+.st-rail::-webkit-scrollbar-thumb{background:#25282d;border-radius:99px}
+.st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
+
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
+
+.st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.st-mosaic .st-card{grid-column:span 2}
+.st-mosaic .is-wide{grid-column:span 3}
+.st-mosaic .is-lead{grid-column:span 6}
+.st-mosaic .is-lead .st-shot{aspect-ratio:21/8}
+@media(max-width:980px){.st-mosaic{grid-template-columns:repeat(4,1fr)}.st-mosaic .is-lead{grid-column:span 4}.st-mosaic .is-wide{grid-column:span 2}}
+@media(max-width:660px){.st-mosaic{grid-template-columns:1fr;gap:16px}.st-mosaic .st-card,.st-mosaic .is-wide,.st-mosaic .is-lead{grid-column:span 1}.st-mosaic .is-lead .st-shot{aspect-ratio:16/10}}
+
+.st-list{border-top:1px solid #25282d}
+.st-row{display:grid;grid-template-columns:132px 1fr auto auto;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid #25282d;transition:background .18s ease}
+.st-row:hover{background:#17191c}
+.st-row .st-thumb{aspect-ratio:4/3;background:#1c1f23;overflow:hidden;border-radius:0px}
+.st-row .st-thumb img{width:100%;height:100%;object-fit:cover}
+.st-row h3{font-size:17.5px;line-height:1.3;font-family:'Chivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:0;text-transform:none}
+.st-row .st-spec{margin-top:5px}
+.st-act{background:#ff5b19;color:#0e0f11;text-decoration:none;font-weight:700;font-size:15px;padding:11px 18px;border-radius:0px;white-space:nowrap}
+.st-act:hover{filter:brightness(1.07)}
+@media(max-width:820px){
+  .st-row{grid-template-columns:96px 1fr;gap:14px}
+  .st-row .st-price{grid-column:2}
+  .st-row .st-act{grid-column:2;justify-self:start}
+}
+
+.st-tablewrap{border:1px solid #25282d;border-radius:0px;overflow-x:auto;background:#17191c}
+.st-table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:720px}
+.st-table th{text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#989da4;font-weight:600;padding:13px 16px;border-bottom:1px solid #25282d;background:#1c1f23}
+.st-table td{padding:12px 16px;border-bottom:1px solid #25282d;vertical-align:middle}
+.st-table tr:last-child td{border-bottom:0}
+.st-table tbody tr:hover{background:#1c1f23}
+.st-table .st-thumb{width:92px}
+.st-table .st-thumb img{width:92px;height:66px;object-fit:cover;border-radius:calc(0px - 1px);background:#1c1f23}
+.st-table .st-name{font-weight:600;line-height:1.3}
+.st-table .st-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-table .st-price{font-size:19px;text-align:right;display:block}
+.st-table .st-act-cell a{display:inline-block;background:#ff5b19;color:#0e0f11;padding:9px 15px;border-radius:0px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+
+
+.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+.sec-trust b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);letter-spacing:0;color:#ff5b19;line-height:1}
+.sec-trust span{display:block;margin-top:9px;color:#989da4;font-size:15px}
+.sec-trust a{color:#f5f6f7}
+
+.sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
+/* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
+.sec-about .wrap>*{min-width:0}
+.sec-about p{overflow-wrap:anywhere}
+.sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
+.sec-about p{color:#989da4;font-size:17.5px;max-width:66ch}
+.sec-about .portrait{border:1px solid #25282d;border-radius:0px;background:#1c1f23;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+.sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
+@media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
+
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;list-style:none;padding:0;margin:0;counter-reset:s}
+.flow li{background:#17191c;border:1px solid #25282d;border-radius:0px;padding:clamp(22px,2.6vw,30px);position:relative}
+.flow li::before{counter-increment:s;content:counter(s);display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:#ff5b19;color:#0e0f11;font-weight:700;font-size:14px;margin-bottom:14px}
+.flow li b{display:block;font-size:18.5px;margin-bottom:8px}
+.flow li p{color:#989da4;font-size:15.5px}
+@media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+.sec-brands{border-block:1px solid #25282d;background:#17191c}
+.sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
+.sec-brands span{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(15px,1.6vw,19px);letter-spacing:0;text-transform:uppercase;color:#989da4;padding:6px 0}
+.sec-brands span:first-child{color:#ff5b19}
+
+.wrap{--w:1220px}
+.sec-contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,68px)}
+.sec-contact h2{font-size:clamp(26px,3.4vw,44px)}
+.sec-contact .lede{margin-top:16px;color:#989da4;max-width:46ch}
+.sec-contact .callrow{margin-top:24px}
+.sec-contact .addr{margin-top:18px;color:#989da4}
+.sec-contact .hours{margin-top:26px}
+@media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
+
+
+/* Motoren: hard contrast, schuine sneden, alles in kapitalen. */
+.hero h1 em{display:block}
+.top nav a{text-transform:uppercase;font-weight:500;letter-spacing:.02em}
+.top nav a:hover{color:#ff5b19}
+.mark{text-transform:uppercase;font-size:22px}
+.callbtn{clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);font-weight:700}
+.h-btn{clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);text-transform:uppercase;font-weight:700;letter-spacing:.02em;font-size:15.5px;border-radius:0}
+.h-cinematic::after{background:linear-gradient(105deg,#0e0f11 0%,#0e0f11d9 32%,#0e0f112e 64%,transparent 100%)}
+@media(max-width:820px){.h-cinematic::after{background:linear-gradient(180deg,#0e0f1140,#0e0f11 78%)}}
+.head span.meta{text-transform:uppercase;letter-spacing:.04em;font-size:14px}
+.st-grid,.st-rail{gap:2px}
+.st-grid{background:#25282d;border:1px solid #25282d}
+.st-card{background:#0e0f11;transition:background .2s ease}
+.st-card:hover{background:#17191c}
+.st-card h3{font-family:'Chivo', 'Helvetica Neue', Arial, sans-serif;font-weight:700;letter-spacing:0;text-transform:none;font-size:17px}
+.st-ask{text-transform:uppercase;letter-spacing:.04em;font-size:13.5px;font-weight:700}
+.sec-trust{background:#17191c;border-block:1px solid #25282d}
+.flow li{border-radius:0}
+.sec-contact{background:#17191c;border-top:1px solid #25282d}
+.field span{text-transform:uppercase;letter-spacing:.05em;font-size:12.5px}
+.bar a{text-transform:uppercase;font-weight:700}
+</style>
+</head>
+<body data-site="422875">
+<!--
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van Veerman-Swift Motorenhandel (motoren, mediaanprijs EUR 2975, 66 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+OWN-WORLD: palet asfalt, 'Anton' als display op 'Chivo', hoeken 0px, accent #ff5b19.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "rail", secties stock > process > trust > promise > contact.
+FORM: motoren-asfalt-cinematic-rail-anton-k1
+FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
+-->
+<div class="top" id="top">
+  <div class="wrap">
+    <a class="mark is-long" href="#top">Veerman-Swift Motorenhandel</a>
+    <nav><a href="#voorraad">Voorraad</a><a href="#contact">Contact</a></nav>
+    <a class="callbtn" href="tel:+31625418595">06-2541 8595</a>
+  </div>
+</div>
+<header class="hero h-cinematic">
+  <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/43e0e752-5bbe-4602-979a-9f9a35e14e9b?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/43e0e752-5bbe-4602-979a-9f9a35e14e9b?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/43e0e752-5bbe-4602-979a-9f9a35e14e9b?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/43e0e752-5bbe-4602-979a-9f9a35e14e9b?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/43e0e752-5bbe-4602-979a-9f9a35e14e9b?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Nieuwstaat BMW R 1200 R LC 2015 27dkm Inruil Kan" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Nieuwstaat BMW R 1200 R LC 2015 27dkm Inruil Kan</span><span class="h-plate-p">€ 8.750</span></figcaption></figure>
+  <div class="wrap h-words"><h1>BMW <em>en 9 andere merken</em></h1><div class="h-cta"><a class="h-btn is-primary" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a><a class="h-btn" href="tel:+31625418595">Bel 06-2541 8595</a></div><p class="h-lede">Bekijk de voorraad, kom langs en rij hem zelf. Bellen mag altijd, ook als u nog twijfelt.</p><div class="h-facts"><span>66 voertuigen op voorraad</span><span>5.0 uit 72 beoordelingen</span><span>21 jaar op Marktplaats</span><span>10 merken in huis</span><span>Kom langs in Almere</span></div></div>
+</header>
+<section id="voorraad">
+  <div class="wrap head">
+    <h2>Op voorraad</h2>
+    <span class="meta">18 getoond van 66 · vanaf € 1.675</span>
+    
+  </div>
+  <div class="st-rail"><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/43e0e752-5bbe-4602-979a-9f9a35e14e9b?rule=ecg_mp_eps$_85.jpg" alt="Nieuwstaat BMW R 1200 R LC 2015 27dkm Inruil Kan" loading="lazy" decoding="async"><span class="st-year">2015</span></div>
+  <div class="st-body">
+    <h3>Nieuwstaat BMW R 1200 R LC 2015 27dkm Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 8.750</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Nieuwstaat%20BMW%20R%201200%20R%20LC%202015%2027dkm%20Inruil%20Kan%20(%E2%82%AC%208.750)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/12f5dfd8-67c7-474a-94d8-0e8281fb518d?rule=ecg_mp_eps$_85.jpg" alt="Nieuwstaat MV Agusta F3 675 4000 KM! Inruil Kan" loading="lazy" decoding="async"><span class="st-year">2012</span></div>
+  <div class="st-body">
+    <h3>Nieuwstaat MV Agusta F3 675 4000 KM! Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 7.975</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Nieuwstaat%20MV%20Agusta%20F3%20675%204000%20KM!%20Inruil%20Kan%20(%E2%82%AC%207.975)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5d7bb47b-fad9-4976-a323-7f380bd6c219?rule=ecg_mp_eps$_85.jpg" alt="Topstaat Ducati 748 Biposto 1e eigenaar 12dkm Inruil Kan !" loading="lazy" decoding="async"><span class="st-year">2001</span></div>
+  <div class="st-body">
+    <h3>Topstaat Ducati 748 Biposto 1e eigenaar 12dkm Inruil Kan !</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 6.475</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Topstaat%20Ducati%20748%20Biposto%201e%20eigenaar%2012dkm%20Inruil%20Kan%20!%20(%E2%82%AC%206.475)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8289d7bb-41f7-4845-bf69-d3fc550ab37d?rule=ecg_mp_eps$_85.jpg" alt="Nieuwstaat Moto Guzzi V7 Racer Classic 2012 10dkm Inruil mog" loading="lazy" decoding="async"><span class="st-year">2012</span></div>
+  <div class="st-body">
+    <h3>Nieuwstaat Moto Guzzi V7 Racer Classic 2012 10dkm Inruil mog</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 6.275</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Nieuwstaat%20Moto%20Guzzi%20V7%20Racer%20Classic%202012%2010dkm%20Inruil%20mog%20(%E2%82%AC%206.275)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d9234cf1-ad31-40c5-bd2a-fa46ca5d5afd?rule=ecg_mp_eps$_85.jpg" alt="Topstaat Triumph Tiger 1215 Explorer ABS 2012 Inruil Kan" loading="lazy" decoding="async"><span class="st-year">2012</span></div>
+  <div class="st-body">
+    <h3>Topstaat Triumph Tiger 1215 Explorer ABS 2012 Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 5.675</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Topstaat%20Triumph%20Tiger%201215%20Explorer%20ABS%202012%20Inruil%20Kan%20(%E2%82%AC%205.675)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3fa6e7ad-a06e-470b-b283-61e5c2af2b55?rule=ecg_mp_eps$_85.jpg" alt="Nette originele Yamaha XT 500 29dkm 1986 Inruil Kan" loading="lazy" decoding="async"><span class="st-year">1986</span></div>
+  <div class="st-body">
+    <h3>Nette originele Yamaha XT 500 29dkm 1986 Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 5.675</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Nette%20originele%20Yamaha%20XT%20500%2029dkm%201986%20Inruil%20Kan%20(%E2%82%AC%205.675)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/94760bb5-c36f-4e82-ba3f-01fe76f9ce9c?rule=ecg_mp_eps$_85.jpg" alt="Zeer nette originele BMW R 100 RS 1978 36dkm Inruil Kan" loading="lazy" decoding="async"><span class="st-year">1978</span></div>
+  <div class="st-body">
+    <h3>Zeer nette originele BMW R 100 RS 1978 36dkm Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 3.875</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Zeer%20nette%20originele%20BMW%20R%20100%20RS%201978%2036dkm%20Inruil%20Kan%20(%E2%82%AC%203.875)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7ce95602-740e-41d0-beba-2a6ecea2d87a?rule=ecg_mp_eps$_85.jpg" alt="Nette BMW F 800 R 2011 62dkm Inruil Kan" loading="lazy" decoding="async"><span class="st-year">2011</span></div>
+  <div class="st-body">
+    <h3>Nette BMW F 800 R 2011 62dkm Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 3.875</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Nette%20BMW%20F%20800%20R%202011%2062dkm%20Inruil%20Kan%20(%E2%82%AC%203.875)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc085b81-8ff7-4d3f-9a6d-6e70d7e2b61b?rule=ecg_mp_eps$_85.jpg" alt="Supernette Triumph Speed Triple 1050 2006 Inruil Kan" loading="lazy" decoding="async"><span class="st-year">2006</span></div>
+  <div class="st-body">
+    <h3>Supernette Triumph Speed Triple 1050 2006 Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 2.975</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Supernette%20Triumph%20Speed%20Triple%201050%202006%20Inruil%20Kan%20(%E2%82%AC%202.975)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9ac3582e-696e-4356-8748-ffc23475798a?rule=ecg_mp_eps$_85.jpg" alt="Suzuki AN 650 Burgman 2011 slechts 8000 km Inruil Kan" loading="lazy" decoding="async"><span class="st-year">2011</span></div>
+  <div class="st-body">
+    <h3>Suzuki AN 650 Burgman 2011 slechts 8000 km Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 2.975</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Suzuki%20AN%20650%20Burgman%202011%20slechts%208000%20km%20Inruil%20Kan%20(%E2%82%AC%202.975)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5d7ca02d-db4a-4f6d-8cf2-ca9e5b5eab0d?rule=ecg_mp_eps$_85.jpg" alt="Nette Honda CBF 600 SA ABS 2010 met kofferset Inruil Kant" loading="lazy" decoding="async"><span class="st-year">2010</span></div>
+  <div class="st-body">
+    <h3>Nette Honda CBF 600 SA ABS 2010 met kofferset Inruil Kant</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 2.975</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Nette%20Honda%20CBF%20600%20SA%20ABS%202010%20met%20kofferset%20Inruil%20Kant%20(%E2%82%AC%202.975)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/250bab2f-77ce-4251-a70e-957903d5f074?rule=ecg_mp_eps$_85.jpg" alt="MZ ES 250/2 1961 15.295 km origineel ! Inruil Kan" loading="lazy" decoding="async"><span class="st-year">1961</span></div>
+  <div class="st-body">
+    <h3>MZ ES 250/2 1961 15.295 km origineel ! Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 2.975</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20MZ%20ES%20250%2F2%201961%2015.295%20km%20origineel%20!%20Inruil%20Kan%20(%E2%82%AC%202.975)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2b303a94-3470-4d07-badf-362446946001?rule=ecg_mp_eps$_85.jpg" alt="Supernette Ducati Monster 600 2000 28dkm Inruil Kan" loading="lazy" decoding="async"><span class="st-year">2000</span></div>
+  <div class="st-body">
+    <h3>Supernette Ducati Monster 600 2000 28dkm Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 1.875</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Supernette%20Ducati%20Monster%20600%202000%2028dkm%20Inruil%20Kan%20(%E2%82%AC%201.875)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3f378508-fa16-4d6d-9b7d-040ea7e28b4e?rule=ecg_mp_eps$_85.jpg" alt="Prima Suzuki 400A Burgman 2015 36dkm Inruil Kan" loading="lazy" decoding="async"><span class="st-year">2015</span></div>
+  <div class="st-body">
+    <h3>Prima Suzuki 400A Burgman 2015 36dkm Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 1.875</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Prima%20Suzuki%20400A%20Burgman%202015%2036dkm%20Inruil%20Kan%20(%E2%82%AC%201.875)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aac33e1b-b419-474c-aa21-26ecd3a0879f?rule=ecg_mp_eps$_85.jpg" alt="Supermooie BMW R 850 RT 1999 81dkm Inruil Kan" loading="lazy" decoding="async"><span class="st-year">1999</span></div>
+  <div class="st-body">
+    <h3>Supermooie BMW R 850 RT 1999 81dkm Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 1.875</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Supermooie%20BMW%20R%20850%20RT%201999%2081dkm%20Inruil%20Kan%20(%E2%82%AC%201.875)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4f3b662a-2591-4ce3-b55a-2a932cbbf5cb?rule=ecg_mp_eps$_85.jpg" alt="Zeer nette BMW R 1150 RT 2004 Twinspark non ABS Inruil Kan" loading="lazy" decoding="async"><span class="st-year">2004</span></div>
+  <div class="st-body">
+    <h3>Zeer nette BMW R 1150 RT 2004 Twinspark non ABS Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 1.875</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Zeer%20nette%20BMW%20R%201150%20RT%202004%20Twinspark%20non%20ABS%20Inruil%20Kan%20(%E2%82%AC%201.875)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/16107e22-69eb-46ea-abf4-1cb8380374b3?rule=ecg_mp_eps$_85.jpg" alt="Prima Honda VFR 800FI 1998 45dkm Inruil Kan" loading="lazy" decoding="async"><span class="st-year">1998</span></div>
+  <div class="st-body">
+    <h3>Prima Honda VFR 800FI 1998 45dkm Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 1.875</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Prima%20Honda%20VFR%20800FI%201998%2045dkm%20Inruil%20Kan%20(%E2%82%AC%201.875)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/571df95c-b15f-4dd5-bd0a-9f296ca944ce?rule=ecg_mp_eps$_85.jpg" alt="Supernette Kawasaki ZR-7S 2002 54Dkm Inruil Kan" loading="lazy" decoding="async"><span class="st-year">2002</span></div>
+  <div class="st-body">
+    <h3>Supernette Kawasaki ZR-7S 2002 54Dkm Inruil Kan</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 1.675</span>
+      <a class="st-ask" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20zag%20de%20Supernette%20Kawasaki%20ZR-7S%202002%2054Dkm%20Inruil%20Kan%20(%E2%82%AC%201.675)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Proefrit</a>
+    </div>
+  </div>
+</article></div><div class="wrap"><div class="more"><span>Er staan er nog 48 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
+</section>
+<section class="sec-flow">
+  <div class="wrap">
+    <div class="head rv"><h2>Zo gaat het</h2></div>
+    <ol class="flow rv">
+      <li><b>Neem contact op</b><p>Bel of app ons over het voertuig dat u op het oog heeft.</p></li><li><b>Kom langs</b><p>Kom langs, bekijk de motor van dichtbij en stel al uw vragen.</p></li><li><b>Regel het samen</b><p>We bespreken prijs, inruil en aflevering. Geen verrassingen.</p></li>
+    </ol>
+  </div>
+</section>
+<section class="sec-trust"><div class="wrap rv"><div><b>5.0</b><span>gemiddeld uit 72 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>Almere</b><span><a href="https://maps.google.com/?q=1351GG%20Almere" target="_blank" rel="noreferrer">1351GG Almere</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div><b>66</b><span>voertuigen staan klaar</span></div><div><b>€ 1.675</b><span>de goedkoopste van dit moment</span></div><div><b>2005</b><span>mediaan bouwjaar</span></div><div><b>21</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-contact" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <h2>Zelf rijden zegt meer</h2>
+      <p class="lede">Zeg welke machine u wilt rijden, dan zetten we hem klaar.</p>
+      <p class="callrow"><a class="h-btn is-primary" href="tel:+31625418595">Bel 06-2541 8595</a></p>
+      <p class="addr"><a href="https://maps.google.com/?q=1351GG%20Almere" target="_blank" rel="noreferrer">1351GG Almere</a></p>
+      
+    </div>
+    <div class="panel rv"><form onsubmit="event.preventDefault();var f=this;location.href='https://wa.me/31625418595?text='+encodeURIComponent(f.bericht.value+' — '+f.naam.value+' ('+f.tel.value+')')"><label class="field"><span>Uw naam</span><input name="naam" type="text" autocomplete="name" required></label><label class="field"><span>Telefoonnummer</span><input name="tel" type="tel" autocomplete="tel" required></label><label class="field"><span>Welke machine wilt u rijden?</span><textarea name="bericht" rows="4" required></textarea></label><button class="h-btn is-primary" type="submit">Proefrit aanvragen</button><p class="note">Uw bericht opent in WhatsApp.</p></form></div>
+  </div>
+</section>
+<footer>
+  <div class="wrap rowf">
+    <span>Veerman-Swift Motorenhandel · 1351GG Almere</span>
+    <span>Voorbeeldwebsite, gemaakt door Capital BB</span>
+  </div>
+</footer>
+<div class="bar">
+  <a class="acc" href="tel:+31625418595">Bellen</a>
+  <a href="https://wa.me/31625418595?text=Hallo%20Veerman-Swift%20Motorenhandel%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">WhatsApp</a>
+</div>
+<script>
+document.documentElement.className+=' js';
+(function(){
+  var today=document.querySelector('.hours tr[data-d="'+new Date().getDay()+'"]');
+  if(today){today.className='today';var v=today.lastElementChild;if(v){v.insertAdjacentHTML('beforeend','<span class="tag">vandaag</span>')}}
+  var top=document.getElementById('top');
+  if(top){var s=function(){top.classList.toggle('solid',window.scrollY>40)};s();addEventListener('scroll',s,{passive:true})}
+  var items=[].slice.call(document.querySelectorAll('.rv'));
+  var show=function(el){el.classList.add('in')};
+  if(!('IntersectionObserver' in window)){items.forEach(show);return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
+  items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
+  setTimeout(function(){items.forEach(show)},2600);
+})();
+</script>
+
+</body>
+</html>

@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;letter-spacing:-0.03em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #cd4217;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #dcdcd8}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#dc7b5d;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#cd4217;color:#ffffff;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#585c62;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #dcdcd8;border-radius:50%;background:#ffffff;color:#585c62;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#cd4217;border-color:#cd4217}
+.st-bewaar[aria-pressed="true"]{color:#cd4217;border-color:#cd4217}
+.st-bewaar[aria-pressed="true"] svg{fill:#cd4217}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#cd4217;color:#ffffff;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#dcdcd8;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,77 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#f4f4f2;border-block:1px solid #dcdcd8;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#585c62;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:0px;background:#ffffff;border:1px solid #dcdcd8;color:#141518;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#585c62}
+.sa-zoek input:focus{outline:none;border-color:#cd4217}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#585c62;cursor:pointer}
+.sa-wis:hover{color:#141518}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#585c62;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:14px;letter-spacing:0;text-transform:none;color:#cd4217;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:0px;background:#ffffff;border:1px solid #dcdcd8;color:#141518;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#cd4217}
+.sa-meer{padding:11px 17px;border-radius:0px;background:transparent;border:1px solid #dcdcd8;color:#585c62;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#141518;border-color:#cd4217}
+.sa-meer[aria-expanded="true"]{border-color:#cd4217;color:#cd4217}
+
+.sa-paneel{border-top:1px solid #dcdcd8}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:0px;background:transparent;border:1px solid #dcdcd8;color:#585c62;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#141518;border-color:#cd4217}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#cd4217;border-color:#cd4217;color:#ffffff}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#585c62;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#dcdcd8}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#cd4217;border:3px solid #f4f4f2}
+input[type=range]::-moz-range-track{height:2px;background:#dcdcd8}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#cd4217;border:3px solid #f4f4f2}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#585c62;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:19px;color:#141518;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:0px;background:transparent;border:1px solid #dcdcd8;color:#585c62;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#141518;border-color:#cd4217}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#cd4217;border-color:#cd4217;color:#ffffff}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #dcdcd8;border-radius:0px}
+.sa-leeg-t{font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#585c62;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #dcdcd8;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
 /* Buurtgarage: prijslijst, harde randen, telefoonnummer als grootste element. */
 .top{border-bottom:2px solid #141518}
 .mark{font-size:21px}
@@ -300,7 +401,7 @@ footer{border-top:2px solid #141518}
 .bar a:not(.acc){background:#ffffff;color:#141518}
 </style>
 </head>
-<body>
+<body data-site="59633525">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van busteam (buurtgarage, mediaanprijs EUR 150, 12 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet staal, 'Archivo Black' als display op 'Barlow', hoeken 0px, accent #cd4217.
@@ -326,8 +427,49 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <span class="meta">12 getoond van 12 · vanaf € 65</span>
     
   </div>
-  <div class="wrap"><div class="st-grid"><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/63571080-84f2-42fc-85ab-1f0947449f41?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Transporter Kombi 2024 Grijs" loading="lazy" decoding="async"></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 12 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 6 merken</option>
+    <option value="Carrosserie En Plaatwerk">Carrosserie En Plaatwerk (4)</option><option value="Camper Accessoires">Camper Accessoires (2)</option><option value="Interieur En Bekleding">Interieur En Bekleding (2)</option><option value="MINI">MINI (1)</option><option value="Ophanging En Onderstel">Ophanging En Onderstel (1)</option><option value="Reparatie En Onderhoud Caravans En Campers">Reparatie En Onderhoud Caravans En Campers (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 54.965</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="65" max="54965" step="900" value="54965">
+  <span class="sa-schaal"><i>€ 65</i><i>€ 54.965</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="bestelauto-s-volkswagen-transporter-kombi-2024-g-1" data-rang="0" data-prijs="54950" data-jaar="2024" data-zoek="volkswagen transporter kombi 2024 grijs">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/63571080-84f2-42fc-85ab-1f0947449f41?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Transporter Kombi 2024 Grijs" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-volkswagen-transporter-kombi-2024-g-1" aria-pressed="false" aria-label="Bewaar Volkswagen Transporter Kombi 2024 Grijs"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Transporter Kombi 2024 Grijs</h3>
     <p class="st-spec">2024 · 44.000 km</p>
@@ -336,8 +478,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8e90ad58-e58e-4545-862a-09e244d7b46f?rule=ecg_mp_eps$_85.jpg" alt="Mini 1.6 16V ONE Cabrio 2007 Zwart" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mini-mini-1-6-16v-one-cabrio-2007-zwart-2" data-rang="1" data-merk="MINI" data-prijs="2750" data-jaar="2007" data-brandstof="Benzine" data-zoek="mini 1.6 16v one cabrio 2007 zwart mini benzine">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8e90ad58-e58e-4545-862a-09e244d7b46f?rule=ecg_mp_eps$_85.jpg" alt="Mini 1.6 16V ONE Cabrio 2007 Zwart" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mini-mini-1-6-16v-one-cabrio-2007-zwart-2" aria-pressed="false" aria-label="Bewaar Mini 1.6 16V ONE Cabrio 2007 Zwart"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mini 1.6 16V ONE Cabrio 2007 Zwart</h3>
     <p class="st-spec">2007 · Benzine</p>
@@ -346,8 +488,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e784a360-dcc6-4cd9-8824-61c5dbfeadc7?rule=ecg_mp_eps$_85.jpg" alt="voorbumper transporter t6.1" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="carrosserie-en-plaatwerk-voorbumper-transporter--3" data-rang="2" data-merk="Carrosserie En Plaatwerk" data-prijs="999" data-jaar="0" data-zoek="voorbumper transporter t6.1 carrosserie en plaatwerk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e784a360-dcc6-4cd9-8824-61c5dbfeadc7?rule=ecg_mp_eps$_85.jpg" alt="voorbumper transporter t6.1" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="carrosserie-en-plaatwerk-voorbumper-transporter--3" aria-pressed="false" aria-label="Bewaar voorbumper transporter t6.1"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>voorbumper transporter t6.1</h3>
     <p class="st-spec">Gegevens op aanvraag</p>
@@ -356,8 +498,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4002e738-e3e4-45b6-b401-9befc2451aca?rule=ecg_mp_eps$_85.jpg" alt="schuifdeur" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="interieur-en-bekleding-schuifdeur-4" data-rang="3" data-merk="Interieur En Bekleding" data-prijs="250" data-jaar="0" data-zoek="schuifdeur interieur en bekleding">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4002e738-e3e4-45b6-b401-9befc2451aca?rule=ecg_mp_eps$_85.jpg" alt="schuifdeur" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="interieur-en-bekleding-schuifdeur-4" aria-pressed="false" aria-label="Bewaar schuifdeur"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>schuifdeur</h3>
     <p class="st-spec">Gegevens op aanvraag</p>
@@ -366,8 +508,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b584850a-5bce-42aa-b893-63e7b2fa9227?rule=ecg_mp_eps$_85.jpg" alt="voorbumper  225 ex btw" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="carrosserie-en-plaatwerk-voorbumper-225-ex-btw-5" data-rang="4" data-merk="Carrosserie En Plaatwerk" data-prijs="225" data-jaar="0" data-zoek="voorbumper  225 ex btw carrosserie en plaatwerk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b584850a-5bce-42aa-b893-63e7b2fa9227?rule=ecg_mp_eps$_85.jpg" alt="voorbumper  225 ex btw" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="carrosserie-en-plaatwerk-voorbumper-225-ex-btw-5" aria-pressed="false" aria-label="Bewaar voorbumper  225 ex btw"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>voorbumper  225 ex btw</h3>
     <p class="st-spec">Gegevens op aanvraag</p>
@@ -376,8 +518,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3bf34bc5-a29c-4cf4-8827-fcd95744f277?rule=ecg_mp_eps$_85.jpg" alt="Voorbumper Volkswagen Transporter T6.1" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="carrosserie-en-plaatwerk-voorbumper-volkswagen-t-6" data-rang="5" data-merk="Carrosserie En Plaatwerk" data-prijs="150" data-jaar="0" data-zoek="voorbumper volkswagen transporter t6.1 carrosserie en plaatwerk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3bf34bc5-a29c-4cf4-8827-fcd95744f277?rule=ecg_mp_eps$_85.jpg" alt="Voorbumper Volkswagen Transporter T6.1" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="carrosserie-en-plaatwerk-voorbumper-volkswagen-t-6" aria-pressed="false" aria-label="Bewaar Voorbumper Volkswagen Transporter T6.1"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Voorbumper Volkswagen Transporter T6.1</h3>
     <p class="st-spec">Gegevens op aanvraag</p>
@@ -386,8 +528,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fe9848e7-9140-44d0-b44e-b620426bfa82?rule=ecg_mp_eps$_85.jpg" alt="rv portier vw  t5 t6 t6.1" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="interieur-en-bekleding-rv-portier-vw-t5-t6-t6-1-7" data-rang="6" data-merk="Interieur En Bekleding" data-prijs="150" data-jaar="0" data-zoek="rv portier vw  t5 t6 t6.1 interieur en bekleding">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fe9848e7-9140-44d0-b44e-b620426bfa82?rule=ecg_mp_eps$_85.jpg" alt="rv portier vw  t5 t6 t6.1" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="interieur-en-bekleding-rv-portier-vw-t5-t6-t6-1-7" aria-pressed="false" aria-label="Bewaar rv portier vw  t5 t6 t6.1"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>rv portier vw  t5 t6 t6.1</h3>
     <p class="st-spec">Gegevens op aanvraag</p>
@@ -396,8 +538,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/07f56d66-28d1-4167-9ac2-01bfad0f03cf?rule=ecg_mp_eps$_85.jpg" alt="verlagingset" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="ophanging-en-onderstel-verlagingset-8" data-rang="7" data-merk="Ophanging En Onderstel" data-prijs="100" data-jaar="0" data-zoek="verlagingset ophanging en onderstel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/07f56d66-28d1-4167-9ac2-01bfad0f03cf?rule=ecg_mp_eps$_85.jpg" alt="verlagingset" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="ophanging-en-onderstel-verlagingset-8" aria-pressed="false" aria-label="Bewaar verlagingset"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>verlagingset</h3>
     <p class="st-spec">Gegevens op aanvraag</p>
@@ -406,8 +548,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/86f30e64-f5a7-4442-a04b-06ab01544e3d?rule=ecg_mp_eps$_85.jpg" alt="Achterbumper Transporter T6.1 met parkeersensoren" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="carrosserie-en-plaatwerk-achterbumper-transporte-9" data-rang="8" data-merk="Carrosserie En Plaatwerk" data-prijs="75" data-jaar="0" data-zoek="achterbumper transporter t6.1 met parkeersensoren carrosserie en plaatwerk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/86f30e64-f5a7-4442-a04b-06ab01544e3d?rule=ecg_mp_eps$_85.jpg" alt="Achterbumper Transporter T6.1 met parkeersensoren" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="carrosserie-en-plaatwerk-achterbumper-transporte-9" aria-pressed="false" aria-label="Bewaar Achterbumper Transporter T6.1 met parkeersensoren"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Achterbumper Transporter T6.1 met parkeersensoren</h3>
     <p class="st-spec">Gegevens op aanvraag</p>
@@ -416,8 +558,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4f57c5d3-d8ac-44db-85e1-55919f4253a7?rule=ecg_mp_eps$_85.jpg" alt="camperbouw" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="camper-accessoires-camperbouw-10" data-rang="9" data-merk="Camper Accessoires" data-prijs="70" data-jaar="0" data-zoek="camperbouw camper accessoires">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4f57c5d3-d8ac-44db-85e1-55919f4253a7?rule=ecg_mp_eps$_85.jpg" alt="camperbouw" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="camper-accessoires-camperbouw-10" aria-pressed="false" aria-label="Bewaar camperbouw"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>camperbouw</h3>
     <p class="st-spec">Gegevens op aanvraag</p>
@@ -426,8 +568,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3e85b634-c0cf-4e30-a770-5679b298205a?rule=ecg_mp_eps$_85.jpg" alt="camperbouw" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="camper-accessoires-camperbouw-11" data-rang="10" data-merk="Camper Accessoires" data-prijs="70" data-jaar="0" data-zoek="camperbouw camper accessoires">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3e85b634-c0cf-4e30-a770-5679b298205a?rule=ecg_mp_eps$_85.jpg" alt="camperbouw" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="camper-accessoires-camperbouw-11" aria-pressed="false" aria-label="Bewaar camperbouw"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>camperbouw</h3>
     <p class="st-spec">Gegevens op aanvraag</p>
@@ -436,8 +578,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1c40bd19-698a-426e-9104-c0479ad50b55?rule=ecg_mp_eps$_85.jpg" alt="caravan en camper reparatie" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="reparatie-en-onderhoud-caravans-en-campers-carav-12" data-rang="11" data-merk="Reparatie En Onderhoud Caravans En Campers" data-prijs="65" data-jaar="0" data-zoek="caravan en camper reparatie reparatie en onderhoud caravans en campers">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1c40bd19-698a-426e-9104-c0479ad50b55?rule=ecg_mp_eps$_85.jpg" alt="caravan en camper reparatie" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="reparatie-en-onderhoud-caravans-en-campers-carav-12" aria-pressed="false" aria-label="Bewaar caravan en camper reparatie"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>caravan en camper reparatie</h3>
     <p class="st-spec">Gegevens op aanvraag</p>
@@ -446,7 +588,12 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31651878080">Bel hierover</a>
     </div>
   </div>
-</article></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Probeer het met minder filters, of vraag het ons even.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div></div>
 </section>
 <section class="sec-trust"><div class="wrap rv"><div><b>12</b><span>voertuigen staan klaar</span></div><div><b>€ 65</b><span>de goedkoopste van dit moment</span></div><div><b>2016</b><span>mediaan bouwjaar</span></div></div></section>
 <section class="sec-flow">
@@ -492,6 +639,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

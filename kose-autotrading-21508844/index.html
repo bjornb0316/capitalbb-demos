@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;letter-spacing:-0.03em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #f2c230;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #2e3238}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#f6d46e;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#f2c230;color:#15171a;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#a0a4aa;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #2e3238;border-radius:50%;background:#1d2024;color:#a0a4aa;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#f2c230;border-color:#f2c230}
+.st-bewaar[aria-pressed="true"]{color:#f2c230;border-color:#f2c230}
+.st-bewaar[aria-pressed="true"] svg{fill:#f2c230}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#f2c230;color:#15171a;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#2e3238;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,77 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#15171a;border-block:1px solid #2e3238;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#a0a4aa;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:0px;background:#1d2024;border:1px solid #2e3238;color:#f6f6f4;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#a0a4aa}
+.sa-zoek input:focus{outline:none;border-color:#f2c230}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#a0a4aa;cursor:pointer}
+.sa-wis:hover{color:#f6f6f4}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#a0a4aa;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:14px;letter-spacing:0;text-transform:none;color:#f2c230;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:0px;background:#1d2024;border:1px solid #2e3238;color:#f6f6f4;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#f2c230}
+.sa-meer{padding:11px 17px;border-radius:0px;background:transparent;border:1px solid #2e3238;color:#a0a4aa;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#f6f6f4;border-color:#f2c230}
+.sa-meer[aria-expanded="true"]{border-color:#f2c230;color:#f2c230}
+
+.sa-paneel{border-top:1px solid #2e3238}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:0px;background:transparent;border:1px solid #2e3238;color:#a0a4aa;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#f6f6f4;border-color:#f2c230}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#f2c230;border-color:#f2c230;color:#15171a}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#a0a4aa;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#2e3238}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#f2c230;border:3px solid #15171a}
+input[type=range]::-moz-range-track{height:2px;background:#2e3238}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#f2c230;border:3px solid #15171a}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#a0a4aa;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:19px;color:#f6f6f4;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:0px;background:transparent;border:1px solid #2e3238;color:#a0a4aa;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#f6f6f4;border-color:#f2c230}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#f2c230;border-color:#f2c230;color:#15171a}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #2e3238;border-radius:0px}
+.sa-leeg-t{font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#a0a4aa;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #2e3238;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
 /* Buurtgarage: prijslijst, harde randen, telefoonnummer als grootste element. */
 .top{border-bottom:2px solid #f6f6f4}
 .mark{font-size:21px}
@@ -300,7 +401,7 @@ footer{border-top:2px solid #f6f6f4}
 .bar a:not(.acc){background:#1d2024;color:#f6f6f4}
 </style>
 </head>
-<body>
+<body data-site="21508844">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Kose Autotrading (buurtgarage, mediaanprijs EUR 2990, 14 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet werkplaats, 'Archivo Black' als display op 'Barlow', hoeken 0px, accent #f2c230.
@@ -328,8 +429,54 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <span class="meta">14 getoond van 14 · vanaf € 990</span>
     
   </div>
-  <div class="wrap"><div class="st-grid"><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/88eed35d-7a8c-4f20-8eab-77e52f823a6c?rule=ecg_mp_eps$_85.jpg" alt="Audi A1 1.4 Tfsi 122 PK PANORAMA 6-bak handgeschakeld" loading="lazy" decoding="async"></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 14 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 8 merken</option>
+    <option value="Fiat">Fiat (3)</option><option value="Volkswagen">Volkswagen (3)</option><option value="Audi">Audi (2)</option><option value="Nissan">Nissan (2)</option><option value="Citroen">Citroen (1)</option><option value="Hyundai">Hyundai (1)</option><option value="Opel">Opel (1)</option><option value="Peugeot">Peugeot (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 6.690</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="990" max="6690" step="100" value="6690">
+  <span class="sa-schaal"><i>€ 990</i><i>€ 6.690</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">1999</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="1999" max="2010" step="1" value="1999">
+  <span class="sa-schaal"><i>1999</i><i>2010</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="audi-a1-1" data-rang="0" data-merk="Audi" data-prijs="6690" data-jaar="2010" data-zoek="audi a1 1.4 tfsi 122 pk panorama 6-bak handgeschakeld audi a1">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/88eed35d-7a8c-4f20-8eab-77e52f823a6c?rule=ecg_mp_eps$_85.jpg" alt="Audi A1 1.4 Tfsi 122 PK PANORAMA 6-bak handgeschakeld" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-a1-1" aria-pressed="false" aria-label="Bewaar Audi A1 1.4 Tfsi 122 PK PANORAMA 6-bak handgeschakeld"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi A1 1.4 Tfsi 122 PK PANORAMA 6-bak handgeschakeld</h3>
     <p class="st-spec">2010 · 162.400 km</p>
@@ -338,8 +485,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0f091fd3-f236-476c-ae34-f695a16b80b6?rule=ecg_mp_eps$_85.jpg" alt="Fiat 500 1.2 C CABRIO SUPER ONDERHOUDEN PARKSENSOREN APK" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="fiat-fiat-500-1-2-c-cabrio-super-onderhouden-par-2" data-rang="1" data-merk="Fiat" data-prijs="4890" data-jaar="2009" data-kenmerk="APK" data-zoek="fiat 500 1.2 c cabrio super onderhouden parksensoren apk fiat apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0f091fd3-f236-476c-ae34-f695a16b80b6?rule=ecg_mp_eps$_85.jpg" alt="Fiat 500 1.2 C CABRIO SUPER ONDERHOUDEN PARKSENSOREN APK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="fiat-fiat-500-1-2-c-cabrio-super-onderhouden-par-2" aria-pressed="false" aria-label="Bewaar Fiat 500 1.2 C CABRIO SUPER ONDERHOUDEN PARKSENSOREN APK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat 500 1.2 C CABRIO SUPER ONDERHOUDEN PARKSENSOREN APK</h3>
     <p class="st-spec">2009 · 160.581 km</p>
@@ -348,8 +495,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ba9436e6-10fb-4834-a572-9887653684f9?rule=ecg_mp_eps$_85.jpg" alt="Fiat 500 1.2 C 2010 CABRIOLET PARKSENSOREN" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="fiat-fiat-500-1-2-c-2010-cabriolet-parksensoren-3" data-rang="2" data-merk="Fiat" data-prijs="4690" data-jaar="2010" data-zoek="fiat 500 1.2 c 2010 cabriolet parksensoren fiat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ba9436e6-10fb-4834-a572-9887653684f9?rule=ecg_mp_eps$_85.jpg" alt="Fiat 500 1.2 C 2010 CABRIOLET PARKSENSOREN" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="fiat-fiat-500-1-2-c-2010-cabriolet-parksensoren-3" aria-pressed="false" aria-label="Bewaar Fiat 500 1.2 C 2010 CABRIOLET PARKSENSOREN"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat 500 1.2 C 2010 CABRIOLET PARKSENSOREN</h3>
     <p class="st-spec">2010 · 162.000 km</p>
@@ -358,8 +505,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a2f53673-18c0-40c2-9d11-ff4a74ce8495?rule=ecg_mp_eps$_85.jpg" alt="Fiat 500 1.2 C CABRIOLET BLACK NW APK" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="fiat-fiat-500-1-2-c-cabriolet-black-nw-apk-4" data-rang="3" data-merk="Fiat" data-prijs="4290" data-jaar="2009" data-kenmerk="APK" data-zoek="fiat 500 1.2 c cabriolet black nw apk fiat apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a2f53673-18c0-40c2-9d11-ff4a74ce8495?rule=ecg_mp_eps$_85.jpg" alt="Fiat 500 1.2 C CABRIOLET BLACK NW APK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="fiat-fiat-500-1-2-c-cabriolet-black-nw-apk-4" aria-pressed="false" aria-label="Bewaar Fiat 500 1.2 C CABRIOLET BLACK NW APK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat 500 1.2 C CABRIOLET BLACK NW APK</h3>
     <p class="st-spec">2009 · 198.500 km</p>
@@ -368,8 +515,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5e94b896-c4d3-4e5d-90c6-d92f292cabc0?rule=ecg_mp_eps$_85.jpg" alt="Audi A3 1.6 Sportback AUTOMAAT NW DSTR+WPOMP" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="audi-a3-5" data-rang="4" data-merk="Audi" data-prijs="3890" data-jaar="2005" data-brandstof="Benzine" data-kenmerk="Automaat" data-zoek="audi a3 1.6 sportback automaat nw dstr+wpomp audi a3 benzine automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5e94b896-c4d3-4e5d-90c6-d92f292cabc0?rule=ecg_mp_eps$_85.jpg" alt="Audi A3 1.6 Sportback AUTOMAAT NW DSTR+WPOMP" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-a3-5" aria-pressed="false" aria-label="Bewaar Audi A3 1.6 Sportback AUTOMAAT NW DSTR+WPOMP"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi A3 1.6 Sportback AUTOMAAT NW DSTR+WPOMP</h3>
     <p class="st-spec">2005 · 252.500 km · Benzine</p>
@@ -378,8 +525,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ca4370c7-51f2-4403-8e18-cf73f1753952?rule=ecg_mp_eps$_85.jpg" alt="Citroën C3 1.4 VTI DEALER ONDERHOUDEN" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="citroen-citroen-c3-1-4-vti-dealer-onderhouden-6" data-rang="5" data-merk="Citroen" data-prijs="3490" data-jaar="2010" data-zoek="citroën c3 1.4 vti dealer onderhouden citroen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ca4370c7-51f2-4403-8e18-cf73f1753952?rule=ecg_mp_eps$_85.jpg" alt="Citroën C3 1.4 VTI DEALER ONDERHOUDEN" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="citroen-citroen-c3-1-4-vti-dealer-onderhouden-6" aria-pressed="false" aria-label="Bewaar Citroën C3 1.4 VTI DEALER ONDERHOUDEN"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Citroën C3 1.4 VTI DEALER ONDERHOUDEN</h3>
     <p class="st-spec">2010 · 152.400 km</p>
@@ -388,8 +535,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3fb37e6a-4691-4ef3-a3bc-1242e0fd72ce?rule=ecg_mp_eps$_85.jpg" alt="Opel Insignia 1.8 140 PK 6 bak" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="opel-opel-insignia-1-8-140-pk-6-bak-7" data-rang="6" data-merk="Opel" data-prijs="2990" data-jaar="2009" data-zoek="opel insignia 1.8 140 pk 6 bak opel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3fb37e6a-4691-4ef3-a3bc-1242e0fd72ce?rule=ecg_mp_eps$_85.jpg" alt="Opel Insignia 1.8 140 PK 6 bak" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="opel-opel-insignia-1-8-140-pk-6-bak-7" aria-pressed="false" aria-label="Bewaar Opel Insignia 1.8 140 PK 6 bak"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Opel Insignia 1.8 140 PK 6 bak</h3>
     <p class="st-spec">2009 · 182.500 km</p>
@@ -398,8 +545,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b608c4bd-ca1f-4925-846f-bfc36031918a?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Golf 2.0 GTI 200PK DSG NW MOTOR" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-golf-8" data-rang="7" data-merk="Volkswagen" data-prijs="2990" data-jaar="2006" data-zoek="volkswagen golf 2.0 gti 200pk dsg nw motor volkswagen golf">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b608c4bd-ca1f-4925-846f-bfc36031918a?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Golf 2.0 GTI 200PK DSG NW MOTOR" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-golf-8" aria-pressed="false" aria-label="Bewaar Volkswagen Golf 2.0 GTI 200PK DSG NW MOTOR"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Golf 2.0 GTI 200PK DSG NW MOTOR</h3>
     <p class="st-spec">2006 · 262.100 km</p>
@@ -408,8 +555,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f59f54cd-b57c-4c20-93d4-14436ff639e8?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 107 1.0 12V 5DR 2009 AIRCO SCHUIFKANTELDAK" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="peugeot-peugeot-107-1-0-12v-5dr-2009-airco-schui-9" data-rang="8" data-merk="Peugeot" data-prijs="2390" data-jaar="2009" data-kenmerk="Airco" data-zoek="peugeot 107 1.0 12v 5dr 2009 airco schuifkanteldak peugeot airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f59f54cd-b57c-4c20-93d4-14436ff639e8?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 107 1.0 12V 5DR 2009 AIRCO SCHUIFKANTELDAK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-107-1-0-12v-5dr-2009-airco-schui-9" aria-pressed="false" aria-label="Bewaar Peugeot 107 1.0 12V 5DR 2009 AIRCO SCHUIFKANTELDAK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Peugeot 107 1.0 12V 5DR 2009 AIRCO SCHUIFKANTELDAK</h3>
     <p class="st-spec">2009 · 182.400 km</p>
@@ -418,8 +565,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/86a00eba-b6b4-4845-ae49-16d29a21b7e3?rule=ecg_mp_eps$_85.jpg" alt="Hyundai i10 1.1 I 5DR NW APK GOED ONDERHOUDEN" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="hyundai-hyundai-i10-1-1-i-5dr-nw-apk-goed-onderh-10" data-rang="9" data-merk="Hyundai" data-prijs="1990" data-jaar="2010" data-kenmerk="APK" data-zoek="hyundai i10 1.1 i 5dr nw apk goed onderhouden hyundai apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/86a00eba-b6b4-4845-ae49-16d29a21b7e3?rule=ecg_mp_eps$_85.jpg" alt="Hyundai i10 1.1 I 5DR NW APK GOED ONDERHOUDEN" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="hyundai-hyundai-i10-1-1-i-5dr-nw-apk-goed-onderh-10" aria-pressed="false" aria-label="Bewaar Hyundai i10 1.1 I 5DR NW APK GOED ONDERHOUDEN"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Hyundai i10 1.1 I 5DR NW APK GOED ONDERHOUDEN</h3>
     <p class="st-spec">2010 · 215.300 km</p>
@@ -428,8 +575,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e404a561-af4f-4e57-9004-831fdbd1eed9?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Golf 1.4 16V 55KW 5D AIRCO" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-golf-1-4-16v-55kw-5d-airco-11" data-rang="10" data-merk="Volkswagen" data-prijs="1590" data-jaar="2006" data-kenmerk="Airco" data-zoek="volkswagen golf 1.4 16v 55kw 5d airco volkswagen airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e404a561-af4f-4e57-9004-831fdbd1eed9?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Golf 1.4 16V 55KW 5D AIRCO" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-golf-1-4-16v-55kw-5d-airco-11" aria-pressed="false" aria-label="Bewaar Volkswagen Golf 1.4 16V 55KW 5D AIRCO"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Golf 1.4 16V 55KW 5D AIRCO</h3>
     <p class="st-spec">2006 · 231.500 km</p>
@@ -438,8 +585,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e0937213-2fe9-4969-a494-ad6be59bbf72?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Bora 1.6 SR 74KW AIRCO LAGE KM" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-bora-12" data-rang="11" data-merk="Volkswagen" data-prijs="1390" data-jaar="1999" data-kenmerk="Airco" data-zoek="volkswagen bora 1.6 sr 74kw airco lage km volkswagen bora airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e0937213-2fe9-4969-a494-ad6be59bbf72?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Bora 1.6 SR 74KW AIRCO LAGE KM" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-bora-12" aria-pressed="false" aria-label="Bewaar Volkswagen Bora 1.6 SR 74KW AIRCO LAGE KM"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Bora 1.6 SR 74KW AIRCO LAGE KM</h3>
     <p class="st-spec">1999 · 160.900 km</p>
@@ -448,8 +595,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e0f0557b-f0b0-4178-84f4-0a6eb129ae8d?rule=ecg_mp_eps$_85.jpg" alt="Nissan Micra 1.2 59KW 5DR KOOPJE" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="nissan-nissan-micra-1-2-59kw-5dr-koopje-13" data-rang="12" data-merk="Nissan" data-prijs="990" data-jaar="2003" data-zoek="nissan micra 1.2 59kw 5dr koopje nissan">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e0f0557b-f0b0-4178-84f4-0a6eb129ae8d?rule=ecg_mp_eps$_85.jpg" alt="Nissan Micra 1.2 59KW 5DR KOOPJE" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="nissan-nissan-micra-1-2-59kw-5dr-koopje-13" aria-pressed="false" aria-label="Bewaar Nissan Micra 1.2 59KW 5DR KOOPJE"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Nissan Micra 1.2 59KW 5DR KOOPJE</h3>
     <p class="st-spec">2003 · 225.000 km</p>
@@ -458,8 +605,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/56a555a5-af4c-4155-88ca-cb76029a28ca?rule=ecg_mp_eps$_85.jpg" alt="Nissan Micra 1.2 59KW 5DR APK 02/2027" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="nissan-nissan-micra-1-2-59kw-5dr-apk-02-2027-14" data-rang="13" data-merk="Nissan" data-prijs="990" data-jaar="2004" data-kenmerk="APK" data-zoek="nissan micra 1.2 59kw 5dr apk 02/2027 nissan apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/56a555a5-af4c-4155-88ca-cb76029a28ca?rule=ecg_mp_eps$_85.jpg" alt="Nissan Micra 1.2 59KW 5DR APK 02/2027" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="nissan-nissan-micra-1-2-59kw-5dr-apk-02-2027-14" aria-pressed="false" aria-label="Bewaar Nissan Micra 1.2 59KW 5DR APK 02/2027"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Nissan Micra 1.2 59KW 5DR APK 02/2027</h3>
     <p class="st-spec">2004 · 301.000 km</p>
@@ -468,7 +615,12 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31641765001">Bel hierover</a>
     </div>
   </div>
-</article></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Probeer het met minder filters, of vraag het ons even.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div></div>
 </section>
 <section class="sec-trust"><div class="wrap rv"><div><b>14</b><span>voertuigen staan klaar</span></div><div><b>€ 990</b><span>de goedkoopste van dit moment</span></div><div><b>2009</b><span>mediaan bouwjaar</span></div><div><b>11</b><span>jaar op Marktplaats</span></div></div></section>
 <section class="sec-flow">
@@ -514,6 +666,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:700;letter-spacing:-0.02em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #125a72;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #dde5e8}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#598c9c;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#125a72;color:#ffffff;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#586268;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #dde5e8;border-radius:50%;background:#ffffff;color:#586268;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#125a72;border-color:#125a72}
+.st-bewaar[aria-pressed="true"]{color:#125a72;border-color:#125a72}
+.st-bewaar[aria-pressed="true"] svg{fill:#125a72}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#125a72;color:#ffffff;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#dde5e8;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,77 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#f4f7f8;border-block:1px solid #dde5e8;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#586268;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:20px;background:#ffffff;border:1px solid #dde5e8;color:#131a1d;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#586268}
+.sa-zoek input:focus{outline:none;border-color:#125a72}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#586268;cursor:pointer}
+.sa-wis:hover{color:#131a1d}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#586268;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:700;font-size:14px;letter-spacing:0;text-transform:none;color:#125a72;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:20px;background:#ffffff;border:1px solid #dde5e8;color:#131a1d;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#125a72}
+.sa-meer{padding:11px 17px;border-radius:20px;background:transparent;border:1px solid #dde5e8;color:#586268;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#131a1d;border-color:#125a72}
+.sa-meer[aria-expanded="true"]{border-color:#125a72;color:#125a72}
+
+.sa-paneel{border-top:1px solid #dde5e8}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:20px;background:transparent;border:1px solid #dde5e8;color:#586268;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#131a1d;border-color:#125a72}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#125a72;border-color:#125a72;color:#ffffff}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#586268;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#dde5e8}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#125a72;border:3px solid #f4f7f8}
+input[type=range]::-moz-range-track{height:2px;background:#dde5e8}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#125a72;border:3px solid #f4f7f8}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#586268;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:700;font-size:19px;color:#131a1d;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:20px;background:transparent;border:1px solid #dde5e8;color:#586268;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#131a1d;border-color:#125a72}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#125a72;border-color:#125a72;color:#ffffff}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #dde5e8;border-radius:20px}
+.sa-leeg-t{font-family:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#586268;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #dde5e8;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
 /* Reizen: veel lucht, ronde hoeken, rust. Het bezoek is de conversie. */
 .callbtn{border-radius:999px}
 .h-btn{border-radius:999px}
@@ -289,7 +390,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>h1+.h-facts{margin-top:26px;padding-top:0;border-top:0;gap:0 clamp(20px,3vw,40px)}
 </style>
 </head>
-<body>
+<body data-site="14039889">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Taekema Campers B.V. (reizen, mediaanprijs EUR 53450, 79 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet diepwater, 'Bricolage Grotesque' als display op 'Manrope', hoeken 20px, accent #125a72.
@@ -315,8 +416,48 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <span class="meta">18 getoond van 79 · vanaf € 42.950</span>
     
   </div>
-  <div class="wrap"><div class="st-grid"><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3e73fdc1-f5a9-4a6c-8668-9ce0aaa1263d?rule=ecg_mp_eps$_85.jpg" alt="Mercedes Hymer Tramp S 695 Queensbed/hefbed/Automaat/177pk" loading="lazy" decoding="async"></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 123.950</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="42950" max="123950" step="1350" value="123950">
+  <span class="sa-schaal"><i>€ 42.950</i><i>€ 123.950</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2011</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2011" max="2023" step="1" value="2011">
+  <span class="sa-schaal"><i>2011</i><i>2023</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="campers-mercedes-hymer-tramp-s-695-queensbed-hef-1" data-rang="0" data-prijs="122950" data-jaar="2023" data-brandstof="Diesel" data-zoek="mercedes hymer tramp s 695 queensbed/hefbed/automaat/177pk diesel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3e73fdc1-f5a9-4a6c-8668-9ce0aaa1263d?rule=ecg_mp_eps$_85.jpg" alt="Mercedes Hymer Tramp S 695 Queensbed/hefbed/Automaat/177pk" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-mercedes-hymer-tramp-s-695-queensbed-hef-1" aria-pressed="false" aria-label="Bewaar Mercedes Hymer Tramp S 695 Queensbed/hefbed/Automaat/177pk"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes Hymer Tramp S 695 Queensbed/hefbed/Automaat/177pk</h3>
     <p class="st-spec">2023 · 38.000 km · Diesel</p>
@@ -325,8 +466,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/56b996ad-6cf6-457c-a6c6-45eac3cf9072?rule=ecg_mp_eps$_85.jpg" alt="Bürstner Limited T660 Fransbed/Automaat/2023/Hefbed" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-burstner-limited-t660-fransbed-automaat--2" data-rang="1" data-prijs="84950" data-jaar="2023" data-kenmerk="Fransbed" data-zoek="bürstner limited t660 fransbed/automaat/2023/hefbed fransbed">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/56b996ad-6cf6-457c-a6c6-45eac3cf9072?rule=ecg_mp_eps$_85.jpg" alt="Bürstner Limited T660 Fransbed/Automaat/2023/Hefbed" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-burstner-limited-t660-fransbed-automaat--2" aria-pressed="false" aria-label="Bewaar Bürstner Limited T660 Fransbed/Automaat/2023/Hefbed"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Bürstner Limited T660 Fransbed/Automaat/2023/Hefbed</h3>
     <p class="st-spec">2023 · 37.000 km</p>
@@ -335,8 +476,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/15827e5b-618a-4c24-a183-cd6b7d37281f?rule=ecg_mp_eps$_85.jpg" alt="Pössl Summit Prime 640 Enkelebedden/Automaat/6.4M/2" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-possl-summit-prime-640-enkelebedden-auto-3" data-rang="2" data-prijs="79950" data-jaar="2020" data-zoek="pössl summit prime 640 enkelebedden/automaat/6.4m/2">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/15827e5b-618a-4c24-a183-cd6b7d37281f?rule=ecg_mp_eps$_85.jpg" alt="Pössl Summit Prime 640 Enkelebedden/Automaat/6.4M/2" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-possl-summit-prime-640-enkelebedden-auto-3" aria-pressed="false" aria-label="Bewaar Pössl Summit Prime 640 Enkelebedden/Automaat/6.4M/2"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Pössl Summit Prime 640 Enkelebedden/Automaat/6.4M/2</h3>
     <p class="st-spec">2020 · 30.000 km</p>
@@ -345,8 +486,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/009d289f-3e16-4386-bf24-0a3ee8f14500?rule=ecg_mp_eps$_85.jpg" alt="Bürstner Campeo/Hefdak/vastbed/automaat/2021/buscam" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-burstner-campeo-hefdak-vastbed-automaat--4" data-rang="3" data-prijs="74950" data-jaar="2021" data-kenmerk="Hefdak" data-zoek="bürstner campeo/hefdak/vastbed/automaat/2021/buscam hefdak">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/009d289f-3e16-4386-bf24-0a3ee8f14500?rule=ecg_mp_eps$_85.jpg" alt="Bürstner Campeo/Hefdak/vastbed/automaat/2021/buscam" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-burstner-campeo-hefdak-vastbed-automaat--4" aria-pressed="false" aria-label="Bewaar Bürstner Campeo/Hefdak/vastbed/automaat/2021/buscam"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Bürstner Campeo/Hefdak/vastbed/automaat/2021/buscam</h3>
     <p class="st-spec">2021 · 17.500 km</p>
@@ -355,8 +496,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1975cd0d-9d9a-4ea4-b6ef-92e660c986e5?rule=ecg_mp_eps$_85.jpg" alt="Fiat Roller Team Livingstone 2 Dwarsbed/2022/Euro-6/Airco/6M" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-fiat-roller-team-livingstone-2-dwarsbed--5" data-rang="4" data-prijs="59950" data-jaar="2022" data-zoek="fiat roller team livingstone 2 dwarsbed/2022/euro-6/airco/6m">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1975cd0d-9d9a-4ea4-b6ef-92e660c986e5?rule=ecg_mp_eps$_85.jpg" alt="Fiat Roller Team Livingstone 2 Dwarsbed/2022/Euro-6/Airco/6M" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-fiat-roller-team-livingstone-2-dwarsbed--5" aria-pressed="false" aria-label="Bewaar Fiat Roller Team Livingstone 2 Dwarsbed/2022/Euro-6/Airco/6M"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat Roller Team Livingstone 2 Dwarsbed/2022/Euro-6/Airco/6M</h3>
     <p class="st-spec">2022 · 39.000 km</p>
@@ -365,8 +506,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/963dc34c-1ae3-44e1-8211-93dfebc3817f?rule=ecg_mp_eps$_85.jpg" alt="Karmann Davis 620 Enkele-bedden/Automaat/Euro-6/2018/2xAirco" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-karmann-davis-620-enkele-bedden-automaat-6" data-rang="5" data-prijs="59950" data-jaar="2018" data-zoek="karmann davis 620 enkele-bedden/automaat/euro-6/2018/2xairco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/963dc34c-1ae3-44e1-8211-93dfebc3817f?rule=ecg_mp_eps$_85.jpg" alt="Karmann Davis 620 Enkele-bedden/Automaat/Euro-6/2018/2xAirco" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-karmann-davis-620-enkele-bedden-automaat-6" aria-pressed="false" aria-label="Bewaar Karmann Davis 620 Enkele-bedden/Automaat/Euro-6/2018/2xAirco"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Karmann Davis 620 Enkele-bedden/Automaat/Euro-6/2018/2xAirco</h3>
     <p class="st-spec">2018 · 68.000 km</p>
@@ -375,8 +516,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e5c52ef8-4cfd-4991-a086-94671430cf73?rule=ecg_mp_eps$_85.jpg" alt="Fiat Adria Twin Plus 540SP Dwarsbed/2020/Euro6/5.4M/27.000km" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-fiat-adria-twin-plus-540sp-dwarsbed-2020-7" data-rang="6" data-prijs="59950" data-jaar="2020" data-zoek="fiat adria twin plus 540sp dwarsbed/2020/euro6/5.4m/27.000km">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e5c52ef8-4cfd-4991-a086-94671430cf73?rule=ecg_mp_eps$_85.jpg" alt="Fiat Adria Twin Plus 540SP Dwarsbed/2020/Euro6/5.4M/27.000km" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-fiat-adria-twin-plus-540sp-dwarsbed-2020-7" aria-pressed="false" aria-label="Bewaar Fiat Adria Twin Plus 540SP Dwarsbed/2020/Euro6/5.4M/27.000km"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat Adria Twin Plus 540SP Dwarsbed/2020/Euro6/5.4M/27.000km</h3>
     <p class="st-spec">2020 · 27.000 km</p>
@@ -385,8 +526,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/715fbd37-271f-4b0d-b792-46c0ed2235a1?rule=ecg_mp_eps$_85.jpg" alt="Fiat Chausson V584 Automaat/2019/Airco/Euro-6/5.90M/131pk!" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-fiat-chausson-v584-automaat-2019-airco-e-8" data-rang="7" data-prijs="58950" data-jaar="2019" data-brandstof="Diesel" data-zoek="fiat chausson v584 automaat/2019/airco/euro-6/5.90m/131pk! diesel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/715fbd37-271f-4b0d-b792-46c0ed2235a1?rule=ecg_mp_eps$_85.jpg" alt="Fiat Chausson V584 Automaat/2019/Airco/Euro-6/5.90M/131pk!" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-fiat-chausson-v584-automaat-2019-airco-e-8" aria-pressed="false" aria-label="Bewaar Fiat Chausson V584 Automaat/2019/Airco/Euro-6/5.90M/131pk!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat Chausson V584 Automaat/2019/Airco/Euro-6/5.90M/131pk!</h3>
     <p class="st-spec">2019 · 67.000 km · Diesel</p>
@@ -395,8 +536,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/61483095-f5f2-4e8b-89d9-03baeaac15c8?rule=ecg_mp_eps$_85.jpg" alt="Carado Clever Edition 540 buscamper Vastbed/2020/euro-6" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-carado-clever-edition-540-buscamper-vast-9" data-rang="8" data-prijs="56950" data-jaar="2020" data-zoek="carado clever edition 540 buscamper vastbed/2020/euro-6">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/61483095-f5f2-4e8b-89d9-03baeaac15c8?rule=ecg_mp_eps$_85.jpg" alt="Carado Clever Edition 540 buscamper Vastbed/2020/euro-6" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-carado-clever-edition-540-buscamper-vast-9" aria-pressed="false" aria-label="Bewaar Carado Clever Edition 540 buscamper Vastbed/2020/euro-6"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Carado Clever Edition 540 buscamper Vastbed/2020/euro-6</h3>
     <p class="st-spec">2020 · 72.000 km</p>
@@ -405,8 +546,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7760c5ec-702e-4b23-8e7b-83764fb88863?rule=ecg_mp_eps$_85.jpg" alt="Sunlight V60 Dwarsbed/2020/Euro-6/5.9M/165pk/Airco/50.000KM!" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-sunlight-v60-dwarsbed-2020-euro-6-5-9m-1-10" data-rang="9" data-prijs="49950" data-jaar="2020" data-zoek="sunlight v60 dwarsbed/2020/euro-6/5.9m/165pk/airco/50.000km!">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7760c5ec-702e-4b23-8e7b-83764fb88863?rule=ecg_mp_eps$_85.jpg" alt="Sunlight V60 Dwarsbed/2020/Euro-6/5.9M/165pk/Airco/50.000KM!" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-sunlight-v60-dwarsbed-2020-euro-6-5-9m-1-10" aria-pressed="false" aria-label="Bewaar Sunlight V60 Dwarsbed/2020/Euro-6/5.9M/165pk/Airco/50.000KM!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Sunlight V60 Dwarsbed/2020/Euro-6/5.9M/165pk/Airco/50.000KM!</h3>
     <p class="st-spec">2020 · 50.000 km</p>
@@ -415,8 +556,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/df48bfe5-3ad4-4362-80e7-3782999670aa?rule=ecg_mp_eps$_85.jpg" alt="Fiat Hymer T674SL Enkele-bedden/2014/Euro5/Airco/7.1M/Level-" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-fiat-hymer-t674sl-enkele-bedden-2014-eur-11" data-rang="10" data-prijs="49950" data-jaar="2014" data-zoek="fiat hymer t674sl enkele-bedden/2014/euro5/airco/7.1m/level-">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/df48bfe5-3ad4-4362-80e7-3782999670aa?rule=ecg_mp_eps$_85.jpg" alt="Fiat Hymer T674SL Enkele-bedden/2014/Euro5/Airco/7.1M/Level-" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-fiat-hymer-t674sl-enkele-bedden-2014-eur-11" aria-pressed="false" aria-label="Bewaar Fiat Hymer T674SL Enkele-bedden/2014/Euro5/Airco/7.1M/Level-"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat Hymer T674SL Enkele-bedden/2014/Euro5/Airco/7.1M/Level-</h3>
     <p class="st-spec">2014 · 89.000 km</p>
@@ -425,8 +566,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fb2da722-5281-4d9c-acc0-65946fe890f3?rule=ecg_mp_eps$_85.jpg" alt="Hymer B594 Dwarsbed/Hefbed/2011/6.9M/Euro-4/Airco/4.250kg" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-hymer-b594-dwarsbed-hefbed-2011-6-9m-eur-12" data-rang="11" data-prijs="49950" data-jaar="2011" data-zoek="hymer b594 dwarsbed/hefbed/2011/6.9m/euro-4/airco/4.250kg">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fb2da722-5281-4d9c-acc0-65946fe890f3?rule=ecg_mp_eps$_85.jpg" alt="Hymer B594 Dwarsbed/Hefbed/2011/6.9M/Euro-4/Airco/4.250kg" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-hymer-b594-dwarsbed-hefbed-2011-6-9m-eur-12" aria-pressed="false" aria-label="Bewaar Hymer B594 Dwarsbed/Hefbed/2011/6.9M/Euro-4/Airco/4.250kg"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Hymer B594 Dwarsbed/Hefbed/2011/6.9M/Euro-4/Airco/4.250kg</h3>
     <p class="st-spec">2011 · 96.000 km</p>
@@ -435,8 +576,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fdf5d8c4-009d-4898-a814-58be9aa63819?rule=ecg_mp_eps$_85.jpg" alt="Eura Mobil Terrestra 720 Enkele-bedden/2015/Hefbed/Lithium!" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-eura-mobil-terrestra-720-enkele-bedden-2-13" data-rang="12" data-prijs="48950" data-jaar="2015" data-zoek="eura mobil terrestra 720 enkele-bedden/2015/hefbed/lithium!">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fdf5d8c4-009d-4898-a814-58be9aa63819?rule=ecg_mp_eps$_85.jpg" alt="Eura Mobil Terrestra 720 Enkele-bedden/2015/Hefbed/Lithium!" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-eura-mobil-terrestra-720-enkele-bedden-2-13" aria-pressed="false" aria-label="Bewaar Eura Mobil Terrestra 720 Enkele-bedden/2015/Hefbed/Lithium!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Eura Mobil Terrestra 720 Enkele-bedden/2015/Hefbed/Lithium!</h3>
     <p class="st-spec">2015 · 93.000 km</p>
@@ -445,8 +586,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/40c6c1f0-7bc8-48b7-bdf5-7838732352b2?rule=ecg_mp_eps$_85.jpg" alt="PLA Camper Plasy 63HP Dwarsbed/Hefbed/2016/6.2M/Euro-5/Airco" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-pla-camper-plasy-63hp-dwarsbed-hefbed-20-14" data-rang="13" data-prijs="48950" data-jaar="2016" data-zoek="pla camper plasy 63hp dwarsbed/hefbed/2016/6.2m/euro-5/airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/40c6c1f0-7bc8-48b7-bdf5-7838732352b2?rule=ecg_mp_eps$_85.jpg" alt="PLA Camper Plasy 63HP Dwarsbed/Hefbed/2016/6.2M/Euro-5/Airco" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-pla-camper-plasy-63hp-dwarsbed-hefbed-20-14" aria-pressed="false" aria-label="Bewaar PLA Camper Plasy 63HP Dwarsbed/Hefbed/2016/6.2M/Euro-5/Airco"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>PLA Camper Plasy 63HP Dwarsbed/Hefbed/2016/6.2M/Euro-5/Airco</h3>
     <p class="st-spec">2016 · 84.000 km</p>
@@ -455,8 +596,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8d6cbfc9-5bcb-4826-9f18-ee00f93dee2f?rule=ecg_mp_eps$_85.jpg" alt="Fiat Bürstner Nexxo T580 Hefbed/2015/5.8M/Euro-5/2x" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-fiat-burstner-nexxo-t580-hefbed-2015-5-8-15" data-rang="14" data-prijs="47950" data-jaar="2015" data-zoek="fiat bürstner nexxo t580 hefbed/2015/5.8m/euro-5/2x">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8d6cbfc9-5bcb-4826-9f18-ee00f93dee2f?rule=ecg_mp_eps$_85.jpg" alt="Fiat Bürstner Nexxo T580 Hefbed/2015/5.8M/Euro-5/2x" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-fiat-burstner-nexxo-t580-hefbed-2015-5-8-15" aria-pressed="false" aria-label="Bewaar Fiat Bürstner Nexxo T580 Hefbed/2015/5.8M/Euro-5/2x"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat Bürstner Nexxo T580 Hefbed/2015/5.8M/Euro-5/2x</h3>
     <p class="st-spec">2015 · 80.000 km</p>
@@ -465,8 +606,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bd616840-d328-4573-8657-a82e684ee552?rule=ecg_mp_eps$_85.jpg" alt="Vw Crafter Enkele-bedden/innova-inbouw/zeer-uniek/2013" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-vw-crafter-enkele-bedden-innova-inbouw-z-16" data-rang="15" data-prijs="47950" data-jaar="2013" data-zoek="vw crafter enkele-bedden/innova-inbouw/zeer-uniek/2013">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bd616840-d328-4573-8657-a82e684ee552?rule=ecg_mp_eps$_85.jpg" alt="Vw Crafter Enkele-bedden/innova-inbouw/zeer-uniek/2013" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-vw-crafter-enkele-bedden-innova-inbouw-z-16" aria-pressed="false" aria-label="Bewaar Vw Crafter Enkele-bedden/innova-inbouw/zeer-uniek/2013"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Vw Crafter Enkele-bedden/innova-inbouw/zeer-uniek/2013</h3>
     <p class="st-spec">2013 · 233.000 km</p>
@@ -475,8 +616,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7ba1636e-f1e6-4344-855f-a409847fc29b?rule=ecg_mp_eps$_85.jpg" alt="Fiat Weinsberg CaraLoft 600MG Hefbed/2015/5.99M/Euro-5/Airco" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-fiat-weinsberg-caraloft-600mg-hefbed-201-17" data-rang="16" data-prijs="46950" data-jaar="2015" data-zoek="fiat weinsberg caraloft 600mg hefbed/2015/5.99m/euro-5/airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7ba1636e-f1e6-4344-855f-a409847fc29b?rule=ecg_mp_eps$_85.jpg" alt="Fiat Weinsberg CaraLoft 600MG Hefbed/2015/5.99M/Euro-5/Airco" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-fiat-weinsberg-caraloft-600mg-hefbed-201-17" aria-pressed="false" aria-label="Bewaar Fiat Weinsberg CaraLoft 600MG Hefbed/2015/5.99M/Euro-5/Airco"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat Weinsberg CaraLoft 600MG Hefbed/2015/5.99M/Euro-5/Airco</h3>
     <p class="st-spec">2015 · 43.000 km</p>
@@ -485,8 +626,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e073b060-b914-4177-b2fb-8b9532e35d92?rule=ecg_mp_eps$_85.jpg" alt="Fiat McLouis Glamys 72 Queensbed/2011/Euro4/6.7M/131pk/Airco" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-fiat-mclouis-glamys-72-queensbed-2011-eu-18" data-rang="17" data-prijs="42950" data-jaar="2011" data-zoek="fiat mclouis glamys 72 queensbed/2011/euro4/6.7m/131pk/airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e073b060-b914-4177-b2fb-8b9532e35d92?rule=ecg_mp_eps$_85.jpg" alt="Fiat McLouis Glamys 72 Queensbed/2011/Euro4/6.7M/131pk/Airco" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-fiat-mclouis-glamys-72-queensbed-2011-eu-18" aria-pressed="false" aria-label="Bewaar Fiat McLouis Glamys 72 Queensbed/2011/Euro4/6.7M/131pk/Airco"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat McLouis Glamys 72 Queensbed/2011/Euro4/6.7M/131pk/Airco</h3>
     <p class="st-spec">2011 · 114.000 km</p>
@@ -495,7 +636,12 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31513490304">Plan een bezichtiging</a>
     </div>
   </div>
-</article></div><div class="more"><span>Er staan er nog 61 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="tel:+31513490304">Bel 051-3490304</a></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 61 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 61 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="tel:+31513490304">Bel 051-3490304</a></div></div>
 </section>
 <section class="sec-flow">
   <div class="wrap">
@@ -550,6 +696,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

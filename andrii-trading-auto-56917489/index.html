@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;letter-spacing:-0.03em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #22439b;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #e2e5ea}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#647bb9;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#22439b;color:#ffffff;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#5c626c;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #e2e5ea;border-radius:50%;background:#ffffff;color:#5c626c;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#22439b;border-color:#22439b}
+.st-bewaar[aria-pressed="true"]{color:#22439b;border-color:#22439b}
+.st-bewaar[aria-pressed="true"] svg{fill:#22439b}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#22439b;color:#ffffff;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#e2e5ea;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+
 /* Familie: overdag-licht, zacht, vertrouwen voorop. */
 .st-card{border:1px solid #e2e5ea;border-radius:14px;transition:transform .25s ease,box-shadow .25s ease}
 .st-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(15,20,30,.10)}
@@ -293,12 +324,12 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child span:first-child{color:#22439b}
 </style>
 </head>
-<body>
+<body data-site="56917489">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Andrii trading auto (familie, mediaanprijs EUR 8949, 5 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet kobalt, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #22439b.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "index", voorraadweergave "grid", secties stock > trust > brands > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "index", voorraadweergave "grid", secties stock > trust > promise > process > hours > contact.
 FORM: familie-kobalt-index-grid-gabarito-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -312,13 +343,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 <header class="hero h-index">
   <div class="wrap">
     <div class="h-words"><h1>Occasions in Etten-Leur <em>vanaf € 5.199</em></h1><p class="h-lede">Bel of app gerust voordat u komt, dan staat de auto klaar en heeft u niet voor niets gereden.</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging</a><a class="h-btn" href="tel:+31647185132">Bel 06-4718 5132</a></div></div>
-    <dl class="h-panel"><div><dd>5 voertuigen op voorraad</dd></div><div><dd>4.9 uit 193 beoordelingen</dd></div><div><dd>3 merken in huis</dd></div><div><dd>Kom langs in Etten-Leur</dd></div></dl>
+    <dl class="h-panel"><div><dd>5 voertuigen op voorraad</dd></div><div><dd>4.9 uit 193 beoordelingen</dd></div><div><dd>4 merken in huis</dd></div><div><dd>Kom langs in Etten-Leur</dd></div></dl>
   </div>
 </header>
 <section id="voorraad">
   <div class="wrap head">
     <h2>Onze voorraad</h2>
-    <span class="meta">5 getoond van 5 · vanaf € 5.199</span>
+    <span class="meta">6 getoond van 5 · vanaf € 5.199</span>
     <p>Ziet u iets? Bel of app gerust, dan zetten we hem voor u apart.</p>
   </div>
   <div class="wrap"><div class="st-grid"><article class="st-card ">
@@ -352,6 +383,16 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     </div>
   </div>
 </article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/17c08001-76f4-4c3a-87f4-4f3ea198080f?rule=ecg_mp_eps$_85.jpg" alt="Mazda CX-5 2.0 GT-M 4WD LEDER/BOSE/CAMERA/AUTOMAT" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Mazda CX-5 2.0 GT-M 4WD LEDER/BOSE/CAMERA/AUTOMAT</h3>
+    <p class="st-spec">2012 · 213.227 km · Benzine</p>
+    <div class="st-foot">
+      <span class="st-price">€ 8.949</span>
+      <a class="st-ask" href="https://wa.me/31647185132?text=Hallo%20Andrii%20trading%20auto%2C%20ik%20zag%20de%20Mazda%20CX-5%202.0%20GT-M%204WD%20LEDER%2FBOSE%2FCAMERA%2FAUTOMAT%20(%E2%82%AC%208.949)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card ">
   <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b134044b-f5df-4fe8-a08d-5467757191d7?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Passat Variant 1.4 TSI GTE Highline/ALCANTARA/CLI" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Volkswagen Passat Variant 1.4 TSI GTE Highline/ALCANTARA/CLI</h3>
@@ -374,7 +415,6 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article></div></div>
 </section>
 <section class="sec-trust"><div class="wrap rv"><div><b>4.9</b><span>gemiddeld uit 193 beoordelingen</span></div><div><b>Etten-Leur</b><span><a href="https://maps.google.com/?q=Guldenweg%2018d.%2C%204879NL%20Etten-Leur" target="_blank" rel="noreferrer">Guldenweg 18d., 4879NL Etten-Leur</a></span></div><div><b>KvK</b><span>97398950</span></div></div></section>
-<div class="sec-brands"><div class="wrap"><span>Toyota</span><span>Lexus</span><span>Volkswagen</span></div></div>
 <section class="sec-trust"><div class="wrap rv"><div><b>5</b><span>voertuigen staan klaar</span></div><div><b>€ 5.199</b><span>de goedkoopste van dit moment</span></div><div><b>2013</b><span>mediaan bouwjaar</span></div><div><b>1</b><span>jaar op Marktplaats</span></div></div></section>
 <section class="sec-flow">
   <div class="wrap">

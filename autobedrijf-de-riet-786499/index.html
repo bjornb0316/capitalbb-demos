@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>autobedrijf De Riet · Den Ham</title>
+<meta name="description" content="Voorbeeldwebsite voor autobedrijf De Riet.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f7f8fa;color:#14171d;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;letter-spacing:-0.035em;line-height:1.05;text-wrap:balance}
+p{margin:0}
+button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid #22439b;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+
+
+html,body{overflow-x:clip}
+.wrap{width:min(var(--w,1220px),100% - 48px);margin-inline:auto}
+@media(max-width:720px){.wrap{width:min(var(--w,1220px),100% - 32px)}}
+
+.top{position:sticky;top:0;z-index:50;background:#f7f8fa;border-bottom:1px solid #e2e5ea}
+.top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
+.top.is-fixed.solid{background:#f7f8fae6;backdrop-filter:blur(14px);border-bottom-color:#e2e5ea}
+.top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
+.mark{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.035em;margin-right:auto;text-decoration:none}
+.top nav{display:flex;gap:24px;font-size:15px}
+.top nav a{color:#5c626c;text-decoration:none}
+.top nav a:hover{color:#14171d}
+.callbtn{display:inline-flex;align-items:center;background:#22439b;color:#ffffff;padding:11px 20px;border-radius:14px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+.callbtn:hover{filter:brightness(1.07)}
+@media(max-width:900px){.top nav{display:none}}
+/* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
+@media(max-width:720px){
+  .top .wrap{gap:14px}
+  .mark{font-size:16px;line-height:1.18;overflow-wrap:break-word}
+  .mark.is-long{font-size:13.5px}
+  .mark.is-xlong{font-size:12px;letter-spacing:0}
+  .callbtn{flex:none;padding:11px 15px}
+}
+
+section{padding:clamp(54px,7vw,108px) 0}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
+.head h2{font-size:clamp(28px,3.9vw,50px)}
+.head .meta{color:#5c626c;font-size:15px}
+.head p{margin-top:12px;color:#5c626c;max-width:60ch;flex-basis:100%}
+.more{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.more span{color:#5c626c;font-size:15px}
+
+.hours{width:100%;border-collapse:collapse;font-size:16px}
+.hours th{text-align:left;font-weight:400;color:#5c626c;padding:10px 0;border-bottom:1px solid #e2e5ea}
+.hours td{text-align:right;padding:10px 0;border-bottom:1px solid #e2e5ea;font-variant-numeric:tabular-nums}
+.hours td.closed{color:#5c626c}
+.hours tr:last-child th,.hours tr:last-child td{border-bottom:0}
+.hours tr.today th{color:#14171d;font-weight:600}
+.hours tr.today td{font-weight:600}
+.hours .tag{margin-left:10px;color:#22439b;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+
+.field{display:block;margin-bottom:13px}
+.field span{display:block;font-size:13.5px;color:#5c626c;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:13px 15px;border:1px solid #e2e5ea;border-radius:14px;background:#f7f8fa;color:#14171d;font:inherit;font-size:16px}
+.field input:focus,.field textarea:focus{outline:none;border-color:#22439b}
+form .h-btn{width:100%;justify-content:center;border:0;cursor:pointer;margin-top:4px}
+.note{margin-top:12px;color:#5c626c;font-size:13.5px}
+
+footer{padding:32px 0 calc(32px + var(--bar,0px));color:#5c626c;font-size:14px;border-top:1px solid #e2e5ea}
+footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+
+.bar{position:fixed;inset:auto 0 0;z-index:60;display:none;gap:1px;background:#e2e5ea;border-top:1px solid #e2e5ea}
+.bar a{flex:1;padding:15px;text-align:center;background:#ffffff;color:#14171d;text-decoration:none;font-weight:600;font-size:15.5px}
+.bar a.acc{background:#22439b;color:#ffffff}
+@media(max-width:720px){.bar{display:flex}body{--bar:58px}}
+
+.js .rv{opacity:0;transform:translateY(14px)}
+.js .rv.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+
+
+.hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
+.hero h1 em{font-style:normal;color:#22439b}
+.hero h1 a{text-decoration:none}
+.h-kick{color:#5c626c;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
+.h-lede{margin-top:20px;max-width:50ch;color:#5c626c;font-size:clamp(16px,1.6vw,19px)}
+.h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:14px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #e2e5ea;background:#ffffff;color:#14171d;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
+.h-btn:hover{transform:translateY(-2px)}
+.h-btn.is-primary{background:#22439b;color:#ffffff;border-color:transparent}
+.h-facts{display:flex;flex-wrap:wrap;gap:0 34px;margin-top:38px;padding-top:20px;border-top:1px solid #e2e5ea;color:#5c626c;font-size:14.5px}
+.h-facts span{padding:6px 0}
+/* Waar de wereld het bewijs of de cijfers vóór de kop zet, draait de scheiding mee. */
+.h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #e2e5ea}
+.h-words>.h-cta:first-child{margin-top:0}
+.h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#647bb9;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#22439b;color:#ffffff;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
+
+/* cinematic: beeld vult het scherm, woorden liggen erin */
+.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+@keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
+.h-cinematic::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#f7f8faa6 0%,#f7f8fa1a 24%,#f7f8fa8c 52%,#f7f8fae8 80%,#f7f8fa 100%)}
+.h-cinematic .h-words{padding-bottom:clamp(40px,7vw,84px)}
+.h-cinematic h1{text-shadow:0 2px 30px #f7f8fab3}
+.h-cinematic .h-lede{color:#14171dcc;text-shadow:0 1px 18px #f7f8facc}
+
+/* panorama: liggend beeld in een kader, woorden erin */
+.h-panorama{padding:clamp(22px,3vw,44px) 0 0}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#eaeef7;aspect-ratio:21/9;min-height:320px}
+.h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
+@keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
+.h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
+/* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
+.h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
+.h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
+.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+/* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
+.h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
+.h-panorama .h-lede{color:#ffffffdb}
+.h-panorama .h-btn{border-color:#ffffff4d;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-panorama .h-btn.is-primary{background:#22439b;color:#ffffff;border-color:transparent}
+.h-panorama .h-facts{border-top:0;padding-top:0;margin-top:clamp(26px,3.4vw,44px);gap:0 clamp(20px,3vw,44px)}
+@media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
+
+/* split: woorden naast echte auto's */
+.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
+.h-split h1{font-size:clamp(36px,4.9vw,64px)}
+@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+
+/* stack: woorden boven, beeld als band eronder */
+.h-stack{padding:clamp(44px,6vw,92px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
+.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
+.h-band{margin:0;aspect-ratio:21/8;background:#eaeef7;overflow:hidden}
+.h-band img{width:100%;height:100%;object-fit:cover}
+@media(max-width:720px){.h-band{aspect-ratio:16/10}}
+
+/* poster: de letters doen het werk, foto's als strook */
+.h-poster{padding:clamp(36px,5vw,68px) 0 0}
+.h-poster h1{font-size:clamp(40px,7.6vw,100px);line-height:.95;max-width:16ch}
+.h-poster .h-facts{margin-bottom:clamp(28px,4vw,44px)}
+
+/* index: geen groot beeld, de cijfers staan naast de tekst */
+.h-index{padding:clamp(34px,4.4vw,60px) 0 clamp(24px,3vw,38px);border-bottom:1px solid #e2e5ea}
+.h-index .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(26px,4vw,56px);align-items:center}
+.h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
+.h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#e2e5ea;border:1px solid #e2e5ea;border-radius:14px;overflow:hidden;margin:0}
+.h-panel div{background:#ffffff;padding:17px 19px}
+.h-panel dd{margin:0;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.035em;line-height:1.25}
+@media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
+
+/* fotostrook, gedeeld door split en poster */
+.h-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.h-strip figure{margin:0;position:relative;border-radius:14px;overflow:hidden;background:#eaeef7}
+.h-strip figure:first-child{grid-column:1 / -1}
+.h-strip img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+.h-strip figure:first-child img{aspect-ratio:16/9}
+.h-strip .st-noimg{aspect-ratio:16/10;height:auto}
+.h-strip figure:first-child .st-noimg{aspect-ratio:16/9}
+.h-poster .h-strip .st-noimg{aspect-ratio:4/3}
+.h-strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:13px 15px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74));color:#fff;font-size:13.5px;font-weight:600;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.h-strip figcaption span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h-strip figcaption span:last-child{white-space:nowrap}
+.h-poster .h-strip{display:flex;grid-template-columns:none;gap:0}
+.h-poster .h-strip figure{flex:1;border-radius:0}
+.h-poster .h-strip figure:first-child{grid-column:auto}
+.h-poster .h-strip img{aspect-ratio:4/3}
+.h-poster .h-strip figcaption{display:none}
+@media(max-width:720px){.h-poster .h-strip figure:nth-child(n+4){display:none}}
+
+/* bijschrift bij de hoofdfoto */
+.h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#f7f8fad9;backdrop-filter:blur(8px);border:1px solid #e2e5ea;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
+.h-plate-k{color:#5c626c;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
+.h-plate-t{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-size:19px;line-height:1.15}
+.h-plate-p{color:#22439b;font-weight:600;font-size:17px;margin-top:4px}
+.h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #e2e5ea;border-radius:14px}
+@media(max-width:900px){.h-plate{display:none}}
+
+
+.st-card{background:#ffffff;display:flex;flex-direction:column;overflow:hidden}
+.st-shot{position:relative;aspect-ratio:4/3;background:#eaeef7;overflow:hidden}
+.st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.st-card:hover .st-shot img{transform:scale(1.04)}
+.st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#5c626c;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #e2e5ea;border-radius:50%;background:#ffffff;color:#5c626c;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#22439b;border-color:#22439b}
+.st-bewaar[aria-pressed="true"]{color:#22439b;border-color:#22439b}
+.st-bewaar[aria-pressed="true"] svg{fill:#22439b}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
+.st-year{position:absolute;left:0;top:0;background:#22439b;color:#ffffff;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
+.st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
+.st-card h3{font-size:17.5px;line-height:1.3}
+.st-spec{color:#5c626c;font-size:14.5px;font-variant-numeric:tabular-nums}
+.st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.st-price{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:23px;letter-spacing:-0.035em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#22439b;text-decoration:none;white-space:nowrap}
+.st-ask:hover{text-decoration:underline}
+
+.st-rail{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:max(24px,calc(50vw - 620px));padding:0 max(24px,calc(50vw - 620px)) 24px;scrollbar-width:thin;scrollbar-color:#e2e5ea transparent}
+.st-rail::-webkit-scrollbar{height:6px}
+.st-rail::-webkit-scrollbar-thumb{background:#e2e5ea;border-radius:99px}
+.st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
+
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
+
+.st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.st-mosaic .st-card{grid-column:span 2}
+.st-mosaic .is-wide{grid-column:span 3}
+.st-mosaic .is-lead{grid-column:span 6}
+.st-mosaic .is-lead .st-shot{aspect-ratio:21/8}
+@media(max-width:980px){.st-mosaic{grid-template-columns:repeat(4,1fr)}.st-mosaic .is-lead{grid-column:span 4}.st-mosaic .is-wide{grid-column:span 2}}
+@media(max-width:660px){.st-mosaic{grid-template-columns:1fr;gap:16px}.st-mosaic .st-card,.st-mosaic .is-wide,.st-mosaic .is-lead{grid-column:span 1}.st-mosaic .is-lead .st-shot{aspect-ratio:16/10}}
+
+.st-list{border-top:1px solid #e2e5ea}
+.st-row{display:grid;grid-template-columns:132px 1fr auto auto;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid #e2e5ea;transition:background .18s ease}
+.st-row:hover{background:#ffffff}
+.st-row .st-thumb{aspect-ratio:4/3;background:#eaeef7;overflow:hidden;border-radius:14px}
+.st-row .st-thumb img{width:100%;height:100%;object-fit:cover}
+.st-row h3{font-size:17.5px;line-height:1.3;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:600;letter-spacing:0;text-transform:none}
+.st-row .st-spec{margin-top:5px}
+.st-act{background:#22439b;color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;padding:11px 18px;border-radius:14px;white-space:nowrap}
+.st-act:hover{filter:brightness(1.07)}
+@media(max-width:820px){
+  .st-row{grid-template-columns:96px 1fr;gap:14px}
+  .st-row .st-price{grid-column:2}
+  .st-row .st-act{grid-column:2;justify-self:start}
+}
+
+.st-tablewrap{border:1px solid #e2e5ea;border-radius:14px;overflow-x:auto;background:#ffffff}
+.st-table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:720px}
+.st-table th{text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#5c626c;font-weight:600;padding:13px 16px;border-bottom:1px solid #e2e5ea;background:#eaeef7}
+.st-table td{padding:12px 16px;border-bottom:1px solid #e2e5ea;vertical-align:middle}
+.st-table tr:last-child td{border-bottom:0}
+.st-table tbody tr:hover{background:#eaeef7}
+.st-table .st-thumb{width:92px}
+.st-table .st-thumb img{width:92px;height:66px;object-fit:cover;border-radius:calc(14px - 1px);background:#eaeef7}
+.st-table .st-name{font-weight:600;line-height:1.3}
+.st-table .st-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-table .st-price{font-size:19px;text-align:right;display:block}
+.st-table .st-act-cell a{display:inline-block;background:#22439b;color:#ffffff;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+
+
+.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+.sec-trust b{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.035em;color:#22439b;line-height:1}
+.sec-trust span{display:block;margin-top:9px;color:#5c626c;font-size:15px}
+.sec-trust a{color:#14171d}
+
+.sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
+/* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
+.sec-about .wrap>*{min-width:0}
+.sec-about p{overflow-wrap:anywhere}
+.sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
+.sec-about p{color:#5c626c;font-size:17.5px;max-width:66ch}
+.sec-about .portrait{border:1px solid #e2e5ea;border-radius:14px;background:#eaeef7;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+.sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
+@media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
+
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;list-style:none;padding:0;margin:0;counter-reset:s}
+.flow li{background:#ffffff;border:1px solid #e2e5ea;border-radius:14px;padding:clamp(22px,2.6vw,30px);position:relative}
+.flow li::before{counter-increment:s;content:counter(s);display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:#22439b;color:#ffffff;font-weight:700;font-size:14px;margin-bottom:14px}
+.flow li b{display:block;font-size:18.5px;margin-bottom:8px}
+.flow li p{color:#5c626c;font-size:15.5px}
+@media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+.sec-brands{border-block:1px solid #e2e5ea;background:#ffffff}
+.sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
+.sec-brands span{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.035em;color:#5c626c;padding:6px 0}
+.sec-brands span:first-child{color:#22439b}
+
+.wrap{--w:1180px}
+.sec-contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,68px)}
+.sec-contact h2{font-size:clamp(26px,3.4vw,44px)}
+.sec-contact .lede{margin-top:16px;color:#5c626c;max-width:46ch}
+.sec-contact .callrow{margin-top:24px}
+.sec-contact .addr{margin-top:18px;color:#5c626c}
+.sec-contact .hours{margin-top:26px}
+@media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
+
+.sa-balk{position:sticky;top:0;z-index:40;background:#f7f8fa;border-block:1px solid #e2e5ea;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#5c626c;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:14px;background:#ffffff;border:1px solid #e2e5ea;color:#14171d;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#5c626c}
+.sa-zoek input:focus{outline:none;border-color:#22439b}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#5c626c;cursor:pointer}
+.sa-wis:hover{color:#14171d}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5c626c;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:14px;letter-spacing:0;text-transform:none;color:#22439b;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:14px;background:#ffffff;border:1px solid #e2e5ea;color:#14171d;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#22439b}
+.sa-meer{padding:11px 17px;border-radius:14px;background:transparent;border:1px solid #e2e5ea;color:#5c626c;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#14171d;border-color:#22439b}
+.sa-meer[aria-expanded="true"]{border-color:#22439b;color:#22439b}
+
+.sa-paneel{border-top:1px solid #e2e5ea}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:14px;background:transparent;border:1px solid #e2e5ea;color:#5c626c;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#14171d;border-color:#22439b}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#22439b;border-color:#22439b;color:#ffffff}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#5c626c;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#e2e5ea}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#22439b;border:3px solid #f7f8fa}
+input[type=range]::-moz-range-track{height:2px;background:#e2e5ea}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#22439b;border:3px solid #f7f8fa}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#5c626c;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:19px;color:#14171d;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:14px;background:transparent;border:1px solid #e2e5ea;color:#5c626c;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#14171d;border-color:#22439b}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#22439b;border-color:#22439b;color:#ffffff}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #e2e5ea;border-radius:14px}
+.sa-leeg-t{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#5c626c;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #e2e5ea;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
+/* Familie: overdag-licht, zacht, vertrouwen voorop. */
+.st-card{border:1px solid #e2e5ea;border-radius:14px;transition:transform .25s ease,box-shadow .25s ease}
+.st-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(15,20,30,.10)}
+/* Neutrale hoogte, geen gekleurde gloed: die leest als een sjabloon. */
+.callbtn{box-shadow:0 1px 2px rgba(15,20,30,.10),0 3px 8px rgba(15,20,30,.08)}
+.h-btn.is-primary{box-shadow:0 1px 2px rgba(15,20,30,.12),0 4px 12px rgba(15,20,30,.10)}
+.h-btn.is-primary:hover{box-shadow:0 2px 4px rgba(15,20,30,.14),0 10px 24px rgba(15,20,30,.14)}
+.sec-trust{background:#eaeef7}
+.sec-contact{background:#eaeef7;border-top:1px solid #e2e5ea}
+.sec-contact .panel{background:transparent}
+.hours{background:#ffffff;border-radius:14px;overflow:hidden}
+.hours th,.hours td{padding-inline:16px;border-bottom:0}
+.hours tr:nth-child(odd){background:#f7f8fa}
+/* Het bewijs staat boven de kop en leest als een regel losse feiten. */
+.h-words>.h-facts:first-child{gap:0 26px;color:#14171d;font-weight:600;font-size:15px;border-bottom-color:#e2e5ea}
+.h-words>.h-facts:first-child span:first-child{color:#22439b}
+</style>
+</head>
+<body data-site="786499">
+<!--
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van autobedrijf De Riet (familie, mediaanprijs EUR 13245, 20 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+OWN-WORLD: palet kobalt, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #22439b.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "mosaic", secties stock > trust > about > promise > process > hours > contact.
+FORM: familie-kobalt-stack-mosaic-schibstedgrotesk-k0
+FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
+-->
+<div class="top" id="top">
+  <div class="wrap">
+    <a class="mark" href="#top">autobedrijf De Riet</a>
+    <nav><a href="#voorraad">Voorraad</a><a href="#over-ons">Over ons</a><a href="#contact">Contact</a></nav>
+    <a class="callbtn" href="tel:+31628461073">06-2846 1073</a>
+  </div>
+</div>
+<header class="hero h-stack">
+  <div class="wrap h-words"><div class="h-facts"><span>20 voertuigen op voorraad</span><span>5.0 uit 115 beoordelingen</span><span>21 jaar op Marktplaats</span><span>12 merken in huis</span><span>Kom langs in Den Ham</span></div><h1>Uw volgende auto staat klaar <em>in Den Ham</em></h1><p class="h-lede">Bent u op zoek naar een nieuwe auto? Dan bent u bij Autobedrijf De Riet aan het juiste adres. Met vele jaren ervaring in de Automotive branche, zijn wij gespecialiseerd in het in en ver</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging</a><a class="h-btn" href="tel:+31628461073">Bel 06-2846 1073</a></div></div>
+  <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="BMW 3-serie Touring 330i High Executive Edition /19'' / PANO" fetchpriority="high"></figure>
+</header>
+<section id="voorraad">
+  <div class="wrap head">
+    <h2>Onze voorraad</h2>
+    <span class="meta">18 getoond van 20 · vanaf € 7.495</span>
+    <p>Ziet u iets? Bel of app gerust, dan zetten we hem voor u apart.</p>
+  </div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 12 merken</option>
+    <option value="SEAT">SEAT (3)</option><option value="Audi">Audi (2)</option><option value="Hyundai">Hyundai (2)</option><option value="Renault">Renault (2)</option><option value="Volkswagen">Volkswagen (2)</option><option value="BMW">BMW (1)</option><option value="Ford">Ford (1)</option><option value="Kia">Kia (1)</option><option value="Mercedes-Benz">Mercedes-Benz (1)</option><option value="Nissan">Nissan (1)</option><option value="Peugeot">Peugeot (1)</option><option value="Suzuki">Suzuki (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 26.095</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="7495" max="26095" step="300" value="26095">
+  <span class="sa-schaal"><i>€ 7.495</i><i>€ 26.095</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2008</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2008" max="2023" step="1" value="2008">
+  <span class="sa-schaal"><i>2008</i><i>2023</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="bmw-bmw-3-serie-touring-330i-high-executive-edit-1" data-rang="0" data-merk="BMW" data-prijs="25995" data-jaar="2020" data-zoek="bmw 3-serie touring 330i high executive edition /19'' / pano bmw">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_86.jpg" alt="BMW 3-serie Touring 330i High Executive Edition /19'' / PANO" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-3-serie-touring-330i-high-executive-edit-1" aria-pressed="false" aria-label="Bewaar BMW 3-serie Touring 330i High Executive Edition /19'' / PANO"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>BMW 3-serie Touring 330i High Executive Edition /19'' / PANO</h3>
+    <p class="st-spec">2020 · 165.307 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 25.995</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20BMW%203-serie%20Touring%20330i%20High%20Executive%20Edition%20%2F19''%20%2F%20PANO%20(%E2%82%AC%2025.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="hyundai-hyundai-i30-fastback-2-0-t-gdi-280pk-19--2" data-rang="1" data-merk="Hyundai" data-prijs="23949" data-jaar="2019" data-zoek="hyundai i30 fastback 2.0 t-gdi 280pk /19''/pano/camera/pdc v hyundai">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c4fb0421-5c07-40b0-a5d2-b60f23048beb?rule=ecg_mp_eps$_85.jpg" alt="Hyundai I30 Fastback 2.0 T-GDI 280PK /19''/PANO/CAMERA/PDC V" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="hyundai-hyundai-i30-fastback-2-0-t-gdi-280pk-19--2" aria-pressed="false" aria-label="Bewaar Hyundai I30 Fastback 2.0 T-GDI 280PK /19''/PANO/CAMERA/PDC V"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Hyundai I30 Fastback 2.0 T-GDI 280PK /19''/PANO/CAMERA/PDC V</h3>
+    <p class="st-spec">2019 · 59.303 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 23.949</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Hyundai%20I30%20Fastback%202.0%20T-GDI%20280PK%20%2F19''%2FPANO%2FCAMERA%2FPDC%20V%20(%E2%82%AC%2023.949)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card is-wide" data-slug="volkswagen-volkswagen-polo-2-0-tsi-gti-dsg-pano--3" data-rang="2" data-merk="Volkswagen" data-prijs="21995" data-jaar="2020" data-zoek="volkswagen polo 2.0 tsi gti dsg|pano|camera|beats|maxton|vir volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9fd9ad92-d8eb-40d5-b2aa-6cfbd5cdde4f?rule=ecg_mp_eps$_86.jpg" alt="Volkswagen Polo 2.0 TSI GTI DSG|PANO|CAMERA|BEATS|MAXTON|VIR" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-polo-2-0-tsi-gti-dsg-pano--3" aria-pressed="false" aria-label="Bewaar Volkswagen Polo 2.0 TSI GTI DSG|PANO|CAMERA|BEATS|MAXTON|VIR"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Volkswagen Polo 2.0 TSI GTI DSG|PANO|CAMERA|BEATS|MAXTON|VIR</h3>
+    <p class="st-spec">2020 · 107.896 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 21.995</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Volkswagen%20Polo%202.0%20TSI%20GTI%20DSG%7CPANO%7CCAMERA%7CBEATS%7CMAXTON%7CVIR%20(%E2%82%AC%2021.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="suzuki-suzuki-swift-1-4-sport-maxton-18-lm-cruis-4" data-rang="3" data-merk="Suzuki" data-prijs="21895" data-jaar="2023" data-kenmerk="Navigatie" data-zoek="suzuki swift 1.4 sport|maxton|18''lm|cruise|acc|navi|led|car suzuki navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/708e430f-2361-4873-8340-20fdcfc1fbbc?rule=ecg_mp_eps$_85.jpg" alt="Suzuki SWIFT 1.4 SPORT|MAXTON|18''LM|CRUISE|ACC|NAVI|LED|CAR" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="suzuki-suzuki-swift-1-4-sport-maxton-18-lm-cruis-4" aria-pressed="false" aria-label="Bewaar Suzuki SWIFT 1.4 SPORT|MAXTON|18''LM|CRUISE|ACC|NAVI|LED|CAR"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Suzuki SWIFT 1.4 SPORT|MAXTON|18''LM|CRUISE|ACC|NAVI|LED|CAR</h3>
+    <p class="st-spec">2023 · 53.085 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 21.895</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Suzuki%20SWIFT%201.4%20SPORT%7CMAXTON%7C18''LM%7CCRUISE%7CACC%7CNAVI%7CLED%7CCAR%20(%E2%82%AC%2021.895)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="hyundai-hyundai-tucson-1-6-gdi-19-lm-velgen-came-5" data-rang="4" data-merk="Hyundai" data-prijs="20495" data-jaar="2020" data-kenmerk="Airco" data-zoek="hyundai tucson 1.6 gdi|19&quot;lm velgen|camera|airco|cruise|stoe hyundai airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/28bd5f5a-bc86-4508-923e-2de0c259d278?rule=ecg_mp_eps$_85.jpg" alt="Hyundai Tucson 1.6 GDI|19&quot;LM VELGEN|CAMERA|AIRCO|CRUISE|STOE" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="hyundai-hyundai-tucson-1-6-gdi-19-lm-velgen-came-5" aria-pressed="false" aria-label="Bewaar Hyundai Tucson 1.6 GDI|19&quot;LM VELGEN|CAMERA|AIRCO|CRUISE|STOE"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Hyundai Tucson 1.6 GDI|19&quot;LM VELGEN|CAMERA|AIRCO|CRUISE|STOE</h3>
+    <p class="st-spec">2020 · 43.763 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 20.495</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Hyundai%20Tucson%201.6%20GDI%7C19%22LM%20VELGEN%7CCAMERA%7CAIRCO%7CCRUISE%7CSTOE%20(%E2%82%AC%2020.495)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="kia-kia-rio-1-0-t-gdi-120pk-gt-line-17-acc-camer-6" data-rang="5" data-merk="Kia" data-prijs="19895" data-jaar="2023" data-zoek="kia rio 1.0 t-gdi 120pk gt-line / 17'' / acc / camera/pdc v+ kia">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bfc9af2c-95ed-44c1-aadb-14f84553571c?rule=ecg_mp_eps$_85.jpg" alt="Kia Rio 1.0 T-GDi 120PK GT-Line / 17'' / ACC / CAMERA/PDC V+" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="kia-kia-rio-1-0-t-gdi-120pk-gt-line-17-acc-camer-6" aria-pressed="false" aria-label="Bewaar Kia Rio 1.0 T-GDi 120PK GT-Line / 17'' / ACC / CAMERA/PDC V+"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Kia Rio 1.0 T-GDi 120PK GT-Line / 17'' / ACC / CAMERA/PDC V+</h3>
+    <p class="st-spec">2023 · 22.967 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 19.895</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Kia%20Rio%201.0%20T-GDi%20120PK%20GT-Line%20%2F%2017''%20%2F%20ACC%20%2F%20CAMERA%2FPDC%20V%2B%20(%E2%82%AC%2019.895)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="renault-renault-megane-estate-1-6-tce-gt-4-contr-7" data-rang="6" data-merk="Renault" data-prijs="15995" data-jaar="2018" data-kenmerk="Navigatie" data-zoek="renault mégane estate 1.6 tce gt 4-control|headup|navi|came renault navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a6a1012c-ce51-4d42-ae34-5cd82b2aa7fc?rule=ecg_mp_eps$_85.jpg" alt="Renault Mégane Estate 1.6 TCe GT 4-CONTROL|HEADUP|NAVI|CAME" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="renault-renault-megane-estate-1-6-tce-gt-4-contr-7" aria-pressed="false" aria-label="Bewaar Renault Mégane Estate 1.6 TCe GT 4-CONTROL|HEADUP|NAVI|CAME"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Renault Mégane Estate 1.6 TCe GT 4-CONTROL|HEADUP|NAVI|CAME</h3>
+    <p class="st-spec">2018 · 98.362 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 15.995</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Renault%20M%C3%A9gane%20Estate%201.6%20TCe%20GT%204-CONTROL%7CHEADUP%7CNAVI%7CCAME%20(%E2%82%AC%2015.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card is-wide" data-slug="seat-seat-ibiza-1-5-tsi-150pk-fr-18-lm-alcantara-8" data-rang="7" data-merk="SEAT" data-prijs="13895" data-jaar="2018" data-kenmerk="Navigatie" data-zoek="seat ibiza 1.5 tsi 150pk|fr|18''lm|alcantara|navi|led|pdc v+ seat navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/523a71b1-8fe8-4d88-a2b3-5e05bb479805?rule=ecg_mp_eps$_86.jpg" alt="SEAT Ibiza 1.5 TSI 150PK|FR|18''LM|ALCANTARA|NAVI|LED|PDC V+" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="seat-seat-ibiza-1-5-tsi-150pk-fr-18-lm-alcantara-8" aria-pressed="false" aria-label="Bewaar SEAT Ibiza 1.5 TSI 150PK|FR|18''LM|ALCANTARA|NAVI|LED|PDC V+"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>SEAT Ibiza 1.5 TSI 150PK|FR|18''LM|ALCANTARA|NAVI|LED|PDC V+</h3>
+    <p class="st-spec">2018 · 142.669 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 13.895</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20SEAT%20Ibiza%201.5%20TSI%20150PK%7CFR%7C18''LM%7CALCANTARA%7CNAVI%7CLED%7CPDC%20V%2B%20(%E2%82%AC%2013.895)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="seat-seat-arona-1-0-tsi-beats-led-cruise-camera--9" data-rang="8" data-merk="SEAT" data-prijs="13495" data-jaar="2019" data-zoek="seat arona 1.0 tsi|beats|led|cruise|camera|alcantara|apple c seat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f1e08832-8bc2-4b6b-9007-83a04dd1d2fb?rule=ecg_mp_eps$_85.jpg" alt="Seat ARONA 1.0 TSI|BEATS|LED|CRUISE|CAMERA|ALCANTARA|APPLE C" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="seat-seat-arona-1-0-tsi-beats-led-cruise-camera--9" aria-pressed="false" aria-label="Bewaar Seat ARONA 1.0 TSI|BEATS|LED|CRUISE|CAMERA|ALCANTARA|APPLE C"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Seat ARONA 1.0 TSI|BEATS|LED|CRUISE|CAMERA|ALCANTARA|APPLE C</h3>
+    <p class="st-spec">2019 · 115.320 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 13.495</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Seat%20ARONA%201.0%20TSI%7CBEATS%7CLED%7CCRUISE%7CCAMERA%7CALCANTARA%7CAPPLE%20C%20(%E2%82%AC%2013.495)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="seat-ibiza-10" data-rang="9" data-merk="SEAT" data-prijs="12995" data-jaar="2017" data-brandstof="Benzine" data-zoek="seat ibiza 1.0 tsi 116pk excellence/led/camera/beats/cruise/ seat ibiza benzine">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/806f3b4d-b038-4bc9-bb17-31cf0f11aed6?rule=ecg_mp_eps$_85.jpg" alt="Seat IBIZA 1.0 TSI 116PK EXCELLENCE/LED/CAMERA/BEATS/CRUISE/" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="seat-ibiza-10" aria-pressed="false" aria-label="Bewaar Seat IBIZA 1.0 TSI 116PK EXCELLENCE/LED/CAMERA/BEATS/CRUISE/"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Seat IBIZA 1.0 TSI 116PK EXCELLENCE/LED/CAMERA/BEATS/CRUISE/</h3>
+    <p class="st-spec">2017 · 60.780 km · Benzine</p>
+    <div class="st-foot">
+      <span class="st-price">€ 12.995</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Seat%20IBIZA%201.0%20TSI%20116PK%20EXCELLENCE%2FLED%2FCAMERA%2FBEATS%2FCRUISE%2F%20(%E2%82%AC%2012.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="peugeot-peugeot-208-1-2-puretech-gt-line-leder-v-11" data-rang="10" data-merk="Peugeot" data-prijs="12495" data-jaar="2020" data-zoek="peugeot 208 1.2 puretech|gt-line|leder|virtual|17''lm|acc|cr peugeot">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5d872837-998b-4aef-9639-336eeacb9a24?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 208 1.2 PURETECH|GT-Line|LEDER|VIRTUAL|17''LM|ACC|CR" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-208-1-2-puretech-gt-line-leder-v-11" aria-pressed="false" aria-label="Bewaar Peugeot 208 1.2 PURETECH|GT-Line|LEDER|VIRTUAL|17''LM|ACC|CR"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Peugeot 208 1.2 PURETECH|GT-Line|LEDER|VIRTUAL|17''LM|ACC|CR</h3>
+    <p class="st-spec">2020 · 99.675 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 12.495</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Peugeot%20208%201.2%20PURETECH%7CGT-Line%7CLEDER%7CVIRTUAL%7C17''LM%7CACC%7CCR%20(%E2%82%AC%2012.495)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="nissan-nissan-qashqai-1-2-n-connecta-pano-360g-c-12" data-rang="11" data-merk="Nissan" data-prijs="11495" data-jaar="2016" data-kenmerk="Navigatie" data-zoek="nissan qashqai 1.2 n-connecta / pano/360g/cruise/navi/led/bo nissan navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/54c8a5be-f07b-4d36-a91e-b2574112bcef?rule=ecg_mp_eps$_85.jpg" alt="Nissan Qashqai 1.2 N-Connecta / PANO/360G/CRUISE/NAVI/LED/BO" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="nissan-nissan-qashqai-1-2-n-connecta-pano-360g-c-12" aria-pressed="false" aria-label="Bewaar Nissan Qashqai 1.2 N-Connecta / PANO/360G/CRUISE/NAVI/LED/BO"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Nissan Qashqai 1.2 N-Connecta / PANO/360G/CRUISE/NAVI/LED/BO</h3>
+    <p class="st-spec">2016 · 84.765 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 11.495</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Nissan%20Qashqai%201.2%20N-Connecta%20%2F%20PANO%2F360G%2FCRUISE%2FNAVI%2FLED%2FBO%20(%E2%82%AC%2011.495)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card is-wide" data-slug="mercedes-benz-mercedes-benz-c-klasse-estate-180--13" data-rang="12" data-merk="Mercedes-Benz" data-prijs="10995" data-jaar="2011" data-kenmerk="Automaat" data-zoek="mercedes-benz c-klasse estate 180 cgi avantgarde automaat/19 mercedes-benz automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a91a7798-d1b1-4442-be4b-c45d5f5624a6?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz C-klasse Estate 180 CGI Avantgarde AUTOMAAT/19" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-c-klasse-estate-180--13" aria-pressed="false" aria-label="Bewaar Mercedes-Benz C-klasse Estate 180 CGI Avantgarde AUTOMAAT/19"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Mercedes-Benz C-klasse Estate 180 CGI Avantgarde AUTOMAAT/19</h3>
+    <p class="st-spec">2011 · 145.694 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 10.995</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Mercedes-Benz%20C-klasse%20Estate%20180%20CGI%20Avantgarde%20AUTOMAAT%2F19%20(%E2%82%AC%2010.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="ford-ford-fiesta-st-line-17-lm-pdc-achter-navi-a-14" data-rang="13" data-merk="Ford" data-prijs="9895" data-jaar="2019" data-kenmerk="Navigatie" data-zoek="ford fiesta st-line/17''lm/pdc achter/navi/applecarplay/stoe ford navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/234e3583-7443-4675-b25b-15d0f06c0c14?rule=ecg_mp_eps$_85.jpg" alt="Ford FIESTA ST-LINE/17''LM/PDC ACHTER/NAVI/APPLECARPLAY/STOE" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="ford-ford-fiesta-st-line-17-lm-pdc-achter-navi-a-14" aria-pressed="false" aria-label="Bewaar Ford FIESTA ST-LINE/17''LM/PDC ACHTER/NAVI/APPLECARPLAY/STOE"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Ford FIESTA ST-LINE/17''LM/PDC ACHTER/NAVI/APPLECARPLAY/STOE</h3>
+    <p class="st-spec">2019 · 110.845 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 9.895</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Ford%20FIESTA%20ST-LINE%2F17''LM%2FPDC%20ACHTER%2FNAVI%2FAPPLECARPLAY%2FSTOE%20(%E2%82%AC%209.895)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="audi-audi-a5-sportback-1-8-tfsi-18-inch-navi-tre-15" data-rang="14" data-merk="Audi" data-prijs="7995" data-jaar="2012" data-kenmerk="Navigatie|Trekhaak" data-zoek="audi a5 sportback 1.8 tfsi / 18&quot; inch / navi / trekhaak / xe audi navigatie trekhaak">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e459c61-d511-434b-9ee9-12f95ee7e274?rule=ecg_mp_eps$_85.jpg" alt="Audi A5 Sportback 1.8 TFSI / 18&quot; inch / navi / trekhaak / Xe" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-a5-sportback-1-8-tfsi-18-inch-navi-tre-15" aria-pressed="false" aria-label="Bewaar Audi A5 Sportback 1.8 TFSI / 18&quot; inch / navi / trekhaak / Xe"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Audi A5 Sportback 1.8 TFSI / 18&quot; inch / navi / trekhaak / Xe</h3>
+    <p class="st-spec">2012 · 215.127 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 7.995</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Audi%20A5%20Sportback%201.8%20TFSI%20%2F%2018%22%20inch%20%2F%20navi%20%2F%20trekhaak%20%2F%20Xe%20(%E2%82%AC%207.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-tiguan-2-0-tsi-dsg-4motion-16" data-rang="15" data-merk="Volkswagen" data-prijs="7995" data-jaar="2008" data-zoek="volkswagen tiguan 2.0 tsi dsg 4motion|pano|leder|camera|pdc volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2b89de00-8541-47d2-a840-73ab6a6683e9?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tiguan 2.0 TSI DSG 4Motion|PANO|LEDER|CAMERA|PDC" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-tiguan-2-0-tsi-dsg-4motion-16" aria-pressed="false" aria-label="Bewaar Volkswagen Tiguan 2.0 TSI DSG 4Motion|PANO|LEDER|CAMERA|PDC"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Volkswagen Tiguan 2.0 TSI DSG 4Motion|PANO|LEDER|CAMERA|PDC</h3>
+    <p class="st-spec">2008 · 198.250 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 7.995</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Volkswagen%20Tiguan%202.0%20TSI%20DSG%204Motion%7CPANO%7CLEDER%7CCAMERA%7CPDC%20(%E2%82%AC%207.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="renault-renault-twingo-1-0-sce-limited-15-pdc-ai-17" data-rang="16" data-merk="Renault" data-prijs="7495" data-jaar="2018" data-kenmerk="Airco" data-zoek="renault twingo 1.0 sce limited|15''|pdc|airco|cruisecontrol| renault airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0c412827-21b6-457f-bf3a-1a69af433c54?rule=ecg_mp_eps$_85.jpg" alt="Renault Twingo 1.0 SCe LIMITED|15''|PDC|AIRCO|CRUISECONTROL|" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="renault-renault-twingo-1-0-sce-limited-15-pdc-ai-17" aria-pressed="false" aria-label="Bewaar Renault Twingo 1.0 SCe LIMITED|15''|PDC|AIRCO|CRUISECONTROL|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Renault Twingo 1.0 SCe LIMITED|15''|PDC|AIRCO|CRUISECONTROL|</h3>
+    <p class="st-spec">2018 · 89.526 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 7.495</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Renault%20Twingo%201.0%20SCe%20LIMITED%7C15''%7CPDC%7CAIRCO%7CCRUISECONTROL%7C%20(%E2%82%AC%207.495)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card is-wide" data-slug="audi-audi-a3-cabriolet-2-0-tfsi-dsg-200pk-s-line-18" data-rang="17" data-merk="Audi" data-prijs="7495" data-jaar="2009" data-kenmerk="Navigatie" data-zoek="audi a3 cabriolet 2.0 tfsi dsg 200pk s-line|navi|leder|cruis audi navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e80332a-d9ed-47e2-996a-b1aaabda91eb?rule=ecg_mp_eps$_86.jpg" alt="Audi A3 Cabriolet 2.0 TFSI DSG 200PK S-Line|NAVI|LEDER|CRUIS" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-a3-cabriolet-2-0-tfsi-dsg-200pk-s-line-18" aria-pressed="false" aria-label="Bewaar Audi A3 Cabriolet 2.0 TFSI DSG 200PK S-Line|NAVI|LEDER|CRUIS"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Audi A3 Cabriolet 2.0 TFSI DSG 200PK S-Line|NAVI|LEDER|CRUIS</h3>
+    <p class="st-spec">2009 · 244.002 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 7.495</span>
+      <a class="st-ask" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20zag%20de%20Audi%20A3%20Cabriolet%202.0%20TFSI%20DSG%20200PK%20S-Line%7CNAVI%7CLEDER%7CCRUIS%20(%E2%82%AC%207.495)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 2 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 2 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
+</section>
+<section class="sec-trust"><div class="wrap rv"><div><b>5.0</b><span>gemiddeld uit 115 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>Den Ham</b><span><a href="https://maps.google.com/?q=Nijlaar%2012%2C%207683NC%20Den%20Ham" target="_blank" rel="noreferrer">Nijlaar 12, 7683NC Den Ham</a></span></div><div><b>KvK</b><span>89046846</span></div></div></section>
+<section class="sec-about" id="over-ons">
+  <div class="wrap rv">
+    <div>
+      <h2>Over autobedrijf De Riet</h2>
+      <p>Bent u op zoek naar een nieuwe auto? Dan bent u bij Autobedrijf De Riet aan het juiste adres. Met vele jaren ervaring in de Automotive branche, zijn wij gespecialiseerd in het in en verkopen van jong gebruikte luxe auto’s.</p>
+    </div>
+    <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/6cbb8970-7205-421e-9564-6bbe729cc38e?rule=ecg_mp_eps$_85.jpg" alt="autobedrijf De Riet" loading="lazy"></div>
+  </div>
+</section>
+<section class="sec-trust"><div class="wrap rv"><div><b>20</b><span>voertuigen staan klaar</span></div><div><b>€ 7.495</b><span>de goedkoopste van dit moment</span></div><div><b>2019</b><span>mediaan bouwjaar</span></div><div><b>21</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-flow">
+  <div class="wrap">
+    <div class="head rv"><h2>Zo gaat het</h2></div>
+    <ol class="flow rv">
+      <li><b>Neem contact op</b><p>Bel of app ons over het voertuig dat u op het oog heeft.</p></li><li><b>Kom langs</b><p>Kom langs voor een bezichtiging en een proefrit.</p></li><li><b>Regel het samen</b><p>We bespreken prijs, inruil en aflevering. Geen verrassingen.</p></li>
+    </ol>
+  </div>
+</section>
+<section class="sec-contact" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <h2>Even langskomen?</h2>
+      <p class="lede">Bel gerust voordat u komt, dan staat de auto klaar en heeft u niet voor niets gereden.</p>
+      <p class="callrow"><a class="h-btn is-primary" href="tel:+31628461073">Bel 06-2846 1073</a></p>
+      <p class="addr"><a href="https://maps.google.com/?q=Nijlaar%2012%2C%207683NC%20Den%20Ham" target="_blank" rel="noreferrer">Nijlaar 12, 7683NC Den Ham</a></p>
+      <table class="hours"><tr data-d="1"><th>Maandag</th><td>09:00 – 17:30</td></tr><tr data-d="2"><th>Dinsdag</th><td>09:00 – 17:30</td></tr><tr data-d="3"><th>Woensdag</th><td>09:00 – 17:30</td></tr><tr data-d="4"><th>Donderdag</th><td>09:00 – 17:30</td></tr><tr data-d="5"><th>Vrijdag</th><td>09:00 – 17:30</td></tr><tr data-d="6"><th>Zaterdag</th><td>09:00 – 17:00</td></tr><tr data-d="0"><th>Zondag</th><td class="closed">Gesloten</td></tr></table>
+    </div>
+    <div class="panel rv"><form onsubmit="event.preventDefault();var f=this;location.href='mailto:havali_cocuk@hotmail.com?subject='+encodeURIComponent('Aanvraag via de website')+'&body='+encodeURIComponent('Naam: '+f.naam.value+'\nTelefoon: '+f.tel.value+'\n\n'+f.bericht.value)"><label class="field"><span>Uw naam</span><input name="naam" type="text" autocomplete="name" required></label><label class="field"><span>Telefoonnummer</span><input name="tel" type="tel" autocomplete="tel" required></label><label class="field"><span>Waar kunnen we u mee helpen?</span><textarea name="bericht" rows="4" required></textarea></label><button class="h-btn is-primary" type="submit">Verstuur aanvraag</button><p class="note">Uw bericht opent in uw eigen mailprogramma.</p></form></div>
+  </div>
+</section>
+<footer>
+  <div class="wrap rowf">
+    <span>autobedrijf De Riet · Nijlaar 12, 7683NC Den Ham · KvK 89046846</span>
+    <span>Voorbeeldwebsite, gemaakt door Capital BB</span>
+  </div>
+</footer>
+<div class="bar">
+  <a class="acc" href="tel:+31628461073">Bellen</a>
+  <a href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">WhatsApp</a>
+</div>
+<script>
+document.documentElement.className+=' js';
+(function(){
+  var today=document.querySelector('.hours tr[data-d="'+new Date().getDay()+'"]');
+  if(today){today.className='today';var v=today.lastElementChild;if(v){v.insertAdjacentHTML('beforeend','<span class="tag">vandaag</span>')}}
+  var top=document.getElementById('top');
+  if(top){var s=function(){top.classList.toggle('solid',window.scrollY>40)};s();addEventListener('scroll',s,{passive:true})}
+  var items=[].slice.call(document.querySelectorAll('.rv'));
+  var show=function(el){el.classList.add('in')};
+  if(!('IntersectionObserver' in window)){items.forEach(show);return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
+  items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
+  setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
+})();
+</script>
+
+</body>
+</html>

@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;letter-spacing:-0.035em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #a4482a;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #e8e1da}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#bf7f6a;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#a4482a;color:#fffaf7;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#6b625a;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #e8e1da;border-radius:50%;background:#ffffff;color:#6b625a;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#a4482a;border-color:#a4482a}
+.st-bewaar[aria-pressed="true"]{color:#a4482a;border-color:#a4482a}
+.st-bewaar[aria-pressed="true"] svg{fill:#a4482a}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#a4482a;color:#fffaf7;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#e8e1da;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,77 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#faf7f4;border-block:1px solid #e8e1da;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#6b625a;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:14px;background:#ffffff;border:1px solid #e8e1da;color:#1c1815;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#6b625a}
+.sa-zoek input:focus{outline:none;border-color:#a4482a}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#6b625a;cursor:pointer}
+.sa-wis:hover{color:#1c1815}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#6b625a;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:14px;letter-spacing:0;text-transform:none;color:#a4482a;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:14px;background:#ffffff;border:1px solid #e8e1da;color:#1c1815;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#a4482a}
+.sa-meer{padding:11px 17px;border-radius:14px;background:transparent;border:1px solid #e8e1da;color:#6b625a;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#1c1815;border-color:#a4482a}
+.sa-meer[aria-expanded="true"]{border-color:#a4482a;color:#a4482a}
+
+.sa-paneel{border-top:1px solid #e8e1da}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:14px;background:transparent;border:1px solid #e8e1da;color:#6b625a;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#1c1815;border-color:#a4482a}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#a4482a;border-color:#a4482a;color:#fffaf7}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#6b625a;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#e8e1da}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#a4482a;border:3px solid #faf7f4}
+input[type=range]::-moz-range-track{height:2px;background:#e8e1da}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#a4482a;border:3px solid #faf7f4}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#6b625a;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:19px;color:#1c1815;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:14px;background:transparent;border:1px solid #e8e1da;color:#6b625a;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#1c1815;border-color:#a4482a}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#a4482a;border-color:#a4482a;color:#fffaf7}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #e8e1da;border-radius:14px}
+.sa-leeg-t{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#6b625a;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #e8e1da;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
 /* Familie: overdag-licht, zacht, vertrouwen voorop. */
 .st-card{border:1px solid #e8e1da;border-radius:14px;transition:transform .25s ease,box-shadow .25s ease}
 .st-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(15,20,30,.10)}
@@ -293,7 +394,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child span:first-child{color:#a4482a}
 </style>
 </head>
-<body>
+<body data-site="17364041">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Auto 66 BV (familie, mediaanprijs EUR 29895, 93 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet terra, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #a4482a.
@@ -319,8 +420,54 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <span class="meta">18 getoond van 93 · vanaf € 13.995</span>
     <p>Ziet u iets? Bel of app gerust, dan zetten we hem voor u apart.</p>
   </div>
-  <div class="wrap"><div class="st-grid"><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42d1ad9e-1051-4f3e-ab27-f6f464056c55?rule=ecg_mp_eps$_85.jpg" alt="Audi RS Q3 RS Q3 2.5 TFSI" loading="lazy" decoding="async"></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 4 merken</option>
+    <option value="Volkswagen">Volkswagen (8)</option><option value="Audi">Audi (3)</option><option value="Hyundai">Hyundai (1)</option><option value="Mercedes-Benz">Mercedes-Benz (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 67.995</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="13995" max="67995" step="900" value="67995">
+  <span class="sa-schaal"><i>€ 13.995</i><i>€ 67.995</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2001</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2001" max="2025" step="1" value="2001">
+  <span class="sa-schaal"><i>2001</i><i>2025</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="audi-audi-rs-q3-rs-q3-2-5-tfsi-1" data-rang="0" data-merk="Audi" data-prijs="67995" data-jaar="2023" data-zoek="audi rs q3 rs q3 2.5 tfsi audi">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42d1ad9e-1051-4f3e-ab27-f6f464056c55?rule=ecg_mp_eps$_85.jpg" alt="Audi RS Q3 RS Q3 2.5 TFSI" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-rs-q3-rs-q3-2-5-tfsi-1" aria-pressed="false" aria-label="Bewaar Audi RS Q3 RS Q3 2.5 TFSI"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi RS Q3 RS Q3 2.5 TFSI</h3>
     <p class="st-spec">2023 · 8.350 km</p>
@@ -329,8 +476,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Audi%20RS%20Q3%20RS%20Q3%202.5%20TFSI%20(%E2%82%AC%2067.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/83053c1b-d2a2-4e5c-bbdc-c626b578e767?rule=ecg_mp_eps$_85.jpg" alt="Hyundai IONIQ 5 N AWD 650 PK HUD Stoelverwarming Voor+Achter" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="hyundai-ioniq-5-2" data-rang="1" data-merk="Hyundai" data-prijs="54995" data-jaar="2025" data-zoek="hyundai ioniq 5 n awd 650 pk hud stoelverwarming voor+achter hyundai ioniq 5">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/83053c1b-d2a2-4e5c-bbdc-c626b578e767?rule=ecg_mp_eps$_85.jpg" alt="Hyundai IONIQ 5 N AWD 650 PK HUD Stoelverwarming Voor+Achter" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="hyundai-ioniq-5-2" aria-pressed="false" aria-label="Bewaar Hyundai IONIQ 5 N AWD 650 PK HUD Stoelverwarming Voor+Achter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Hyundai IONIQ 5 N AWD 650 PK HUD Stoelverwarming Voor+Achter</h3>
     <p class="st-spec">2025 · 20.719 km</p>
@@ -339,8 +486,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Hyundai%20IONIQ%205%20N%20AWD%20650%20PK%20HUD%20Stoelverwarming%20Voor%2BAchter%20(%E2%82%AC%2054.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1ffba978-014b-4ced-82ee-543e627f7dc9?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Grand California 600 Highline 1e eig" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-volkswagen-grand-california-600-highline-3" data-rang="2" data-prijs="53995" data-jaar="2023" data-brandstof="Diesel" data-zoek="volkswagen grand california 600 highline 1e eig diesel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1ffba978-014b-4ced-82ee-543e627f7dc9?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Grand California 600 Highline 1e eig" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-volkswagen-grand-california-600-highline-3" aria-pressed="false" aria-label="Bewaar Volkswagen Grand California 600 Highline 1e eig"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Grand California 600 Highline 1e eig</h3>
     <p class="st-spec">2023 · 75.187 km · Diesel</p>
@@ -349,8 +496,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Volkswagen%20Grand%20California%20600%20Highline%201e%20eig%20(%E2%82%AC%2053.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/529fa156-e067-4bfa-b010-fc3392aa66de?rule=ecg_mp_eps$_85.jpg" alt="Forster FV 599 HB VANTASY GMAE204" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-forster-fv-599-hb-vantasy-gmae204-4" data-rang="3" data-prijs="47995" data-jaar="2023" data-zoek="forster fv 599 hb vantasy gmae204">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/529fa156-e067-4bfa-b010-fc3392aa66de?rule=ecg_mp_eps$_85.jpg" alt="Forster FV 599 HB VANTASY GMAE204" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-forster-fv-599-hb-vantasy-gmae204-4" aria-pressed="false" aria-label="Bewaar Forster FV 599 HB VANTASY GMAE204"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Forster FV 599 HB VANTASY GMAE204</h3>
     <p class="st-spec">2023 · 56.319 km</p>
@@ -359,8 +506,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Forster%20FV%20599%20HB%20VANTASY%20GMAE204%20(%E2%82%AC%2047.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/033d0ac4-f603-4701-9793-53fc161cb947?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen T-Roc 2.0 TSI 4Motion R Pano Memory Camera Leder" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-t-roc-2-0-tsi-4motion-r-pa-5" data-rang="4" data-merk="Volkswagen" data-prijs="47995" data-jaar="2024" data-zoek="volkswagen t-roc 2.0 tsi 4motion r pano memory camera leder volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/033d0ac4-f603-4701-9793-53fc161cb947?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen T-Roc 2.0 TSI 4Motion R Pano Memory Camera Leder" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-t-roc-2-0-tsi-4motion-r-pa-5" aria-pressed="false" aria-label="Bewaar Volkswagen T-Roc 2.0 TSI 4Motion R Pano Memory Camera Leder"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen T-Roc 2.0 TSI 4Motion R Pano Memory Camera Leder</h3>
     <p class="st-spec">2024 · 32.750 km</p>
@@ -369,8 +516,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Volkswagen%20T-Roc%202.0%20TSI%204Motion%20R%20Pano%20Memory%20Camera%20Leder%20(%E2%82%AC%2047.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bccba25b-3380-4373-828c-5d5d013c44bd?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tiguan 1.5 eTSI Life Edition" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-tiguan-1-5-etsi-life-editi-6" data-rang="5" data-merk="Volkswagen" data-prijs="35995" data-jaar="2024" data-zoek="volkswagen tiguan 1.5 etsi life edition volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bccba25b-3380-4373-828c-5d5d013c44bd?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tiguan 1.5 eTSI Life Edition" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-tiguan-1-5-etsi-life-editi-6" aria-pressed="false" aria-label="Bewaar Volkswagen Tiguan 1.5 eTSI Life Edition"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Tiguan 1.5 eTSI Life Edition</h3>
     <p class="st-spec">2024 · 4.170 km</p>
@@ -379,8 +526,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Volkswagen%20Tiguan%201.5%20eTSI%20Life%20Edition%20(%E2%82%AC%2035.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/54140904-39dd-45f3-9f6a-ad985d9d6b11?rule=ecg_mp_eps$_85.jpg" alt="Audi Q2 35 TFSI S Edition 3 x S-Line Carplay Sfeer Sonos" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="audi-audi-q2-35-tfsi-s-edition-3-x-s-line-carpla-7" data-rang="6" data-merk="Audi" data-prijs="34995" data-jaar="2025" data-zoek="audi q2 35 tfsi s edition 3 x s-line carplay sfeer sonos audi">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/54140904-39dd-45f3-9f6a-ad985d9d6b11?rule=ecg_mp_eps$_85.jpg" alt="Audi Q2 35 TFSI S Edition 3 x S-Line Carplay Sfeer Sonos" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-q2-35-tfsi-s-edition-3-x-s-line-carpla-7" aria-pressed="false" aria-label="Bewaar Audi Q2 35 TFSI S Edition 3 x S-Line Carplay Sfeer Sonos"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi Q2 35 TFSI S Edition 3 x S-Line Carplay Sfeer Sonos</h3>
     <p class="st-spec">2025 · 9.825 km</p>
@@ -389,8 +536,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Audi%20Q2%2035%20TFSI%20S%20Edition%203%20x%20S-Line%20Carplay%20Sfeer%20Sonos%20(%E2%82%AC%2034.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d075b0f-cd4b-4543-96b9-8d512fa39eef?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen T-Roc 1.5 TSI 3x R-Line Business, Cam, Leder, FUL" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-t-roc-1-5-tsi-3x-r-line-bu-8" data-rang="7" data-merk="Volkswagen" data-prijs="32995" data-jaar="2023" data-zoek="volkswagen t-roc 1.5 tsi 3x r-line business, cam, leder, ful volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d075b0f-cd4b-4543-96b9-8d512fa39eef?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen T-Roc 1.5 TSI 3x R-Line Business, Cam, Leder, FUL" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-t-roc-1-5-tsi-3x-r-line-bu-8" aria-pressed="false" aria-label="Bewaar Volkswagen T-Roc 1.5 TSI 3x R-Line Business, Cam, Leder, FUL"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen T-Roc 1.5 TSI 3x R-Line Business, Cam, Leder, FUL</h3>
     <p class="st-spec">2023 · 31.611 km</p>
@@ -399,8 +546,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Volkswagen%20T-Roc%201.5%20TSI%203x%20R-Line%20Business%2C%20Cam%2C%20Leder%2C%20FUL%20(%E2%82%AC%2032.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/21334cb6-8553-4c69-865e-444373d66cd7?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tiguan Allspace 2.0 TSI 4Motion Highline 7p Bom v" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-tiguan-allspace-2-0-tsi-4m-9" data-rang="8" data-merk="Volkswagen" data-prijs="30795" data-jaar="2019" data-zoek="volkswagen tiguan allspace 2.0 tsi 4motion highline 7p bom v volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/21334cb6-8553-4c69-865e-444373d66cd7?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tiguan Allspace 2.0 TSI 4Motion Highline 7p Bom v" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-tiguan-allspace-2-0-tsi-4m-9" aria-pressed="false" aria-label="Bewaar Volkswagen Tiguan Allspace 2.0 TSI 4Motion Highline 7p Bom v"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Tiguan Allspace 2.0 TSI 4Motion Highline 7p Bom v</h3>
     <p class="st-spec">2019 · 62.871 km</p>
@@ -409,8 +556,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Volkswagen%20Tiguan%20Allspace%202.0%20TSI%204Motion%20Highline%207p%20Bom%20v%20(%E2%82%AC%2030.795)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f6f9eaf8-90e4-4436-b211-a21aa05e4007?rule=ecg_mp_eps$_85.jpg" alt="Audi A3 Limousine 35 TFSI S edition TFSI Keyless,Navi,ParkAs" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="audi-audi-a3-limousine-35-tfsi-s-edition-tfsi-ke-10" data-rang="9" data-merk="Audi" data-prijs="28995" data-jaar="2023" data-kenmerk="Navigatie" data-zoek="audi a3 limousine 35 tfsi s edition tfsi keyless,navi,parkas audi navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f6f9eaf8-90e4-4436-b211-a21aa05e4007?rule=ecg_mp_eps$_85.jpg" alt="Audi A3 Limousine 35 TFSI S edition TFSI Keyless,Navi,ParkAs" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-a3-limousine-35-tfsi-s-edition-tfsi-ke-10" aria-pressed="false" aria-label="Bewaar Audi A3 Limousine 35 TFSI S edition TFSI Keyless,Navi,ParkAs"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi A3 Limousine 35 TFSI S edition TFSI Keyless,Navi,ParkAs</h3>
     <p class="st-spec">2023 · 44.658 km</p>
@@ -419,8 +566,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Audi%20A3%20Limousine%2035%20TFSI%20S%20edition%20TFSI%20Keyless%2CNavi%2CParkAs%20(%E2%82%AC%2028.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fe3b0cfd-8a77-47e4-bf5e-c536bdde4550?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Golf 1.5 TSI R-Line" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-golf-1-5-tsi-r-line-11" data-rang="10" data-merk="Volkswagen" data-prijs="24995" data-jaar="2024" data-zoek="volkswagen golf 1.5 tsi r-line volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fe3b0cfd-8a77-47e4-bf5e-c536bdde4550?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Golf 1.5 TSI R-Line" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-golf-1-5-tsi-r-line-11" aria-pressed="false" aria-label="Bewaar Volkswagen Golf 1.5 TSI R-Line"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Golf 1.5 TSI R-Line</h3>
     <p class="st-spec">2024 · 8.647 km</p>
@@ -429,8 +576,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Volkswagen%20Golf%201.5%20TSI%20R-Line%20(%E2%82%AC%2024.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7285d97b-dcaf-44c5-80f8-7f79249e37d0?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Polo 1.0 TSI Life Edition Camera CarPlay Navi AUT" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-polo-1-0-tsi-life-edition--12" data-rang="11" data-merk="Volkswagen" data-prijs="21995" data-jaar="2024" data-kenmerk="Navigatie" data-zoek="volkswagen polo 1.0 tsi life edition camera carplay navi aut volkswagen navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7285d97b-dcaf-44c5-80f8-7f79249e37d0?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Polo 1.0 TSI Life Edition Camera CarPlay Navi AUT" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-polo-1-0-tsi-life-edition--12" aria-pressed="false" aria-label="Bewaar Volkswagen Polo 1.0 TSI Life Edition Camera CarPlay Navi AUT"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Polo 1.0 TSI Life Edition Camera CarPlay Navi AUT</h3>
     <p class="st-spec">2024 · 6.201 km</p>
@@ -439,8 +586,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Volkswagen%20Polo%201.0%20TSI%20Life%20Edition%20Camera%20CarPlay%20Navi%20AUT%20(%E2%82%AC%2021.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/69c8491d-1acd-4b07-b4f7-6a1e59193133?rule=ecg_mp_eps$_85.jpg" alt="Mercedes Sprinter bestel 211 2.2 CDI L2H2" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bestelauto-s-mercedes-sprinter-bestel-211-2-2-cd-13" data-rang="12" data-prijs="18995" data-jaar="2021" data-zoek="mercedes sprinter bestel 211 2.2 cdi l2h2">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/69c8491d-1acd-4b07-b4f7-6a1e59193133?rule=ecg_mp_eps$_85.jpg" alt="Mercedes Sprinter bestel 211 2.2 CDI L2H2" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-mercedes-sprinter-bestel-211-2-2-cd-13" aria-pressed="false" aria-label="Bewaar Mercedes Sprinter bestel 211 2.2 CDI L2H2"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes Sprinter bestel 211 2.2 CDI L2H2</h3>
     <p class="st-spec">2021 · 57.581 km</p>
@@ -449,8 +596,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Mercedes%20Sprinter%20bestel%20211%202.2%20CDI%20L2H2%20(%E2%82%AC%2018.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/473a11be-169d-4f3f-96d3-5ad6726e3191?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Polo 1.0 TSI Go 95 pk APK tot 02-2028" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-polo-1-0-tsi-go-95-pk-apk--14" data-rang="13" data-merk="Volkswagen" data-prijs="18295" data-jaar="2022" data-kenmerk="APK" data-zoek="volkswagen polo 1.0 tsi go 95 pk apk tot 02-2028 volkswagen apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/473a11be-169d-4f3f-96d3-5ad6726e3191?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Polo 1.0 TSI Go 95 pk APK tot 02-2028" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-polo-1-0-tsi-go-95-pk-apk--14" aria-pressed="false" aria-label="Bewaar Volkswagen Polo 1.0 TSI Go 95 pk APK tot 02-2028"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Polo 1.0 TSI Go 95 pk APK tot 02-2028</h3>
     <p class="st-spec">2022 · 56.352 km</p>
@@ -459,8 +606,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Volkswagen%20Polo%201.0%20TSI%20Go%2095%20pk%20APK%20tot%2002-2028%20(%E2%82%AC%2018.295)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f68f805b-ef4a-44c0-a113-1673475eae2e?rule=ecg_mp_eps$_85.jpg" alt="Renault Kangoo bestel 1.3 TCe 100 Comfort L1 Benzine" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bestelauto-s-renault-kangoo-bestel-1-3-tce-100-c-15" data-rang="14" data-prijs="17995" data-jaar="2023" data-zoek="renault kangoo bestel 1.3 tce 100 comfort l1 benzine">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f68f805b-ef4a-44c0-a113-1673475eae2e?rule=ecg_mp_eps$_85.jpg" alt="Renault Kangoo bestel 1.3 TCe 100 Comfort L1 Benzine" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-renault-kangoo-bestel-1-3-tce-100-c-15" aria-pressed="false" aria-label="Bewaar Renault Kangoo bestel 1.3 TCe 100 Comfort L1 Benzine"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Renault Kangoo bestel 1.3 TCe 100 Comfort L1 Benzine</h3>
     <p class="st-spec">2023 · 8.026 km</p>
@@ -469,8 +616,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Renault%20Kangoo%20bestel%201.3%20TCe%20100%20Comfort%20L1%20Benzine%20(%E2%82%AC%2017.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/251940ed-cf77-4736-bbb5-0abd5e3fd0bb?rule=ecg_mp_eps$_85.jpg" alt="Ford Transit 2.0 TDCI L1H1 Ambiente 130 PK BE trekker" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bestelauto-s-ford-transit-2-0-tdci-l1h1-ambiente-16" data-rang="15" data-prijs="16995" data-jaar="2019" data-zoek="ford transit 2.0 tdci l1h1 ambiente 130 pk be trekker">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/251940ed-cf77-4736-bbb5-0abd5e3fd0bb?rule=ecg_mp_eps$_85.jpg" alt="Ford Transit 2.0 TDCI L1H1 Ambiente 130 PK BE trekker" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-ford-transit-2-0-tdci-l1h1-ambiente-16" aria-pressed="false" aria-label="Bewaar Ford Transit 2.0 TDCI L1H1 Ambiente 130 PK BE trekker"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Ford Transit 2.0 TDCI L1H1 Ambiente 130 PK BE trekker</h3>
     <p class="st-spec">2019 · 209.195 km</p>
@@ -479,8 +626,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Ford%20Transit%202.0%20TDCI%20L1H1%20Ambiente%20130%20PK%20BE%20trekker%20(%E2%82%AC%2016.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0c4b97fb-bf79-46b1-be54-54e0812e9054?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Polo 1.0 TSI Highline" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-polo-1-0-tsi-highline-17" data-rang="16" data-merk="Volkswagen" data-prijs="16995" data-jaar="2021" data-zoek="volkswagen polo 1.0 tsi highline volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0c4b97fb-bf79-46b1-be54-54e0812e9054?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Polo 1.0 TSI Highline" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-polo-1-0-tsi-highline-17" aria-pressed="false" aria-label="Bewaar Volkswagen Polo 1.0 TSI Highline"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Polo 1.0 TSI Highline</h3>
     <p class="st-spec">2021 · 49.255 km</p>
@@ -489,8 +636,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Volkswagen%20Polo%201.0%20TSI%20Highline%20(%E2%82%AC%2016.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3734f0c0-1e48-4314-81ee-9e5696c162fb?rule=ecg_mp_eps$_85.jpg" alt="Mercedes C-klasse AMG 32 V6 Kompressor Special Edition Pano" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-c-klasse-amg-32-v6-kompre-18" data-rang="17" data-merk="Mercedes-Benz" data-prijs="13995" data-jaar="2001" data-zoek="mercedes c-klasse amg 32 v6 kompressor special edition pano mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3734f0c0-1e48-4314-81ee-9e5696c162fb?rule=ecg_mp_eps$_85.jpg" alt="Mercedes C-klasse AMG 32 V6 Kompressor Special Edition Pano" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-c-klasse-amg-32-v6-kompre-18" aria-pressed="false" aria-label="Bewaar Mercedes C-klasse AMG 32 V6 Kompressor Special Edition Pano"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes C-klasse AMG 32 V6 Kompressor Special Edition Pano</h3>
     <p class="st-spec">2001 · 95.852 km</p>
@@ -499,7 +646,12 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20zag%20de%20Mercedes%20C-klasse%20AMG%2032%20V6%20Kompressor%20Special%20Edition%20Pano%20(%E2%82%AC%2013.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article></div><div class="more"><span>Er staan er nog 75 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 75 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 75 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31610707083?text=Hallo%20Auto%2066%20BV%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
 </section>
 <section class="sec-trust"><div class="wrap rv"><div><b>93</b><span>voertuigen staan klaar</span></div><div><b>€ 13.995</b><span>de goedkoopste van dit moment</span></div><div><b>2023</b><span>mediaan bouwjaar</span></div><div><b>14</b><span>jaar op Marktplaats</span></div></div></section>
 <section class="sec-flow">
@@ -545,6 +697,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

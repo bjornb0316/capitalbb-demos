@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;letter-spacing:-0.03em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #1f5f4f;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #e4e4df}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#628f84;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#1f5f4f;color:#ffffff;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#5f646c;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #e4e4df;border-radius:50%;background:#ffffff;color:#5f646c;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#1f5f4f;border-color:#1f5f4f}
+.st-bewaar[aria-pressed="true"]{color:#1f5f4f;border-color:#1f5f4f}
+.st-bewaar[aria-pressed="true"] svg{fill:#1f5f4f}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#1f5f4f;color:#ffffff;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#e4e4df;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,77 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#fbfbf9;border-block:1px solid #e4e4df;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#5f646c;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:14px;background:#ffffff;border:1px solid #e4e4df;color:#16181c;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#5f646c}
+.sa-zoek input:focus{outline:none;border-color:#1f5f4f}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#5f646c;cursor:pointer}
+.sa-wis:hover{color:#16181c}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5f646c;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:14px;letter-spacing:0;text-transform:none;color:#1f5f4f;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:14px;background:#ffffff;border:1px solid #e4e4df;color:#16181c;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#1f5f4f}
+.sa-meer{padding:11px 17px;border-radius:14px;background:transparent;border:1px solid #e4e4df;color:#5f646c;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#16181c;border-color:#1f5f4f}
+.sa-meer[aria-expanded="true"]{border-color:#1f5f4f;color:#1f5f4f}
+
+.sa-paneel{border-top:1px solid #e4e4df}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:14px;background:transparent;border:1px solid #e4e4df;color:#5f646c;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#16181c;border-color:#1f5f4f}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#1f5f4f;border-color:#1f5f4f;color:#ffffff}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#5f646c;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#e4e4df}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#1f5f4f;border:3px solid #fbfbf9}
+input[type=range]::-moz-range-track{height:2px;background:#e4e4df}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#1f5f4f;border:3px solid #fbfbf9}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#5f646c;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:19px;color:#16181c;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:14px;background:transparent;border:1px solid #e4e4df;color:#5f646c;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#16181c;border-color:#1f5f4f}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#1f5f4f;border-color:#1f5f4f;color:#ffffff}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #e4e4df;border-radius:14px}
+.sa-leeg-t{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#5f646c;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #e4e4df;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
 /* Familie: overdag-licht, zacht, vertrouwen voorop. */
 .st-card{border:1px solid #e4e4df;border-radius:14px;transition:transform .25s ease,box-shadow .25s ease}
 .st-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(15,20,30,.10)}
@@ -293,7 +394,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child span:first-child{color:#1f5f4f}
 </style>
 </head>
-<body>
+<body data-site="37639780">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van johan van wanrooij auto's (familie, mediaanprijs EUR 9250, 17 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet daglicht, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #1f5f4f.
@@ -321,8 +422,59 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <span class="meta">17 getoond van 17 · vanaf € 4.950</span>
     <p>Ziet u iets? Bel of app gerust, dan zetten we hem voor u apart.</p>
   </div>
-  <div class="wrap"><div class="st-mosaic"><article class="st-card is-lead">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1abedae8-5501-444f-969f-8bc5e3f29313?rule=ecg_mp_eps$_86.jpg" alt="Hyundai I20 1.0 T-GDI Hybride/Premium" loading="lazy" decoding="async"></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 17 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 8 merken</option>
+    <option value="Opel">Opel (5)</option><option value="Ford">Ford (3)</option><option value="Hyundai">Hyundai (3)</option><option value="Nissan">Nissan (2)</option><option value="Audi">Audi (1)</option><option value="BMW">BMW (1)</option><option value="Renault">Renault (1)</option><option value="Suzuki">Suzuki (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 13.500</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="4950" max="13500" step="150" value="13500">
+  <span class="sa-schaal"><i>€ 4.950</i><i>€ 13.500</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2011</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2011" max="2021" step="1" value="2011">
+  <span class="sa-schaal"><i>2011</i><i>2021</i></span>
+</div><div class="sa-veld sa-breed">
+  <span class="sa-label">Kenmerken</span>
+  <div class="sa-chips" role="group" aria-label="Kenmerken">
+    <button class="sa-chip" type="button" data-facet="kenmerk" data-waarde="Navigatie" aria-pressed="false">Navigatie<i>11</i></button><button class="sa-chip" type="button" data-facet="kenmerk" data-waarde="APK" aria-pressed="false">APK<i>8</i></button><button class="sa-chip" type="button" data-facet="kenmerk" data-waarde="Airco" aria-pressed="false">Airco<i>5</i></button>
+  </div>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="hyundai-hyundai-i20-1-0-t-gdi-hybride-premium-1" data-rang="0" data-merk="Hyundai" data-prijs="13450" data-jaar="2021" data-zoek="hyundai i20 1.0 t-gdi hybride/premium hyundai">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1abedae8-5501-444f-969f-8bc5e3f29313?rule=ecg_mp_eps$_86.jpg" alt="Hyundai I20 1.0 T-GDI Hybride/Premium" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="hyundai-hyundai-i20-1-0-t-gdi-hybride-premium-1" aria-pressed="false" aria-label="Bewaar Hyundai I20 1.0 T-GDI Hybride/Premium"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Hyundai I20 1.0 T-GDI Hybride/Premium</h3>
     <p class="st-spec">2021 · 110.389 km</p>
@@ -331,8 +483,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Hyundai%20I20%201.0%20T-GDI%20Hybride%2FPremium%20(%E2%82%AC%2013.450)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e94fcc0e-e552-4869-8d44-8ffd2bfde874?rule=ecg_mp_eps$_85.jpg" alt="Nissan Qashqai 1.2 N-Connecta/NAVI/CAMERA/NW APK" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="nissan-nissan-qashqai-1-2-n-connecta-navi-camera-2" data-rang="1" data-merk="Nissan" data-prijs="12495" data-jaar="2016" data-kenmerk="Navigatie|APK" data-zoek="nissan qashqai 1.2 n-connecta/navi/camera/nw apk nissan navigatie apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e94fcc0e-e552-4869-8d44-8ffd2bfde874?rule=ecg_mp_eps$_85.jpg" alt="Nissan Qashqai 1.2 N-Connecta/NAVI/CAMERA/NW APK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="nissan-nissan-qashqai-1-2-n-connecta-navi-camera-2" aria-pressed="false" aria-label="Bewaar Nissan Qashqai 1.2 N-Connecta/NAVI/CAMERA/NW APK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Nissan Qashqai 1.2 N-Connecta/NAVI/CAMERA/NW APK</h3>
     <p class="st-spec">2016 · 104.495 km</p>
@@ -341,8 +493,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Nissan%20Qashqai%201.2%20N-Connecta%2FNAVI%2FCAMERA%2FNW%20APK%20(%E2%82%AC%2012.495)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card is-wide">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1330d9e5-516d-4c79-86fa-732d9f783448?rule=ecg_mp_eps$_86.jpg" alt="Suzuki Swift 1.2 Select/NAVI/CAMERA/NW APK" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="suzuki-suzuki-swift-1-2-select-navi-camera-nw-ap-3" data-rang="2" data-merk="Suzuki" data-prijs="12450" data-jaar="2019" data-kenmerk="Navigatie|APK" data-zoek="suzuki swift 1.2 select/navi/camera/nw apk suzuki navigatie apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1330d9e5-516d-4c79-86fa-732d9f783448?rule=ecg_mp_eps$_86.jpg" alt="Suzuki Swift 1.2 Select/NAVI/CAMERA/NW APK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="suzuki-suzuki-swift-1-2-select-navi-camera-nw-ap-3" aria-pressed="false" aria-label="Bewaar Suzuki Swift 1.2 Select/NAVI/CAMERA/NW APK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Suzuki Swift 1.2 Select/NAVI/CAMERA/NW APK</h3>
     <p class="st-spec">2019 · 64.626 km</p>
@@ -351,8 +503,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Suzuki%20Swift%201.2%20Select%2FNAVI%2FCAMERA%2FNW%20APK%20(%E2%82%AC%2012.450)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d97c8a01-26f7-4d56-8db6-707c60d69783?rule=ecg_mp_eps$_85.jpg" alt="Opel Astra Sports Tourer 1.0 Innovation/CAMERA/NAVI/NW APK" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="opel-opel-astra-sports-tourer-1-0-innovation-cam-4" data-rang="3" data-merk="Opel" data-prijs="11950" data-jaar="2018" data-kenmerk="Navigatie|APK" data-zoek="opel astra sports tourer 1.0 innovation/camera/navi/nw apk opel navigatie apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d97c8a01-26f7-4d56-8db6-707c60d69783?rule=ecg_mp_eps$_85.jpg" alt="Opel Astra Sports Tourer 1.0 Innovation/CAMERA/NAVI/NW APK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="opel-opel-astra-sports-tourer-1-0-innovation-cam-4" aria-pressed="false" aria-label="Bewaar Opel Astra Sports Tourer 1.0 Innovation/CAMERA/NAVI/NW APK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Opel Astra Sports Tourer 1.0 Innovation/CAMERA/NAVI/NW APK</h3>
     <p class="st-spec">2018 · 49.148 km</p>
@@ -361,8 +513,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Opel%20Astra%20Sports%20Tourer%201.0%20Innovation%2FCAMERA%2FNAVI%2FNW%20APK%20(%E2%82%AC%2011.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b9470112-9a00-4d64-bf52-71bac1e9f1cc?rule=ecg_mp_eps$_85.jpg" alt="Opel Corsa 1.2 Elegance/NAVI/CARPLAY/DIGI DASH" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="opel-opel-corsa-1-2-elegance-navi-carplay-digi-d-5" data-rang="4" data-merk="Opel" data-prijs="11450" data-jaar="2020" data-kenmerk="Navigatie" data-zoek="opel corsa 1.2 elegance/navi/carplay/digi dash opel navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b9470112-9a00-4d64-bf52-71bac1e9f1cc?rule=ecg_mp_eps$_85.jpg" alt="Opel Corsa 1.2 Elegance/NAVI/CARPLAY/DIGI DASH" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="opel-opel-corsa-1-2-elegance-navi-carplay-digi-d-5" aria-pressed="false" aria-label="Bewaar Opel Corsa 1.2 Elegance/NAVI/CARPLAY/DIGI DASH"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Opel Corsa 1.2 Elegance/NAVI/CARPLAY/DIGI DASH</h3>
     <p class="st-spec">2020 · 88.207 km</p>
@@ -371,8 +523,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Opel%20Corsa%201.2%20Elegance%2FNAVI%2FCARPLAY%2FDIGI%20DASH%20(%E2%82%AC%2011.450)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c2bb74fa-76d2-41c1-afdb-f39e282e2290?rule=ecg_mp_eps$_85.jpg" alt="Nissan Qashqai 1.2 Connect Edition/navi/pano/360 camera/nwst" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="nissan-qashqai-6" data-rang="5" data-merk="Nissan" data-prijs="10450" data-jaar="2016" data-brandstof="Benzine" data-kenmerk="Navigatie" data-zoek="nissan qashqai 1.2 connect edition/navi/pano/360 camera/nwst nissan qashqai benzine navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c2bb74fa-76d2-41c1-afdb-f39e282e2290?rule=ecg_mp_eps$_85.jpg" alt="Nissan Qashqai 1.2 Connect Edition/navi/pano/360 camera/nwst" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="nissan-qashqai-6" aria-pressed="false" aria-label="Bewaar Nissan Qashqai 1.2 Connect Edition/navi/pano/360 camera/nwst"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Nissan Qashqai 1.2 Connect Edition/navi/pano/360 camera/nwst</h3>
     <p class="st-spec">2016 · 114.758 km · Benzine</p>
@@ -381,8 +533,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Nissan%20Qashqai%201.2%20Connect%20Edition%2Fnavi%2Fpano%2F360%20camera%2Fnwst%20(%E2%82%AC%2010.450)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/45fd6631-39af-45d5-948b-e1e2a49f0c24?rule=ecg_mp_eps$_85.jpg" alt="Opel Zafira 1.4 Turbo Business+/PANO/DISTR V.V" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="opel-opel-zafira-1-4-turbo-business-pano-distr-v-7" data-rang="6" data-merk="Opel" data-prijs="10450" data-jaar="2017" data-zoek="opel zafira 1.4 turbo business+/pano/distr v.v opel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/45fd6631-39af-45d5-948b-e1e2a49f0c24?rule=ecg_mp_eps$_85.jpg" alt="Opel Zafira 1.4 Turbo Business+/PANO/DISTR V.V" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="opel-opel-zafira-1-4-turbo-business-pano-distr-v-7" aria-pressed="false" aria-label="Bewaar Opel Zafira 1.4 Turbo Business+/PANO/DISTR V.V"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Opel Zafira 1.4 Turbo Business+/PANO/DISTR V.V</h3>
     <p class="st-spec">2017 · 139.935 km</p>
@@ -391,8 +543,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Opel%20Zafira%201.4%20Turbo%20Business%2B%2FPANO%2FDISTR%20V.V%20(%E2%82%AC%2010.450)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card is-wide">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b82f0024-40fa-493f-90c2-c28e94748c21?rule=ecg_mp_eps$_86.jpg" alt="Opel Corsa 1.0 Turbo Online Edition/CAMERA/NAVI/NW APK" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="opel-opel-corsa-1-0-turbo-online-edition-camera--8" data-rang="7" data-merk="Opel" data-prijs="10450" data-jaar="2018" data-kenmerk="Navigatie|APK" data-zoek="opel corsa 1.0 turbo online edition/camera/navi/nw apk opel navigatie apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b82f0024-40fa-493f-90c2-c28e94748c21?rule=ecg_mp_eps$_86.jpg" alt="Opel Corsa 1.0 Turbo Online Edition/CAMERA/NAVI/NW APK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="opel-opel-corsa-1-0-turbo-online-edition-camera--8" aria-pressed="false" aria-label="Bewaar Opel Corsa 1.0 Turbo Online Edition/CAMERA/NAVI/NW APK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Opel Corsa 1.0 Turbo Online Edition/CAMERA/NAVI/NW APK</h3>
     <p class="st-spec">2018 · 44.555 km</p>
@@ -401,8 +553,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Opel%20Corsa%201.0%20Turbo%20Online%20Edition%2FCAMERA%2FNAVI%2FNW%20APK%20(%E2%82%AC%2010.450)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5d425609-b8b1-466e-a02f-87518efb9ab5?rule=ecg_mp_eps$_85.jpg" alt="Renault Clio 0.9 TCe Limited/NAVI" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="renault-renault-clio-0-9-tce-limited-navi-9" data-rang="8" data-merk="Renault" data-prijs="9250" data-jaar="2018" data-kenmerk="Navigatie" data-zoek="renault clio 0.9 tce limited/navi renault navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5d425609-b8b1-466e-a02f-87518efb9ab5?rule=ecg_mp_eps$_85.jpg" alt="Renault Clio 0.9 TCe Limited/NAVI" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="renault-renault-clio-0-9-tce-limited-navi-9" aria-pressed="false" aria-label="Bewaar Renault Clio 0.9 TCe Limited/NAVI"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Renault Clio 0.9 TCe Limited/NAVI</h3>
     <p class="st-spec">2018 · 74.121 km</p>
@@ -411,8 +563,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Renault%20Clio%200.9%20TCe%20Limited%2FNAVI%20(%E2%82%AC%209.250)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4a046ac5-26e4-434c-b9e3-2f52c0edad6c?rule=ecg_mp_eps$_85.jpg" alt="Audi A1 Sportback 1.2 TFSI Pro Line S/ NIEUWSTAAT!" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="audi-audi-a1-sportback-1-2-tfsi-pro-line-s-nieuw-10" data-rang="9" data-merk="Audi" data-prijs="8950" data-jaar="2012" data-zoek="audi a1 sportback 1.2 tfsi pro line s/ nieuwstaat! audi">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4a046ac5-26e4-434c-b9e3-2f52c0edad6c?rule=ecg_mp_eps$_85.jpg" alt="Audi A1 Sportback 1.2 TFSI Pro Line S/ NIEUWSTAAT!" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-a1-sportback-1-2-tfsi-pro-line-s-nieuw-10" aria-pressed="false" aria-label="Bewaar Audi A1 Sportback 1.2 TFSI Pro Line S/ NIEUWSTAAT!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi A1 Sportback 1.2 TFSI Pro Line S/ NIEUWSTAAT!</h3>
     <p class="st-spec">2012 · 129.757 km</p>
@@ -421,8 +573,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Audi%20A1%20Sportback%201.2%20TFSI%20Pro%20Line%20S%2F%20NIEUWSTAAT!%20(%E2%82%AC%208.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5c53bc9a-5434-466b-b4e4-0e39fc3c267c?rule=ecg_mp_eps$_85.jpg" alt="Ford Fiesta 1.0 EcoBoost Titanium/AIRCO/NAVI/NW APK" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="ford-ford-fiesta-1-0-ecoboost-titanium-airco-nav-11" data-rang="10" data-merk="Ford" data-prijs="7995" data-jaar="2015" data-kenmerk="Airco|Navigatie|APK" data-zoek="ford fiesta 1.0 ecoboost titanium/airco/navi/nw apk ford airco navigatie apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5c53bc9a-5434-466b-b4e4-0e39fc3c267c?rule=ecg_mp_eps$_85.jpg" alt="Ford Fiesta 1.0 EcoBoost Titanium/AIRCO/NAVI/NW APK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="ford-ford-fiesta-1-0-ecoboost-titanium-airco-nav-11" aria-pressed="false" aria-label="Bewaar Ford Fiesta 1.0 EcoBoost Titanium/AIRCO/NAVI/NW APK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Ford Fiesta 1.0 EcoBoost Titanium/AIRCO/NAVI/NW APK</h3>
     <p class="st-spec">2015 · 21.510 km</p>
@@ -431,8 +583,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Ford%20Fiesta%201.0%20EcoBoost%20Titanium%2FAIRCO%2FNAVI%2FNW%20APK%20(%E2%82%AC%207.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fcbbda0b-a785-4191-889a-75ae3286036a?rule=ecg_mp_eps$_85.jpg" alt="Ford Focus Wagon 1.0 Edition/NAVI/CARPLAY/DISTRIBUTIE VERVAN" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="ford-ford-focus-wagon-1-0-edition-navi-carplay-d-12" data-rang="11" data-merk="Ford" data-prijs="7950" data-jaar="2018" data-kenmerk="Navigatie" data-zoek="ford focus wagon 1.0 edition/navi/carplay/distributie vervan ford navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fcbbda0b-a785-4191-889a-75ae3286036a?rule=ecg_mp_eps$_85.jpg" alt="Ford Focus Wagon 1.0 Edition/NAVI/CARPLAY/DISTRIBUTIE VERVAN" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="ford-ford-focus-wagon-1-0-edition-navi-carplay-d-12" aria-pressed="false" aria-label="Bewaar Ford Focus Wagon 1.0 Edition/NAVI/CARPLAY/DISTRIBUTIE VERVAN"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Ford Focus Wagon 1.0 Edition/NAVI/CARPLAY/DISTRIBUTIE VERVAN</h3>
     <p class="st-spec">2018 · 128.548 km</p>
@@ -441,8 +593,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Ford%20Focus%20Wagon%201.0%20Edition%2FNAVI%2FCARPLAY%2FDISTRIBUTIE%20VERVAN%20(%E2%82%AC%207.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card is-wide">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/592e10b2-ea60-4f62-8005-73e6fd0eef3b?rule=ecg_mp_eps$_86.jpg" alt="Opel Meriva 1.4 Turbo Design Edition/AIRCO/NAVI" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="opel-opel-meriva-1-4-turbo-design-edition-airco--13" data-rang="12" data-merk="Opel" data-prijs="6950" data-jaar="2015" data-kenmerk="Airco|Navigatie" data-zoek="opel meriva 1.4 turbo design edition/airco/navi opel airco navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/592e10b2-ea60-4f62-8005-73e6fd0eef3b?rule=ecg_mp_eps$_86.jpg" alt="Opel Meriva 1.4 Turbo Design Edition/AIRCO/NAVI" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="opel-opel-meriva-1-4-turbo-design-edition-airco--13" aria-pressed="false" aria-label="Bewaar Opel Meriva 1.4 Turbo Design Edition/AIRCO/NAVI"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Opel Meriva 1.4 Turbo Design Edition/AIRCO/NAVI</h3>
     <p class="st-spec">2015 · 100.802 km</p>
@@ -451,8 +603,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Opel%20Meriva%201.4%20Turbo%20Design%20Edition%2FAIRCO%2FNAVI%20(%E2%82%AC%206.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/70355b6f-58de-4021-a489-2a9f8f9a2990?rule=ecg_mp_eps$_85.jpg" alt="Hyundai I20 1.2i Go!/AIRCO/NIEUWE APK" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="hyundai-hyundai-i20-1-2i-go-airco-nieuwe-apk-14" data-rang="13" data-merk="Hyundai" data-prijs="6450" data-jaar="2014" data-kenmerk="Airco|APK" data-zoek="hyundai i20 1.2i go!/airco/nieuwe apk hyundai airco apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/70355b6f-58de-4021-a489-2a9f8f9a2990?rule=ecg_mp_eps$_85.jpg" alt="Hyundai I20 1.2i Go!/AIRCO/NIEUWE APK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="hyundai-hyundai-i20-1-2i-go-airco-nieuwe-apk-14" aria-pressed="false" aria-label="Bewaar Hyundai I20 1.2i Go!/AIRCO/NIEUWE APK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Hyundai I20 1.2i Go!/AIRCO/NIEUWE APK</h3>
     <p class="st-spec">2014 · 110.379 km</p>
@@ -461,8 +613,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Hyundai%20I20%201.2i%20Go!%2FAIRCO%2FNIEUWE%20APK%20(%E2%82%AC%206.450)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8efb2c05-3607-455f-bc7a-6c88ce874b65?rule=ecg_mp_eps$_85.jpg" alt="BMW 3-serie 320i Executive/AIRCO/AUTOMAAT/NW APK" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bmw-bmw-3-serie-320i-executive-airco-automaat-nw-15" data-rang="14" data-merk="BMW" data-prijs="5950" data-jaar="2012" data-kenmerk="Airco|Automaat|APK" data-zoek="bmw 3-serie 320i executive/airco/automaat/nw apk bmw airco automaat apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8efb2c05-3607-455f-bc7a-6c88ce874b65?rule=ecg_mp_eps$_85.jpg" alt="BMW 3-serie 320i Executive/AIRCO/AUTOMAAT/NW APK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-3-serie-320i-executive-airco-automaat-nw-15" aria-pressed="false" aria-label="Bewaar BMW 3-serie 320i Executive/AIRCO/AUTOMAAT/NW APK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>BMW 3-serie 320i Executive/AIRCO/AUTOMAAT/NW APK</h3>
     <p class="st-spec">2012 · 273.921 km</p>
@@ -471,8 +623,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20BMW%203-serie%20320i%20Executive%2FAIRCO%2FAUTOMAAT%2FNW%20APK%20(%E2%82%AC%205.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/045435f2-d68a-442c-a909-943f332f8a80?rule=ecg_mp_eps$_85.jpg" alt="Hyundai Ix20 1.4i i-Motion/AIRCO/NIEUWE APK" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="hyundai-ix20-16" data-rang="15" data-merk="Hyundai" data-prijs="5750" data-jaar="2011" data-brandstof="Benzine" data-kenmerk="Airco|APK" data-zoek="hyundai ix20 1.4i i-motion/airco/nieuwe apk hyundai ix20 benzine airco apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/045435f2-d68a-442c-a909-943f332f8a80?rule=ecg_mp_eps$_85.jpg" alt="Hyundai Ix20 1.4i i-Motion/AIRCO/NIEUWE APK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="hyundai-ix20-16" aria-pressed="false" aria-label="Bewaar Hyundai Ix20 1.4i i-Motion/AIRCO/NIEUWE APK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Hyundai Ix20 1.4i i-Motion/AIRCO/NIEUWE APK</h3>
     <p class="st-spec">2011 · 95.770 km · Benzine</p>
@@ -481,8 +633,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Hyundai%20Ix20%201.4i%20i-Motion%2FAIRCO%2FNIEUWE%20APK%20(%E2%82%AC%205.750)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d3605fc-deda-46f3-b8f0-e402ba4093b1?rule=ecg_mp_eps$_85.jpg" alt="Ford B-Max 1.0 EcoBoost Titanium/DISTR V.V CAMERA/NAVI/NW AP" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="ford-ford-b-max-1-0-ecoboost-titanium-distr-v-v--17" data-rang="16" data-merk="Ford" data-prijs="4950" data-jaar="2014" data-kenmerk="Navigatie" data-zoek="ford b-max 1.0 ecoboost titanium/distr v.v camera/navi/nw ap ford navigatie">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d3605fc-deda-46f3-b8f0-e402ba4093b1?rule=ecg_mp_eps$_85.jpg" alt="Ford B-Max 1.0 EcoBoost Titanium/DISTR V.V CAMERA/NAVI/NW AP" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="ford-ford-b-max-1-0-ecoboost-titanium-distr-v-v--17" aria-pressed="false" aria-label="Bewaar Ford B-Max 1.0 EcoBoost Titanium/DISTR V.V CAMERA/NAVI/NW AP"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Ford B-Max 1.0 EcoBoost Titanium/DISTR V.V CAMERA/NAVI/NW AP</h3>
     <p class="st-spec">2014 · 133.878 km</p>
@@ -491,7 +643,12 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31620673518?text=Hallo%20johan%20van%20wanrooij%20auto's%2C%20ik%20zag%20de%20Ford%20B-Max%201.0%20EcoBoost%20Titanium%2FDISTR%20V.V%20CAMERA%2FNAVI%2FNW%20AP%20(%E2%82%AC%204.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Probeer het met minder filters, of vraag het ons even.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div></div>
 </section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
@@ -546,6 +703,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

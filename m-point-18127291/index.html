@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>M-Point · Drachten</title>
+<meta name="description" content="Voorbeeldwebsite voor M-Point.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Chivo:wght@400;500;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#f2f3f4;color:#111315;font-family:'Chivo', 'Helvetica Neue', Arial, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;letter-spacing:0.01em;line-height:1.05;text-transform:uppercase;text-wrap:balance}
+p{margin:0}
+button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid #1a1c1f;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+
+
+html,body{overflow-x:clip}
+.wrap{width:min(var(--w,1220px),100% - 48px);margin-inline:auto}
+@media(max-width:720px){.wrap{width:min(var(--w,1220px),100% - 32px)}}
+
+.top{position:sticky;top:0;z-index:50;background:#f2f3f4;border-bottom:1px solid #dadde0}
+.top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
+.top.is-fixed.solid{background:#f2f3f4e6;backdrop-filter:blur(14px);border-bottom-color:#dadde0}
+.top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
+.mark{font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:20px;letter-spacing:0.01em;margin-right:auto;text-decoration:none}
+.top nav{display:flex;gap:24px;font-size:15px}
+.top nav a{color:#575c62;text-decoration:none}
+.top nav a:hover{color:#111315}
+.callbtn{display:inline-flex;align-items:center;background:#1a1c1f;color:#ffffff;padding:11px 20px;border-radius:0px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+.callbtn:hover{filter:brightness(1.07)}
+@media(max-width:900px){.top nav{display:none}}
+/* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
+@media(max-width:720px){
+  .top .wrap{gap:14px}
+  .mark{font-size:16px;line-height:1.18;overflow-wrap:break-word}
+  .mark.is-long{font-size:13.5px}
+  .mark.is-xlong{font-size:12px;letter-spacing:0}
+  .callbtn{flex:none;padding:11px 15px}
+}
+
+section{padding:clamp(54px,7vw,108px) 0}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
+.head h2{font-size:clamp(28px,3.9vw,50px)}
+.head .meta{color:#575c62;font-size:15px}
+.head p{margin-top:12px;color:#575c62;max-width:60ch;flex-basis:100%}
+.more{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.more span{color:#575c62;font-size:15px}
+
+.hours{width:100%;border-collapse:collapse;font-size:16px}
+.hours th{text-align:left;font-weight:400;color:#575c62;padding:10px 0;border-bottom:1px solid #dadde0}
+.hours td{text-align:right;padding:10px 0;border-bottom:1px solid #dadde0;font-variant-numeric:tabular-nums}
+.hours td.closed{color:#575c62}
+.hours tr:last-child th,.hours tr:last-child td{border-bottom:0}
+.hours tr.today th{color:#111315;font-weight:600}
+.hours tr.today td{font-weight:600}
+.hours .tag{margin-left:10px;color:#1a1c1f;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+
+.field{display:block;margin-bottom:13px}
+.field span{display:block;font-size:13.5px;color:#575c62;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:13px 15px;border:1px solid #dadde0;border-radius:0px;background:#f2f3f4;color:#111315;font:inherit;font-size:16px}
+.field input:focus,.field textarea:focus{outline:none;border-color:#1a1c1f}
+form .h-btn{width:100%;justify-content:center;border:0;cursor:pointer;margin-top:4px}
+.note{margin-top:12px;color:#575c62;font-size:13.5px}
+
+footer{padding:32px 0 calc(32px + var(--bar,0px));color:#575c62;font-size:14px;border-top:1px solid #dadde0}
+footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+
+.bar{position:fixed;inset:auto 0 0;z-index:60;display:none;gap:1px;background:#dadde0;border-top:1px solid #dadde0}
+.bar a{flex:1;padding:15px;text-align:center;background:#ffffff;color:#111315;text-decoration:none;font-weight:600;font-size:15.5px}
+.bar a.acc{background:#1a1c1f;color:#ffffff}
+@media(max-width:720px){.bar{display:flex}body{--bar:58px}}
+
+.js .rv{opacity:0;transform:translateY(14px)}
+.js .rv.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+
+
+.hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
+.hero h1 em{font-style:normal;color:#1a1c1f}
+.hero h1 a{text-decoration:none}
+.h-kick{color:#575c62;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
+.h-lede{margin-top:20px;max-width:50ch;color:#575c62;font-size:clamp(16px,1.6vw,19px)}
+.h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:0px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #dadde0;background:#ffffff;color:#111315;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
+.h-btn:hover{transform:translateY(-2px)}
+.h-btn.is-primary{background:#1a1c1f;color:#ffffff;border-color:transparent}
+.h-facts{display:flex;flex-wrap:wrap;gap:0 34px;margin-top:38px;padding-top:20px;border-top:1px solid #dadde0;color:#575c62;font-size:14.5px}
+.h-facts span{padding:6px 0}
+/* Waar de wereld het bewijs of de cijfers vóór de kop zet, draait de scheiding mee. */
+.h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #dadde0}
+.h-words>.h-cta:first-child{margin-top:0}
+.h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#5f6062;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#1a1c1f;color:#ffffff;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
+
+/* cinematic: beeld vult het scherm, woorden liggen erin */
+.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+@keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
+.h-cinematic::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#f2f3f4a6 0%,#f2f3f41a 24%,#f2f3f48c 52%,#f2f3f4e8 80%,#f2f3f4 100%)}
+.h-cinematic .h-words{padding-bottom:clamp(40px,7vw,84px)}
+.h-cinematic h1{text-shadow:0 2px 30px #f2f3f4b3}
+.h-cinematic .h-lede{color:#111315cc;text-shadow:0 1px 18px #f2f3f4cc}
+
+/* panorama: liggend beeld in een kader, woorden erin */
+.h-panorama{padding:clamp(22px,3vw,44px) 0 0}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#e5e7e9;aspect-ratio:21/9;min-height:320px}
+.h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
+@keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
+.h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
+/* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
+.h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
+.h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
+.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+/* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
+.h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
+.h-panorama .h-lede{color:#ffffffdb}
+.h-panorama .h-btn{border-color:#ffffff4d;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-panorama .h-btn.is-primary{background:#1a1c1f;color:#ffffff;border-color:transparent}
+.h-panorama .h-facts{border-top:0;padding-top:0;margin-top:clamp(26px,3.4vw,44px);gap:0 clamp(20px,3vw,44px)}
+@media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
+
+/* split: woorden naast echte auto's */
+.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
+.h-split h1{font-size:clamp(36px,4.9vw,64px)}
+@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+
+/* stack: woorden boven, beeld als band eronder */
+.h-stack{padding:clamp(44px,6vw,92px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
+.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
+.h-band{margin:0;aspect-ratio:21/8;background:#e5e7e9;overflow:hidden}
+.h-band img{width:100%;height:100%;object-fit:cover}
+@media(max-width:720px){.h-band{aspect-ratio:16/10}}
+
+/* poster: de letters doen het werk, foto's als strook */
+.h-poster{padding:clamp(36px,5vw,68px) 0 0}
+.h-poster h1{font-size:clamp(40px,7.6vw,100px);line-height:.95;max-width:16ch}
+.h-poster .h-facts{margin-bottom:clamp(28px,4vw,44px)}
+
+/* index: geen groot beeld, de cijfers staan naast de tekst */
+.h-index{padding:clamp(34px,4.4vw,60px) 0 clamp(24px,3vw,38px);border-bottom:1px solid #dadde0}
+.h-index .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(26px,4vw,56px);align-items:center}
+.h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
+.h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#dadde0;border:1px solid #dadde0;border-radius:0px;overflow:hidden;margin:0}
+.h-panel div{background:#ffffff;padding:17px 19px}
+.h-panel dd{margin:0;font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:clamp(15px,1.7vw,19px);letter-spacing:0.01em;line-height:1.25}
+@media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
+
+/* fotostrook, gedeeld door split en poster */
+.h-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.h-strip figure{margin:0;position:relative;border-radius:0px;overflow:hidden;background:#e5e7e9}
+.h-strip figure:first-child{grid-column:1 / -1}
+.h-strip img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+.h-strip figure:first-child img{aspect-ratio:16/9}
+.h-strip .st-noimg{aspect-ratio:16/10;height:auto}
+.h-strip figure:first-child .st-noimg{aspect-ratio:16/9}
+.h-poster .h-strip .st-noimg{aspect-ratio:4/3}
+.h-strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:13px 15px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74));color:#fff;font-size:13.5px;font-weight:600;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.h-strip figcaption span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h-strip figcaption span:last-child{white-space:nowrap}
+.h-poster .h-strip{display:flex;grid-template-columns:none;gap:0}
+.h-poster .h-strip figure{flex:1;border-radius:0}
+.h-poster .h-strip figure:first-child{grid-column:auto}
+.h-poster .h-strip img{aspect-ratio:4/3}
+.h-poster .h-strip figcaption{display:none}
+@media(max-width:720px){.h-poster .h-strip figure:nth-child(n+4){display:none}}
+
+/* bijschrift bij de hoofdfoto */
+.h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#f2f3f4d9;backdrop-filter:blur(8px);border:1px solid #dadde0;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
+.h-plate-k{color:#575c62;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
+.h-plate-t{font-family:'Oswald', 'Arial Narrow', sans-serif;font-size:19px;line-height:1.15}
+.h-plate-p{color:#1a1c1f;font-weight:600;font-size:17px;margin-top:4px}
+.h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #dadde0;border-radius:0px}
+@media(max-width:900px){.h-plate{display:none}}
+
+
+.st-card{background:#ffffff;display:flex;flex-direction:column;overflow:hidden}
+.st-shot{position:relative;aspect-ratio:4/3;background:#e5e7e9;overflow:hidden}
+.st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.st-card:hover .st-shot img{transform:scale(1.04)}
+.st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#575c62;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #dadde0;border-radius:50%;background:#ffffff;color:#575c62;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#1a1c1f;border-color:#1a1c1f}
+.st-bewaar[aria-pressed="true"]{color:#1a1c1f;border-color:#1a1c1f}
+.st-bewaar[aria-pressed="true"] svg{fill:#1a1c1f}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
+.st-year{position:absolute;left:0;top:0;background:#1a1c1f;color:#ffffff;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
+.st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
+.st-card h3{font-size:17.5px;line-height:1.3}
+.st-spec{color:#575c62;font-size:14.5px;font-variant-numeric:tabular-nums}
+.st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.st-price{font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:23px;letter-spacing:0.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#1a1c1f;text-decoration:none;white-space:nowrap}
+.st-ask:hover{text-decoration:underline}
+
+.st-rail{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:max(24px,calc(50vw - 620px));padding:0 max(24px,calc(50vw - 620px)) 24px;scrollbar-width:thin;scrollbar-color:#dadde0 transparent}
+.st-rail::-webkit-scrollbar{height:6px}
+.st-rail::-webkit-scrollbar-thumb{background:#dadde0;border-radius:99px}
+.st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
+
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
+
+.st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.st-mosaic .st-card{grid-column:span 2}
+.st-mosaic .is-wide{grid-column:span 3}
+.st-mosaic .is-lead{grid-column:span 6}
+.st-mosaic .is-lead .st-shot{aspect-ratio:21/8}
+@media(max-width:980px){.st-mosaic{grid-template-columns:repeat(4,1fr)}.st-mosaic .is-lead{grid-column:span 4}.st-mosaic .is-wide{grid-column:span 2}}
+@media(max-width:660px){.st-mosaic{grid-template-columns:1fr;gap:16px}.st-mosaic .st-card,.st-mosaic .is-wide,.st-mosaic .is-lead{grid-column:span 1}.st-mosaic .is-lead .st-shot{aspect-ratio:16/10}}
+
+.st-list{border-top:1px solid #dadde0}
+.st-row{display:grid;grid-template-columns:132px 1fr auto auto;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid #dadde0;transition:background .18s ease}
+.st-row:hover{background:#ffffff}
+.st-row .st-thumb{aspect-ratio:4/3;background:#e5e7e9;overflow:hidden;border-radius:0px}
+.st-row .st-thumb img{width:100%;height:100%;object-fit:cover}
+.st-row h3{font-size:17.5px;line-height:1.3;font-family:'Chivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:0;text-transform:none}
+.st-row .st-spec{margin-top:5px}
+.st-act{background:#1a1c1f;color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;padding:11px 18px;border-radius:0px;white-space:nowrap}
+.st-act:hover{filter:brightness(1.07)}
+@media(max-width:820px){
+  .st-row{grid-template-columns:96px 1fr;gap:14px}
+  .st-row .st-price{grid-column:2}
+  .st-row .st-act{grid-column:2;justify-self:start}
+}
+
+.st-tablewrap{border:1px solid #dadde0;border-radius:0px;overflow-x:auto;background:#ffffff}
+.st-table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:720px}
+.st-table th{text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#575c62;font-weight:600;padding:13px 16px;border-bottom:1px solid #dadde0;background:#e5e7e9}
+.st-table td{padding:12px 16px;border-bottom:1px solid #dadde0;vertical-align:middle}
+.st-table tr:last-child td{border-bottom:0}
+.st-table tbody tr:hover{background:#e5e7e9}
+.st-table .st-thumb{width:92px}
+.st-table .st-thumb img{width:92px;height:66px;object-fit:cover;border-radius:calc(0px - 1px);background:#e5e7e9}
+.st-table .st-name{font-weight:600;line-height:1.3}
+.st-table .st-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-table .st-price{font-size:19px;text-align:right;display:block}
+.st-table .st-act-cell a{display:inline-block;background:#1a1c1f;color:#ffffff;padding:9px 15px;border-radius:0px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+
+
+.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+.sec-trust b{display:block;font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:0.01em;color:#1a1c1f;line-height:1}
+.sec-trust span{display:block;margin-top:9px;color:#575c62;font-size:15px}
+.sec-trust a{color:#111315}
+
+.sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
+/* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
+.sec-about .wrap>*{min-width:0}
+.sec-about p{overflow-wrap:anywhere}
+.sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
+.sec-about p{color:#575c62;font-size:17.5px;max-width:66ch}
+.sec-about .portrait{border:1px solid #dadde0;border-radius:0px;background:#e5e7e9;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+.sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
+@media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
+
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;list-style:none;padding:0;margin:0;counter-reset:s}
+.flow li{background:#ffffff;border:1px solid #dadde0;border-radius:0px;padding:clamp(22px,2.6vw,30px);position:relative}
+.flow li::before{counter-increment:s;content:counter(s);display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:#1a1c1f;color:#ffffff;font-weight:700;font-size:14px;margin-bottom:14px}
+.flow li b{display:block;font-size:18.5px;margin-bottom:8px}
+.flow li p{color:#575c62;font-size:15.5px}
+@media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+.sec-brands{border-block:1px solid #dadde0;background:#ffffff}
+.sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
+.sec-brands span{font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:clamp(15px,1.6vw,19px);letter-spacing:0.01em;text-transform:uppercase;color:#575c62;padding:6px 0}
+.sec-brands span:first-child{color:#1a1c1f}
+
+.wrap{--w:1220px}
+.sec-contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,68px)}
+.sec-contact h2{font-size:clamp(26px,3.4vw,44px)}
+.sec-contact .lede{margin-top:16px;color:#575c62;max-width:46ch}
+.sec-contact .callrow{margin-top:24px}
+.sec-contact .addr{margin-top:18px;color:#575c62}
+.sec-contact .hours{margin-top:26px}
+@media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
+
+
+/* Motoren: hard contrast, schuine sneden, alles in kapitalen. */
+.hero h1 em{display:block}
+.top nav a{text-transform:uppercase;font-weight:500;letter-spacing:.02em}
+.top nav a:hover{color:#1a1c1f}
+.mark{text-transform:uppercase;font-size:22px}
+.callbtn{clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);font-weight:700}
+.h-btn{clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);text-transform:uppercase;font-weight:700;letter-spacing:.02em;font-size:15.5px;border-radius:0}
+.h-cinematic::after{background:linear-gradient(105deg,#f2f3f4 0%,#f2f3f4d9 32%,#f2f3f42e 64%,transparent 100%)}
+@media(max-width:820px){.h-cinematic::after{background:linear-gradient(180deg,#f2f3f440,#f2f3f4 78%)}}
+.head span.meta{text-transform:uppercase;letter-spacing:.04em;font-size:14px}
+.st-grid,.st-rail{gap:2px}
+.st-grid{background:#dadde0;border:1px solid #dadde0}
+.st-card{background:#f2f3f4;transition:background .2s ease}
+.st-card:hover{background:#ffffff}
+.st-card h3{font-family:'Chivo', 'Helvetica Neue', Arial, sans-serif;font-weight:700;letter-spacing:0;text-transform:none;font-size:17px}
+.st-ask{text-transform:uppercase;letter-spacing:.04em;font-size:13.5px;font-weight:700}
+.sec-trust{background:#ffffff;border-block:1px solid #dadde0}
+.flow li{border-radius:0}
+.sec-contact{background:#ffffff;border-top:1px solid #dadde0}
+.field span{text-transform:uppercase;letter-spacing:.05em;font-size:12.5px}
+.bar a{text-transform:uppercase;font-weight:700}
+</style>
+</head>
+<body data-site="18127291">
+<!--
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van M-Point (motoren, mediaanprijs EUR 13123, 60 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+OWN-WORLD: palet chroom, 'Oswald' als display op 'Chivo', hoeken 0px, accent #1a1c1f.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar proefrit geleid.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties stock > trust > brands > promise > process > hours > contact.
+FORM: motoren-chroom-stack-rail-oswald-k1
+FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
+-->
+<div class="top" id="top">
+  <div class="wrap">
+    <a class="mark" href="#top">M-Point</a>
+    <nav><a href="#voorraad">Voorraad</a><a href="#contact">Contact</a></nav>
+    <a class="callbtn" href="tel:+31512760061">051-2760061</a>
+  </div>
+</div>
+<header class="hero h-stack">
+  <div class="wrap h-words"><h1>Rij hem zelf <em>in Drachten</em></h1><div class="h-cta"><a class="h-btn is-primary" href="#contact">Boek een proefrit</a><a class="h-btn" href="tel:+31512760061">Bel 051-2760061</a></div><p class="h-lede">Bekijk de voorraad, kom langs en rij hem zelf. Bellen mag altijd, ook als u nog twijfelt.</p><div class="h-facts"><span>60 voertuigen op voorraad</span><span>4.5 uit 14 beoordelingen</span><span>12 jaar op Marktplaats</span><span>Kom langs in Drachten</span></div></div>
+  <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/963e5a82-0e65-4bc6-9256-fd68531f9e85?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/963e5a82-0e65-4bc6-9256-fd68531f9e85?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/963e5a82-0e65-4bc6-9256-fd68531f9e85?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/963e5a82-0e65-4bc6-9256-fd68531f9e85?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/963e5a82-0e65-4bc6-9256-fd68531f9e85?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Harley-Davidson FLHXSE CVO STREETGLIDE FLHXS (bj 2018)" fetchpriority="high"></figure>
+</header>
+<section id="voorraad">
+  <div class="wrap head">
+    <h2>Op voorraad</h2>
+    <span class="meta">18 getoond van 60 · vanaf € 10.950</span>
+    
+  </div>
+  <div class="st-rail"><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/963e5a82-0e65-4bc6-9256-fd68531f9e85?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLHXSE CVO STREETGLIDE FLHXS (bj 2018)" loading="lazy" decoding="async"><span class="st-year">2018</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLHXSE CVO STREETGLIDE FLHXS (bj 2018)</h3>
+    <p class="st-spec">10.400 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 33.950</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7046c139-7d60-4dc7-992c-d28781e698f8?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLHTKSE CVO FLHX STREETGLIDE (bj 2018)" loading="lazy" decoding="async"><span class="st-year">2018</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLHTKSE CVO FLHX STREETGLIDE (bj 2018)</h3>
+    <p class="st-spec">10.400 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 33.950</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7eed17a7-2344-491b-89c5-63ca833b56db?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLHXS STREETGLIDE ANNIVERSARY (bj 2018)" loading="lazy" decoding="async"><span class="st-year">2018</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLHXS STREETGLIDE ANNIVERSARY (bj 2018)</h3>
+    <p class="st-spec">29.774 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 24.850</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad25698d-28e5-4a68-945a-3aace3c75c8b?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLHXS STREETGLIDE FLHX M8 (bj 2014)" loading="lazy" decoding="async"><span class="st-year">2014</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLHXS STREETGLIDE FLHX M8 (bj 2014)</h3>
+    <p class="st-spec">45.127 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 18.850</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/62cf1d78-8494-4be3-abff-e98ba68e595c?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLSTF FAT BOY SOFTAIL ANNIV (bj 2008)" loading="lazy" decoding="async"><span class="st-year">2008</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLSTF FAT BOY SOFTAIL ANNIV (bj 2008)</h3>
+    <p class="st-spec">34.340 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 16.950</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5be6ebd7-b710-42d5-a4bb-1a6517d288db?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLSTC SOFTAIL SPECIAL FAT (bj 2010)" loading="lazy" decoding="async"><span class="st-year">2010</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLSTC SOFTAIL SPECIAL FAT (bj 2010)</h3>
+    <p class="st-spec">47.951 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 16.950</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/551023f4-6ec5-46fc-9976-9f0f19ec6978?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLHR POLIC FLHT FLHTP ROADKING (bj 2008)" loading="lazy" decoding="async"><span class="st-year">2008</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLHR POLIC FLHT FLHTP ROADKING (bj 2008)</h3>
+    <p class="st-spec">74.197 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 14.495</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9b21f4de-c68a-4c08-8b82-54876147726c?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLSTN SOFTAIL NOSTALGIA (bj 1994)" loading="lazy" decoding="async"><span class="st-year">1994</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLSTN SOFTAIL NOSTALGIA (bj 1994)</h3>
+    <p class="st-spec">53.927 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 13.950</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42c0e6cf-7028-40e4-a5a6-5e4755cf6545?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLSTF FAT BOY FATBOY SOFTAIL (bj 2005)" loading="lazy" decoding="async"><span class="st-year">2005</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLSTF FAT BOY FATBOY SOFTAIL (bj 2005)</h3>
+    <p class="st-spec">49.851 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 13.295</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/073253df-6128-491c-8ebd-05676d2c69f8?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLD 103 Dyna Switchback FXDB (bj 2013)" loading="lazy" decoding="async"><span class="st-year">2013</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLD 103 Dyna Switchback FXDB (bj 2013)</h3>
+    <p class="st-spec">42.772 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 12.950</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/05307407-8294-4153-8787-8b2f99757694?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FXDC DYNA FXDB 11.981 KM (bj 2009)" loading="lazy" decoding="async"><span class="st-year">2009</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FXDC DYNA FXDB 11.981 KM (bj 2009)</h3>
+    <p class="st-spec">11.993 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 12.950</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9879a416-33a7-472a-b9cd-94093495dc68?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson XL1200X FORTY-EIGHT ANNIV (bj 2018)" loading="lazy" decoding="async"><span class="st-year">2018</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson XL1200X FORTY-EIGHT ANNIV (bj 2018)</h3>
+    <p class="st-spec">19.990 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 12.850</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/55dbc9b0-6e21-4bde-b497-8d9924663067?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson XL1200N IRON CAFERACER UNIEK (bj 2016)" loading="lazy" decoding="async"><span class="st-year">2016</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson XL1200N IRON CAFERACER UNIEK (bj 2016)</h3>
+    <p class="st-spec">6.790 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 12.850</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/df4ee823-1e65-45ba-aade-71f04849e983?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FXST SOFTAIL SPECIAL FAT (bj 1997)" loading="lazy" decoding="async"><span class="st-year">1997</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FXST SOFTAIL SPECIAL FAT (bj 1997)</h3>
+    <p class="st-spec">45.268 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 12.650</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9d3b6daa-14fb-46e8-b919-63a2842eb4f7?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLHTCU STREETGLIDE FLHX UITV (bj 2009)" loading="lazy" decoding="async"><span class="st-year">2009</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLHTCU STREETGLIDE FLHX UITV (bj 2009)</h3>
+    <p class="st-spec">96.969 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 11.950</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/17dfc1d3-14f6-4770-a34b-1020bb571121?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLSTC SOFTAIL HERITAGE CLASSIC (bj 2002)" loading="lazy" decoding="async"><span class="st-year">2002</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLSTC SOFTAIL HERITAGE CLASSIC (bj 2002)</h3>
+    <p class="st-spec">42.365 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 11.950</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/39e00b8b-3c3b-4d79-94e0-20e4595633fd?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLSTC HERITAGE 100-TH ANN 2003 (bj 2003)" loading="lazy" decoding="async"><span class="st-year">2003</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLSTC HERITAGE 100-TH ANN 2003 (bj 2003)</h3>
+    <p class="st-spec">28.412 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 11.750</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b55a7b58-9f74-4660-be8f-1f33737eafb8?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson FLHRC ROADKING ROAD KING FLHR (bj 2000)" loading="lazy" decoding="async"><span class="st-year">2000</span></div>
+  <div class="st-body">
+    <h3>Harley-Davidson FLHRC ROADKING ROAD KING FLHR (bj 2000)</h3>
+    <p class="st-spec">54.300 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 10.950</span>
+      <a class="st-ask" href="tel:+31512760061">Proefrit</a>
+    </div>
+  </div>
+</article></div><div class="wrap"><div class="more"><span>Er staan er nog 42 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="tel:+31512760061">Bel 051-2760061</a></div></div>
+</section>
+<section class="sec-trust"><div class="wrap rv"><div><b>4.5</b><span>gemiddeld uit 14 beoordelingen</span></div><div><b>12</b><span>jaar op Marktplaats</span></div><div><b>Drachten</b><span><a href="https://maps.google.com/?q=Dopplerlaan%2026%2C%209207HC%20Drachten" target="_blank" rel="noreferrer">Dopplerlaan 26, 9207HC Drachten</a></span></div><div><b>KvK</b><span>01092243</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div><b>60</b><span>voertuigen staan klaar</span></div><div><b>€ 10.950</b><span>de goedkoopste van dit moment</span></div><div><b>2009</b><span>mediaan bouwjaar</span></div><div><b>12</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-flow">
+  <div class="wrap">
+    <div class="head rv"><h2>Zo gaat het</h2></div>
+    <ol class="flow rv">
+      <li><b>Neem contact op</b><p>Bel ons over het voertuig dat u op het oog heeft.</p></li><li><b>Kom langs</b><p>Kom langs, bekijk de motor van dichtbij en stel al uw vragen.</p></li><li><b>Regel het samen</b><p>We bespreken prijs, inruil en aflevering. Geen verrassingen.</p></li>
+    </ol>
+  </div>
+</section>
+<section class="sec-contact" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <h2>Zelf rijden zegt meer</h2>
+      <p class="lede">Zeg welke machine u wilt rijden, dan zetten we hem klaar.</p>
+      <p class="callrow"><a class="h-btn is-primary" href="tel:+31512760061">Bel 051-2760061</a></p>
+      <p class="addr"><a href="https://maps.google.com/?q=Dopplerlaan%2026%2C%209207HC%20Drachten" target="_blank" rel="noreferrer">Dopplerlaan 26, 9207HC Drachten</a></p>
+      <table class="hours"><tr data-d="1"><th>Maandag</th><td class="closed">Gesloten</td></tr><tr data-d="2"><th>Dinsdag</th><td>09:00 – 18:00</td></tr><tr data-d="3"><th>Woensdag</th><td>09:00 – 18:00</td></tr><tr data-d="4"><th>Donderdag</th><td>09:00 – 18:00</td></tr><tr data-d="6"><th>Zaterdag</th><td>10:00 – 17:00</td></tr><tr data-d="0"><th>Zondag</th><td class="closed">Gesloten</td></tr></table>
+    </div>
+    <div class="panel rv"><form onsubmit="event.preventDefault()"><label class="field"><span>Uw naam</span><input name="naam" type="text" autocomplete="name" required></label><label class="field"><span>Telefoonnummer</span><input name="tel" type="tel" autocomplete="tel" required></label><label class="field"><span>Welke machine wilt u rijden?</span><textarea name="bericht" rows="4" required></textarea></label><button class="h-btn is-primary" type="submit">Proefrit aanvragen</button><p class="note">Bel ons gerust direct.</p></form></div>
+  </div>
+</section>
+<footer>
+  <div class="wrap rowf">
+    <span>M-Point · Dopplerlaan 26, 9207HC Drachten · KvK 01092243</span>
+    <span>Voorbeeldwebsite, gemaakt door Capital BB</span>
+  </div>
+</footer>
+<div class="bar">
+  <a class="acc" href="tel:+31512760061">Bellen</a>
+  <a href="#contact">Proefrit</a>
+</div>
+<script>
+document.documentElement.className+=' js';
+(function(){
+  var today=document.querySelector('.hours tr[data-d="'+new Date().getDay()+'"]');
+  if(today){today.className='today';var v=today.lastElementChild;if(v){v.insertAdjacentHTML('beforeend','<span class="tag">vandaag</span>')}}
+  var top=document.getElementById('top');
+  if(top){var s=function(){top.classList.toggle('solid',window.scrollY>40)};s();addEventListener('scroll',s,{passive:true})}
+  var items=[].slice.call(document.querySelectorAll('.rv'));
+  var show=function(el){el.classList.add('in')};
+  if(!('IntersectionObserver' in window)){items.forEach(show);return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
+  items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
+  setTimeout(function(){items.forEach(show)},2600);
+})();
+</script>
+
+</body>
+</html>

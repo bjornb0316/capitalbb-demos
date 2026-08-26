@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Barlow Condensed', 'Arial Narrow', sans-serif;font-weight:700;letter-spacing:0;line-height:1.05;text-transform:uppercase;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #1d4ed8;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #e0e0dc}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#6183e4;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#1d4ed8;color:#ffffff;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#5a5e63;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #e0e0dc;border-radius:50%;background:#ffffff;color:#5a5e63;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#1d4ed8;border-color:#1d4ed8}
+.st-bewaar[aria-pressed="true"]{color:#1d4ed8;border-color:#1d4ed8}
+.st-bewaar[aria-pressed="true"] svg{fill:#1d4ed8}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#1d4ed8;color:#ffffff;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#e0e0dc;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,77 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#f5f5f3;border-block:1px solid #e0e0dc;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#5a5e63;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:4px;background:#ffffff;border:1px solid #e0e0dc;color:#17181a;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#5a5e63}
+.sa-zoek input:focus{outline:none;border-color:#1d4ed8}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#5a5e63;cursor:pointer}
+.sa-wis:hover{color:#17181a}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5e63;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Barlow Condensed', 'Arial Narrow', sans-serif;font-weight:700;font-size:14px;letter-spacing:0;text-transform:none;color:#1d4ed8;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:4px;background:#ffffff;border:1px solid #e0e0dc;color:#17181a;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#1d4ed8}
+.sa-meer{padding:11px 17px;border-radius:4px;background:transparent;border:1px solid #e0e0dc;color:#5a5e63;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#17181a;border-color:#1d4ed8}
+.sa-meer[aria-expanded="true"]{border-color:#1d4ed8;color:#1d4ed8}
+
+.sa-paneel{border-top:1px solid #e0e0dc}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:4px;background:transparent;border:1px solid #e0e0dc;color:#5a5e63;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#17181a;border-color:#1d4ed8}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#1d4ed8;border-color:#1d4ed8;color:#ffffff}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#5a5e63;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#e0e0dc}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#1d4ed8;border:3px solid #f5f5f3}
+input[type=range]::-moz-range-track{height:2px;background:#e0e0dc}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#1d4ed8;border:3px solid #f5f5f3}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#5a5e63;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Barlow Condensed', 'Arial Narrow', sans-serif;font-weight:700;font-size:19px;color:#17181a;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:4px;background:transparent;border:1px solid #e0e0dc;color:#5a5e63;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#17181a;border-color:#1d4ed8}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#1d4ed8;border-color:#1d4ed8;color:#ffffff}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #e0e0dc;border-radius:4px}
+.sa-leeg-t{font-family:'Barlow Condensed', 'Arial Narrow', sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#5a5e63;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #e0e0dc;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
 /* Bedrijfswagens: nuchter, cijfers voorop, alles in één lijst. */
 .mark{text-transform:uppercase;}
 .st-card{border:1px solid #e0e0dc}
@@ -290,7 +391,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:720px){.h-words>.h-facts:first-child span{padding-right:12px;margin-right:12px}}
 </style>
 </head>
-<body>
+<body data-site="1369526">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Van Den Hadelkamp Auto's (bedrijfswagens, mediaanprijs EUR 40450, 48 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet bouwplaats, 'Barlow Condensed' als display op 'Public Sans', hoeken 4px, accent #1d4ed8.
@@ -316,97 +417,148 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <span class="meta">18 getoond van 48 · vanaf € 25.950</span>
     
   </div>
-  <div class="wrap"><div class="st-list"><div class="st-row">
+  <div class="wrap"><div class="sa-balk is-compact" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 3 merken</option>
+    <option value="Mercedes-Benz">Mercedes-Benz (1)</option><option value="Paarden En Pony S Trailers En Aanhangwagens">Paarden En Pony S Trailers En Aanhangwagens (1)</option><option value="Vrachtwagens">Vrachtwagens (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 181.500</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="25950" max="181500" step="2550" value="181500">
+  <span class="sa-schaal"><i>€ 25.950</i><i>€ 181.500</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2015</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2015" max="2026" step="1" value="2015">
+  <span class="sa-schaal"><i>2015</i><i>2026</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-list" data-voorraad><div class="st-row" data-slug="vrachtwagens-man-tgx-18-470-met-race-trailer-ori-1" data-rang="0" data-merk="Vrachtwagens" data-prijs="179950" data-jaar="2019" data-zoek="man tgx 18.470 met race trailer * origineel nl * (bj 2019) vrachtwagens">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c5b99fd-e1e5-45dc-b404-d8a9b665119e?rule=ecg_mp_eps$_84.jpg" alt="MAN TGX 18.470 met Race Trailer * Origineel NL * (bj 2019)" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>MAN TGX 18.470 met Race Trailer * Origineel NL * (bj 2019)</h3><p class="st-spec">2019 · 5.304 km</p></div>
   <span class="st-price">€ 179.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20MAN%20TGX%2018.470%20met%20Race%20Trailer%20*%20Origineel%20NL%20*%20(bj%202019)%20(%E2%82%AC%20179.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="campers-mercedes-benz-v-300d-4-matic-marco-polo--2" data-rang="1" data-prijs="79950" data-jaar="2022" data-brandstof="Diesel" data-zoek="mercedes-benz v 300d 4-matic marco polo westfalia * led * na diesel">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d181d888-fd0c-4fdc-a989-5a14337b1cdf?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz V 300d 4-Matic MARCO POLO Westfalia * LED * NA" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz V 300d 4-Matic MARCO POLO Westfalia * LED * NA</h3><p class="st-spec">2022 · 44.218 km · Diesel</p></div>
   <span class="st-price">€ 79.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20V%20300d%204-Matic%20MARCO%20POLO%20Westfalia%20*%20LED%20*%20NA%20(%E2%82%AC%2079.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="campers-mooveo-mooveo-van-60-120-pk-2-2-hdi-hand-3" data-rang="2" data-prijs="69950" data-jaar="2024" data-zoek="mooveo mooveo van 60 120 pk 2.2 hdi handgeschakeld bus campe">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/63c32df1-a4d1-485c-8c98-ff398cfa4f94?rule=ecg_mp_eps$_84.jpg" alt="mooveo MOOVEO Van 60 120 PK 2.2 HDI Handgeschakeld Bus Campe" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>mooveo MOOVEO Van 60 120 PK 2.2 HDI Handgeschakeld Bus Campe</h3><p class="st-spec">2024 · 33.892 km</p></div>
   <span class="st-price">€ 69.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20mooveo%20MOOVEO%20Van%2060%20120%20PK%202.2%20HDI%20Handgeschakeld%20Bus%20Campe%20(%E2%82%AC%2069.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-sprinter-519-3-0-cdi--4" data-rang="3" data-prijs="67950" data-jaar="2020" data-zoek="mercedes-benz sprinter 519 3.0 cdi l2 ambulance (bj 2020)">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a44e6b4d-2f2e-4ae0-a0ae-e5ee752b9a77?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz Sprinter 519 3.0 CDI L2 Ambulance (bj 2020)" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz Sprinter 519 3.0 CDI L2 Ambulance (bj 2020)</h3><p class="st-spec">2020 · 77.471 km</p></div>
   <span class="st-price">€ 67.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20Sprinter%20519%203.0%20CDI%20L2%20Ambulance%20(bj%202020)%20(%E2%82%AC%2067.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="mercedes-benz-mercedes-benz-gle-450-4matic-premi-5" data-rang="4" data-merk="Mercedes-Benz" data-prijs="66250" data-jaar="2020" data-kenmerk="Trekhaak" data-zoek="mercedes-benz gle 450 4matic premium * trekhaak * origineel mercedes-benz trekhaak">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b477338b-2c7b-496b-a918-cda253a2cd94?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz GLE 450 4MATIC Premium * Trekhaak * Origineel" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz GLE 450 4MATIC Premium * Trekhaak * Origineel</h3><p class="st-spec">2020 · 96.732 km</p></div>
   <span class="st-price">€ 66.250</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20GLE%20450%204MATIC%20Premium%20*%20Trekhaak%20*%20Origineel%20(%E2%82%AC%2066.250)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-sprinter-315-cdi-l3-h-6" data-rang="5" data-prijs="59950" data-jaar="2024" data-brandstof="Diesel" data-kenmerk="Automaat" data-zoek="mercedes-benz sprinter 315 cdi l3-h2 rwd automaat * koelwage diesel automaat">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/10a22637-3bbd-4865-8b6f-d88030cb1f04?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz Sprinter 315 CDI L3-H2 RWD Automaat * Koelwage" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz Sprinter 315 CDI L3-H2 RWD Automaat * Koelwage</h3><p class="st-spec">2024 · 16.332 km · Diesel</p></div>
   <span class="st-price">€ 59.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20Sprinter%20315%20CDI%20L3-H2%20RWD%20Automaat%20*%20Koelwage%20(%E2%82%AC%2059.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="paarden-en-pony-s-trailers-en-aanhangwagens-ford-7" data-rang="6" data-merk="Paarden En Pony S Trailers En Aanhangwagens" data-prijs="54950" data-jaar="0" data-kenmerk="Automaat" data-zoek="ford transit 350 2.0 tdci l2 170 pk automaat paardenwagen jl paarden en pony s trailers en aanhangwagens automaat">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/876fe4ce-cfc9-40b3-9609-f4a97696b57d?rule=ecg_mp_eps$_84.jpg" alt="Ford Transit 350 2.0 TDCI L2 170 PK Automaat Paardenwagen JL" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Ford Transit 350 2.0 TDCI L2 170 PK Automaat Paardenwagen JL</h3><p class="st-spec">Gegevens op aanvraag</p></div>
   <span class="st-price">€ 54.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Ford%20Transit%20350%202.0%20TDCI%20L2%20170%20PK%20Automaat%20Paardenwagen%20JL%20(%E2%82%AC%2054.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-sprinter-517-cdi-l2-h-8" data-rang="7" data-prijs="41950" data-jaar="2023" data-zoek="mercedes-benz sprinter 517 cdi l2-h1 handgeschakeld * camera">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3db01f2c-e1a1-43de-826f-1657bc01642a?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz Sprinter 517 CDI L2-H1 Handgeschakeld * Camera" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz Sprinter 517 CDI L2-H1 Handgeschakeld * Camera</h3><p class="st-spec">2023 · 33.260 km</p></div>
   <span class="st-price">€ 41.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20Sprinter%20517%20CDI%20L2-H1%20Handgeschakeld%20*%20Camera%20(%E2%82%AC%2041.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-v-klasse-250d-lang-dc-9" data-rang="8" data-prijs="40950" data-jaar="2022" data-kenmerk="Automaat" data-zoek="mercedes-benz v-klasse 250d lang dc automaat * 360 camera * automaat">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c89f9f5a-638f-4b70-8f93-e664b996c0da?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz V-Klasse 250d Lang DC Automaat * 360 Camera *" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz V-Klasse 250d Lang DC Automaat * 360 Camera *</h3><p class="st-spec">2022 · 46.000 km</p></div>
   <span class="st-price">€ 40.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20V-Klasse%20250d%20Lang%20DC%20Automaat%20*%20360%20Camera%20*%20(%E2%82%AC%2040.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-sprinter-217-cdi-l2-r-10" data-rang="9" data-prijs="39950" data-jaar="2023" data-kenmerk="Automaat" data-zoek="mercedes-benz sprinter 217 cdi l2 rwd dc automaat 170 pk * o automaat">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d3cbf3c3-e7a5-4079-9662-ffd23817a811?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz Sprinter 217 CDI L2 RWD DC Automaat 170 PK * O" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz Sprinter 217 CDI L2 RWD DC Automaat 170 PK * O</h3><p class="st-spec">2023 · 53.956 km</p></div>
   <span class="st-price">€ 39.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20Sprinter%20217%20CDI%20L2%20RWD%20DC%20Automaat%20170%20PK%20*%20O%20(%E2%82%AC%2039.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-vito-114-cdi-l2-autom-11" data-rang="10" data-prijs="35950" data-jaar="2023" data-kenmerk="Automaat" data-zoek="mercedes-benz vito 114 cdi l2 automaat * dubbele schuifdeur automaat">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/898ec856-e4ca-4301-88b9-f35a95067136?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz Vito 114 CDI L2 Automaat * Dubbele Schuifdeur" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz Vito 114 CDI L2 Automaat * Dubbele Schuifdeur</h3><p class="st-spec">2023 · 24.838 km</p></div>
   <span class="st-price">€ 35.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20Vito%20114%20CDI%20L2%20Automaat%20*%20Dubbele%20Schuifdeur%20(%E2%82%AC%2035.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-sprinter-315-cdi-l4-h-12" data-rang="11" data-prijs="34950" data-jaar="2023" data-zoek="mercedes-benz sprinter 315 cdi l4-h2 rwd xxl * chauffeurssto">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/44546dc6-6e92-4b5a-b978-e2ebb1e2486a?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz Sprinter 315 CDI L4-H2 RWD XXL * Chauffeurssto" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz Sprinter 315 CDI L4-H2 RWD XXL * Chauffeurssto</h3><p class="st-spec">2023 · 138.270 km</p></div>
   <span class="st-price">€ 34.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20Sprinter%20315%20CDI%20L4-H2%20RWD%20XXL%20*%20Chauffeurssto%20(%E2%82%AC%2034.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-sprinter-315-cdi-l3-h-13" data-rang="12" data-prijs="32450" data-jaar="2022" data-kenmerk="Navigatie|Automaat" data-zoek="mercedes-benz sprinter 315 cdi l3-h2 automaat * navi * camer navigatie automaat">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fd35543b-781f-41d3-b4ea-222cb6631188?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz Sprinter 315 CDI L3-H2 Automaat * Navi * Camer" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz Sprinter 315 CDI L3-H2 Automaat * Navi * Camer</h3><p class="st-spec">2022 · 46.258 km</p></div>
   <span class="st-price">€ 32.450</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20Sprinter%20315%20CDI%20L3-H2%20Automaat%20*%20Navi%20*%20Camer%20(%E2%82%AC%2032.450)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-sprinter-315-cdi-l2-h-14" data-rang="13" data-prijs="31950" data-jaar="2021" data-zoek="mercedes-benz sprinter 315 cdi l2-h2 rwd black * 3,5t trekge">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c32632dd-7093-4f87-ae69-3bbe5638bba6?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz Sprinter 315 CDI L2-H2 RWD Black * 3,5t Trekge" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz Sprinter 315 CDI L2-H2 RWD Black * 3,5t Trekge</h3><p class="st-spec">2021 · 96.388 km</p></div>
   <span class="st-price">€ 31.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20Sprinter%20315%20CDI%20L2-H2%20RWD%20Black%20*%203%2C5t%20Trekge%20(%E2%82%AC%2031.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-sprinter-317-cdi-l3-r-15" data-rang="14" data-prijs="29990" data-jaar="2024" data-kenmerk="Automaat" data-zoek="mercedes-benz sprinter 317 cdi l3 rwd automaat chassis cabin automaat">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a9396240-52b2-4da1-a7ff-28d6b6508785?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz Sprinter 317 CDI L3 RWD Automaat Chassis Cabin" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz Sprinter 317 CDI L3 RWD Automaat Chassis Cabin</h3><p class="st-spec">2024 · 188.859 km</p></div>
   <span class="st-price">€ 29.990</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20Sprinter%20317%20CDI%20L3%20RWD%20Automaat%20Chassis%20Cabin%20(%E2%82%AC%2029.990)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-ecitan-112-select-l1--16" data-rang="15" data-prijs="28450" data-jaar="2026" data-zoek="mercedes-benz ecitan 112 select l1 51 kwh * nieuw * led * ca">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e0f8e543-56ee-4647-998f-2c67d2690312?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz eCitan 112 Select L1 51 kWh * Nieuw * LED * Ca" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz eCitan 112 Select L1 51 kWh * Nieuw * LED * Ca</h3><p class="st-spec">2026 · 125 km</p></div>
   <span class="st-price">€ 28.450</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20eCitan%20112%20Select%20L1%2051%20kWh%20*%20Nieuw%20*%20LED%20*%20Ca%20(%E2%82%AC%2028.450)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-mercedes-benz-sprinter-519-cdi-clic-17" data-rang="16" data-prijs="26450" data-jaar="2015" data-zoek="mercedes-benz sprinter 519 cdi click-star bakwagen met werkp">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5cd2a1ad-778b-433d-b104-b2a81627ed10?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz Sprinter 519 CDI Click-Star Bakwagen met Werkp" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Mercedes-Benz Sprinter 519 CDI Click-Star Bakwagen met Werkp</h3><p class="st-spec">2015 · 392.154 km</p></div>
   <span class="st-price">€ 26.450</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Mercedes-Benz%20Sprinter%20519%20CDI%20Click-Star%20Bakwagen%20met%20Werkp%20(%E2%82%AC%2026.450)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div><div class="st-row">
+</div><div class="st-row" data-slug="bestelauto-s-renault-master-t35-2-3-dci-130-pk-l-18" data-rang="17" data-prijs="25950" data-jaar="2021" data-zoek="renault master t35 2.3 dci 130 pk l4-h3 * dubbel lucht * tre">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2fc83e31-a33c-4af9-bbc8-bf9e7323cab8?rule=ecg_mp_eps$_84.jpg" alt="Renault Master T35 2.3 dCi 130 PK L4-H3 * Dubbel Lucht * Tre" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Renault Master T35 2.3 dCi 130 PK L4-H3 * Dubbel Lucht * Tre</h3><p class="st-spec">2021 · 40.446 km</p></div>
   <span class="st-price">€ 25.950</span>
   <a class="st-act" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20zag%20de%20Renault%20Master%20T35%202.3%20dCi%20130%20PK%20L4-H3%20*%20Dubbel%20Lucht%20*%20Tre%20(%E2%82%AC%2025.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Offerte</a>
-</div></div><div class="more"><span>Er staan er nog 30 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
+</div></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 30 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 30 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31621888702?text=Hallo%20Van%20Den%20Hadelkamp%20Auto's%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
 </section>
 <section class="sec-flow">
   <div class="wrap">
@@ -463,6 +615,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

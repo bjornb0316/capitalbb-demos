@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Van der Veen Caravans · Wolvega</title>
+<meta name="description" content="Voorbeeldwebsite voor Van der Veen Caravans.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500;125,600;125,700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#faf7f1;color:#201c17;font-family:'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;letter-spacing:-0.02em;line-height:1.05;text-wrap:balance}
+p{margin:0}
+button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid #9e6524;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+
+
+html,body{overflow-x:clip}
+.wrap{width:min(var(--w,1220px),100% - 48px);margin-inline:auto}
+@media(max-width:720px){.wrap{width:min(var(--w,1220px),100% - 32px)}}
+
+.top{position:sticky;top:0;z-index:50;background:#faf7f1;border-bottom:1px solid #e9e1d5}
+.top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
+.top.is-fixed.solid{background:#faf7f1e6;backdrop-filter:blur(14px);border-bottom-color:#e9e1d5}
+.top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
+.mark{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.02em;margin-right:auto;text-decoration:none}
+.top nav{display:flex;gap:24px;font-size:15px}
+.top nav a{color:#6d6459;text-decoration:none}
+.top nav a:hover{color:#201c17}
+.callbtn{display:inline-flex;align-items:center;background:#9e6524;color:#fffaf3;padding:11px 20px;border-radius:20px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+.callbtn:hover{filter:brightness(1.07)}
+@media(max-width:900px){.top nav{display:none}}
+/* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
+@media(max-width:720px){
+  .top .wrap{gap:14px}
+  .mark{font-size:16px;line-height:1.18;overflow-wrap:break-word}
+  .mark.is-long{font-size:13.5px}
+  .mark.is-xlong{font-size:12px;letter-spacing:0}
+  .callbtn{flex:none;padding:11px 15px}
+}
+
+section{padding:clamp(54px,7vw,108px) 0}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
+.head h2{font-size:clamp(28px,3.9vw,50px)}
+.head .meta{color:#6d6459;font-size:15px}
+.head p{margin-top:12px;color:#6d6459;max-width:60ch;flex-basis:100%}
+.more{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.more span{color:#6d6459;font-size:15px}
+
+.hours{width:100%;border-collapse:collapse;font-size:16px}
+.hours th{text-align:left;font-weight:400;color:#6d6459;padding:10px 0;border-bottom:1px solid #e9e1d5}
+.hours td{text-align:right;padding:10px 0;border-bottom:1px solid #e9e1d5;font-variant-numeric:tabular-nums}
+.hours td.closed{color:#6d6459}
+.hours tr:last-child th,.hours tr:last-child td{border-bottom:0}
+.hours tr.today th{color:#201c17;font-weight:600}
+.hours tr.today td{font-weight:600}
+.hours .tag{margin-left:10px;color:#9e6524;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+
+.field{display:block;margin-bottom:13px}
+.field span{display:block;font-size:13.5px;color:#6d6459;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:13px 15px;border:1px solid #e9e1d5;border-radius:20px;background:#faf7f1;color:#201c17;font:inherit;font-size:16px}
+.field input:focus,.field textarea:focus{outline:none;border-color:#9e6524}
+form .h-btn{width:100%;justify-content:center;border:0;cursor:pointer;margin-top:4px}
+.note{margin-top:12px;color:#6d6459;font-size:13.5px}
+
+footer{padding:32px 0 calc(32px + var(--bar,0px));color:#6d6459;font-size:14px;border-top:1px solid #e9e1d5}
+footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+
+.bar{position:fixed;inset:auto 0 0;z-index:60;display:none;gap:1px;background:#e9e1d5;border-top:1px solid #e9e1d5}
+.bar a{flex:1;padding:15px;text-align:center;background:#ffffff;color:#201c17;text-decoration:none;font-weight:600;font-size:15.5px}
+.bar a.acc{background:#9e6524;color:#fffaf3}
+@media(max-width:720px){.bar{display:flex}body{--bar:58px}}
+
+.js .rv{opacity:0;transform:translateY(14px)}
+.js .rv.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+
+
+.hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
+.hero h1 em{font-style:normal;color:#9e6524}
+.hero h1 a{text-decoration:none}
+.h-kick{color:#6d6459;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
+.h-lede{margin-top:20px;max-width:50ch;color:#6d6459;font-size:clamp(16px,1.6vw,19px)}
+.h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:20px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #e9e1d5;background:#ffffff;color:#201c17;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
+.h-btn:hover{transform:translateY(-2px)}
+.h-btn.is-primary{background:#9e6524;color:#fffaf3;border-color:transparent}
+.h-facts{display:flex;flex-wrap:wrap;gap:0 34px;margin-top:38px;padding-top:20px;border-top:1px solid #e9e1d5;color:#6d6459;font-size:14.5px}
+.h-facts span{padding:6px 0}
+/* Waar de wereld het bewijs of de cijfers vóór de kop zet, draait de scheiding mee. */
+.h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #e9e1d5}
+.h-words>.h-cta:first-child{margin-top:0}
+.h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#bb9366;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#9e6524;color:#fffaf3;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
+
+/* cinematic: beeld vult het scherm, woorden liggen erin */
+.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+@keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
+.h-cinematic::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#faf7f1a6 0%,#faf7f11a 24%,#faf7f18c 52%,#faf7f1e8 80%,#faf7f1 100%)}
+.h-cinematic .h-words{padding-bottom:clamp(40px,7vw,84px)}
+.h-cinematic h1{text-shadow:0 2px 30px #faf7f1b3}
+.h-cinematic .h-lede{color:#201c17cc;text-shadow:0 1px 18px #faf7f1cc}
+
+/* panorama: liggend beeld in een kader, woorden erin */
+.h-panorama{padding:clamp(22px,3vw,44px) 0 0}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#f1e8da;aspect-ratio:21/9;min-height:320px}
+.h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
+@keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
+.h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
+/* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
+.h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
+.h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
+.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+/* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
+.h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
+.h-panorama .h-lede{color:#ffffffdb}
+.h-panorama .h-btn{border-color:#ffffff4d;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-panorama .h-btn.is-primary{background:#9e6524;color:#fffaf3;border-color:transparent}
+.h-panorama .h-facts{border-top:0;padding-top:0;margin-top:clamp(26px,3.4vw,44px);gap:0 clamp(20px,3vw,44px)}
+@media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
+
+/* split: woorden naast echte auto's */
+.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
+.h-split h1{font-size:clamp(36px,4.9vw,64px)}
+@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+
+/* stack: woorden boven, beeld als band eronder */
+.h-stack{padding:clamp(44px,6vw,92px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
+.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
+.h-band{margin:0;aspect-ratio:21/8;background:#f1e8da;overflow:hidden}
+.h-band img{width:100%;height:100%;object-fit:cover}
+@media(max-width:720px){.h-band{aspect-ratio:16/10}}
+
+/* poster: de letters doen het werk, foto's als strook */
+.h-poster{padding:clamp(36px,5vw,68px) 0 0}
+.h-poster h1{font-size:clamp(40px,7.6vw,100px);line-height:.95;max-width:16ch}
+.h-poster .h-facts{margin-bottom:clamp(28px,4vw,44px)}
+
+/* index: geen groot beeld, de cijfers staan naast de tekst */
+.h-index{padding:clamp(34px,4.4vw,60px) 0 clamp(24px,3vw,38px);border-bottom:1px solid #e9e1d5}
+.h-index .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(26px,4vw,56px);align-items:center}
+.h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
+.h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#e9e1d5;border:1px solid #e9e1d5;border-radius:20px;overflow:hidden;margin:0}
+.h-panel div{background:#ffffff;padding:17px 19px}
+.h-panel dd{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.02em;line-height:1.25}
+@media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
+
+/* fotostrook, gedeeld door split en poster */
+.h-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.h-strip figure{margin:0;position:relative;border-radius:20px;overflow:hidden;background:#f1e8da}
+.h-strip figure:first-child{grid-column:1 / -1}
+.h-strip img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+.h-strip figure:first-child img{aspect-ratio:16/9}
+.h-strip .st-noimg{aspect-ratio:16/10;height:auto}
+.h-strip figure:first-child .st-noimg{aspect-ratio:16/9}
+.h-poster .h-strip .st-noimg{aspect-ratio:4/3}
+.h-strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:13px 15px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74));color:#fff;font-size:13.5px;font-weight:600;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.h-strip figcaption span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h-strip figcaption span:last-child{white-space:nowrap}
+.h-poster .h-strip{display:flex;grid-template-columns:none;gap:0}
+.h-poster .h-strip figure{flex:1;border-radius:0}
+.h-poster .h-strip figure:first-child{grid-column:auto}
+.h-poster .h-strip img{aspect-ratio:4/3}
+.h-poster .h-strip figcaption{display:none}
+@media(max-width:720px){.h-poster .h-strip figure:nth-child(n+4){display:none}}
+
+/* bijschrift bij de hoofdfoto */
+.h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#faf7f1d9;backdrop-filter:blur(8px);border:1px solid #e9e1d5;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
+.h-plate-k{color:#6d6459;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
+.h-plate-t{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-size:19px;line-height:1.15}
+.h-plate-p{color:#9e6524;font-weight:600;font-size:17px;margin-top:4px}
+.h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #e9e1d5;border-radius:20px}
+@media(max-width:900px){.h-plate{display:none}}
+
+
+.st-card{background:#ffffff;display:flex;flex-direction:column;overflow:hidden}
+.st-shot{position:relative;aspect-ratio:4/3;background:#f1e8da;overflow:hidden}
+.st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.st-card:hover .st-shot img{transform:scale(1.04)}
+.st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#6d6459;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #e9e1d5;border-radius:50%;background:#ffffff;color:#6d6459;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#9e6524;border-color:#9e6524}
+.st-bewaar[aria-pressed="true"]{color:#9e6524;border-color:#9e6524}
+.st-bewaar[aria-pressed="true"] svg{fill:#9e6524}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
+.st-year{position:absolute;left:0;top:0;background:#9e6524;color:#fffaf3;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
+.st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
+.st-card h3{font-size:17.5px;line-height:1.3}
+.st-spec{color:#6d6459;font-size:14.5px;font-variant-numeric:tabular-nums}
+.st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.st-price{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:23px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#9e6524;text-decoration:none;white-space:nowrap}
+.st-ask:hover{text-decoration:underline}
+
+.st-rail{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:max(24px,calc(50vw - 620px));padding:0 max(24px,calc(50vw - 620px)) 24px;scrollbar-width:thin;scrollbar-color:#e9e1d5 transparent}
+.st-rail::-webkit-scrollbar{height:6px}
+.st-rail::-webkit-scrollbar-thumb{background:#e9e1d5;border-radius:99px}
+.st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
+
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
+
+.st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.st-mosaic .st-card{grid-column:span 2}
+.st-mosaic .is-wide{grid-column:span 3}
+.st-mosaic .is-lead{grid-column:span 6}
+.st-mosaic .is-lead .st-shot{aspect-ratio:21/8}
+@media(max-width:980px){.st-mosaic{grid-template-columns:repeat(4,1fr)}.st-mosaic .is-lead{grid-column:span 4}.st-mosaic .is-wide{grid-column:span 2}}
+@media(max-width:660px){.st-mosaic{grid-template-columns:1fr;gap:16px}.st-mosaic .st-card,.st-mosaic .is-wide,.st-mosaic .is-lead{grid-column:span 1}.st-mosaic .is-lead .st-shot{aspect-ratio:16/10}}
+
+.st-list{border-top:1px solid #e9e1d5}
+.st-row{display:grid;grid-template-columns:132px 1fr auto auto;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid #e9e1d5;transition:background .18s ease}
+.st-row:hover{background:#ffffff}
+.st-row .st-thumb{aspect-ratio:4/3;background:#f1e8da;overflow:hidden;border-radius:20px}
+.st-row .st-thumb img{width:100%;height:100%;object-fit:cover}
+.st-row h3{font-size:17.5px;line-height:1.3;font-family:'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;letter-spacing:0;text-transform:none}
+.st-row .st-spec{margin-top:5px}
+.st-act{background:#9e6524;color:#fffaf3;text-decoration:none;font-weight:700;font-size:15px;padding:11px 18px;border-radius:20px;white-space:nowrap}
+.st-act:hover{filter:brightness(1.07)}
+@media(max-width:820px){
+  .st-row{grid-template-columns:96px 1fr;gap:14px}
+  .st-row .st-price{grid-column:2}
+  .st-row .st-act{grid-column:2;justify-self:start}
+}
+
+.st-tablewrap{border:1px solid #e9e1d5;border-radius:20px;overflow-x:auto;background:#ffffff}
+.st-table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:720px}
+.st-table th{text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#6d6459;font-weight:600;padding:13px 16px;border-bottom:1px solid #e9e1d5;background:#f1e8da}
+.st-table td{padding:12px 16px;border-bottom:1px solid #e9e1d5;vertical-align:middle}
+.st-table tr:last-child td{border-bottom:0}
+.st-table tbody tr:hover{background:#f1e8da}
+.st-table .st-thumb{width:92px}
+.st-table .st-thumb img{width:92px;height:66px;object-fit:cover;border-radius:calc(20px - 1px);background:#f1e8da}
+.st-table .st-name{font-weight:600;line-height:1.3}
+.st-table .st-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-table .st-price{font-size:19px;text-align:right;display:block}
+.st-table .st-act-cell a{display:inline-block;background:#9e6524;color:#fffaf3;padding:9px 15px;border-radius:20px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+
+
+.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+.sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.02em;color:#9e6524;line-height:1}
+.sec-trust span{display:block;margin-top:9px;color:#6d6459;font-size:15px}
+.sec-trust a{color:#201c17}
+
+.sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
+/* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
+.sec-about .wrap>*{min-width:0}
+.sec-about p{overflow-wrap:anywhere}
+.sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
+.sec-about p{color:#6d6459;font-size:17.5px;max-width:66ch}
+.sec-about .portrait{border:1px solid #e9e1d5;border-radius:20px;background:#f1e8da;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+.sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
+@media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
+
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;list-style:none;padding:0;margin:0;counter-reset:s}
+.flow li{background:#ffffff;border:1px solid #e9e1d5;border-radius:20px;padding:clamp(22px,2.6vw,30px);position:relative}
+.flow li::before{counter-increment:s;content:counter(s);display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:#9e6524;color:#fffaf3;font-weight:700;font-size:14px;margin-bottom:14px}
+.flow li b{display:block;font-size:18.5px;margin-bottom:8px}
+.flow li p{color:#6d6459;font-size:15.5px}
+@media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+.sec-brands{border-block:1px solid #e9e1d5;background:#ffffff}
+.sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
+.sec-brands span{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.02em;color:#6d6459;padding:6px 0}
+.sec-brands span:first-child{color:#9e6524}
+
+.wrap{--w:1280px}
+.sec-contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,68px)}
+.sec-contact h2{font-size:clamp(26px,3.4vw,44px)}
+.sec-contact .lede{margin-top:16px;color:#6d6459;max-width:46ch}
+.sec-contact .callrow{margin-top:24px}
+.sec-contact .addr{margin-top:18px;color:#6d6459}
+.sec-contact .hours{margin-top:26px}
+@media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
+
+.sa-balk{position:sticky;top:0;z-index:40;background:#faf7f1;border-block:1px solid #e9e1d5;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#6d6459;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:20px;background:#ffffff;border:1px solid #e9e1d5;color:#201c17;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#6d6459}
+.sa-zoek input:focus{outline:none;border-color:#9e6524}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#6d6459;cursor:pointer}
+.sa-wis:hover{color:#201c17}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#6d6459;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:14px;letter-spacing:0;text-transform:none;color:#9e6524;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:20px;background:#ffffff;border:1px solid #e9e1d5;color:#201c17;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#9e6524}
+.sa-meer{padding:11px 17px;border-radius:20px;background:transparent;border:1px solid #e9e1d5;color:#6d6459;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#201c17;border-color:#9e6524}
+.sa-meer[aria-expanded="true"]{border-color:#9e6524;color:#9e6524}
+
+.sa-paneel{border-top:1px solid #e9e1d5}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:20px;background:transparent;border:1px solid #e9e1d5;color:#6d6459;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#201c17;border-color:#9e6524}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#9e6524;border-color:#9e6524;color:#fffaf3}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#6d6459;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#e9e1d5}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#9e6524;border:3px solid #faf7f1}
+input[type=range]::-moz-range-track{height:2px;background:#e9e1d5}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#9e6524;border:3px solid #faf7f1}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#6d6459;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:19px;color:#201c17;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:20px;background:transparent;border:1px solid #e9e1d5;color:#6d6459;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#201c17;border-color:#9e6524}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#9e6524;border-color:#9e6524;color:#fffaf3}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #e9e1d5;border-radius:20px}
+.sa-leeg-t{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#6d6459;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #e9e1d5;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
+/* Reizen: veel lucht, ronde hoeken, rust. Het bezoek is de conversie. */
+.callbtn{border-radius:999px}
+.h-btn{border-radius:999px}
+.st-card{border:1px solid #e9e1d5;border-radius:clamp(12px,1.4vw,20px);transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s}
+.st-card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(20,30,25,.12)}
+.top{background:#faf7f1f2;backdrop-filter:blur(12px)}
+.sec-trust{background:#f1e8da;border-block:1px solid #e9e1d5}
+.flow li{border-radius:clamp(12px,1.4vw,20px)}
+.sec-contact{background:#f1e8da;border-top:1px solid #e9e1d5}
+.sec-contact .panel{background:#ffffff;border:1px solid #e9e1d5;border-radius:clamp(14px,1.6vw,22px);padding:clamp(22px,3vw,32px)}
+.field input,.field textarea{border-radius:12px}
+.h-words>h1+.h-facts{margin-top:26px;padding-top:0;border-top:0;gap:0 clamp(20px,3vw,40px)}
+</style>
+</head>
+<body data-site="6633869">
+<!--
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van Van der Veen Caravans (reizen, mediaanprijs EUR 24043, 34 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+OWN-WORLD: palet duin, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #9e6524.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties stock > about > brands > process > hours > contact.
+FORM: reizen-duin-cinematic-mosaic-archivoexpanded-k0
+FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
+-->
+<div class="top" id="top">
+  <div class="wrap">
+    <a class="mark" href="#top">Van der Veen Caravans</a>
+    <nav><a href="#voorraad">Voorraad</a><a href="#over-ons">Over ons</a><a href="#contact">Contact</a></nav>
+    <a class="callbtn" href="tel:+31561613026">056-1613026</a>
+  </div>
+</div>
+<header class="hero h-cinematic">
+  <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/801c6271-8b90-423a-ae8e-f8f5ce44601a?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/801c6271-8b90-423a-ae8e-f8f5ce44601a?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/801c6271-8b90-423a-ae8e-f8f5ce44601a?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/801c6271-8b90-423a-ae8e-f8f5ce44601a?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/801c6271-8b90-423a-ae8e-f8f5ce44601a?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Easy Caravanning GetAway Sport" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Easy Caravanning GetAway Sport</span><span class="h-plate-p">€ 33.595</span></figcaption></figure>
+  <div class="wrap h-words"><h1>Stap in en kijk rustig rond <em>in Wolvega</em></h1><div class="h-facts"><span>34 voertuigen op voorraad</span><span>19 jaar op Marktplaats</span><span>Kom langs in Wolvega</span></div><p class="h-lede">Kom rustig kijken en stap in. We nemen de tijd om alles met u door te lopen.</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging</a><a class="h-btn" href="tel:+31561613026">Bel 056-1613026</a></div></div>
+</header>
+<section id="voorraad">
+  <div class="wrap head">
+    <h2>De voorraad</h2>
+    <span class="meta">18 getoond van 34 · vanaf € 15.950</span>
+    
+  </div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 33.650</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="15950" max="33650" step="300" value="33650">
+  <span class="sa-schaal"><i>€ 15.950</i><i>€ 33.650</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2013</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2013" max="2026" step="1" value="2013">
+  <span class="sa-schaal"><i>2013</i><i>2026</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="caravans-easy-caravanning-getaway-sport-1" data-rang="0" data-prijs="33595" data-jaar="2025" data-zoek="easy caravanning getaway sport">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/801c6271-8b90-423a-ae8e-f8f5ce44601a?rule=ecg_mp_eps$_86.jpg" alt="Easy Caravanning GetAway Sport" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-easy-caravanning-getaway-sport-1" aria-pressed="false" aria-label="Bewaar Easy Caravanning GetAway Sport"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Easy Caravanning GetAway Sport</h3>
+    <p class="st-spec">2025</p>
+    <div class="st-foot">
+      <span class="st-price">€ 33.595</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-easy-caravanning-getaway-sport-2" data-rang="1" data-prijs="33595" data-jaar="2025" data-zoek="easy caravanning getaway sport">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/61b827c4-3193-45be-8f76-0c62d027d47a?rule=ecg_mp_eps$_85.jpg" alt="Easy Caravanning GetAway Sport" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-easy-caravanning-getaway-sport-2" aria-pressed="false" aria-label="Bewaar Easy Caravanning GetAway Sport"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Easy Caravanning GetAway Sport</h3>
+    <p class="st-spec">2025</p>
+    <div class="st-foot">
+      <span class="st-price">€ 33.595</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card is-wide" data-slug="caravans-knaus-sudwind-black-selection-450-fu-mo-3" data-rang="2" data-prijs="31320" data-jaar="2026" data-zoek="knaus sudwind black selection 450 fu model 2026">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/81d8a26a-e0ea-46c1-ae3b-7c5553046822?rule=ecg_mp_eps$_86.jpg" alt="Knaus Sudwind Black Selection 450 FU Model 2026" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-knaus-sudwind-black-selection-450-fu-mo-3" aria-pressed="false" aria-label="Bewaar Knaus Sudwind Black Selection 450 FU Model 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Knaus Sudwind Black Selection 450 FU Model 2026</h3>
+    <p class="st-spec">2026</p>
+    <div class="st-foot">
+      <span class="st-price">€ 31.320</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-knaus-sport-460-eu-luifel-mover-fietsen-4" data-rang="3" data-prijs="27950" data-jaar="2024" data-kenmerk="Mover|Luifel" data-zoek="knaus sport 460 eu luifel, mover, fietsenrek mover luifel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/87c437c1-3ae7-4313-b9ed-b5cb9b54594b?rule=ecg_mp_eps$_85.jpg" alt="Knaus Sport 460 EU Luifel, mover, fietsenrek" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-knaus-sport-460-eu-luifel-mover-fietsen-4" aria-pressed="false" aria-label="Bewaar Knaus Sport 460 EU Luifel, mover, fietsenrek"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Knaus Sport 460 EU Luifel, mover, fietsenrek</h3>
+    <p class="st-spec">2024</p>
+    <div class="st-foot">
+      <span class="st-price">€ 27.950</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-knaus-sport-platinum-460-eu-bouwjaar-20-5" data-rang="4" data-prijs="27750" data-jaar="2026" data-zoek="knaus sport platinum 460 eu bouwjaar 2026, model 2027">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/24bdea59-5e83-4672-9895-11522306df0c?rule=ecg_mp_eps$_85.jpg" alt="Knaus Sport Platinum 460 EU Bouwjaar 2026, model 2027" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-knaus-sport-platinum-460-eu-bouwjaar-20-5" aria-pressed="false" aria-label="Bewaar Knaus Sport Platinum 460 EU Bouwjaar 2026, model 2027"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Knaus Sport Platinum 460 EU Bouwjaar 2026, model 2027</h3>
+    <p class="st-spec">2026</p>
+    <div class="st-foot">
+      <span class="st-price">€ 27.750</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-knaus-sport-platinum-420-qd-model-2027-6" data-rang="5" data-prijs="26398" data-jaar="0" data-zoek="knaus sport platinum 420 qd model 2027">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/04294c90-a520-470c-b58d-583e453dd7ba?rule=ecg_mp_eps$_85.jpg" alt="Knaus Sport Platinum 420 QD Model 2027" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-knaus-sport-platinum-420-qd-model-2027-6" aria-pressed="false" aria-label="Bewaar Knaus Sport Platinum 420 QD Model 2027"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Knaus Sport Platinum 420 QD Model 2027</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 26.398</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-knaus-sport-460-eu-model-2026-7" data-rang="6" data-prijs="26360" data-jaar="2026" data-zoek="knaus sport 460 eu model 2026">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5dff4bce-a830-4c44-a5c8-a9493e537937?rule=ecg_mp_eps$_85.jpg" alt="Knaus Sport 460 EU Model 2026" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-knaus-sport-460-eu-model-2026-7" aria-pressed="false" aria-label="Bewaar Knaus Sport 460 EU Model 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Knaus Sport 460 EU Model 2026</h3>
+    <p class="st-spec">2026</p>
+    <div class="st-foot">
+      <span class="st-price">€ 26.360</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card is-wide" data-slug="caravans-knaus-sport-400-qd-model-2026-8" data-rang="7" data-prijs="25750" data-jaar="2026" data-zoek="knaus sport 400 qd model 2026">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d64d3000-bbbc-440b-92b3-e5830b3be393?rule=ecg_mp_eps$_86.jpg" alt="Knaus Sport 400 QD Model 2026" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-knaus-sport-400-qd-model-2026-8" aria-pressed="false" aria-label="Bewaar Knaus Sport 400 QD Model 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Knaus Sport 400 QD Model 2026</h3>
+    <p class="st-spec">2026</p>
+    <div class="st-foot">
+      <span class="st-price">€ 25.750</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-easy-caravanning-takeoff-xcite-model-20-9" data-rang="8" data-prijs="24095" data-jaar="2026" data-zoek="easy caravanning takeoff xcite model 2026">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/19c77ea1-8369-4f3c-a733-a6f9bf65ade4?rule=ecg_mp_eps$_85.jpg" alt="Easy Caravanning TakeOff Xcite Model 2026" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-easy-caravanning-takeoff-xcite-model-20-9" aria-pressed="false" aria-label="Bewaar Easy Caravanning TakeOff Xcite Model 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Easy Caravanning TakeOff Xcite Model 2026</h3>
+    <p class="st-spec">2026</p>
+    <div class="st-foot">
+      <span class="st-price">€ 24.095</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-weinsberg-caraone-edition-hot-450-fu-mo-10" data-rang="9" data-prijs="23990" data-jaar="2026" data-zoek="weinsberg caraone edition hot 450 fu model 2026">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f5e7ea6d-e7d9-4af9-8d46-e5db211a1894?rule=ecg_mp_eps$_85.jpg" alt="Weinsberg CaraOne Edition HOT 450 FU Model 2026" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-weinsberg-caraone-edition-hot-450-fu-mo-10" aria-pressed="false" aria-label="Bewaar Weinsberg CaraOne Edition HOT 450 FU Model 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Weinsberg CaraOne Edition HOT 450 FU Model 2026</h3>
+    <p class="st-spec">2026</p>
+    <div class="st-foot">
+      <span class="st-price">€ 23.990</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-easy-caravanning-takeoff-sport-11" data-rang="10" data-prijs="22495" data-jaar="2026" data-zoek="easy caravanning takeoff sport">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c6a84b2-ba05-463e-93db-a02b5795fc1d?rule=ecg_mp_eps$_85.jpg" alt="Easy Caravanning TakeOff Sport" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-easy-caravanning-takeoff-sport-11" aria-pressed="false" aria-label="Bewaar Easy Caravanning TakeOff Sport"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Easy Caravanning TakeOff Sport</h3>
+    <p class="st-spec">2026</p>
+    <div class="st-foot">
+      <span class="st-price">€ 22.495</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-caravelair-antares-style-450-luifel-res-12" data-rang="11" data-prijs="22250" data-jaar="2022" data-kenmerk="Luifel" data-zoek="caravelair antares style 450 luifel, reservewiel luifel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c6be3711-720c-4e63-8d25-d0fbc0082c42?rule=ecg_mp_eps$_85.jpg" alt="Caravelair Antares Style 450 luifel, reservewiel" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-caravelair-antares-style-450-luifel-res-12" aria-pressed="false" aria-label="Bewaar Caravelair Antares Style 450 luifel, reservewiel"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Caravelair Antares Style 450 luifel, reservewiel</h3>
+    <p class="st-spec">2022</p>
+    <div class="st-foot">
+      <span class="st-price">€ 22.250</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card is-wide" data-slug="caravans-weinsberg-caracito-390-qd-alko-mover-ul-13" data-rang="12" data-prijs="19750" data-jaar="2026" data-kenmerk="Mover" data-zoek="weinsberg caracito 390 qd alko mover, ultraheat mover">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bfc17aa8-8b84-4000-8428-e8c047030985?rule=ecg_mp_eps$_86.jpg" alt="Weinsberg CaraCito 390 QD Alko mover, ultraheat" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-weinsberg-caracito-390-qd-alko-mover-ul-13" aria-pressed="false" aria-label="Bewaar Weinsberg CaraCito 390 QD Alko mover, ultraheat"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Weinsberg CaraCito 390 QD Alko mover, ultraheat</h3>
+    <p class="st-spec">2026</p>
+    <div class="st-foot">
+      <span class="st-price">€ 19.750</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-weinsberg-caraone-edition-hot-390-qd-de-14" data-rang="13" data-prijs="19250" data-jaar="2022" data-zoek="weinsberg caraone edition hot 390 qd deeltent,fietsenrek">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cbbebb81-9f81-4675-ae07-8ab27d5710e7?rule=ecg_mp_eps$_85.jpg" alt="Weinsberg CaraOne Edition HOT 390 QD Deeltent,fietsenrek" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-weinsberg-caraone-edition-hot-390-qd-de-14" aria-pressed="false" aria-label="Bewaar Weinsberg CaraOne Edition HOT 390 QD Deeltent,fietsenrek"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Weinsberg CaraOne Edition HOT 390 QD Deeltent,fietsenrek</h3>
+    <p class="st-spec">2022</p>
+    <div class="st-foot">
+      <span class="st-price">€ 19.250</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-weinsberg-caraone-420-qd-model-2026-15" data-rang="14" data-prijs="19080" data-jaar="2026" data-zoek="weinsberg caraone 420 qd model 2026">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/46fa74e1-ab31-44d3-9441-d80da6427466?rule=ecg_mp_eps$_85.jpg" alt="Weinsberg CaraOne 420 QD Model 2026" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-weinsberg-caraone-420-qd-model-2026-15" aria-pressed="false" aria-label="Bewaar Weinsberg CaraOne 420 QD Model 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Weinsberg CaraOne 420 QD Model 2026</h3>
+    <p class="st-spec">2026</p>
+    <div class="st-foot">
+      <span class="st-price">€ 19.080</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-fendt-saphir-445-tf-16" data-rang="15" data-prijs="17750" data-jaar="2014" data-zoek="fendt saphir 445 tf">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6faece51-c926-4b9b-b737-380863b5d5ba?rule=ecg_mp_eps$_85.jpg" alt="Fendt Saphir 445 TF" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-fendt-saphir-445-tf-16" aria-pressed="false" aria-label="Bewaar Fendt Saphir 445 TF"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Fendt Saphir 445 TF</h3>
+    <p class="st-spec">2014</p>
+    <div class="st-foot">
+      <span class="st-price">€ 17.750</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="caravans-eriba-exciting-465-thule-cassette-luife-17" data-rang="16" data-prijs="16750" data-jaar="2013" data-kenmerk="Luifel" data-zoek="eriba exciting 465 thule cassette luifel luifel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/78601c80-b239-46c7-953e-a394483c6f7b?rule=ecg_mp_eps$_85.jpg" alt="Eriba Exciting 465 Thule cassette luifel" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-eriba-exciting-465-thule-cassette-luife-17" aria-pressed="false" aria-label="Bewaar Eriba Exciting 465 Thule cassette luifel"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Eriba Exciting 465 Thule cassette luifel</h3>
+    <p class="st-spec">2013</p>
+    <div class="st-foot">
+      <span class="st-price">€ 16.750</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card is-wide" data-slug="caravans-caravelair-antares-390-dorema-luifel-18" data-rang="17" data-prijs="15950" data-jaar="2017" data-kenmerk="Luifel" data-zoek="caravelair antares 390 dorema luifel luifel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0fe0bc28-bd00-4876-a780-b3cacb1d6932?rule=ecg_mp_eps$_86.jpg" alt="Caravelair Antares 390 Dorema luifel" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="caravans-caravelair-antares-390-dorema-luifel-18" aria-pressed="false" aria-label="Bewaar Caravelair Antares 390 Dorema luifel"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Caravelair Antares 390 Dorema luifel</h3>
+    <p class="st-spec">2017</p>
+    <div class="st-foot">
+      <span class="st-price">€ 15.950</span>
+      <a class="st-ask" href="tel:+31561613026">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 16 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 16 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="tel:+31561613026">Bel 056-1613026</a></div></div>
+</section>
+<section class="sec-about" id="over-ons">
+  <div class="wrap rv">
+    <div>
+      <h2>Over Van der Veen Caravans</h2>
+      <p>Bent u op zoek naar een nieuwe caravan? Dan bent u bij Van der Veen Caravans in Wolvega aan het goede adres. Wij zijn onder andere dealer van Knaus en Adria. Deze twee prachtige merken hebben voor elke caravanliefhebber de juiste indeling.</p>
+    </div>
+    <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/9d/9df0248e-426c-49f3-a786-466682e92d31?rule=ecg_mp_eps$_85.jpg" alt="Van der Veen Caravans" loading="lazy"></div>
+  </div>
+</section>
+<section class="sec-flow">
+  <div class="wrap">
+    <div class="head rv"><h2>Zo gaat het</h2></div>
+    <ol class="flow rv">
+      <li><b>Neem contact op</b><p>Bel ons over het voertuig dat u op het oog heeft.</p></li><li><b>Kom langs</b><p>Kom langs en loop er rustig doorheen. Neem de tijd, we lopen alles met u door.</p></li><li><b>Regel het samen</b><p>We bespreken prijs, inruil en aflevering. Geen verrassingen.</p></li>
+    </ol>
+  </div>
+</section>
+<section class="sec-contact" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <h2>Langskomen kan</h2>
+      <p class="lede">Een camper koopt u niet van een scherm. Kom kijken, stap in, en stel al uw vragen.</p>
+      <p class="callrow"><a class="h-btn is-primary" href="tel:+31561613026">Bel 056-1613026</a></p>
+      <p class="addr"><a href="https://maps.google.com/?q=De%20Barte%202%2C%208472AW%20Wolvega" target="_blank" rel="noreferrer">De Barte 2, 8472AW Wolvega</a></p>
+      <table class="hours"><tr data-d="1"><th>Maandag</th><td>09:00 – 17:00</td></tr><tr data-d="2"><th>Dinsdag</th><td>09:00 – 17:00</td></tr><tr data-d="3"><th>Woensdag</th><td>09:00 – 17:00</td></tr><tr data-d="4"><th>Donderdag</th><td>09:00 – 17:00</td></tr><tr data-d="5"><th>Vrijdag</th><td>09:00 – 17:00</td></tr><tr data-d="6"><th>Zaterdag</th><td>09:00 – 17:00</td></tr></table>
+    </div>
+    <div class="panel rv"><form onsubmit="event.preventDefault();var f=this;location.href='mailto:info@vanderveencaravans.nl?subject='+encodeURIComponent('Afspraak via de website')+'&body='+encodeURIComponent('Naam: '+f.naam.value+'\nTelefoon: '+f.tel.value+'\n\n'+f.bericht.value)"><label class="field"><span>Uw naam</span><input name="naam" type="text" autocomplete="name" required></label><label class="field"><span>Telefoonnummer</span><input name="tel" type="tel" autocomplete="tel" required></label><label class="field"><span>Waar wilt u naar kijken, en wanneer schikt het?</span><textarea name="bericht" rows="4" required></textarea></label><button class="h-btn is-primary" type="submit">Afspraak aanvragen</button><p class="note">Uw bericht opent in uw eigen mailprogramma.</p></form></div>
+  </div>
+</section>
+<footer>
+  <div class="wrap rowf">
+    <span>Van der Veen Caravans · De Barte 2, 8472AW Wolvega</span>
+    <span>Voorbeeldwebsite, gemaakt door Capital BB</span>
+  </div>
+</footer>
+<div class="bar">
+  <a class="acc" href="tel:+31561613026">Bellen</a>
+  <a href="#contact">Afspraak</a>
+</div>
+<script>
+document.documentElement.className+=' js';
+(function(){
+  var today=document.querySelector('.hours tr[data-d="'+new Date().getDay()+'"]');
+  if(today){today.className='today';var v=today.lastElementChild;if(v){v.insertAdjacentHTML('beforeend','<span class="tag">vandaag</span>')}}
+  var top=document.getElementById('top');
+  if(top){var s=function(){top.classList.toggle('solid',window.scrollY>40)};s();addEventListener('scroll',s,{passive:true})}
+  var items=[].slice.call(document.querySelectorAll('.rv'));
+  var show=function(el){el.classList.add('in')};
+  if(!('IntersectionObserver' in window)){items.forEach(show);return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
+  items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
+  setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
+})();
+</script>
+
+</body>
+</html>

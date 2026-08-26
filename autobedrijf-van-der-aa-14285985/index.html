@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;letter-spacing:-0.03em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #1f5f4f;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #e4e4df}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#628f84;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#1f5f4f;color:#ffffff;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#5f646c;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #e4e4df;border-radius:50%;background:#ffffff;color:#5f646c;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#1f5f4f;border-color:#1f5f4f}
+.st-bewaar[aria-pressed="true"]{color:#1f5f4f;border-color:#1f5f4f}
+.st-bewaar[aria-pressed="true"] svg{fill:#1f5f4f}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#1f5f4f;color:#ffffff;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#e4e4df;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,77 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#fbfbf9;border-block:1px solid #e4e4df;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#5f646c;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:14px;background:#ffffff;border:1px solid #e4e4df;color:#16181c;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#5f646c}
+.sa-zoek input:focus{outline:none;border-color:#1f5f4f}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#5f646c;cursor:pointer}
+.sa-wis:hover{color:#16181c}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5f646c;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:14px;letter-spacing:0;text-transform:none;color:#1f5f4f;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:14px;background:#ffffff;border:1px solid #e4e4df;color:#16181c;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#1f5f4f}
+.sa-meer{padding:11px 17px;border-radius:14px;background:transparent;border:1px solid #e4e4df;color:#5f646c;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#16181c;border-color:#1f5f4f}
+.sa-meer[aria-expanded="true"]{border-color:#1f5f4f;color:#1f5f4f}
+
+.sa-paneel{border-top:1px solid #e4e4df}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:14px;background:transparent;border:1px solid #e4e4df;color:#5f646c;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#16181c;border-color:#1f5f4f}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#1f5f4f;border-color:#1f5f4f;color:#ffffff}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#5f646c;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#e4e4df}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#1f5f4f;border:3px solid #fbfbf9}
+input[type=range]::-moz-range-track{height:2px;background:#e4e4df}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#1f5f4f;border:3px solid #fbfbf9}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#5f646c;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:19px;color:#16181c;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:14px;background:transparent;border:1px solid #e4e4df;color:#5f646c;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#16181c;border-color:#1f5f4f}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#1f5f4f;border-color:#1f5f4f;color:#ffffff}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #e4e4df;border-radius:14px}
+.sa-leeg-t{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#5f646c;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #e4e4df;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
 /* Familie: overdag-licht, zacht, vertrouwen voorop. */
 .st-card{border:1px solid #e4e4df;border-radius:14px;transition:transform .25s ease,box-shadow .25s ease}
 .st-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(15,20,30,.10)}
@@ -293,7 +394,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child span:first-child{color:#1f5f4f}
 </style>
 </head>
-<body>
+<body data-site="14285985">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autobedrijf van der Aa (familie, mediaanprijs EUR 18999, 51 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet daglicht, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #1f5f4f.
@@ -321,8 +422,54 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <span class="meta">18 getoond van 51 · vanaf € 8.999</span>
     <p>Ziet u iets? Bel of app gerust, dan zetten we hem voor u apart.</p>
   </div>
-  <div class="wrap"><div class="st-grid"><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7692ec70-4ebd-420e-acf6-530a281cc351?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz 190 190E 2.5-16 EVO II Gelimiteerde No;365 Bel" loading="lazy" decoding="async"></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 7 merken</option>
+    <option value="Mercedes-Benz">Mercedes-Benz (3)</option><option value="BMW">BMW (2)</option><option value="Volkswagen">Volkswagen (2)</option><option value="Volvo">Volvo (2)</option><option value="Audi">Audi (1)</option><option value="Maserati">Maserati (1)</option><option value="Porsche">Porsche (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 530.999</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="8999" max="530999" step="8700" value="530999">
+  <span class="sa-schaal"><i>€ 8.999</i><i>€ 530.999</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">1972</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="1972" max="2017" step="1" value="1972">
+  <span class="sa-schaal"><i>1972</i><i>2017</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="oldtimers-mercedes-benz-190-190e-2-5-16-evo-ii-g-1" data-rang="0" data-prijs="529999" data-jaar="1991" data-zoek="mercedes-benz 190 190e 2.5-16 evo ii gelimiteerde no;365 bel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7692ec70-4ebd-420e-acf6-530a281cc351?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz 190 190E 2.5-16 EVO II Gelimiteerde No;365 Bel" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="oldtimers-mercedes-benz-190-190e-2-5-16-evo-ii-g-1" aria-pressed="false" aria-label="Bewaar Mercedes-benz 190 190E 2.5-16 EVO II Gelimiteerde No;365 Bel"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-benz 190 190E 2.5-16 EVO II Gelimiteerde No;365 Bel</h3>
     <p class="st-spec">1991 · 97.846 km</p>
@@ -331,8 +478,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Mercedes-benz%20190%20190E%202.5-16%20EVO%20II%20Gelimiteerde%20No%3B365%20Bel%20(%E2%82%AC%20529.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/52a949cc-7ad7-44a8-ae8b-b49191ad39ef?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz G-KLASSE G 350 Turbo-Diesel Youngtimer!!" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bestelauto-s-mercedes-benz-g-klasse-g-350-turbo--2" data-rang="1" data-prijs="89999" data-jaar="1996" data-zoek="mercedes-benz g-klasse g 350 turbo-diesel youngtimer!!">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/52a949cc-7ad7-44a8-ae8b-b49191ad39ef?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz G-KLASSE G 350 Turbo-Diesel Youngtimer!!" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-mercedes-benz-g-klasse-g-350-turbo--2" aria-pressed="false" aria-label="Bewaar Mercedes-benz G-KLASSE G 350 Turbo-Diesel Youngtimer!!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-benz G-KLASSE G 350 Turbo-Diesel Youngtimer!!</h3>
     <p class="st-spec">1996 · 426.264 km</p>
@@ -341,8 +488,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Mercedes-benz%20G-KLASSE%20G%20350%20Turbo-Diesel%20Youngtimer!!%20(%E2%82%AC%2089.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fd583373-aa6c-4341-9c47-2aac7edcb9b2?rule=ecg_mp_eps$_85.jpg" alt="Porsche BOXSTER 2.7 TIPTRONIC" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="porsche-porsche-boxster-2-7-tiptronic-3" data-rang="2" data-merk="Porsche" data-prijs="32499" data-jaar="2005" data-zoek="porsche boxster 2.7 tiptronic porsche">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fd583373-aa6c-4341-9c47-2aac7edcb9b2?rule=ecg_mp_eps$_85.jpg" alt="Porsche BOXSTER 2.7 TIPTRONIC" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="porsche-porsche-boxster-2-7-tiptronic-3" aria-pressed="false" aria-label="Bewaar Porsche BOXSTER 2.7 TIPTRONIC"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Porsche BOXSTER 2.7 TIPTRONIC</h3>
     <p class="st-spec">2005 · 85.000 km</p>
@@ -351,8 +498,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Porsche%20BOXSTER%202.7%20TIPTRONIC%20(%E2%82%AC%2032.499)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ef09e9de-847b-46f5-8fa8-c28a54e4588e?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen GOLF VR6 2.8 6-CIL.HB Automaat 5-Drs Orgineel Nie" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-golf-vr6-2-8-6-cil-hb-auto-4" data-rang="3" data-merk="Volkswagen" data-prijs="29999" data-jaar="1993" data-kenmerk="Automaat" data-zoek="volkswagen golf vr6 2.8 6-cil.hb automaat 5-drs orgineel nie volkswagen automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ef09e9de-847b-46f5-8fa8-c28a54e4588e?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen GOLF VR6 2.8 6-CIL.HB Automaat 5-Drs Orgineel Nie" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-golf-vr6-2-8-6-cil-hb-auto-4" aria-pressed="false" aria-label="Bewaar Volkswagen GOLF VR6 2.8 6-CIL.HB Automaat 5-Drs Orgineel Nie"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen GOLF VR6 2.8 6-CIL.HB Automaat 5-Drs Orgineel Nie</h3>
     <p class="st-spec">1993 · 98.127 km</p>
@@ -361,8 +508,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Volkswagen%20GOLF%20VR6%202.8%206-CIL.HB%20Automaat%205-Drs%20Orgineel%20Nie%20(%E2%82%AC%2029.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ab701915-c306-4182-b71c-39ecf5effe3e?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz 190 2.5 D Turbo Automaat 66.237 Km !! Zeldzaam" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-190-2-5-d-turbo-auto-5" data-rang="4" data-merk="Mercedes-Benz" data-prijs="29999" data-jaar="1992" data-kenmerk="Automaat" data-zoek="mercedes-benz 190 2.5 d turbo automaat 66.237 km !! zeldzaam mercedes-benz automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ab701915-c306-4182-b71c-39ecf5effe3e?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz 190 2.5 D Turbo Automaat 66.237 Km !! Zeldzaam" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-190-2-5-d-turbo-auto-5" aria-pressed="false" aria-label="Bewaar Mercedes-benz 190 2.5 D Turbo Automaat 66.237 Km !! Zeldzaam"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-benz 190 2.5 D Turbo Automaat 66.237 Km !! Zeldzaam</h3>
     <p class="st-spec">1992 · 66.237 km</p>
@@ -371,8 +518,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Mercedes-benz%20190%202.5%20D%20Turbo%20Automaat%2066.237%20Km%20!!%20Zeldzaam%20(%E2%82%AC%2029.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/07e548b6-9d78-4dd7-a798-3db3d6cd3886?rule=ecg_mp_eps$_85.jpg" alt="Maserati COUPE  Coupe Cambiocorsa  Ferrari F430 Engine Young" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="maserati-maserati-coupe-coupe-cambiocorsa-ferrar-6" data-rang="5" data-merk="Maserati" data-prijs="27499" data-jaar="2003" data-zoek="maserati coupe  coupe cambiocorsa  ferrari f430 engine young maserati">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/07e548b6-9d78-4dd7-a798-3db3d6cd3886?rule=ecg_mp_eps$_85.jpg" alt="Maserati COUPE  Coupe Cambiocorsa  Ferrari F430 Engine Young" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="maserati-maserati-coupe-coupe-cambiocorsa-ferrar-6" aria-pressed="false" aria-label="Bewaar Maserati COUPE  Coupe Cambiocorsa  Ferrari F430 Engine Young"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Maserati COUPE  Coupe Cambiocorsa  Ferrari F430 Engine Young</h3>
     <p class="st-spec">2003 · 203.550 km</p>
@@ -381,8 +528,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Maserati%20COUPE%20%20Coupe%20Cambiocorsa%20%20Ferrari%20F430%20Engine%20Young%20(%E2%82%AC%2027.499)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/277ad7ed-4542-4f14-bc77-85ee7d86883d?rule=ecg_mp_eps$_85.jpg" alt="Volvo 480 1.7 ES INJ. Coupe 3-Drs Automaat Fabrieksnieuw!!" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volvo-volvo-480-1-7-es-inj-coupe-3-drs-automaat--7" data-rang="6" data-merk="Volvo" data-prijs="24999" data-jaar="1991" data-kenmerk="Automaat" data-zoek="volvo 480 1.7 es inj. coupe 3-drs automaat fabrieksnieuw!! volvo automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/277ad7ed-4542-4f14-bc77-85ee7d86883d?rule=ecg_mp_eps$_85.jpg" alt="Volvo 480 1.7 ES INJ. Coupe 3-Drs Automaat Fabrieksnieuw!!" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volvo-volvo-480-1-7-es-inj-coupe-3-drs-automaat--7" aria-pressed="false" aria-label="Bewaar Volvo 480 1.7 ES INJ. Coupe 3-Drs Automaat Fabrieksnieuw!!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volvo 480 1.7 ES INJ. Coupe 3-Drs Automaat Fabrieksnieuw!!</h3>
     <p class="st-spec">1991 · 84.782 km</p>
@@ -391,8 +538,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Volvo%20480%201.7%20ES%20INJ.%20Coupe%203-Drs%20Automaat%20Fabrieksnieuw!!%20(%E2%82%AC%2024.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1afebfec-0e47-429b-b22b-3947f4feb5c5?rule=ecg_mp_eps$_85.jpg" alt="Volvo XC90 2.0 T8 TE AWD R-DESIGN 37.000KM 7-Pers. Org.NED." loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volvo-volvo-xc90-2-0-t8-te-awd-r-design-37-000km-8" data-rang="7" data-merk="Volvo" data-prijs="23999" data-jaar="2015" data-zoek="volvo xc90 2.0 t8 te awd r-design 37.000km 7-pers. org.ned. volvo">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1afebfec-0e47-429b-b22b-3947f4feb5c5?rule=ecg_mp_eps$_85.jpg" alt="Volvo XC90 2.0 T8 TE AWD R-DESIGN 37.000KM 7-Pers. Org.NED." loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volvo-volvo-xc90-2-0-t8-te-awd-r-design-37-000km-8" aria-pressed="false" aria-label="Bewaar Volvo XC90 2.0 T8 TE AWD R-DESIGN 37.000KM 7-Pers. Org.NED."><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volvo XC90 2.0 T8 TE AWD R-DESIGN 37.000KM 7-Pers. Org.NED.</h3>
     <p class="st-spec">2015 · 337.060 km</p>
@@ -401,8 +548,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Volvo%20XC90%202.0%20T8%20TE%20AWD%20R-DESIGN%2037.000KM%207-Pers.%20Org.NED.%20(%E2%82%AC%2023.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ddcf3141-d918-4096-aef9-f32c57749f59?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz 220 W114 -W115 250 6-Cilinder Schakelbak LPG O" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-overige-modellen-9" data-rang="8" data-merk="Mercedes-Benz" data-prijs="19999" data-jaar="1972" data-zoek="mercedes-benz 220 w114 -w115 250 6-cilinder schakelbak lpg o mercedes-benz overige modellen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ddcf3141-d918-4096-aef9-f32c57749f59?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz 220 W114 -W115 250 6-Cilinder Schakelbak LPG O" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-overige-modellen-9" aria-pressed="false" aria-label="Bewaar Mercedes-benz 220 W114 -W115 250 6-Cilinder Schakelbak LPG O"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-benz 220 W114 -W115 250 6-Cilinder Schakelbak LPG O</h3>
     <p class="st-spec">1972 · 41.780 km</p>
@@ -411,8 +558,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Mercedes-benz%20220%20W114%20-W115%20250%206-Cilinder%20Schakelbak%20LPG%20O%20(%E2%82%AC%2019.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b1f086f7-36a0-467b-b84c-455dafcba96e?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz SL-KLASSE 300SL Cabriolet Automaat W129 Youngt" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-sl-klasse-300sl-cabr-10" data-rang="9" data-merk="Mercedes-Benz" data-prijs="17999" data-jaar="1993" data-kenmerk="Automaat" data-zoek="mercedes-benz sl-klasse 300sl cabriolet automaat w129 youngt mercedes-benz automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b1f086f7-36a0-467b-b84c-455dafcba96e?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz SL-KLASSE 300SL Cabriolet Automaat W129 Youngt" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-sl-klasse-300sl-cabr-10" aria-pressed="false" aria-label="Bewaar Mercedes-benz SL-KLASSE 300SL Cabriolet Automaat W129 Youngt"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-benz SL-KLASSE 300SL Cabriolet Automaat W129 Youngt</h3>
     <p class="st-spec">1993 · 183.541 km</p>
@@ -421,8 +568,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Mercedes-benz%20SL-KLASSE%20300SL%20Cabriolet%20Automaat%20W129%20Youngt%20(%E2%82%AC%2017.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/319d3d4c-32ca-4b45-9b8d-600ea96d7693?rule=ecg_mp_eps$_85.jpg" alt="Bmw 7-SERIE 735I EXEC.HIGH-LINE v8 Automaat 175Kw Youngtimer" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bmw-bmw-7-serie-735i-exec-high-line-v8-automaat--11" data-rang="10" data-merk="BMW" data-prijs="17499" data-jaar="1999" data-kenmerk="Automaat" data-zoek="bmw 7-serie 735i exec.high-line v8 automaat 175kw youngtimer bmw automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/319d3d4c-32ca-4b45-9b8d-600ea96d7693?rule=ecg_mp_eps$_85.jpg" alt="Bmw 7-SERIE 735I EXEC.HIGH-LINE v8 Automaat 175Kw Youngtimer" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-7-serie-735i-exec-high-line-v8-automaat--11" aria-pressed="false" aria-label="Bewaar Bmw 7-SERIE 735I EXEC.HIGH-LINE v8 Automaat 175Kw Youngtimer"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Bmw 7-SERIE 735I EXEC.HIGH-LINE v8 Automaat 175Kw Youngtimer</h3>
     <p class="st-spec">1999 · 296.226 km</p>
@@ -431,8 +578,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Bmw%207-SERIE%20735I%20EXEC.HIGH-LINE%20v8%20Automaat%20175Kw%20Youngtimer%20(%E2%82%AC%2017.499)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/473dfccc-f363-4e27-aa59-94466bd7091d?rule=ecg_mp_eps$_85.jpg" alt="Fiat 290 DUCATO CAMPER LMC LIBERTY 6400 LORD-MUNSTERLAND-CAM" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-fiat-290-ducato-camper-lmc-liberty-6400--12" data-rang="11" data-prijs="15999" data-jaar="1995" data-zoek="fiat 290 ducato camper lmc liberty 6400 lord-munsterland-cam">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/473dfccc-f363-4e27-aa59-94466bd7091d?rule=ecg_mp_eps$_85.jpg" alt="Fiat 290 DUCATO CAMPER LMC LIBERTY 6400 LORD-MUNSTERLAND-CAM" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-fiat-290-ducato-camper-lmc-liberty-6400--12" aria-pressed="false" aria-label="Bewaar Fiat 290 DUCATO CAMPER LMC LIBERTY 6400 LORD-MUNSTERLAND-CAM"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat 290 DUCATO CAMPER LMC LIBERTY 6400 LORD-MUNSTERLAND-CAM</h3>
     <p class="st-spec">1995 · 111.084 km</p>
@@ -441,8 +588,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Fiat%20290%20DUCATO%20CAMPER%20LMC%20LIBERTY%206400%20LORD-MUNSTERLAND-CAM%20(%E2%82%AC%2015.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c3019b02-246f-46de-ae19-a3d94b614961?rule=ecg_mp_eps$_85.jpg" alt="Bmw 6-SERIE 645CI V8 245KW Automaat Coupe Panodak Youngtimer" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bmw-bmw-6-serie-645ci-v8-245kw-automaat-coupe-pa-13" data-rang="12" data-merk="BMW" data-prijs="14999" data-jaar="2004" data-kenmerk="Automaat" data-zoek="bmw 6-serie 645ci v8 245kw automaat coupe panodak youngtimer bmw automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c3019b02-246f-46de-ae19-a3d94b614961?rule=ecg_mp_eps$_85.jpg" alt="Bmw 6-SERIE 645CI V8 245KW Automaat Coupe Panodak Youngtimer" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-6-serie-645ci-v8-245kw-automaat-coupe-pa-13" aria-pressed="false" aria-label="Bewaar Bmw 6-SERIE 645CI V8 245KW Automaat Coupe Panodak Youngtimer"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Bmw 6-SERIE 645CI V8 245KW Automaat Coupe Panodak Youngtimer</h3>
     <p class="st-spec">2004 · 159.336 km</p>
@@ -451,8 +598,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Bmw%206-SERIE%20645CI%20V8%20245KW%20Automaat%20Coupe%20Panodak%20Youngtimer%20(%E2%82%AC%2014.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/30d75d06-12e4-47dd-9d70-d48d0631801b?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz VITO 116 CDI LANG 320/2800 Automaat 163PK Unie" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bestelauto-s-mercedes-benz-vito-116-cdi-lang-320-14" data-rang="13" data-prijs="13999" data-jaar="2015" data-brandstof="Diesel" data-kenmerk="Automaat" data-zoek="mercedes-benz vito 116 cdi lang 320/2800 automaat 163pk unie diesel automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/30d75d06-12e4-47dd-9d70-d48d0631801b?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-benz VITO 116 CDI LANG 320/2800 Automaat 163PK Unie" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-mercedes-benz-vito-116-cdi-lang-320-14" aria-pressed="false" aria-label="Bewaar Mercedes-benz VITO 116 CDI LANG 320/2800 Automaat 163PK Unie"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-benz VITO 116 CDI LANG 320/2800 Automaat 163PK Unie</h3>
     <p class="st-spec">2015 · 581.275 km · Diesel</p>
@@ -461,8 +608,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Mercedes-benz%20VITO%20116%20CDI%20LANG%20320%2F2800%20Automaat%20163PK%20Unie%20(%E2%82%AC%2013.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c03b8e63-9cc5-4c24-8496-c1a9a92564b4?rule=ecg_mp_eps$_85.jpg" alt="Peugeot BOXER 330 2.2 HDI L2H2 Profit+ Camper Full-Options!!" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bestelauto-s-peugeot-boxer-330-2-2-hdi-l2h2-prof-15" data-rang="14" data-prijs="12999" data-jaar="2014" data-zoek="peugeot boxer 330 2.2 hdi l2h2 profit+ camper full-options!!">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c03b8e63-9cc5-4c24-8496-c1a9a92564b4?rule=ecg_mp_eps$_85.jpg" alt="Peugeot BOXER 330 2.2 HDI L2H2 Profit+ Camper Full-Options!!" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-peugeot-boxer-330-2-2-hdi-l2h2-prof-15" aria-pressed="false" aria-label="Bewaar Peugeot BOXER 330 2.2 HDI L2H2 Profit+ Camper Full-Options!!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Peugeot BOXER 330 2.2 HDI L2H2 Profit+ Camper Full-Options!!</h3>
     <p class="st-spec">2014 · 273.873 km</p>
@@ -471,8 +618,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Peugeot%20BOXER%20330%202.2%20HDI%20L2H2%20Profit%2B%20Camper%20Full-Options!!%20(%E2%82%AC%2012.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3622ee72-7788-49a7-bb8d-021b022d55d4?rule=ecg_mp_eps$_85.jpg" alt="Peugeot EXPERT 227C 2.0 BLUE HDI 150 PREMIUM Luxe!! Euro 6" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bestelauto-s-peugeot-expert-227c-2-0-blue-hdi-15-16" data-rang="15" data-prijs="10999" data-jaar="2017" data-zoek="peugeot expert 227c 2.0 blue hdi 150 premium luxe!! euro 6">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3622ee72-7788-49a7-bb8d-021b022d55d4?rule=ecg_mp_eps$_85.jpg" alt="Peugeot EXPERT 227C 2.0 BLUE HDI 150 PREMIUM Luxe!! Euro 6" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-peugeot-expert-227c-2-0-blue-hdi-15-16" aria-pressed="false" aria-label="Bewaar Peugeot EXPERT 227C 2.0 BLUE HDI 150 PREMIUM Luxe!! Euro 6"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Peugeot EXPERT 227C 2.0 BLUE HDI 150 PREMIUM Luxe!! Euro 6</h3>
     <p class="st-spec">2017 · 207.600 km</p>
@@ -481,8 +628,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Peugeot%20EXPERT%20227C%202.0%20BLUE%20HDI%20150%20PREMIUM%20Luxe!!%20Euro%206%20(%E2%82%AC%2010.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3001d02f-1163-4817-9c50-0d54939125ff?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen GOLF 1.2 TSI HIGHLINE Automaat 5-Drs" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-golf-1-2-tsi-highline-auto-17" data-rang="16" data-merk="Volkswagen" data-prijs="8999" data-jaar="2011" data-kenmerk="Automaat" data-zoek="volkswagen golf 1.2 tsi highline automaat 5-drs volkswagen automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3001d02f-1163-4817-9c50-0d54939125ff?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen GOLF 1.2 TSI HIGHLINE Automaat 5-Drs" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-golf-1-2-tsi-highline-auto-17" aria-pressed="false" aria-label="Bewaar Volkswagen GOLF 1.2 TSI HIGHLINE Automaat 5-Drs"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen GOLF 1.2 TSI HIGHLINE Automaat 5-Drs</h3>
     <p class="st-spec">2011 · 192.868 km</p>
@@ -491,8 +638,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Volkswagen%20GOLF%201.2%20TSI%20HIGHLINE%20Automaat%205-Drs%20(%E2%82%AC%208.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f838276a-149e-4509-8e21-8deba6f05759?rule=ecg_mp_eps$_85.jpg" alt="Audi A4 2.8 5V Quattro V6 .AMBITION Automaat Youngtimer!!" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="audi-a4-18" data-rang="17" data-merk="Audi" data-prijs="8999" data-jaar="1998" data-kenmerk="Automaat" data-zoek="audi a4 2.8 5v quattro v6 .ambition automaat youngtimer!! audi a4 automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f838276a-149e-4509-8e21-8deba6f05759?rule=ecg_mp_eps$_85.jpg" alt="Audi A4 2.8 5V Quattro V6 .AMBITION Automaat Youngtimer!!" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-a4-18" aria-pressed="false" aria-label="Bewaar Audi A4 2.8 5V Quattro V6 .AMBITION Automaat Youngtimer!!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi A4 2.8 5V Quattro V6 .AMBITION Automaat Youngtimer!!</h3>
     <p class="st-spec">1998 · 255.007 km</p>
@@ -501,7 +648,12 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20zag%20de%20Audi%20A4%202.8%205V%20Quattro%20V6%20.AMBITION%20Automaat%20Youngtimer!!%20(%E2%82%AC%208.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
     </div>
   </div>
-</article></div><div class="more"><span>Er staan er nog 33 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 33 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 33 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31653328992?text=Hallo%20Autobedrijf%20van%20der%20Aa%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
 </section>
 <section class="sec-flow">
   <div class="wrap">
@@ -556,6 +708,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

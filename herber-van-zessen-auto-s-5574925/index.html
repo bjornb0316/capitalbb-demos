@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;letter-spacing:-0.01em;line-height:1.05;text-transform:uppercase;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #4fb372;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #282d33}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#84ca9c;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#4fb372;color:#0d1013;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#9ba1a8;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #282d33;border-radius:50%;background:#191d21;color:#9ba1a8;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#4fb372;border-color:#4fb372}
+.st-bewaar[aria-pressed="true"]{color:#4fb372;border-color:#4fb372}
+.st-bewaar[aria-pressed="true"] svg{fill:#4fb372}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#4fb372;color:#0d1013;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#282d33;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,77 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#111417;border-block:1px solid #282d33;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#9ba1a8;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:0px;background:#191d21;border:1px solid #282d33;color:#f4f5f6;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#9ba1a8}
+.sa-zoek input:focus{outline:none;border-color:#4fb372}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#9ba1a8;cursor:pointer}
+.sa-wis:hover{color:#f4f5f6}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9ba1a8;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:14px;letter-spacing:0;text-transform:none;color:#4fb372;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:0px;background:#191d21;border:1px solid #282d33;color:#f4f5f6;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#4fb372}
+.sa-meer{padding:11px 17px;border-radius:0px;background:transparent;border:1px solid #282d33;color:#9ba1a8;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#f4f5f6;border-color:#4fb372}
+.sa-meer[aria-expanded="true"]{border-color:#4fb372;color:#4fb372}
+
+.sa-paneel{border-top:1px solid #282d33}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:0px;background:transparent;border:1px solid #282d33;color:#9ba1a8;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#f4f5f6;border-color:#4fb372}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#4fb372;border-color:#4fb372;color:#0d1013}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#9ba1a8;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#282d33}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#4fb372;border:3px solid #111417}
+input[type=range]::-moz-range-track{height:2px;background:#282d33}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#4fb372;border:3px solid #111417}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#9ba1a8;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:19px;color:#f4f5f6;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:0px;background:transparent;border:1px solid #282d33;color:#9ba1a8;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#f4f5f6;border-color:#4fb372}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#4fb372;border-color:#4fb372;color:#0d1013}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #282d33;border-radius:0px}
+.sa-leeg-t{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#9ba1a8;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #282d33;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
 /* Buurtgarage: prijslijst, harde randen, telefoonnummer als grootste element. */
 .top{border-bottom:2px solid #f4f5f6}
 .mark{text-transform:uppercase;font-size:21px}
@@ -300,7 +401,7 @@ footer{border-top:2px solid #f4f5f6}
 .bar a:not(.acc){background:#191d21;color:#f4f5f6}
 </style>
 </head>
-<body>
+<body data-site="5574925">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Herber van Zessen Auto's (buurtgarage, mediaanprijs EUR 5873, 11 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet olie, 'Anton' als display op 'Barlow', hoeken 0px, accent #4fb372.
@@ -326,8 +427,54 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <span class="meta">11 getoond van 11 · vanaf € 1.395</span>
     
   </div>
-  <div class="wrap"><div class="st-grid"><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fd30cbca-284b-440b-bb84-abc5f5745932?rule=ecg_mp_eps$_85.jpg" alt="Toyota Corolla 1.8 Hybrid Dynamic" loading="lazy" decoding="async"></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 11 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 7 merken</option>
+    <option value="Tesla">Tesla (2)</option><option value="Toyota">Toyota (2)</option><option value="Citroen">Citroen (1)</option><option value="Dacia">Dacia (1)</option><option value="Fiat">Fiat (1)</option><option value="Opel">Opel (1)</option><option value="Volkswagen">Volkswagen (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 19.095</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="1395" max="19095" step="300" value="19095">
+  <span class="sa-schaal"><i>€ 1.395</i><i>€ 19.095</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2005</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2005" max="2021" step="1" value="2005">
+  <span class="sa-schaal"><i>2005</i><i>2021</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="toyota-toyota-corolla-1-8-hybrid-dynamic-1" data-rang="0" data-merk="Toyota" data-prijs="18995" data-jaar="2021" data-zoek="toyota corolla 1.8 hybrid dynamic toyota">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fd30cbca-284b-440b-bb84-abc5f5745932?rule=ecg_mp_eps$_85.jpg" alt="Toyota Corolla 1.8 Hybrid Dynamic" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-corolla-1-8-hybrid-dynamic-1" aria-pressed="false" aria-label="Bewaar Toyota Corolla 1.8 Hybrid Dynamic"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Toyota Corolla 1.8 Hybrid Dynamic</h3>
     <p class="st-spec">2021 · 93.070 km</p>
@@ -336,8 +483,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654973702">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/35a8b2d1-804e-4e62-b442-0da435d7865b?rule=ecg_mp_eps$_85.jpg" alt="Possl 2 WIN 2.8JTD Buscamper" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-possl-2-win-2-8jtd-buscamper-2" data-rang="1" data-prijs="17950" data-jaar="2006" data-zoek="possl 2 win 2.8jtd buscamper">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/35a8b2d1-804e-4e62-b442-0da435d7865b?rule=ecg_mp_eps$_85.jpg" alt="Possl 2 WIN 2.8JTD Buscamper" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-possl-2-win-2-8jtd-buscamper-2" aria-pressed="false" aria-label="Bewaar Possl 2 WIN 2.8JTD Buscamper"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Possl 2 WIN 2.8JTD Buscamper</h3>
     <p class="st-spec">2006 · 121.996 km</p>
@@ -346,8 +493,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654973702">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa7197a7-4a66-471f-9685-347a0ef00bcb?rule=ecg_mp_eps$_85.jpg" alt="Toyota C-HR 1.2 Dynamic *Dealer onderhouden*" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="toyota-toyota-c-hr-1-2-dynamic-dealer-onderhoude-3" data-rang="2" data-merk="Toyota" data-prijs="12950" data-jaar="2016" data-zoek="toyota c-hr 1.2 dynamic *dealer onderhouden* toyota">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa7197a7-4a66-471f-9685-347a0ef00bcb?rule=ecg_mp_eps$_85.jpg" alt="Toyota C-HR 1.2 Dynamic *Dealer onderhouden*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-c-hr-1-2-dynamic-dealer-onderhoude-3" aria-pressed="false" aria-label="Bewaar Toyota C-HR 1.2 Dynamic *Dealer onderhouden*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Toyota C-HR 1.2 Dynamic *Dealer onderhouden*</h3>
     <p class="st-spec">2016 · 88.845 km</p>
@@ -356,8 +503,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654973702">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6432b4af-072e-455d-8d62-7f039ea1007b?rule=ecg_mp_eps$_85.jpg" alt="Tesla Model S 85 Performance * Free Supercharging*" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="tesla-tesla-model-s-85-performance-free-supercha-4" data-rang="3" data-merk="Tesla" data-prijs="11750" data-jaar="2013" data-zoek="tesla model s 85 performance * free supercharging* tesla">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6432b4af-072e-455d-8d62-7f039ea1007b?rule=ecg_mp_eps$_85.jpg" alt="Tesla Model S 85 Performance * Free Supercharging*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="tesla-tesla-model-s-85-performance-free-supercha-4" aria-pressed="false" aria-label="Bewaar Tesla Model S 85 Performance * Free Supercharging*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Tesla Model S 85 Performance * Free Supercharging*</h3>
     <p class="st-spec">2013 · 397.566 km</p>
@@ -366,8 +513,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654973702">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c5f58e6e-7644-4f79-a9cb-6b54dad9b36e?rule=ecg_mp_eps$_85.jpg" alt="Ford Transit Nugget Euroline Camper *Roestschade*" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-ford-transit-nugget-euroline-camper-roes-5" data-rang="4" data-prijs="6950" data-jaar="2005" data-zoek="ford transit nugget euroline camper *roestschade*">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c5f58e6e-7644-4f79-a9cb-6b54dad9b36e?rule=ecg_mp_eps$_85.jpg" alt="Ford Transit Nugget Euroline Camper *Roestschade*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-ford-transit-nugget-euroline-camper-roes-5" aria-pressed="false" aria-label="Bewaar Ford Transit Nugget Euroline Camper *Roestschade*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Ford Transit Nugget Euroline Camper *Roestschade*</h3>
     <p class="st-spec">2005 · 228.561 km</p>
@@ -376,8 +523,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654973702">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8ed17829-936e-42c4-9d69-df9d236f06f5?rule=ecg_mp_eps$_85.jpg" alt="Opel Meriva 1.4 Turbo Color Edition *77000KM*" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="opel-opel-meriva-1-4-turbo-color-edition-77000km-6" data-rang="5" data-merk="Opel" data-prijs="4795" data-jaar="2011" data-zoek="opel meriva 1.4 turbo color edition *77000km* opel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8ed17829-936e-42c4-9d69-df9d236f06f5?rule=ecg_mp_eps$_85.jpg" alt="Opel Meriva 1.4 Turbo Color Edition *77000KM*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="opel-opel-meriva-1-4-turbo-color-edition-77000km-6" aria-pressed="false" aria-label="Bewaar Opel Meriva 1.4 Turbo Color Edition *77000KM*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Opel Meriva 1.4 Turbo Color Edition *77000KM*</h3>
     <p class="st-spec">2011 · 77.329 km</p>
@@ -386,8 +533,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654973702">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7a39408b-f63c-4c66-bdab-c109a7e78dd5?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Golf Variant 1.0 TSI Comfortline *€4695 EX BPM" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-golf-variant-1-0-tsi-comfo-7" data-rang="6" data-merk="Volkswagen" data-prijs="4695" data-jaar="2019" data-zoek="volkswagen golf variant 1.0 tsi comfortline *€4695 ex bpm volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7a39408b-f63c-4c66-bdab-c109a7e78dd5?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Golf Variant 1.0 TSI Comfortline *€4695 EX BPM" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-golf-variant-1-0-tsi-comfo-7" aria-pressed="false" aria-label="Bewaar Volkswagen Golf Variant 1.0 TSI Comfortline *€4695 EX BPM"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Golf Variant 1.0 TSI Comfortline *€4695 EX BPM</h3>
     <p class="st-spec">2019 · 337.673 km</p>
@@ -396,8 +543,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654973702">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e7af4e98-aa0e-4fa3-95b2-ec9a9a7b7829?rule=ecg_mp_eps$_85.jpg" alt="Dacia Logan MCV 0.9 TCe Easy-R Lauréate * € 2650 Ex BPM*" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="dacia-dacia-logan-mcv-0-9-tce-easy-r-laureate-26-8" data-rang="7" data-merk="Dacia" data-prijs="2650" data-jaar="2016" data-zoek="dacia logan mcv 0.9 tce easy-r lauréate * € 2650 ex bpm* dacia">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e7af4e98-aa0e-4fa3-95b2-ec9a9a7b7829?rule=ecg_mp_eps$_85.jpg" alt="Dacia Logan MCV 0.9 TCe Easy-R Lauréate * € 2650 Ex BPM*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="dacia-dacia-logan-mcv-0-9-tce-easy-r-laureate-26-8" aria-pressed="false" aria-label="Bewaar Dacia Logan MCV 0.9 TCe Easy-R Lauréate * € 2650 Ex BPM*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Dacia Logan MCV 0.9 TCe Easy-R Lauréate * € 2650 Ex BPM*</h3>
     <p class="st-spec">2016 · 285.405 km</p>
@@ -406,8 +553,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654973702">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dd5b7474-331c-4341-8948-e6047219ed36?rule=ecg_mp_eps$_85.jpg" alt="Citroen DS3 1.6 e-HDi So Chic" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="citroen-citroen-ds3-1-6-e-hdi-so-chic-9" data-rang="8" data-merk="Citroen" data-prijs="2395" data-jaar="2011" data-zoek="citroen ds3 1.6 e-hdi so chic citroen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dd5b7474-331c-4341-8948-e6047219ed36?rule=ecg_mp_eps$_85.jpg" alt="Citroen DS3 1.6 e-HDi So Chic" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="citroen-citroen-ds3-1-6-e-hdi-so-chic-9" aria-pressed="false" aria-label="Bewaar Citroen DS3 1.6 e-HDi So Chic"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Citroen DS3 1.6 e-HDi So Chic</h3>
     <p class="st-spec">2011 · 324.927 km</p>
@@ -416,8 +563,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654973702">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/189b950e-b870-40b2-af35-c841e31002bb?rule=ecg_mp_eps$_85.jpg" alt="Fiat Punto Evo 1.3 M-Jet Dynamic" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="fiat-fiat-punto-evo-1-3-m-jet-dynamic-10" data-rang="9" data-merk="Fiat" data-prijs="1395" data-jaar="2011" data-zoek="fiat punto evo 1.3 m-jet dynamic fiat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/189b950e-b870-40b2-af35-c841e31002bb?rule=ecg_mp_eps$_85.jpg" alt="Fiat Punto Evo 1.3 M-Jet Dynamic" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="fiat-fiat-punto-evo-1-3-m-jet-dynamic-10" aria-pressed="false" aria-label="Bewaar Fiat Punto Evo 1.3 M-Jet Dynamic"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat Punto Evo 1.3 M-Jet Dynamic</h3>
     <p class="st-spec">2011 · 292.844 km</p>
@@ -426,8 +573,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654973702">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/de830230-8ad4-421e-975d-eea130257a6d?rule=ecg_mp_eps$_85.jpg" alt="Tesla Model S 85 Signature Performance *Free Supercharging*" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="tesla-model-s-11" data-rang="10" data-merk="Tesla" data-prijs="0" data-jaar="2014" data-zoek="tesla model s 85 signature performance *free supercharging* tesla model s">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/de830230-8ad4-421e-975d-eea130257a6d?rule=ecg_mp_eps$_85.jpg" alt="Tesla Model S 85 Signature Performance *Free Supercharging*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="tesla-model-s-11" aria-pressed="false" aria-label="Bewaar Tesla Model S 85 Signature Performance *Free Supercharging*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Tesla Model S 85 Signature Performance *Free Supercharging*</h3>
     <p class="st-spec">2014 · 348.058 km</p>
@@ -436,7 +583,12 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31654973702">Bel hierover</a>
     </div>
   </div>
-</article></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Probeer het met minder filters, of vraag het ons even.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div></div>
 </section>
 <section class="sec-trust"><div class="wrap rv"><div><b>5.0</b><span>gemiddeld uit 22 beoordelingen</span></div><div><b>19</b><span>jaar op Marktplaats</span></div><div><b>Leerbroek</b><span><a href="https://maps.google.com/?q=4245KB%20Leerbroek" target="_blank" rel="noreferrer">4245KB Leerbroek</a></span></div></div></section>
 <section class="sec-flow">
@@ -482,6 +634,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

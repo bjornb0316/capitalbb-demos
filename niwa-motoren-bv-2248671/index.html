@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;letter-spacing:0;line-height:1.05;text-transform:uppercase;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #ff5b19;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #25282d}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#ff8c5e;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#ff5b19;color:#0e0f11;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#989da4;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #25282d;border-radius:50%;background:#17191c;color:#989da4;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#ff5b19;border-color:#ff5b19}
+.st-bewaar[aria-pressed="true"]{color:#ff5b19;border-color:#ff5b19}
+.st-bewaar[aria-pressed="true"] svg{fill:#ff5b19}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#ff5b19;color:#0e0f11;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#25282d;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,77 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#0e0f11;border-block:1px solid #25282d;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#989da4;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:0px;background:#17191c;border:1px solid #25282d;color:#f5f6f7;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#989da4}
+.sa-zoek input:focus{outline:none;border-color:#ff5b19}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#989da4;cursor:pointer}
+.sa-wis:hover{color:#f5f6f7}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#989da4;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:14px;letter-spacing:0;text-transform:none;color:#ff5b19;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:0px;background:#17191c;border:1px solid #25282d;color:#f5f6f7;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#ff5b19}
+.sa-meer{padding:11px 17px;border-radius:0px;background:transparent;border:1px solid #25282d;color:#989da4;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#f5f6f7;border-color:#ff5b19}
+.sa-meer[aria-expanded="true"]{border-color:#ff5b19;color:#ff5b19}
+
+.sa-paneel{border-top:1px solid #25282d}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:0px;background:transparent;border:1px solid #25282d;color:#989da4;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#f5f6f7;border-color:#ff5b19}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#ff5b19;border-color:#ff5b19;color:#0e0f11}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#989da4;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#25282d}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#ff5b19;border:3px solid #0e0f11}
+input[type=range]::-moz-range-track{height:2px;background:#25282d}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#ff5b19;border:3px solid #0e0f11}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#989da4;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:19px;color:#f5f6f7;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:0px;background:transparent;border:1px solid #25282d;color:#989da4;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#f5f6f7;border-color:#ff5b19}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#ff5b19;border-color:#ff5b19;color:#0e0f11}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #25282d;border-radius:0px}
+.sa-leeg-t{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#989da4;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #25282d;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
 /* Motoren: hard contrast, schuine sneden, alles in kapitalen. */
 .hero h1 em{display:block}
 .top nav a{text-transform:uppercase;font-weight:500;letter-spacing:.02em}
@@ -298,7 +399,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .bar a{text-transform:uppercase;font-weight:700}
 </style>
 </head>
-<body>
+<body data-site="2248671">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van NIWA Motoren BV (motoren, mediaanprijs EUR 13425, 488 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet asfalt, 'Anton' als display op 'Chivo', hoeken 0px, accent #ff5b19.
@@ -321,11 +422,57 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 <section id="voorraad">
   <div class="wrap head">
     <h2>Op voorraad</h2>
-    <span class="meta">18 getoond van 488 · vanaf € 8.450</span>
+    <span class="meta">18 getoond van 488 · vanaf € 8.950</span>
     
   </div>
-  <div class="wrap"><div class="st-grid"><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ea90e649-bbca-4a06-b806-29d604f5e2ce?rule=ecg_mp_eps$_85.jpg" alt="KTM 1390 Super Adventure S" loading="lazy" decoding="async"><span class="st-year">2026</span></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 7 merken</option>
+    <option value="KTM">KTM (6)</option><option value="Kawasaki">Kawasaki (4)</option><option value="Suzuki">Suzuki (3)</option><option value="Moto Guzzi">Moto Guzzi (2)</option><option value="BMW">BMW (1)</option><option value="Harley-Davidson">Harley-Davidson (1)</option><option value="Yamaha">Yamaha (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 25.200</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="8950" max="25200" step="250" value="25200">
+  <span class="sa-schaal"><i>€ 8.950</i><i>€ 25.200</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2011</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2011" max="2026" step="1" value="2011">
+  <span class="sa-schaal"><i>2011</i><i>2026</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="motoren-ktm-ktm-1390-super-adventure-s-1" data-rang="0" data-merk="KTM" data-prijs="24980" data-jaar="2026" data-zoek="ktm 1390 super adventure s ktm">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ea90e649-bbca-4a06-b806-29d604f5e2ce?rule=ecg_mp_eps$_85.jpg" alt="KTM 1390 Super Adventure S" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-ktm-ktm-1390-super-adventure-s-1" aria-pressed="false" aria-label="Bewaar KTM 1390 Super Adventure S"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>KTM 1390 Super Adventure S</h3>
     <p class="st-spec">1 km</p>
@@ -334,8 +481,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3cbd9af4-1b96-400d-9760-d421a79ee194?rule=ecg_mp_eps$_85.jpg" alt="KTM 1290 Super Duke GT" loading="lazy" decoding="async"><span class="st-year">2024</span></div>
+</article><article class="st-card " data-slug="motoren-ktm-ktm-1290-super-duke-gt-2" data-rang="1" data-merk="KTM" data-prijs="22450" data-jaar="2024" data-zoek="ktm 1290 super duke gt ktm">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3cbd9af4-1b96-400d-9760-d421a79ee194?rule=ecg_mp_eps$_85.jpg" alt="KTM 1290 Super Duke GT" loading="lazy" decoding="async"><span class="st-year">2024</span><button class="st-bewaar" type="button" data-bewaar="motoren-ktm-ktm-1290-super-duke-gt-2" aria-pressed="false" aria-label="Bewaar KTM 1290 Super Duke GT"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>KTM 1290 Super Duke GT</h3>
     <p class="st-spec">1 km</p>
@@ -344,8 +491,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad230314-5e57-4d45-9c2a-0c231c6a0712?rule=ecg_mp_eps$_85.jpg" alt="HARLEY-DAVIDSON LOW RIDER S" loading="lazy" decoding="async"><span class="st-year">2022</span></div>
+</article><article class="st-card " data-slug="motoren-harley-davidson-harley-davidson-low-ride-3" data-rang="2" data-merk="Harley-Davidson" data-prijs="20950" data-jaar="2022" data-zoek="harley-davidson low rider s harley-davidson">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad230314-5e57-4d45-9c2a-0c231c6a0712?rule=ecg_mp_eps$_85.jpg" alt="HARLEY-DAVIDSON LOW RIDER S" loading="lazy" decoding="async"><span class="st-year">2022</span><button class="st-bewaar" type="button" data-bewaar="motoren-harley-davidson-harley-davidson-low-ride-3" aria-pressed="false" aria-label="Bewaar HARLEY-DAVIDSON LOW RIDER S"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>HARLEY-DAVIDSON LOW RIDER S</h3>
     <p class="st-spec">14.600 km</p>
@@ -354,8 +501,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b63de07b-f44b-4e5e-9f74-d4ec15426374?rule=ecg_mp_eps$_85.jpg" alt="KTM 990 RC R" loading="lazy" decoding="async"><span class="st-year">2026</span></div>
+</article><article class="st-card " data-slug="motoren-ktm-ktm-990-rc-r-4" data-rang="3" data-merk="KTM" data-prijs="18290" data-jaar="2026" data-zoek="ktm 990 rc r ktm">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b63de07b-f44b-4e5e-9f74-d4ec15426374?rule=ecg_mp_eps$_85.jpg" alt="KTM 990 RC R" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-ktm-ktm-990-rc-r-4" aria-pressed="false" aria-label="Bewaar KTM 990 RC R"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>KTM 990 RC R</h3>
     <p class="st-spec">1 km</p>
@@ -364,8 +511,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/58b1e9a6-d182-435b-9f62-9629a33a26dc?rule=ecg_mp_eps$_85.jpg" alt="KTM 990 Duke" loading="lazy" decoding="async"><span class="st-year">2026</span></div>
+</article><article class="st-card " data-slug="motoren-ktm-ktm-990-duke-5" data-rang="4" data-merk="KTM" data-prijs="15290" data-jaar="2026" data-zoek="ktm 990 duke ktm">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/58b1e9a6-d182-435b-9f62-9629a33a26dc?rule=ecg_mp_eps$_85.jpg" alt="KTM 990 Duke" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-ktm-ktm-990-duke-5" aria-pressed="false" aria-label="Bewaar KTM 990 Duke"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>KTM 990 Duke</h3>
     <p class="st-spec">1 km</p>
@@ -374,8 +521,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/59efaee7-fed3-482d-90d3-14d546196ab9?rule=ecg_mp_eps$_85.jpg" alt="SUZUKI V-STROM 1050 DE DL 1050" loading="lazy" decoding="async"><span class="st-year">2024</span></div>
+</article><article class="st-card " data-slug="motoren-suzuki-suzuki-v-strom-1050-de-dl-1050-6" data-rang="5" data-merk="Suzuki" data-prijs="14450" data-jaar="2024" data-zoek="suzuki v-strom 1050 de dl 1050 suzuki">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/59efaee7-fed3-482d-90d3-14d546196ab9?rule=ecg_mp_eps$_85.jpg" alt="SUZUKI V-STROM 1050 DE DL 1050" loading="lazy" decoding="async"><span class="st-year">2024</span><button class="st-bewaar" type="button" data-bewaar="motoren-suzuki-suzuki-v-strom-1050-de-dl-1050-6" aria-pressed="false" aria-label="Bewaar SUZUKI V-STROM 1050 DE DL 1050"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>SUZUKI V-STROM 1050 DE DL 1050</h3>
     <p class="st-spec">10.760 km</p>
@@ -384,8 +531,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b2a795a5-b907-4241-a07c-a2481d18f8dd?rule=ecg_mp_eps$_85.jpg" alt="KAWASAKI NINJA 1000SX" loading="lazy" decoding="async"><span class="st-year">2024</span></div>
+</article><article class="st-card " data-slug="motoren-kawasaki-kawasaki-ninja-1000sx-7" data-rang="6" data-merk="Kawasaki" data-prijs="13950" data-jaar="2024" data-zoek="kawasaki ninja 1000sx kawasaki">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b2a795a5-b907-4241-a07c-a2481d18f8dd?rule=ecg_mp_eps$_85.jpg" alt="KAWASAKI NINJA 1000SX" loading="lazy" decoding="async"><span class="st-year">2024</span><button class="st-bewaar" type="button" data-bewaar="motoren-kawasaki-kawasaki-ninja-1000sx-7" aria-pressed="false" aria-label="Bewaar KAWASAKI NINJA 1000SX"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>KAWASAKI NINJA 1000SX</h3>
     <p class="st-spec">21.200 km</p>
@@ -394,8 +541,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7dfe7412-7c39-4037-acf9-56287e50de35?rule=ecg_mp_eps$_85.jpg" alt="KAWASAKI ZX-6R" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="motoren-kawasaki-kawasaki-zx-6r-8" data-rang="7" data-merk="Kawasaki" data-prijs="13899" data-jaar="0" data-zoek="kawasaki zx-6r kawasaki">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7dfe7412-7c39-4037-acf9-56287e50de35?rule=ecg_mp_eps$_85.jpg" alt="KAWASAKI ZX-6R" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="motoren-kawasaki-kawasaki-zx-6r-8" aria-pressed="false" aria-label="Bewaar KAWASAKI ZX-6R"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>KAWASAKI ZX-6R</h3>
     <p class="st-spec">1 km</p>
@@ -404,8 +551,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b7d915c2-fb6c-49db-b893-33c50852dcce?rule=ecg_mp_eps$_85.jpg" alt="KAWASAKI ZX-6R" loading="lazy" decoding="async"><span class="st-year">2026</span></div>
+</article><article class="st-card " data-slug="motoren-kawasaki-kawasaki-zx-6r-9" data-rang="8" data-merk="Kawasaki" data-prijs="13899" data-jaar="2026" data-zoek="kawasaki zx-6r kawasaki">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b7d915c2-fb6c-49db-b893-33c50852dcce?rule=ecg_mp_eps$_85.jpg" alt="KAWASAKI ZX-6R" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-kawasaki-kawasaki-zx-6r-9" aria-pressed="false" aria-label="Bewaar KAWASAKI ZX-6R"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>KAWASAKI ZX-6R</h3>
     <p class="st-spec">1 km</p>
@@ -414,8 +561,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aed26582-9933-4a9b-a3b4-558397af06ea?rule=ecg_mp_eps$_85.jpg" alt="KTM 890 SMT" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="motoren-ktm-ktm-890-smt-10" data-rang="9" data-merk="KTM" data-prijs="12950" data-jaar="0" data-zoek="ktm 890 smt ktm">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aed26582-9933-4a9b-a3b4-558397af06ea?rule=ecg_mp_eps$_85.jpg" alt="KTM 890 SMT" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="motoren-ktm-ktm-890-smt-10" aria-pressed="false" aria-label="Bewaar KTM 890 SMT"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>KTM 890 SMT</h3>
     <p class="st-spec">3.015 km</p>
@@ -424,8 +571,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/02c45be0-941b-43ee-86b4-3a57ade8cac1?rule=ecg_mp_eps$_85.jpg" alt="KAWASAKI Z900 Performance" loading="lazy" decoding="async"><span class="st-year">2026</span></div>
+</article><article class="st-card " data-slug="motoren-kawasaki-kawasaki-z900-performance-11" data-rang="10" data-merk="Kawasaki" data-prijs="12799" data-jaar="2026" data-zoek="kawasaki z900 performance kawasaki">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/02c45be0-941b-43ee-86b4-3a57ade8cac1?rule=ecg_mp_eps$_85.jpg" alt="KAWASAKI Z900 Performance" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-kawasaki-kawasaki-z900-performance-11" aria-pressed="false" aria-label="Bewaar KAWASAKI Z900 Performance"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>KAWASAKI Z900 Performance</h3>
     <p class="st-spec">1 km</p>
@@ -434,8 +581,18 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e4/e43842bd-7b47-455c-bc90-76983e1583ec?rule=ecg_mp_eps$_85.jpg" alt="SUZUKI V-STROM 800 DE" loading="lazy" decoding="async"><span class="st-year">2025</span></div>
+</article><article class="st-card " data-slug="motoren-ktm-ktm-1290-super-adventure-s-12" data-rang="11" data-merk="KTM" data-prijs="12450" data-jaar="0" data-zoek="ktm 1290 super adventure s ktm">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c077d83c-ab7a-4409-a9f4-e2426dab0057?rule=ecg_mp_eps$_85.jpg" alt="KTM 1290 SUPER ADVENTURE S" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="motoren-ktm-ktm-1290-super-adventure-s-12" aria-pressed="false" aria-label="Bewaar KTM 1290 SUPER ADVENTURE S"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>KTM 1290 SUPER ADVENTURE S</h3>
+    <p class="st-spec">37.600 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 12.450</span>
+      <a class="st-ask" href="tel:+31228564000">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-suzuki-suzuki-v-strom-800-de-13" data-rang="12" data-merk="Suzuki" data-prijs="11750" data-jaar="2025" data-zoek="suzuki v-strom 800 de suzuki">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e4/e43842bd-7b47-455c-bc90-76983e1583ec?rule=ecg_mp_eps$_85.jpg" alt="SUZUKI V-STROM 800 DE" loading="lazy" decoding="async"><span class="st-year">2025</span><button class="st-bewaar" type="button" data-bewaar="motoren-suzuki-suzuki-v-strom-800-de-13" aria-pressed="false" aria-label="Bewaar SUZUKI V-STROM 800 DE"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>SUZUKI V-STROM 800 DE</h3>
     <p class="st-spec">1.700 km</p>
@@ -444,8 +601,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aa72841b-5d16-4fbb-8087-3f307e240b58?rule=ecg_mp_eps$_85.jpg" alt="MOTO GUZZI V 7 SPORT" loading="lazy" decoding="async"><span class="st-year">2025</span></div>
+</article><article class="st-card " data-slug="motoren-moto-guzzi-moto-guzzi-v-7-sport-14" data-rang="13" data-merk="Moto Guzzi" data-prijs="10950" data-jaar="2025" data-zoek="moto guzzi v 7 sport moto guzzi">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aa72841b-5d16-4fbb-8087-3f307e240b58?rule=ecg_mp_eps$_85.jpg" alt="MOTO GUZZI V 7 SPORT" loading="lazy" decoding="async"><span class="st-year">2025</span><button class="st-bewaar" type="button" data-bewaar="motoren-moto-guzzi-moto-guzzi-v-7-sport-14" aria-pressed="false" aria-label="Bewaar MOTO GUZZI V 7 SPORT"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>MOTO GUZZI V 7 SPORT</h3>
     <p class="st-spec">6.070 km</p>
@@ -454,8 +611,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c37c4447-1d65-496b-9961-537526c2abb7?rule=ecg_mp_eps$_85.jpg" alt="BMW S 1000 XR" loading="lazy" decoding="async"><span class="st-year">2015</span></div>
+</article><article class="st-card " data-slug="motoren-bmw-bmw-s-1000-xr-15" data-rang="14" data-merk="BMW" data-prijs="10950" data-jaar="2015" data-zoek="bmw s 1000 xr bmw">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c37c4447-1d65-496b-9961-537526c2abb7?rule=ecg_mp_eps$_85.jpg" alt="BMW S 1000 XR" loading="lazy" decoding="async"><span class="st-year">2015</span><button class="st-bewaar" type="button" data-bewaar="motoren-bmw-bmw-s-1000-xr-15" aria-pressed="false" aria-label="Bewaar BMW S 1000 XR"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>BMW S 1000 XR</h3>
     <p class="st-spec">32.400 km</p>
@@ -464,8 +621,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d732976a-168e-4560-8f45-b60448e43dd4?rule=ecg_mp_eps$_85.jpg" alt="SUZUKI V-STROM DL 1000" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="motoren-suzuki-suzuki-v-strom-dl-1000-16" data-rang="15" data-merk="Suzuki" data-prijs="9950" data-jaar="0" data-zoek="suzuki v-strom dl 1000 suzuki">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d732976a-168e-4560-8f45-b60448e43dd4?rule=ecg_mp_eps$_85.jpg" alt="SUZUKI V-STROM DL 1000" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="motoren-suzuki-suzuki-v-strom-dl-1000-16" aria-pressed="false" aria-label="Bewaar SUZUKI V-STROM DL 1000"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>SUZUKI V-STROM DL 1000</h3>
     <p class="st-spec">21.230 km</p>
@@ -474,8 +631,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0fdfedbd-7d78-4047-a689-0040dfe80600?rule=ecg_mp_eps$_85.jpg" alt="MOTO GUZZI STELVIO 1200 8V NTX" loading="lazy" decoding="async"><span class="st-year">2011</span></div>
+</article><article class="st-card " data-slug="motoren-moto-guzzi-moto-guzzi-stelvio-1200-8v-nt-17" data-rang="16" data-merk="Moto Guzzi" data-prijs="8950" data-jaar="2011" data-zoek="moto guzzi stelvio 1200 8v ntx moto guzzi">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0fdfedbd-7d78-4047-a689-0040dfe80600?rule=ecg_mp_eps$_85.jpg" alt="MOTO GUZZI STELVIO 1200 8V NTX" loading="lazy" decoding="async"><span class="st-year">2011</span><button class="st-bewaar" type="button" data-bewaar="motoren-moto-guzzi-moto-guzzi-stelvio-1200-8v-nt-17" aria-pressed="false" aria-label="Bewaar MOTO GUZZI STELVIO 1200 8V NTX"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>MOTO GUZZI STELVIO 1200 8V NTX</h3>
     <p class="st-spec">42.620 km</p>
@@ -484,8 +641,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d2/d208ef54-f9df-4545-838d-2d8e369526e4?rule=ecg_mp_eps$_85.jpg" alt="YAMAHA TMAX 560 (bj 2020)" loading="lazy" decoding="async"><span class="st-year">2020</span></div>
+</article><article class="st-card " data-slug="motoren-yamaha-yamaha-tmax-560-bj-2020-18" data-rang="17" data-merk="Yamaha" data-prijs="8950" data-jaar="2020" data-zoek="yamaha tmax 560 (bj 2020) yamaha">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d2/d208ef54-f9df-4545-838d-2d8e369526e4?rule=ecg_mp_eps$_85.jpg" alt="YAMAHA TMAX 560 (bj 2020)" loading="lazy" decoding="async"><span class="st-year">2020</span><button class="st-bewaar" type="button" data-bewaar="motoren-yamaha-yamaha-tmax-560-bj-2020-18" aria-pressed="false" aria-label="Bewaar YAMAHA TMAX 560 (bj 2020)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>YAMAHA TMAX 560 (bj 2020)</h3>
     <p class="st-spec">43.000 km</p>
@@ -494,17 +651,12 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31228564000">Proefrit</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e73ef513-4462-41e8-8fca-5b756083b58f?rule=ecg_mp_eps$_85.jpg" alt="MOTO GUZZI GRISO 1200 8V" loading="lazy" decoding="async"><span class="st-year">2008</span></div>
-  <div class="st-body">
-    <h3>MOTO GUZZI GRISO 1200 8V</h3>
-    <p class="st-spec">33.000 km</p>
-    <div class="st-foot">
-      <span class="st-price">€ 8.450</span>
-      <a class="st-ask" href="tel:+31228564000">Proefrit</a>
-    </div>
-  </div>
-</article></div><div class="more"><span>Er staan er nog 470 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="tel:+31228564000">Bel 022-8564000</a></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 470 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 470 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="tel:+31228564000">Bel 022-8564000</a></div></div>
 </section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
@@ -558,6 +710,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

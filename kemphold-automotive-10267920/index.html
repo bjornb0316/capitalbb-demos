@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;letter-spacing:-0.03em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #4fb372;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #282d33}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#84ca9c;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#4fb372;color:#0d1013;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#9ba1a8;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #282d33;border-radius:50%;background:#191d21;color:#9ba1a8;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#4fb372;border-color:#4fb372}
+.st-bewaar[aria-pressed="true"]{color:#4fb372;border-color:#4fb372}
+.st-bewaar[aria-pressed="true"] svg{fill:#4fb372}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#4fb372;color:#0d1013;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#282d33;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+
 /* Buurtgarage: prijslijst, harde randen, telefoonnummer als grootste element. */
 .top{border-bottom:2px solid #f4f5f6}
 .mark{font-size:21px}
@@ -300,9 +331,9 @@ footer{border-top:2px solid #f4f5f6}
 .bar a:not(.acc){background:#191d21;color:#f4f5f6}
 </style>
 </head>
-<body>
+<body data-site="10267920">
 <!--
-THESIS: Deze site is afgeleid uit de werkelijke voorraad van Kemphold Automotive (buurtgarage, mediaanprijs EUR 4749, 4 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van Kemphold Automotive (buurtgarage, mediaanprijs EUR 4499, 4 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet olie, 'Archivo Black' als display op 'Barlow', hoeken 0px, accent #4fb372.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
 FIRST VIEWPORT: hero-variant "poster", voorraadweergave "list", secties brands > stock > process > about > promise > hours > contact.
@@ -317,13 +348,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   </div>
 </div>
 <header class="hero h-poster">
-  <div class="wrap h-words"><p class="h-kick">4 auto's op voorraad · vanaf € 2.999 · Lichtenvoorde</p><h1><a href="tel:+31682088885">06-8208 8885</a></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31682088885">Bel 06-8208 8885</a><a class="h-btn" href="https://wa.me/31682088885?text=Hallo%20Kemphold%20Automotive%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div><div class="h-facts"><span>4 voertuigen op voorraad</span><span>18 jaar op Marktplaats</span><span>Kom langs in Lichtenvoorde</span></div></div>
-  <div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/516b3edc-18ca-40a7-bbeb-d7f3814b529d?rule=ecg_mp_eps$_85.jpg" alt="Volvo XC90 4.4 V8 youngt. Garantie en complete revisie gehad" decoding="async" fetchpriority="high"><figcaption><span>Volvo XC90 4.4 V8 youngt. Garantie en co</span><span>€ 14.749</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad4f662f-62cd-4488-a591-5d2897b596bb?rule=ecg_mp_eps$_85.jpg" alt="Volvo V70 Bi-Fuel Cng Garantie! goedkoop rijden" decoding="async"><figcaption><span>Volvo V70 Bi-Fuel Cng Garantie! goedkoop</span><span>€ 4.999</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/813f7ba3-62eb-4cca-952d-e84c2ea46b30?rule=ecg_mp_eps$_85.jpg" alt="Volvo XC70 AWD 2.5t Grarantie youngtimer" decoding="async"><figcaption><span>Volvo XC70 AWD 2.5t Grarantie youngtimer</span><span>€ 4.499</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/96b36637-6af1-4b39-a175-41e240221e8a?rule=ecg_mp_eps$_85.jpg" alt="Volvo V70 2.5T Garantie! Nwe Ditributie" decoding="async"><figcaption><span>Volvo V70 2.5T Garantie! Nwe Ditributie</span><span>€ 2.999</span></figcaption></figure></div>
+  <div class="wrap h-words"><p class="h-kick">4 auto's op voorraad · vanaf € 2.499 · Lichtenvoorde</p><h1><a href="tel:+31682088885">06-8208 8885</a></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31682088885">Bel 06-8208 8885</a><a class="h-btn" href="https://wa.me/31682088885?text=Hallo%20Kemphold%20Automotive%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div><div class="h-facts"><span>4 voertuigen op voorraad</span><span>18 jaar op Marktplaats</span><span>Kom langs in Lichtenvoorde</span></div></div>
+  <div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/516b3edc-18ca-40a7-bbeb-d7f3814b529d?rule=ecg_mp_eps$_85.jpg" alt="Volvo XC90 4.4 V8 youngt. Garantie en complete revisie gehad" decoding="async" fetchpriority="high"><figcaption><span>Volvo XC90 4.4 V8 youngt. Garantie en co</span><span>€ 14.749</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ad4f662f-62cd-4488-a591-5d2897b596bb?rule=ecg_mp_eps$_85.jpg" alt="Volvo V70 Bi-Fuel Cng Garantie! goedkoop rijden" decoding="async"><figcaption><span>Volvo V70 Bi-Fuel Cng Garantie! goedkoop</span><span>€ 4.999</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/813f7ba3-62eb-4cca-952d-e84c2ea46b30?rule=ecg_mp_eps$_85.jpg" alt="Volvo XC70 AWD 2.5t Grarantie youngtimer" decoding="async"><figcaption><span>Volvo XC70 AWD 2.5t Grarantie youngtimer</span><span>€ 4.499</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f847c752-9226-4359-b9ba-6dc9529f95fe?rule=ecg_mp_eps$_85.jpg" alt="Volvo V70 2.5 T Sport 2007" decoding="async"><figcaption><span>Volvo V70 2.5 T Sport 2007</span><span>€ 4.499</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/96b36637-6af1-4b39-a175-41e240221e8a?rule=ecg_mp_eps$_85.jpg" alt="Volvo V70 2.5T Garantie! Nwe Ditributie" decoding="async"><figcaption><span>Volvo V70 2.5T Garantie! Nwe Ditributie</span><span>€ 2.999</span></figcaption></figure></div>
 </header>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
-    <span class="meta">4 getoond van 4 · vanaf € 2.999</span>
+    <span class="meta">7 getoond van 4 · vanaf € 2.499</span>
     
   </div>
   <div class="wrap"><div class="st-list"><div class="st-row">
@@ -342,9 +373,24 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <span class="st-price">€ 4.499</span>
   <a class="st-act" href="tel:+31682088885">Bel hierover</a>
 </div><div class="st-row">
+  <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f847c752-9226-4359-b9ba-6dc9529f95fe?rule=ecg_mp_eps$_84.jpg" alt="Volvo V70 2.5 T Sport 2007" loading="lazy" decoding="async"></div>
+  <div class="st-what"><h3>Volvo V70 2.5 T Sport 2007</h3><p class="st-spec">2007 · 352.007 km · Benzine</p></div>
+  <span class="st-price">€ 4.499</span>
+  <a class="st-act" href="tel:+31682088885">Bel hierover</a>
+</div><div class="st-row">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/96b36637-6af1-4b39-a175-41e240221e8a?rule=ecg_mp_eps$_84.jpg" alt="Volvo V70 2.5T Garantie! Nwe Ditributie" loading="lazy" decoding="async"></div>
   <div class="st-what"><h3>Volvo V70 2.5T Garantie! Nwe Ditributie</h3><p class="st-spec">2004 · 462.626 km · Benzine</p></div>
   <span class="st-price">€ 2.999</span>
+  <a class="st-act" href="tel:+31682088885">Bel hierover</a>
+</div><div class="st-row">
+  <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d5ce913f-eabc-4944-af9d-444d5033563a?rule=ecg_mp_eps$_84.jpg" alt="Volvo V70 2.4 T 200PK AUT youngtimer" loading="lazy" decoding="async"></div>
+  <div class="st-what"><h3>Volvo V70 2.4 T 200PK AUT youngtimer</h3><p class="st-spec">2000 · 348.963 km · Benzine</p></div>
+  <span class="st-price">€ 2.999</span>
+  <a class="st-act" href="tel:+31682088885">Bel hierover</a>
+</div><div class="st-row">
+  <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42948d65-ea57-496f-8106-2b304a83bbb7?rule=ecg_mp_eps$_84.jpg" alt="Volvo V70 2.4 140PK AUT 2001 Groen" loading="lazy" decoding="async"></div>
+  <div class="st-what"><h3>Volvo V70 2.4 140PK AUT 2001 Groen</h3><p class="st-spec">2001 · 352.093 km · Benzine</p></div>
+  <span class="st-price">€ 2.499</span>
   <a class="st-act" href="tel:+31682088885">Bel hierover</a>
 </div></div></div>
 </section>
@@ -365,7 +411,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/a3/a378f28d-b04c-463f-8cf4-e71db1475ad6?rule=ecg_mp_eps$_85.jpg" alt="Kemphold Automotive" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>4</b><span>voertuigen staan klaar</span></div><div><b>€ 2.999</b><span>de goedkoopste van dit moment</span></div><div><b>2004</b><span>mediaan bouwjaar</span></div><div><b>18</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div><b>4</b><span>voertuigen staan klaar</span></div><div><b>€ 2.499</b><span>de goedkoopste van dit moment</span></div><div><b>2004</b><span>mediaan bouwjaar</span></div><div><b>18</b><span>jaar op Marktplaats</span></div></div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

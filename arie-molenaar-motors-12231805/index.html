@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;letter-spacing:0.01em;line-height:1.05;text-transform:uppercase;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #ff5b19;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -96,6 +101,24 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #25282d}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#ff8c5e;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#ff5b19;color:#0e0f11;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
 .h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
@@ -186,6 +209,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#989da4;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #25282d;border-radius:50%;background:#17191c;color:#989da4;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#ff5b19;border-color:#ff5b19}
+.st-bewaar[aria-pressed="true"]{color:#ff5b19;border-color:#ff5b19}
+.st-bewaar[aria-pressed="true"] svg{fill:#ff5b19}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#ff5b19;color:#0e0f11;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +228,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#25282d;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +305,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+
 /* Motoren: hard contrast, schuine sneden, alles in kapitalen. */
 .hero h1 em{display:block}
 .top nav a{text-transform:uppercase;font-weight:500;letter-spacing:.02em}
@@ -298,9 +329,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .bar a{text-transform:uppercase;font-weight:700}
 </style>
 </head>
-<body>
+<body data-site="12231805">
 <!--
-THESIS: Deze site is afgeleid uit de werkelijke voorraad van Arie Molenaar Motors (motoren, mediaanprijs EUR 7675, 350 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van Arie Molenaar Motors (motoren, mediaanprijs EUR 8075, 350 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet asfalt, 'Oswald' als display op 'Chivo', hoeken 0px, accent #ff5b19.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
 FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties stock > process > about > promise > hours > contact.
@@ -315,7 +346,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   </div>
 </div>
 <header class="hero h-stack">
-  <div class="wrap h-words"><h1>350 machines <em>in IJsselstein</em></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31306881228">Bel 030-6881228</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div><p class="h-lede">Bekijk de voorraad, kom langs en rij hem zelf. Bellen mag altijd, ook als u nog twijfelt.</p><div class="h-facts"><span>350 voertuigen op voorraad</span><span>17 jaar op Marktplaats</span><span>8 merken in huis</span><span>Kom langs in IJsselstein</span></div></div>
+  <div class="wrap h-words"><h1>350 machines <em>in IJsselstein</em></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31306881228">Bel 030-6881228</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div><p class="h-lede">Bekijk de voorraad, kom langs en rij hem zelf. Bellen mag altijd, ook als u nog twijfelt.</p><div class="h-facts"><span>350 voertuigen op voorraad</span><span>17 jaar op Marktplaats</span><span>7 merken in huis</span><span>Kom langs in IJsselstein</span></div></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d2e19e20-d4d4-4f09-bbf1-d0b69e6b02a4?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d2e19e20-d4d4-4f09-bbf1-d0b69e6b02a4?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d2e19e20-d4d4-4f09-bbf1-d0b69e6b02a4?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d2e19e20-d4d4-4f09-bbf1-d0b69e6b02a4?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d2e19e20-d4d4-4f09-bbf1-d0b69e6b02a4?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="KTM 1390 SUPER DUKE R EVO (bj 2026)" fetchpriority="high"></figure>
 </header>
 <section id="voorraad">
@@ -391,6 +422,16 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <p class="st-spec">10.500 km</p>
     <div class="st-foot">
       <span class="st-price">€ 13.750</span>
+      <a class="st-ask" href="tel:+31306881228">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c55b1c2-3c55-4f27-b8d5-6e3f7424551e?rule=ecg_mp_eps$_85.jpg" alt="Honda NT 1100 DCT BTW Motor (bj 2023)" loading="lazy" decoding="async"><span class="st-year">2023</span></div>
+  <div class="st-body">
+    <h3>Honda NT 1100 DCT BTW Motor (bj 2023)</h3>
+    <p class="st-spec">21.673 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 13.450</span>
       <a class="st-ask" href="tel:+31306881228">Proefrit</a>
     </div>
   </div>
@@ -488,16 +529,6 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4dd18b19-1408-4828-b39b-f469f543bbd5?rule=ecg_mp_eps$_85.jpg" alt="Honda VFR 750 F Achterrem schijf" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Honda VFR 750 F Achterrem schijf</h3>
-    <p class="st-spec">Gegevens op aanvraag</p>
-    <div class="st-foot">
-      <span class="st-price">€ 250</span>
-      <a class="st-ask" href="tel:+31306881228">Proefrit</a>
-    </div>
-  </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9914551e-3f1e-460c-bde1-6858d04856a8?rule=ecg_mp_eps$_85.jpg" alt="Suzuki Voorremschijf GSF600(N)(S) BANDIT LH" loading="lazy" decoding="async"></div>
-  <div class="st-body">
-    <h3>Suzuki Voorremschijf GSF600(N)(S) BANDIT LH</h3>
     <p class="st-spec">Gegevens op aanvraag</p>
     <div class="st-foot">
       <span class="st-price">€ 250</span>
