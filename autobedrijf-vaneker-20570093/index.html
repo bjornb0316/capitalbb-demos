@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e2e5ea}
+section:nth-of-type(even){background:#eaeef7}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#5c626c;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#22439b;color:#ffffff;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#22439b;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#5c626c;font-size:15px}
 .sec-trust a{color:#14171d}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e2e5ea;color:#5c626c;font-size:15.5px}
+.sec-vestiging strong{color:#14171d;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e2e5ea;color:#5c626c;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:1.35em;color:#22439b;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#5c626c;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e2e5ea;border-radius:14px;background:#eaeef7;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:14px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#5c626c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e2e5ea;border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#22439b66}
+.ug-shot{aspect-ratio:4/3;background:#eaeef7;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#5c626c;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#22439b;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e2e5ea;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -432,7 +472,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van autobedrijf vaneker (familie, mediaanprijs EUR 24950, 15 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet kobalt, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #22439b.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > stock > process > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > uitgelicht > stock > process > promise > hours > contact.
 FORM: familie-kobalt-cinematic-mosaic-gabarito-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -448,7 +488,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b17c674e-855e-43f0-b177-e75dfa440ce5?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b17c674e-855e-43f0-b177-e75dfa440ce5?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b17c674e-855e-43f0-b177-e75dfa440ce5?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b17c674e-855e-43f0-b177-e75dfa440ce5?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b17c674e-855e-43f0-b177-e75dfa440ce5?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Porsche 911 (991) Carrera|Handbak|Pano|BOSE|PPF|CARPLAY" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Porsche 911 (991) Carrera|Handbak|Pano|BOSE|PPF|CARPLAY</span><span class="h-plate-p">€ 79.991</span></figcaption></figure>
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>15 occasions op voorraad · Heemskerk</p><div class="h-facts"><span>4.9 uit 72 beoordelingen</span><span>12 jaar op Marktplaats</span><span>11 merken in huis</span><span>Kom langs in Heemskerk</span></div><h1>Kom kijken wanneer het u schikt <em>in Heemskerk</em></h1><p class="h-lede">Altijd welkom voor aankoop of verkoop van een mooie occasion, of een reparatie aan uw auto.</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31620232270">Bel 06-2023 2270</a><a class="h-btn" href="https://wa.me/31620232270?text=Hallo%20autobedrijf%20vaneker%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div></div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.9</b><span>gemiddeld uit 72 beoordelingen</span></div><div><b>12</b><span>jaar op Marktplaats</span></div><div><b>Heemskerk</b><span><a href="https://maps.google.com/?q=rijksstraatweg%2C%20177%2C%201969LE%20Heemskerk" target="_blank" rel="noreferrer">rijksstraatweg, 177, 1969LE Heemskerk</a></span></div><div><b>KvK</b><span>59765488</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.9</b><span>gemiddeld uit 72 beoordelingen</span></div><div><b>12</b><span>jaar op Marktplaats</span></div><div><b>11</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Heemskerk</strong> · <a href="https://maps.google.com/?q=rijksstraatweg%2C%20177%2C%201969LE%20Heemskerk" target="_blank" rel="noreferrer">rijksstraatweg, 177, 1969LE Heemskerk</a> · KvK 59765488</p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/porsche-911-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b17c674e-855e-43f0-b177-e75dfa440ce5?rule=ecg_mp_eps$_86.jpg" alt="Porsche 911 (991) Carrera" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Porsche 911 (991) Carrera</h3>
+    <p class="ug-spec">2013 · 63.918 km</p>
+    <p class="ug-prijs">€ 79.991</p>
+  </div>
+</a><a class="ug-kaart" href="v/mercedes-benz-glc-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3e0ab3b2-cb9d-4f95-84bb-09737518e89b?rule=ecg_mp_eps$_86.jpg" alt="Mercedes GLC63 AMG" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mercedes GLC63 AMG</h3>
+    <p class="ug-spec">2018 · 60.500 km</p>
+    <p class="ug-prijs">€ 66.995</p>
+  </div>
+</a><a class="ug-kaart" href="v/bmw-bmw-m2-competition-2019-handgeschakeld-carpl-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3faeded9-d3c1-4b36-a613-a27e6f839aaf?rule=ecg_mp_eps$_86.jpg" alt="BMW M2 Competition" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW M2 Competition</h3>
+    <p class="ug-spec">2019 · 63.050 km</p>
+    <p class="ug-prijs">€ 58.995</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>Onze voorraad</h2>
@@ -509,7 +576,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="porsche-911-1" data-rang="0" data-merk="Porsche" data-prijs="79991" data-jaar="2013" data-brandstof="Benzine" data-zoek="porsche 911 (991) carrera|handbak|pano|bose|ppf|carplay porsche 911 benzine">
   <div class="st-shot"><a class="st-link" href="v/porsche-911-1/" aria-label="Porsche 911 (991) Carrera|Handbak|Pano|BOSE|PPF|CARPLAY"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b17c674e-855e-43f0-b177-e75dfa440ce5?rule=ecg_mp_eps$_86.jpg" alt="Porsche 911 (991) Carrera|Handbak|Pano|BOSE|PPF|CARPLAY" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="porsche-911-1" aria-pressed="false" aria-label="Bewaar Porsche 911 (991) Carrera|Handbak|Pano|BOSE|PPF|CARPLAY"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/porsche-911-1/">Porsche 911 (991) Carrera|Handbak|Pano|BOSE|PPF|CARPLAY</a></h3>
+    <h3><a href="v/porsche-911-1/">Porsche 911 (991) Carrera</a></h3>
     <p class="st-spec">2013 · 63.918 km · Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 79.991</span>
@@ -519,7 +586,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mercedes-benz-glc-2" data-rang="1" data-merk="Mercedes-Benz" data-prijs="66995" data-jaar="2018" data-brandstof="Benzine" data-zoek="mercedes glc63 amg|1e eigenaar dealer onderhouden|btw auto! mercedes-benz glc benzine">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-glc-2/" aria-label="Mercedes GLC63 AMG|1e eigenaar Dealer onderhouden|BTW AUTO!"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3e0ab3b2-cb9d-4f95-84bb-09737518e89b?rule=ecg_mp_eps$_85.jpg" alt="Mercedes GLC63 AMG|1e eigenaar Dealer onderhouden|BTW AUTO!" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-glc-2" aria-pressed="false" aria-label="Bewaar Mercedes GLC63 AMG|1e eigenaar Dealer onderhouden|BTW AUTO!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-glc-2/">Mercedes GLC63 AMG|1e eigenaar Dealer onderhouden|BTW AUTO!</a></h3>
+    <h3><a href="v/mercedes-benz-glc-2/">Mercedes GLC63 AMG</a></h3>
     <p class="st-spec">2018 · 60.500 km · Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 66.995</span>
@@ -529,7 +596,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="bmw-bmw-m2-competition-2019-handgeschakeld-carpl-3" data-rang="2" data-merk="BMW" data-prijs="58995" data-jaar="2019" data-zoek="bmw m2 competition|2019|handgeschakeld|carplay|1e eig/lak bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-m2-competition-2019-handgeschakeld-carpl-3/" aria-label="BMW M2 Competition|2019|Handgeschakeld|Carplay|1e Eig/Lak"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3faeded9-d3c1-4b36-a613-a27e6f839aaf?rule=ecg_mp_eps$_86.jpg" alt="BMW M2 Competition|2019|Handgeschakeld|Carplay|1e Eig/Lak" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-m2-competition-2019-handgeschakeld-carpl-3" aria-pressed="false" aria-label="Bewaar BMW M2 Competition|2019|Handgeschakeld|Carplay|1e Eig/Lak"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-m2-competition-2019-handgeschakeld-carpl-3/">BMW M2 Competition|2019|Handgeschakeld|Carplay|1e Eig/Lak</a></h3>
+    <h3><a href="v/bmw-bmw-m2-competition-2019-handgeschakeld-carpl-3/">BMW M2 Competition</a></h3>
     <p class="st-spec">2019 · 63.050 km</p>
     <div class="st-foot">
       <span class="st-price">€ 58.995</span>
@@ -539,7 +606,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="porsche-porsche-911-996-3-4-carrera-handbak-ims--4" data-rang="3" data-merk="Porsche" data-prijs="34996" data-jaar="2000" data-zoek="porsche 911 (996) 3.4 carrera handbak | ims + koppeling |tur porsche">
   <div class="st-shot"><a class="st-link" href="v/porsche-porsche-911-996-3-4-carrera-handbak-ims--4/" aria-label="Porsche 911 (996) 3.4 Carrera Handbak | IMS + Koppeling |Tur"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/91717583-7713-46de-b11a-c2740818beaf?rule=ecg_mp_eps$_85.jpg" alt="Porsche 911 (996) 3.4 Carrera Handbak | IMS + Koppeling |Tur" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="porsche-porsche-911-996-3-4-carrera-handbak-ims--4" aria-pressed="false" aria-label="Bewaar Porsche 911 (996) 3.4 Carrera Handbak | IMS + Koppeling |Tur"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/porsche-porsche-911-996-3-4-carrera-handbak-ims--4/">Porsche 911 (996) 3.4 Carrera Handbak | IMS + Koppeling |Tur</a></h3>
+    <h3><a href="v/porsche-porsche-911-996-3-4-carrera-handbak-ims--4/">Porsche 911 (996) 3.4 Carrera Handbak</a></h3>
     <p class="st-spec">2000 · 129.102 km</p>
     <div class="st-foot">
       <span class="st-price">€ 34.996</span>
@@ -549,7 +616,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="alfa-romeo-alfa-romeo-stelvio-q4-280pk-veloce-bt-5" data-rang="4" data-merk="Alfa Romeo" data-prijs="33950" data-jaar="2019" data-kenmerk="Trekhaak" data-zoek="alfa romeo stelvio q4 280pk veloce|btw auto|acc|vol|trekhaak alfa romeo trekhaak">
   <div class="st-shot"><a class="st-link" href="v/alfa-romeo-alfa-romeo-stelvio-q4-280pk-veloce-bt-5/" aria-label="Alfa Romeo Stelvio Q4 280PK Veloce|BTW auto|ACC|VOL|Trekhaak"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0dec46de-589d-4aaa-9056-025e1bb08e7d?rule=ecg_mp_eps$_85.jpg" alt="Alfa Romeo Stelvio Q4 280PK Veloce|BTW auto|ACC|VOL|Trekhaak" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="alfa-romeo-alfa-romeo-stelvio-q4-280pk-veloce-bt-5" aria-pressed="false" aria-label="Bewaar Alfa Romeo Stelvio Q4 280PK Veloce|BTW auto|ACC|VOL|Trekhaak"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/alfa-romeo-alfa-romeo-stelvio-q4-280pk-veloce-bt-5/">Alfa Romeo Stelvio Q4 280PK Veloce|BTW auto|ACC|VOL|Trekhaak</a></h3>
+    <h3><a href="v/alfa-romeo-alfa-romeo-stelvio-q4-280pk-veloce-bt-5/">Alfa Romeo Stelvio Q4 280PK Veloce</a></h3>
     <p class="st-spec">2019 · 69.997 km</p>
     <div class="st-foot">
       <span class="st-price">€ 33.950</span>
@@ -559,7 +626,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="cupra-formentor-6" data-rang="5" data-merk="Cupra" data-prijs="27795" data-jaar="2022" data-zoek="cupra formentor 1.4 e-hybrid vz performance 245 pk|elektr kl cupra formentor">
   <div class="st-shot"><a class="st-link" href="v/cupra-formentor-6/" aria-label="CUPRA Formentor 1.4 e-Hybrid VZ Performance 245 PK|Elektr kl"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5b7088e9-f4e9-4126-b35e-df2c31593dca?rule=ecg_mp_eps$_85.jpg" alt="CUPRA Formentor 1.4 e-Hybrid VZ Performance 245 PK|Elektr kl" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="cupra-formentor-6" aria-pressed="false" aria-label="Bewaar CUPRA Formentor 1.4 e-Hybrid VZ Performance 245 PK|Elektr kl"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/cupra-formentor-6/">CUPRA Formentor 1.4 e-Hybrid VZ Performance 245 PK|Elektr kl</a></h3>
+    <h3><a href="v/cupra-formentor-6/">CUPRA Formentor 1.4 e-Hybrid VZ Performance 245 PK</a></h3>
     <p class="st-spec">2022 · 63.178 km</p>
     <div class="st-foot">
       <span class="st-price">€ 27.795</span>
@@ -589,7 +656,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="seat-seat-arona-1-0-tsi-style-business-intense-p-9" data-rang="8" data-merk="SEAT" data-prijs="16995" data-jaar="2021" data-zoek="seat arona 1.0 tsi style business intense plus|camera|carpla seat">
   <div class="st-shot"><a class="st-link" href="v/seat-seat-arona-1-0-tsi-style-business-intense-p-9/" aria-label="Seat Arona 1.0 TSI Style Business Intense Plus|Camera|Carpla"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fde1bc2c-34f4-4f7e-94fb-a365b228f3ef?rule=ecg_mp_eps$_85.jpg" alt="Seat Arona 1.0 TSI Style Business Intense Plus|Camera|Carpla" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="seat-seat-arona-1-0-tsi-style-business-intense-p-9" aria-pressed="false" aria-label="Bewaar Seat Arona 1.0 TSI Style Business Intense Plus|Camera|Carpla"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/seat-seat-arona-1-0-tsi-style-business-intense-p-9/">Seat Arona 1.0 TSI Style Business Intense Plus|Camera|Carpla</a></h3>
+    <h3><a href="v/seat-seat-arona-1-0-tsi-style-business-intense-p-9/">Seat Arona 1.0 TSI Style Business Intense Plus</a></h3>
     <p class="st-spec">2021 · 53.590 km</p>
     <div class="st-foot">
       <span class="st-price">€ 16.995</span>
@@ -599,7 +666,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-208-1-2-puretech-gt-pack-vertigo-10" data-rang="9" data-merk="Peugeot" data-prijs="15495" data-jaar="2021" data-zoek="peugeot 208 1.2 puretech gt pack|vertigo blue|carplay|camera peugeot">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-208-1-2-puretech-gt-pack-vertigo-10/" aria-label="Peugeot 208 1.2 PureTech GT Pack|Vertigo Blue|Carplay|Camera"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/081ffa43-f7ba-4727-b932-129289704658?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 208 1.2 PureTech GT Pack|Vertigo Blue|Carplay|Camera" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-208-1-2-puretech-gt-pack-vertigo-10" aria-pressed="false" aria-label="Bewaar Peugeot 208 1.2 PureTech GT Pack|Vertigo Blue|Carplay|Camera"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-208-1-2-puretech-gt-pack-vertigo-10/">Peugeot 208 1.2 PureTech GT Pack|Vertigo Blue|Carplay|Camera</a></h3>
+    <h3><a href="v/peugeot-peugeot-208-1-2-puretech-gt-pack-vertigo-10/">Peugeot 208 1.2 PureTech GT Pack</a></h3>
     <p class="st-spec">2021 · 36.916 km</p>
     <div class="st-foot">
       <span class="st-price">€ 15.495</span>
@@ -609,7 +676,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="abarth-abarth-595-1-4-t-jet-turismo-monza-uitlaa-11" data-rang="10" data-merk="Abarth" data-prijs="14995" data-jaar="2017" data-zoek="abarth 595 1.4 t-jet turismo|monza uitlaat | leder | 84dkm abarth">
   <div class="st-shot"><a class="st-link" href="v/abarth-abarth-595-1-4-t-jet-turismo-monza-uitlaa-11/" aria-label="Abarth 595 1.4 T-Jet Turismo|MONZA Uitlaat | LEDER | 84DKM"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ef4df10d-58dc-4509-ab01-a52db80a812a?rule=ecg_mp_eps$_85.jpg" alt="Abarth 595 1.4 T-Jet Turismo|MONZA Uitlaat | LEDER | 84DKM" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="abarth-abarth-595-1-4-t-jet-turismo-monza-uitlaa-11" aria-pressed="false" aria-label="Bewaar Abarth 595 1.4 T-Jet Turismo|MONZA Uitlaat | LEDER | 84DKM"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/abarth-abarth-595-1-4-t-jet-turismo-monza-uitlaa-11/">Abarth 595 1.4 T-Jet Turismo|MONZA Uitlaat | LEDER | 84DKM</a></h3>
+    <h3><a href="v/abarth-abarth-595-1-4-t-jet-turismo-monza-uitlaa-11/">Abarth 595 1.4 T-Jet Turismo</a></h3>
     <p class="st-spec">2017 · 84.192 km</p>
     <div class="st-foot">
       <span class="st-price">€ 14.995</span>
@@ -619,7 +686,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-clio-1-6-turbo-r-s-200pk-carplay-12" data-rang="11" data-merk="Renault" data-prijs="14989" data-jaar="2017" data-zoek="renault clio 1.6 turbo r.s.|200pk|carplay|pdc|stoelverwarmin renault">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-clio-1-6-turbo-r-s-200pk-carplay-12/" aria-label="Renault Clio 1.6 Turbo R.S.|200PK|Carplay|PDC|Stoelverwarmin"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fab81968-2674-4f3e-b0b7-767fca15a226?rule=ecg_mp_eps$_85.jpg" alt="Renault Clio 1.6 Turbo R.S.|200PK|Carplay|PDC|Stoelverwarmin" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-clio-1-6-turbo-r-s-200pk-carplay-12" aria-pressed="false" aria-label="Bewaar Renault Clio 1.6 Turbo R.S.|200PK|Carplay|PDC|Stoelverwarmin"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-clio-1-6-turbo-r-s-200pk-carplay-12/">Renault Clio 1.6 Turbo R.S.|200PK|Carplay|PDC|Stoelverwarmin</a></h3>
+    <h3><a href="v/renault-renault-clio-1-6-turbo-r-s-200pk-carplay-12/">Renault Clio 1.6 Turbo R.S.</a></h3>
     <p class="st-spec">2017 · 124.898 km</p>
     <div class="st-foot">
       <span class="st-price">€ 14.989</span>
@@ -629,7 +696,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="mini-mini-clubman-1-5-one-pepper-business-plus-n-13" data-rang="12" data-merk="MINI" data-prijs="14495" data-jaar="2018" data-kenmerk="Navigatie" data-zoek="mini clubman 1.5 one pepper business plus|navi|cruise|stoelv mini navigatie">
   <div class="st-shot"><a class="st-link" href="v/mini-mini-clubman-1-5-one-pepper-business-plus-n-13/" aria-label="Mini Clubman 1.5 One Pepper Business Plus|Navi|Cruise|Stoelv"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa317130-faa2-44aa-9ba2-60d258b48434?rule=ecg_mp_eps$_86.jpg" alt="Mini Clubman 1.5 One Pepper Business Plus|Navi|Cruise|Stoelv" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mini-mini-clubman-1-5-one-pepper-business-plus-n-13" aria-pressed="false" aria-label="Bewaar Mini Clubman 1.5 One Pepper Business Plus|Navi|Cruise|Stoelv"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mini-mini-clubman-1-5-one-pepper-business-plus-n-13/">Mini Clubman 1.5 One Pepper Business Plus|Navi|Cruise|Stoelv</a></h3>
+    <h3><a href="v/mini-mini-clubman-1-5-one-pepper-business-plus-n-13/">Mini Clubman 1.5 One Pepper Business Plus</a></h3>
     <p class="st-spec">2018 · 93.342 km</p>
     <div class="st-foot">
       <span class="st-price">€ 14.495</span>
@@ -639,7 +706,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-scenic-1-2-tce-intens-carplay-20-14" data-rang="13" data-merk="Renault" data-prijs="9995" data-jaar="2017" data-zoek="renault scenic 1.2 tce intens|carplay|20 inch renault">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-scenic-1-2-tce-intens-carplay-20-14/" aria-label="Renault Scenic 1.2 TCe Intens|Carplay|20 inch"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/78568cad-899a-441e-a7e9-8df9758d5f61?rule=ecg_mp_eps$_85.jpg" alt="Renault Scenic 1.2 TCe Intens|Carplay|20 inch" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-scenic-1-2-tce-intens-carplay-20-14" aria-pressed="false" aria-label="Bewaar Renault Scenic 1.2 TCe Intens|Carplay|20 inch"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-scenic-1-2-tce-intens-carplay-20-14/">Renault Scenic 1.2 TCe Intens|Carplay|20 inch</a></h3>
+    <h3><a href="v/renault-renault-scenic-1-2-tce-intens-carplay-20-14/">Renault Scenic 1.2 TCe Intens</a></h3>
     <p class="st-spec">2017 · 128.977 km</p>
     <div class="st-foot">
       <span class="st-price">€ 9.995</span>
@@ -649,7 +716,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-captur-0-9-tce-helly-hansen-deal-15" data-rang="14" data-merk="Renault" data-prijs="8995" data-jaar="2014" data-kenmerk="Trekhaak" data-zoek="renault captur 0.9 tce helly hansen|dealer|trekhaak renault trekhaak">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-captur-0-9-tce-helly-hansen-deal-15/" aria-label="Renault Captur 0.9 TCe Helly Hansen|Dealer|Trekhaak"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e5be0c87-daa2-4adb-b01f-a8f11d0b1524?rule=ecg_mp_eps$_85.jpg" alt="Renault Captur 0.9 TCe Helly Hansen|Dealer|Trekhaak" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-captur-0-9-tce-helly-hansen-deal-15" aria-pressed="false" aria-label="Bewaar Renault Captur 0.9 TCe Helly Hansen|Dealer|Trekhaak"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-captur-0-9-tce-helly-hansen-deal-15/">Renault Captur 0.9 TCe Helly Hansen|Dealer|Trekhaak</a></h3>
+    <h3><a href="v/renault-renault-captur-0-9-tce-helly-hansen-deal-15/">Renault Captur 0.9 TCe Helly Hansen</a></h3>
     <p class="st-spec">2014 · 75.760 km</p>
     <div class="st-foot">
       <span class="st-price">€ 8.995</span>
@@ -671,7 +738,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     </ol>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>15</b><span>voertuigen staan klaar</span></div><div><b>€ 8.995</b><span>de goedkoopste van dit moment</span></div><div><b>2018</b><span>mediaan bouwjaar</span></div><div><b>12</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Heemskerk.</p>
+  <ul class="sec-belofte-lijst"><li><b>15</b> voertuigen staan klaar</li><li>vanaf <b>€ 8.995</b></li><li>gemiddeld bouwjaar <b>2018</b></li></ul>
+</div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

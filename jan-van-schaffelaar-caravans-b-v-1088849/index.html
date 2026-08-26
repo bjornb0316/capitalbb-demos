@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e9e1d5}
+section:nth-of-type(even){background:#f1e8da}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#6d6459;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#9e6524;color:#fffaf3;padding:9px 15px;border-radius:20px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:700;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.02em;color:#9e6524;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#6d6459;font-size:15px}
 .sec-trust a{color:#201c17}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e9e1d5;color:#6d6459;font-size:15.5px}
+.sec-vestiging strong{color:#201c17;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:700;letter-spacing:-0.02em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e9e1d5;color:#6d6459;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:700;font-size:1.35em;color:#9e6524;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#6d6459;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e9e1d5;border-radius:20px;background:#f1e8da;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:20px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#6d6459;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e9e1d5;border-radius:20px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#9e652466}
+.ug-shot{aspect-ratio:4/3;background:#f1e8da;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#6d6459;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:700;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.02em;color:#9e6524;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e9e1d5;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -428,7 +468,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Jan van Schaffelaar Caravans B.V. (reizen, mediaanprijs EUR 35495, 34 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet duin, 'Bricolage Grotesque' als display op 'Manrope', hoeken 20px, accent #9e6524.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > stock > process > brands > about > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > uitgelicht > stock > process > brands > about > promise > hours > contact.
 FORM: reizen-duin-cinematic-mosaic-bricolagegrotesque-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -444,7 +484,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/99b1ac56-9b77-43f0-81f2-54e3f25924c1?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/99b1ac56-9b77-43f0-81f2-54e3f25924c1?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/99b1ac56-9b77-43f0-81f2-54e3f25924c1?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/99b1ac56-9b77-43f0-81f2-54e3f25924c1?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/99b1ac56-9b77-43f0-81f2-54e3f25924c1?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Eriba Touring 542 SILVEREDITION 2026" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Eriba Touring 542 SILVEREDITION 2026</span><span class="h-plate-p">€ 42.360</span></figcaption></figure>
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>34 campers en caravans · Barneveld</p><h1>Stap in en kijk rustig rond <em>in Barneveld</em></h1><div class="h-facts"><span>5.0 uit 14 beoordelingen</span><span>21 jaar op Marktplaats</span><span>Kom langs in Barneveld</span></div><p class="h-lede">Kom rustig kijken en stap in. We nemen de tijd om alles met u door te lopen.</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31342400010">Bel 034-2400010</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div></div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>5.0</b><span>gemiddeld uit 14 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>Barneveld</b><span><a href="https://maps.google.com/?q=Albert%20Plesmanstraat%206%2C%203772MN%20Barneveld" target="_blank" rel="noreferrer">Albert Plesmanstraat 6, 3772MN Barneveld</a></span></div><div><b>KvK</b><span>09036217</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>5.0</b><span>gemiddeld uit 14 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div></div><p class="sec-vestiging"><strong>Barneveld</strong> · <a href="https://maps.google.com/?q=Albert%20Plesmanstraat%206%2C%203772MN%20Barneveld" target="_blank" rel="noreferrer">Albert Plesmanstraat 6, 3772MN Barneveld</a> · KvK 09036217</p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/caravans-eriba-touring-542-silveredition-2026-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/99b1ac56-9b77-43f0-81f2-54e3f25924c1?rule=ecg_mp_eps$_86.jpg" alt="Eriba Touring 542 SILVEREDITION 2026" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Eriba Touring 542 SILVEREDITION 2026</h3>
+    <p class="ug-spec">2026</p>
+    <p class="ug-prijs">€ 42.360</p>
+  </div>
+</a><a class="ug-kaart" href="v/caravans-eriba-touring-legend-642-lengtebedden-h-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/83d1e3ec-3652-40bf-8c0b-2b358d223930?rule=ecg_mp_eps$_86.jpg" alt="ERIBA Touring Legend 642" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>ERIBA Touring Legend 642</h3>
+    <p class="ug-spec">2026</p>
+    <p class="ug-prijs">€ 41.515</p>
+  </div>
+</a><a class="ug-kaart" href="v/caravans-eriba-novaline-495-2026-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a1754afd-edb7-4718-966b-8061ae052ae4?rule=ecg_mp_eps$_86.jpg" alt="Eriba Novaline 495 2026" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Eriba Novaline 495 2026</h3>
+    <p class="ug-spec">2026</p>
+    <p class="ug-prijs">€ 39.995</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
@@ -504,7 +571,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="caravans-eriba-touring-legend-642-lengtebedden-h-2" data-rang="1" data-prijs="41515" data-jaar="2026" data-zoek="eriba touring legend 642 | lengtebedden | hoge koelkast |">
   <div class="st-shot"><a class="st-link" href="v/caravans-eriba-touring-legend-642-lengtebedden-h-2/" aria-label="ERIBA Touring Legend 642 | Lengtebedden | Hoge koelkast |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/83d1e3ec-3652-40bf-8c0b-2b358d223930?rule=ecg_mp_eps$_85.jpg" alt="ERIBA Touring Legend 642 | Lengtebedden | Hoge koelkast |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravans-eriba-touring-legend-642-lengtebedden-h-2" aria-pressed="false" aria-label="Bewaar ERIBA Touring Legend 642 | Lengtebedden | Hoge koelkast |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/caravans-eriba-touring-legend-642-lengtebedden-h-2/">ERIBA Touring Legend 642 | Lengtebedden | Hoge koelkast |</a></h3>
+    <h3><a href="v/caravans-eriba-touring-legend-642-lengtebedden-h-2/">ERIBA Touring Legend 642</a></h3>
     <p class="st-spec">2026</p>
     <div class="st-foot">
       <span class="st-price">€ 41.515</span>
@@ -524,7 +591,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="caravans-eriba-feeling-470-enkele-bedden-nieuw-2-4" data-rang="3" data-prijs="39765" data-jaar="2026" data-kenmerk="Enkele bedden" data-zoek="eriba feeling | 470 enkele bedden | nieuw 2026 enkele bedden">
   <div class="st-shot"><a class="st-link" href="v/caravans-eriba-feeling-470-enkele-bedden-nieuw-2-4/" aria-label="ERIBA Feeling | 470 Enkele bedden | NIEUW 2026"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/845628a3-00c2-4664-802d-b95659724eb2?rule=ecg_mp_eps$_85.jpg" alt="ERIBA Feeling | 470 Enkele bedden | NIEUW 2026" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravans-eriba-feeling-470-enkele-bedden-nieuw-2-4" aria-pressed="false" aria-label="Bewaar ERIBA Feeling | 470 Enkele bedden | NIEUW 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/caravans-eriba-feeling-470-enkele-bedden-nieuw-2-4/">ERIBA Feeling | 470 Enkele bedden | NIEUW 2026</a></h3>
+    <h3><a href="v/caravans-eriba-feeling-470-enkele-bedden-nieuw-2-4/">ERIBA Feeling</a></h3>
     <p class="st-spec">2026</p>
     <div class="st-foot">
       <span class="st-price">€ 39.765</span>
@@ -534,7 +601,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="caravans-eriba-touring-legend-620-aanbieding-mod-5" data-rang="4" data-prijs="37995" data-jaar="2026" data-zoek="eriba touring legend 620 | aanbieding | model 2026">
   <div class="st-shot"><a class="st-link" href="v/caravans-eriba-touring-legend-620-aanbieding-mod-5/" aria-label="ERIBA Touring Legend 620 | AANBIEDING | MODEL 2026"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b70e673b-076c-4db0-888f-677768faf886?rule=ecg_mp_eps$_85.jpg" alt="ERIBA Touring Legend 620 | AANBIEDING | MODEL 2026" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravans-eriba-touring-legend-620-aanbieding-mod-5" aria-pressed="false" aria-label="Bewaar ERIBA Touring Legend 620 | AANBIEDING | MODEL 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/caravans-eriba-touring-legend-620-aanbieding-mod-5/">ERIBA Touring Legend 620 | AANBIEDING | MODEL 2026</a></h3>
+    <h3><a href="v/caravans-eriba-touring-legend-620-aanbieding-mod-5/">ERIBA Touring Legend 620</a></h3>
     <p class="st-spec">2026</p>
     <div class="st-foot">
       <span class="st-price">€ 37.995</span>
@@ -544,7 +611,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="caravans-eriba-touring-legend-630-aanbieding-hog-6" data-rang="5" data-prijs="37995" data-jaar="2026" data-zoek="eriba touring legend 630 | aanbieding | hoge koelkast | 2026">
   <div class="st-shot"><a class="st-link" href="v/caravans-eriba-touring-legend-630-aanbieding-hog-6/" aria-label="ERIBA Touring Legend 630 | AANBIEDING | HOGE KOELKAST | 2026"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e1dad6c1-0210-482a-9250-104d6c5bbcac?rule=ecg_mp_eps$_85.jpg" alt="ERIBA Touring Legend 630 | AANBIEDING | HOGE KOELKAST | 2026" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravans-eriba-touring-legend-630-aanbieding-hog-6" aria-pressed="false" aria-label="Bewaar ERIBA Touring Legend 630 | AANBIEDING | HOGE KOELKAST | 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/caravans-eriba-touring-legend-630-aanbieding-hog-6/">ERIBA Touring Legend 630 | AANBIEDING | HOGE KOELKAST | 2026</a></h3>
+    <h3><a href="v/caravans-eriba-touring-legend-630-aanbieding-hog-6/">ERIBA Touring Legend 630</a></h3>
     <p class="st-spec">2026</p>
     <div class="st-foot">
       <span class="st-price">€ 37.995</span>
@@ -554,7 +621,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="caravans-eriba-novaline-470-enkele-bedden-model--7" data-rang="6" data-prijs="36995" data-jaar="2026" data-kenmerk="Enkele bedden" data-zoek="eriba novaline 470 | enkele bedden | model 2026 enkele bedden">
   <div class="st-shot"><a class="st-link" href="v/caravans-eriba-novaline-470-enkele-bedden-model--7/" aria-label="ERIBA NOVALINE 470 | ENKELE BEDDEN | MODEL 2026"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/266f4386-7d49-4f5c-af17-e189ef47d1a3?rule=ecg_mp_eps$_85.jpg" alt="ERIBA NOVALINE 470 | ENKELE BEDDEN | MODEL 2026" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravans-eriba-novaline-470-enkele-bedden-model--7" aria-pressed="false" aria-label="Bewaar ERIBA NOVALINE 470 | ENKELE BEDDEN | MODEL 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/caravans-eriba-novaline-470-enkele-bedden-model--7/">ERIBA NOVALINE 470 | ENKELE BEDDEN | MODEL 2026</a></h3>
+    <h3><a href="v/caravans-eriba-novaline-470-enkele-bedden-model--7/">ERIBA NOVALINE 470</a></h3>
     <p class="st-spec">2026</p>
     <div class="st-foot">
       <span class="st-price">€ 36.995</span>
@@ -584,7 +651,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="caravans-eriba-touring-legend-540-2026-nieuw-voo-10" data-rang="9" data-prijs="34995" data-jaar="2026" data-zoek="eriba touring legend 540 | 2026 | nieuw | voorraadvoordeel">
   <div class="st-shot"><a class="st-link" href="v/caravans-eriba-touring-legend-540-2026-nieuw-voo-10/" aria-label="ERIBA Touring Legend 540 | 2026 | NIEUW | VOORRAADVOORDEEL"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c187acdb-0c28-4c95-b9ca-7a1e9f7fcc68?rule=ecg_mp_eps$_85.jpg" alt="ERIBA Touring Legend 540 | 2026 | NIEUW | VOORRAADVOORDEEL" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravans-eriba-touring-legend-540-2026-nieuw-voo-10" aria-pressed="false" aria-label="Bewaar ERIBA Touring Legend 540 | 2026 | NIEUW | VOORRAADVOORDEEL"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/caravans-eriba-touring-legend-540-2026-nieuw-voo-10/">ERIBA Touring Legend 540 | 2026 | NIEUW | VOORRAADVOORDEEL</a></h3>
+    <h3><a href="v/caravans-eriba-touring-legend-540-2026-nieuw-voo-10/">ERIBA Touring Legend 540</a></h3>
     <p class="st-spec">2026</p>
     <div class="st-foot">
       <span class="st-price">€ 34.995</span>
@@ -594,7 +661,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="caravans-eriba-touring-legend-542-lengtebedden-n-11" data-rang="10" data-prijs="34995" data-jaar="2026" data-zoek="eriba touring legend 542 | lengtebedden | nieuw | 2026">
   <div class="st-shot"><a class="st-link" href="v/caravans-eriba-touring-legend-542-lengtebedden-n-11/" aria-label="Eriba Touring Legend 542 | LENGTEBEDDEN | NIEUW | 2026"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b9c876af-ef74-425d-a613-a0c39543267c?rule=ecg_mp_eps$_85.jpg" alt="Eriba Touring Legend 542 | LENGTEBEDDEN | NIEUW | 2026" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravans-eriba-touring-legend-542-lengtebedden-n-11" aria-pressed="false" aria-label="Bewaar Eriba Touring Legend 542 | LENGTEBEDDEN | NIEUW | 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/caravans-eriba-touring-legend-542-lengtebedden-n-11/">Eriba Touring Legend 542 | LENGTEBEDDEN | NIEUW | 2026</a></h3>
+    <h3><a href="v/caravans-eriba-touring-legend-542-lengtebedden-n-11/">Eriba Touring Legend 542</a></h3>
     <p class="st-spec">2026</p>
     <div class="st-foot">
       <span class="st-price">€ 34.995</span>
@@ -664,7 +731,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="caravans-eriba-feeling-442-2020-alko-mover-thule-18" data-rang="17" data-prijs="27995" data-jaar="2020" data-kenmerk="Mover|Luifel" data-zoek="eriba feeling 442 2020 | alko mover | thule luifel | fietsdr mover luifel">
   <div class="st-shot"><a class="st-link" href="v/caravans-eriba-feeling-442-2020-alko-mover-thule-18/" aria-label="Eriba Feeling 442 2020 | ALKO MOVER | THULE LUIFEL | FIETSDR"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ff98360c-c51e-45b7-89df-d693203fd28e?rule=ecg_mp_eps$_86.jpg" alt="Eriba Feeling 442 2020 | ALKO MOVER | THULE LUIFEL | FIETSDR" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="caravans-eriba-feeling-442-2020-alko-mover-thule-18" aria-pressed="false" aria-label="Bewaar Eriba Feeling 442 2020 | ALKO MOVER | THULE LUIFEL | FIETSDR"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/caravans-eriba-feeling-442-2020-alko-mover-thule-18/">Eriba Feeling 442 2020 | ALKO MOVER | THULE LUIFEL | FIETSDR</a></h3>
+    <h3><a href="v/caravans-eriba-feeling-442-2020-alko-mover-thule-18/">Eriba Feeling 442 2020</a></h3>
     <p class="st-spec">2020</p>
     <div class="st-foot">
       <span class="st-price">€ 27.995</span>
@@ -695,7 +762,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/03/03d1ff63-521d-4fae-9d36-53de643c17c4?rule=ecg_mp_eps$_85.jpg" alt="Jan van Schaffelaar Caravans B.V." loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>34</b><span>voertuigen staan klaar</span></div><div><b>€ 27.995</b><span>de goedkoopste van dit moment</span></div><div><b>2026</b><span>mediaan bouwjaar</span></div><div><b>21</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Barneveld.</p>
+  <ul class="sec-belofte-lijst"><li><b>34</b> voertuigen staan klaar</li><li>vanaf <b>€ 27.995</b></li><li>gemiddeld bouwjaar <b>2026</b></li></ul>
+</div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

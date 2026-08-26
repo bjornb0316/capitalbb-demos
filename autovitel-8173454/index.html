@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e4e4df}
+section:nth-of-type(even){background:#eef1ee}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#5f646c;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#1f5f4f;color:#ffffff;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.035em;color:#1f5f4f;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#5f646c;font-size:15px}
 .sec-trust a{color:#16181c}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e4e4df;color:#5f646c;font-size:15.5px}
+.sec-vestiging strong{color:#16181c;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;letter-spacing:-0.035em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e4e4df;color:#5f646c;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:1.35em;color:#1f5f4f;letter-spacing:-0.035em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#5f646c;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e4e4df;border-radius:14px;background:#eef1ee;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:14px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#5f646c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e4e4df;border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#1f5f4f66}
+.ug-shot{aspect-ratio:4/3;background:#eef1ee;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#5f646c;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.035em;color:#1f5f4f;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e4e4df;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -432,7 +472,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van AutoVitel (familie, mediaanprijs EUR 21845, 19 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet daglicht, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #1f5f4f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > stock > brands > about > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > uitgelicht > stock > brands > about > promise > process > hours > contact.
 FORM: familie-daglicht-cinematic-mosaic-schibstedgrotesk-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -448,7 +488,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/457d30a8-d68f-4707-b79e-a3a68cd8d030?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/457d30a8-d68f-4707-b79e-a3a68cd8d030?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/457d30a8-d68f-4707-b79e-a3a68cd8d030?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/457d30a8-d68f-4707-b79e-a3a68cd8d030?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/457d30a8-d68f-4707-b79e-a3a68cd8d030?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="BMW 3 Serie Touring 330e M-Sport Pro | Widescreen | Memory |" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">BMW 3 Serie Touring 330e M-Sport Pro | Widescreen | Memory |</span><span class="h-plate-p">€ 34.945</span></figcaption></figure>
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>19 occasions op voorraad · Waalwijk</p><div class="h-facts"><span>4.7 uit 318 beoordelingen</span><span>19 jaar op Marktplaats</span><span>6 merken in huis</span><span>Kom langs in Waalwijk</span></div><h1>Kom kijken wanneer het u schikt <em>in Waalwijk</em></h1><p class="h-lede">Bij AutoVitel aan de Elzenweg 39 in Waalwijk vindt u een zorgvuldig geselecteerde collectie BMW's en MINI's voorzien van de volledige onderhoudshistorie met Bovag garantie. AutoVitel be</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31416348258">Bel 041-6348258</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div></div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.7</b><span>gemiddeld uit 318 beoordelingen</span></div><div><b>19</b><span>jaar op Marktplaats</span></div><div><b>Waalwijk</b><span><a href="https://maps.google.com/?q=Waalwijk" target="_blank" rel="noreferrer">Waalwijk</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.7</b><span>gemiddeld uit 318 beoordelingen</span></div><div><b>19</b><span>jaar op Marktplaats</span></div><div><b>6</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Waalwijk</strong> · <a href="https://maps.google.com/?q=Waalwijk" target="_blank" rel="noreferrer">Waalwijk</a></p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/bmw-3-serie-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/457d30a8-d68f-4707-b79e-a3a68cd8d030?rule=ecg_mp_eps$_86.jpg" alt="BMW 3 Serie Touring 330e M-Sport Pro" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW 3 Serie Touring 330e M-Sport Pro</h3>
+    <p class="ug-spec">2023 · 98.200 km</p>
+    <p class="ug-prijs">€ 34.945</p>
+  </div>
+</a><a class="ug-kaart" href="v/bmw-bmw-2-serie-230e-xdrive-326-pk-m-sport-panod-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/90f49e6f-065c-473b-835e-847fbdf1b849?rule=ecg_mp_eps$_86.jpg" alt="BMW 2 Serie 230e xDrive 326 PK M-Sport" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW 2 Serie 230e xDrive 326 PK M-Sport</h3>
+    <p class="ug-spec">2022 · 89.700 km</p>
+    <p class="ug-prijs">€ 31.500</p>
+  </div>
+</a><a class="ug-kaart" href="v/bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cc595cd4-1869-443d-8ca5-78b29c8d08ae?rule=ecg_mp_eps$_86.jpg" alt="BMW X1 xDrive25e" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW X1 xDrive25e</h3>
+    <p class="ug-spec">2022 · 93.811 km</p>
+    <p class="ug-prijs">€ 24.445</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>Onze voorraad</h2>
@@ -504,7 +571,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="bmw-3-serie-1" data-rang="0" data-merk="BMW" data-prijs="34945" data-jaar="2023" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="bmw 3 serie touring 330e m-sport pro | widescreen | memory | bmw 3-serie hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/bmw-3-serie-1/" aria-label="BMW 3 Serie Touring 330e M-Sport Pro | Widescreen | Memory |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/457d30a8-d68f-4707-b79e-a3a68cd8d030?rule=ecg_mp_eps$_86.jpg" alt="BMW 3 Serie Touring 330e M-Sport Pro | Widescreen | Memory |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-3-serie-1" aria-pressed="false" aria-label="Bewaar BMW 3 Serie Touring 330e M-Sport Pro | Widescreen | Memory |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-3-serie-1/">BMW 3 Serie Touring 330e M-Sport Pro | Widescreen | Memory |</a></h3>
+    <h3><a href="v/bmw-3-serie-1/">BMW 3 Serie Touring 330e M-Sport Pro</a></h3>
     <p class="st-spec">2023 · 98.200 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 34.945</span>
@@ -514,7 +581,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-2-serie-230e-xdrive-326-pk-m-sport-panod-2" data-rang="1" data-merk="BMW" data-prijs="31500" data-jaar="2022" data-zoek="bmw 2 serie 230e xdrive 326 pk m-sport | panodak | head-up | bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-2-serie-230e-xdrive-326-pk-m-sport-panod-2/" aria-label="BMW 2 Serie 230e xDrive 326 PK M-Sport | Panodak | Head-up |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/90f49e6f-065c-473b-835e-847fbdf1b849?rule=ecg_mp_eps$_85.jpg" alt="BMW 2 Serie 230e xDrive 326 PK M-Sport | Panodak | Head-up |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-2-serie-230e-xdrive-326-pk-m-sport-panod-2" aria-pressed="false" aria-label="Bewaar BMW 2 Serie 230e xDrive 326 PK M-Sport | Panodak | Head-up |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-2-serie-230e-xdrive-326-pk-m-sport-panod-2/">BMW 2 Serie 230e xDrive 326 PK M-Sport | Panodak | Head-up |</a></h3>
+    <h3><a href="v/bmw-bmw-2-serie-230e-xdrive-326-pk-m-sport-panod-2/">BMW 2 Serie 230e xDrive 326 PK M-Sport</a></h3>
     <p class="st-spec">2022 · 89.700 km</p>
     <div class="st-foot">
       <span class="st-price">€ 31.500</span>
@@ -524,7 +591,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-3" data-rang="2" data-merk="BMW" data-prijs="24445" data-jaar="2022" data-zoek="bmw x1 xdrive25e | elektrische klep | pdc v + a | led | appl bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-3/" aria-label="BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cc595cd4-1869-443d-8ca5-78b29c8d08ae?rule=ecg_mp_eps$_86.jpg" alt="BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-3" aria-pressed="false" aria-label="Bewaar BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-3/">BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl</a></h3>
+    <h3><a href="v/bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-3/">BMW X1 xDrive25e</a></h3>
     <p class="st-spec">2022 · 93.811 km</p>
     <div class="st-foot">
       <span class="st-price">€ 24.445</span>
@@ -534,7 +601,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-6-serie-640i-xdrive-gt-luxury-line-panod-4" data-rang="3" data-merk="BMW" data-prijs="23945" data-jaar="2017" data-zoek="bmw 6 serie 640i xdrive gt luxury line | panodak | comfortle bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-6-serie-640i-xdrive-gt-luxury-line-panod-4/" aria-label="BMW 6 Serie 640i xDrive GT Luxury Line | Panodak | Comfortle"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ebc95a6b-9268-4eea-b0fd-9acf99db7d13?rule=ecg_mp_eps$_85.jpg" alt="BMW 6 Serie 640i xDrive GT Luxury Line | Panodak | Comfortle" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-6-serie-640i-xdrive-gt-luxury-line-panod-4" aria-pressed="false" aria-label="Bewaar BMW 6 Serie 640i xDrive GT Luxury Line | Panodak | Comfortle"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-6-serie-640i-xdrive-gt-luxury-line-panod-4/">BMW 6 Serie 640i xDrive GT Luxury Line | Panodak | Comfortle</a></h3>
+    <h3><a href="v/bmw-bmw-6-serie-640i-xdrive-gt-luxury-line-panod-4/">BMW 6 Serie 640i xDrive GT Luxury Line</a></h3>
     <p class="st-spec">2017 · 165.131 km</p>
     <div class="st-foot">
       <span class="st-price">€ 23.945</span>
@@ -544,7 +611,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bestelauto-s-volkswagen-caddy-cargo-1-5-tsi-dsg--5" data-rang="4" data-prijs="23445" data-jaar="2023" data-zoek="volkswagen caddy cargo 1.5 tsi dsg-7 | ergo | camera | carpl">
   <div class="st-shot"><a class="st-link" href="v/bestelauto-s-volkswagen-caddy-cargo-1-5-tsi-dsg--5/" aria-label="Volkswagen Caddy Cargo 1.5 TSI DSG-7 | Ergo | Camera | Carpl"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9d3cbef1-29de-4b94-a475-28128d74a802?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Caddy Cargo 1.5 TSI DSG-7 | Ergo | Camera | Carpl" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-volkswagen-caddy-cargo-1-5-tsi-dsg--5" aria-pressed="false" aria-label="Bewaar Volkswagen Caddy Cargo 1.5 TSI DSG-7 | Ergo | Camera | Carpl"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bestelauto-s-volkswagen-caddy-cargo-1-5-tsi-dsg--5/">Volkswagen Caddy Cargo 1.5 TSI DSG-7 | Ergo | Camera | Carpl</a></h3>
+    <h3><a href="v/bestelauto-s-volkswagen-caddy-cargo-1-5-tsi-dsg--5/">Volkswagen Caddy Cargo 1.5 TSI DSG-7</a></h3>
     <p class="st-spec">2023 · 53.730 km</p>
     <div class="st-foot">
       <span class="st-price">€ 23.445</span>
@@ -554,7 +621,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-6" data-rang="5" data-merk="BMW" data-prijs="22945" data-jaar="2021" data-zoek="bmw x1 xdrive25e | elektrische klep | pdc v + a | led | appl bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-6/" aria-label="BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/264293f1-4896-491b-9d64-f8d9d63a5355?rule=ecg_mp_eps$_85.jpg" alt="BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-6" aria-pressed="false" aria-label="Bewaar BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-6/">BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl</a></h3>
+    <h3><a href="v/bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-6/">BMW X1 xDrive25e</a></h3>
     <p class="st-spec">2021 · 81.387 km</p>
     <div class="st-foot">
       <span class="st-price">€ 22.945</span>
@@ -564,7 +631,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-7" data-rang="6" data-merk="BMW" data-prijs="22445" data-jaar="2021" data-zoek="bmw x1 xdrive25e | elektrische klep | pdc v + a | led | appl bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-7/" aria-label="BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c9da503e-bd94-43fd-a83c-4b746f482b68?rule=ecg_mp_eps$_85.jpg" alt="BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-7" aria-pressed="false" aria-label="Bewaar BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-7/">BMW X1 xDrive25e | Elektrische Klep | PDC V + A | LED | Appl</a></h3>
+    <h3><a href="v/bmw-bmw-x1-xdrive25e-elektrische-klep-pdc-v-a-le-7/">BMW X1 xDrive25e</a></h3>
     <p class="st-spec">2021 · 95.212 km</p>
     <div class="st-foot">
       <span class="st-price">€ 22.445</span>
@@ -574,7 +641,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="bestelauto-s-mercedes-benz-ecitan-112-pro-l1-51--8" data-rang="7" data-prijs="21945" data-jaar="2024" data-zoek="mercedes-benz ecitan 112 pro l1 51 kwh | snellader | stoelve">
   <div class="st-shot"><a class="st-link" href="v/bestelauto-s-mercedes-benz-ecitan-112-pro-l1-51--8/" aria-label="Mercedes-Benz eCitan 112 Pro L1 51 kWh | Snellader | Stoelve"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5373d104-4935-49d3-9953-0155a360030b?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz eCitan 112 Pro L1 51 kWh | Snellader | Stoelve" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-mercedes-benz-ecitan-112-pro-l1-51--8" aria-pressed="false" aria-label="Bewaar Mercedes-Benz eCitan 112 Pro L1 51 kWh | Snellader | Stoelve"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bestelauto-s-mercedes-benz-ecitan-112-pro-l1-51--8/">Mercedes-Benz eCitan 112 Pro L1 51 kWh | Snellader | Stoelve</a></h3>
+    <h3><a href="v/bestelauto-s-mercedes-benz-ecitan-112-pro-l1-51--8/">Mercedes-Benz eCitan 112 Pro L1 51 kWh</a></h3>
     <p class="st-spec">2024 · 12.246 km</p>
     <div class="st-foot">
       <span class="st-price">€ 21.945</span>
@@ -584,7 +651,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-x1-xdrive25e-camera-elektrische-klep-led-9" data-rang="8" data-merk="BMW" data-prijs="21945" data-jaar="2021" data-zoek="bmw x1 xdrive25e | camera | elektrische klep | led | pdc v + bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x1-xdrive25e-camera-elektrische-klep-led-9/" aria-label="BMW X1 xDrive25e | Camera | Elektrische Klep | LED | PDC V +"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/109ccf7b-d588-4b08-a156-69ce4844f719?rule=ecg_mp_eps$_85.jpg" alt="BMW X1 xDrive25e | Camera | Elektrische Klep | LED | PDC V +" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x1-xdrive25e-camera-elektrische-klep-led-9" aria-pressed="false" aria-label="Bewaar BMW X1 xDrive25e | Camera | Elektrische Klep | LED | PDC V +"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x1-xdrive25e-camera-elektrische-klep-led-9/">BMW X1 xDrive25e | Camera | Elektrische Klep | LED | PDC V +</a></h3>
+    <h3><a href="v/bmw-bmw-x1-xdrive25e-camera-elektrische-klep-led-9/">BMW X1 xDrive25e</a></h3>
     <p class="st-spec">2021 · 100.183 km</p>
     <div class="st-foot">
       <span class="st-price">€ 21.945</span>
@@ -594,7 +661,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-x1-xdrive25e-nu-35x-op-voorraad-bouwjaar-10" data-rang="9" data-merk="BMW" data-prijs="21745" data-jaar="2021" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="bmw x1 xdrive25e | nu 35x op voorraad (bouwjaar: 2021–2022 bmw hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x1-xdrive25e-nu-35x-op-voorraad-bouwjaar-10/" aria-label="BMW X1 xDrive25e | NU 35X OP VOORRAAD (Bouwjaar: 2021–2022"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445f6e39-580c-469c-a07c-9f3f7d2a6acd?rule=ecg_mp_eps$_85.jpg" alt="BMW X1 xDrive25e | NU 35X OP VOORRAAD (Bouwjaar: 2021–2022" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x1-xdrive25e-nu-35x-op-voorraad-bouwjaar-10" aria-pressed="false" aria-label="Bewaar BMW X1 xDrive25e | NU 35X OP VOORRAAD (Bouwjaar: 2021–2022"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x1-xdrive25e-nu-35x-op-voorraad-bouwjaar-10/">BMW X1 xDrive25e | NU 35X OP VOORRAAD (Bouwjaar: 2021–2022</a></h3>
+    <h3><a href="v/bmw-bmw-x1-xdrive25e-nu-35x-op-voorraad-bouwjaar-10/">BMW X1 xDrive25e</a></h3>
     <p class="st-spec">2021 · 60.000 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 21.745</span>
@@ -604,7 +671,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mini-mini-cooper-se-33-kwh-camera-unieke-bekledi-11" data-rang="10" data-merk="MINI" data-prijs="19945" data-jaar="2023" data-zoek="mini cooper se 33 kwh | camera | unieke bekleding | stoelver mini">
   <div class="st-shot"><a class="st-link" href="v/mini-mini-cooper-se-33-kwh-camera-unieke-bekledi-11/" aria-label="MINI Cooper SE 33 kWh | Camera | Unieke bekleding | Stoelver"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e3d340b2-6e7a-48f5-9f0b-081b9bd9079a?rule=ecg_mp_eps$_85.jpg" alt="MINI Cooper SE 33 kWh | Camera | Unieke bekleding | Stoelver" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mini-mini-cooper-se-33-kwh-camera-unieke-bekledi-11" aria-pressed="false" aria-label="Bewaar MINI Cooper SE 33 kWh | Camera | Unieke bekleding | Stoelver"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mini-mini-cooper-se-33-kwh-camera-unieke-bekledi-11/">MINI Cooper SE 33 kWh | Camera | Unieke bekleding | Stoelver</a></h3>
+    <h3><a href="v/mini-mini-cooper-se-33-kwh-camera-unieke-bekledi-11/">MINI Cooper SE 33 kWh</a></h3>
     <p class="st-spec">2023 · 20.514 km</p>
     <div class="st-foot">
       <span class="st-price">€ 19.945</span>
@@ -614,7 +681,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="jeep-jeep-grand-cherokee-3-6-overland-first-edit-12" data-rang="11" data-merk="Jeep" data-prijs="18945" data-jaar="2012" data-zoek="jeep grand cherokee 3.6 overland first edition | elektrische jeep">
   <div class="st-shot"><a class="st-link" href="v/jeep-jeep-grand-cherokee-3-6-overland-first-edit-12/" aria-label="Jeep Grand Cherokee 3.6 Overland First Edition | Elektrische"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3b7c948d-e673-4909-8be3-aacf687bfb77?rule=ecg_mp_eps$_85.jpg" alt="Jeep Grand Cherokee 3.6 Overland First Edition | Elektrische" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="jeep-jeep-grand-cherokee-3-6-overland-first-edit-12" aria-pressed="false" aria-label="Bewaar Jeep Grand Cherokee 3.6 Overland First Edition | Elektrische"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/jeep-jeep-grand-cherokee-3-6-overland-first-edit-12/">Jeep Grand Cherokee 3.6 Overland First Edition | Elektrische</a></h3>
+    <h3><a href="v/jeep-jeep-grand-cherokee-3-6-overland-first-edit-12/">Jeep Grand Cherokee 3.6 Overland First Edition</a></h3>
     <p class="st-spec">2012 · 186.000 km</p>
     <div class="st-foot">
       <span class="st-price">€ 18.945</span>
@@ -624,7 +691,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="audi-audi-a5-cabriolet-3-0-tfsi-s5-quattro-b-o-m-13" data-rang="12" data-merk="Audi" data-prijs="17445" data-jaar="2013" data-zoek="audi a5 cabriolet 3.0 tfsi s5 quattro | b&amp;o | memory | keyle audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a5-cabriolet-3-0-tfsi-s5-quattro-b-o-m-13/" aria-label="Audi A5 Cabriolet 3.0 TFSI S5 quattro | B&amp;O | Memory | Keyle"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2e2f41ce-549a-4689-8e51-244f25f611aa?rule=ecg_mp_eps$_86.jpg" alt="Audi A5 Cabriolet 3.0 TFSI S5 quattro | B&amp;O | Memory | Keyle" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a5-cabriolet-3-0-tfsi-s5-quattro-b-o-m-13" aria-pressed="false" aria-label="Bewaar Audi A5 Cabriolet 3.0 TFSI S5 quattro | B&amp;O | Memory | Keyle"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a5-cabriolet-3-0-tfsi-s5-quattro-b-o-m-13/">Audi A5 Cabriolet 3.0 TFSI S5 quattro | B&amp;O | Memory | Keyle</a></h3>
+    <h3><a href="v/audi-audi-a5-cabriolet-3-0-tfsi-s5-quattro-b-o-m-13/">Audi A5 Cabriolet 3.0 TFSI S5 quattro</a></h3>
     <p class="st-spec">2013 · 168.398 km</p>
     <div class="st-foot">
       <span class="st-price">€ 17.445</span>
@@ -634,7 +701,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-1-serie-118i-centennial-executive-panoda-14" data-rang="13" data-merk="BMW" data-prijs="12945" data-jaar="2017" data-zoek="bmw 1-serie 118i centennial executive | panodak | pdc | led bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-1-serie-118i-centennial-executive-panoda-14/" aria-label="BMW 1-serie 118i Centennial Executive | Panodak | PDC | LED"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7951f874-3e6d-43b7-bfdb-ee06ecee60b2?rule=ecg_mp_eps$_85.jpg" alt="BMW 1-serie 118i Centennial Executive | Panodak | PDC | LED" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-1-serie-118i-centennial-executive-panoda-14" aria-pressed="false" aria-label="Bewaar BMW 1-serie 118i Centennial Executive | Panodak | PDC | LED"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-1-serie-118i-centennial-executive-panoda-14/">BMW 1-serie 118i Centennial Executive | Panodak | PDC | LED</a></h3>
+    <h3><a href="v/bmw-bmw-1-serie-118i-centennial-executive-panoda-14/">BMW 1-serie 118i Centennial Executive</a></h3>
     <p class="st-spec">2017 · 113.292 km</p>
     <div class="st-foot">
       <span class="st-price">€ 12.945</span>
@@ -644,7 +711,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-x3-xdrive20i-m-sport-sportleder-stoelver-15" data-rang="14" data-merk="BMW" data-prijs="11500" data-jaar="2014" data-zoek="bmw x3 xdrive20i m-sport | sportleder | stoelverwarming | na bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x3-xdrive20i-m-sport-sportleder-stoelver-15/" aria-label="BMW X3 xDrive20i M-Sport | Sportleder | Stoelverwarming | NA"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/47388313-e8a7-4d45-87ca-22d8f66575aa?rule=ecg_mp_eps$_85.jpg" alt="BMW X3 xDrive20i M-Sport | Sportleder | Stoelverwarming | NA" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x3-xdrive20i-m-sport-sportleder-stoelver-15" aria-pressed="false" aria-label="Bewaar BMW X3 xDrive20i M-Sport | Sportleder | Stoelverwarming | NA"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x3-xdrive20i-m-sport-sportleder-stoelver-15/">BMW X3 xDrive20i M-Sport | Sportleder | Stoelverwarming | NA</a></h3>
+    <h3><a href="v/bmw-bmw-x3-xdrive20i-m-sport-sportleder-stoelver-15/">BMW X3 xDrive20i M-Sport</a></h3>
     <p class="st-spec">2014 · 223.961 km</p>
     <div class="st-foot">
       <span class="st-price">€ 11.500</span>
@@ -654,7 +721,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-2-serie-active-tourer-216i-btw-pdc-a-cru-16" data-rang="15" data-merk="BMW" data-prijs="10945" data-jaar="2017" data-zoek="bmw 2 serie active tourer 216i | btw | pdc a | cruise contro bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-2-serie-active-tourer-216i-btw-pdc-a-cru-16/" aria-label="BMW 2 Serie Active Tourer 216i | BTW | PDC A | Cruise Contro"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/64765256-0d3e-43f8-8820-de0c928f8baf?rule=ecg_mp_eps$_85.jpg" alt="BMW 2 Serie Active Tourer 216i | BTW | PDC A | Cruise Contro" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-2-serie-active-tourer-216i-btw-pdc-a-cru-16" aria-pressed="false" aria-label="Bewaar BMW 2 Serie Active Tourer 216i | BTW | PDC A | Cruise Contro"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-2-serie-active-tourer-216i-btw-pdc-a-cru-16/">BMW 2 Serie Active Tourer 216i | BTW | PDC A | Cruise Contro</a></h3>
+    <h3><a href="v/bmw-bmw-2-serie-active-tourer-216i-btw-pdc-a-cru-16/">BMW 2 Serie Active Tourer 216i</a></h3>
     <p class="st-spec">2017 · 110.029 km</p>
     <div class="st-foot">
       <span class="st-price">€ 10.945</span>
@@ -664,7 +731,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mazda-mazda-cx-3-2-0-skyactiv-g-120-gt-m-vaste-h-17" data-rang="16" data-merk="Mazda" data-prijs="10500" data-jaar="2015" data-zoek="mazda cx-3 2.0 skyactiv-g 120 gt-m | vaste handelsprijs| hea mazda">
   <div class="st-shot"><a class="st-link" href="v/mazda-mazda-cx-3-2-0-skyactiv-g-120-gt-m-vaste-h-17/" aria-label="Mazda CX-3 2.0 SkyActiv-G 120 GT-M | Vaste Handelsprijs| Hea"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a2e5a991-5cbe-4e71-9bbd-f118bd363471?rule=ecg_mp_eps$_85.jpg" alt="Mazda CX-3 2.0 SkyActiv-G 120 GT-M | Vaste Handelsprijs| Hea" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mazda-mazda-cx-3-2-0-skyactiv-g-120-gt-m-vaste-h-17" aria-pressed="false" aria-label="Bewaar Mazda CX-3 2.0 SkyActiv-G 120 GT-M | Vaste Handelsprijs| Hea"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mazda-mazda-cx-3-2-0-skyactiv-g-120-gt-m-vaste-h-17/">Mazda CX-3 2.0 SkyActiv-G 120 GT-M | Vaste Handelsprijs| Hea</a></h3>
+    <h3><a href="v/mazda-mazda-cx-3-2-0-skyactiv-g-120-gt-m-vaste-h-17/">Mazda CX-3 2.0 SkyActiv-G 120 GT-M</a></h3>
     <p class="st-spec">2015 · 197.785 km</p>
     <div class="st-foot">
       <span class="st-price">€ 10.500</span>
@@ -674,7 +741,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="bestelauto-s-citroen-berlingo-1-2-puretech-club--18" data-rang="17" data-prijs="8745" data-jaar="2022" data-kenmerk="Airco|Navigatie" data-zoek="citroën berlingo 1.2 puretech club | navi | airco | pdc | d airco navigatie">
   <div class="st-shot"><a class="st-link" href="v/bestelauto-s-citroen-berlingo-1-2-puretech-club--18/" aria-label="Citroën Berlingo 1.2 PureTech Club | Navi | Airco | PDC | D"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b5a979a3-c5c5-4365-933d-055bd3648fa1?rule=ecg_mp_eps$_86.jpg" alt="Citroën Berlingo 1.2 PureTech Club | Navi | Airco | PDC | D" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-citroen-berlingo-1-2-puretech-club--18" aria-pressed="false" aria-label="Bewaar Citroën Berlingo 1.2 PureTech Club | Navi | Airco | PDC | D"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bestelauto-s-citroen-berlingo-1-2-puretech-club--18/">Citroën Berlingo 1.2 PureTech Club | Navi | Airco | PDC | D</a></h3>
+    <h3><a href="v/bestelauto-s-citroen-berlingo-1-2-puretech-club--18/">Citroën Berlingo 1.2 PureTech Club</a></h3>
     <p class="st-spec">2022 · 144.171 km</p>
     <div class="st-foot">
       <span class="st-price">€ 8.745</span>
@@ -698,7 +765,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/7c/7c06df33-1d31-4a1b-879c-cc8a2b581000?rule=ecg_mp_eps$_85.jpg" alt="AutoVitel" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>19</b><span>voertuigen staan klaar</span></div><div><b>€ 8.745</b><span>de goedkoopste van dit moment</span></div><div><b>2021</b><span>mediaan bouwjaar</span></div><div><b>19</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Waalwijk.</p>
+  <ul class="sec-belofte-lijst"><li><b>19</b> voertuigen staan klaar</li><li>vanaf <b>€ 8.745</b></li><li>gemiddeld bouwjaar <b>2021</b></li></ul>
+</div></section>
 <section class="sec-flow">
   <div class="wrap">
     <div class="head rv"><h2>Zo gaat het</h2></div>

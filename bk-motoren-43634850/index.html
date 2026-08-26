@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #25282d}
+section:nth-of-type(even){background:#1c1f23}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#989da4;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#ff5b19;color:#0e0f11;padding:9px 15px;border-radius:0px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);letter-spacing:0;color:#ff5b19;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#989da4;font-size:15px}
 .sec-trust a{color:#f5f6f7}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #25282d;color:#989da4;font-size:15.5px}
+.sec-vestiging strong{color:#f5f6f7;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;letter-spacing:0;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #25282d;color:#989da4;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:1.35em;color:#ff5b19;letter-spacing:0;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#989da4;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #25282d;border-radius:0px;background:#1c1f23;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:0px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#989da4;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#17191c;border:1px solid #25282d;border-radius:0px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#ff5b1966}
+.ug-shot{aspect-ratio:4/3;background:#1c1f23;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#989da4;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(22px,2.2vw,28px);letter-spacing:0;color:#ff5b19;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #25282d;background:#17191c}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -437,7 +477,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van BK Motoren (motoren, mediaanprijs EUR 16975, 18 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet asfalt, 'Anton' als display op 'Chivo', hoeken 0px, accent #ff5b19.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "grid", secties about > stock > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "grid", secties about > uitgelicht > stock > promise > process > hours > contact.
 FORM: motoren-asfalt-panorama-grid-anton-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -462,6 +502,33 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <p>Wij zijn BK Motoren, een groeiende onderneming welke zich bezig houd met de in &amp; verkoop van het hogere segment jonge gebruikte motoren. Ons bedrijf bestaat uit twee partners, Mike Becks &amp; Robert Kroon. Wij hebben een uitgebreid netwerk door heel Europa. Hiermee onderscheiden wij ons &amp; kunnen wij er voor zorgen dat onze showroom regelmatig gevuld is met moeilijk verkrijgbare jong gebruikte modelle</p>
     </div>
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/04/04906571-8ec4-4fe7-97f7-f2165f92f206?rule=ecg_mp_eps$_85.jpg" alt="BK Motoren" loading="lazy"></div>
+  </div>
+</section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/motoren-bmw-bmw-m-1000-rr-competition-btw-motor-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9655ac28-5c2b-4bec-b8bd-2062af22fa31?rule=ecg_mp_eps$_86.jpg" alt="BMW M 1000 RR Competition" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW M 1000 RR Competition</h3>
+    <p class="ug-spec">2026 · 1.705 km</p>
+    <p class="ug-prijs">€ 46.775</p>
+  </div>
+</a><a class="ug-kaart" href="v/motoren-bmw-bmw-r-1300-gs-adventure-triple-black-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4ca07400-b61d-45ad-b2c7-316ef203790a?rule=ecg_mp_eps$_86.jpg" alt="BMW R 1300 GS ADVENTURE TRIPLE BLACK" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW R 1300 GS ADVENTURE TRIPLE BLACK</h3>
+    <p class="ug-spec">2026 · 1.576 km</p>
+    <p class="ug-prijs">€ 31.775</p>
+  </div>
+</a><a class="ug-kaart" href="v/motoren-bmw-bmw-m-1000-xr-aurelius-green-btw-mot-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/024ee5b6-a4ef-40a8-8595-88d2c2590117?rule=ecg_mp_eps$_86.jpg" alt="BMW M 1000 XR Aurelius Green" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW M 1000 XR Aurelius Green</h3>
+    <p class="ug-spec">2026 · 2.119 km</p>
+    <p class="ug-prijs">€ 29.775</p>
+  </div>
+</a></div>
   </div>
 </section>
 <section id="voorraad">
@@ -519,7 +586,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-grid" data-voorraad><article class="st-card " data-slug="motoren-bmw-bmw-m-1000-rr-competition-btw-motor-1" data-rang="0" data-merk="BMW" data-prijs="46775" data-jaar="2026" data-zoek="bmw m 1000 rr competition | btw motor bmw">
   <div class="st-shot"><a class="st-link" href="v/motoren-bmw-bmw-m-1000-rr-competition-btw-motor-1/" aria-label="BMW M 1000 RR Competition | BTW Motor"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9655ac28-5c2b-4bec-b8bd-2062af22fa31?rule=ecg_mp_eps$_85.jpg" alt="BMW M 1000 RR Competition | BTW Motor" loading="lazy" decoding="async"></a><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-bmw-bmw-m-1000-rr-competition-btw-motor-1" aria-pressed="false" aria-label="Bewaar BMW M 1000 RR Competition | BTW Motor"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-bmw-bmw-m-1000-rr-competition-btw-motor-1/">BMW M 1000 RR Competition | BTW Motor</a></h3>
+    <h3><a href="v/motoren-bmw-bmw-m-1000-rr-competition-btw-motor-1/">BMW M 1000 RR Competition</a></h3>
     <p class="st-spec">1.705 km</p>
     <div class="st-foot">
       <span class="st-price">€ 46.775</span>
@@ -529,7 +596,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-bmw-bmw-r-1300-gs-adventure-triple-black-2" data-rang="1" data-merk="BMW" data-prijs="31775" data-jaar="2026" data-zoek="bmw r 1300 gs adventure triple black | btw motor bmw">
   <div class="st-shot"><a class="st-link" href="v/motoren-bmw-bmw-r-1300-gs-adventure-triple-black-2/" aria-label="BMW R 1300 GS ADVENTURE TRIPLE BLACK | BTW Motor"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4ca07400-b61d-45ad-b2c7-316ef203790a?rule=ecg_mp_eps$_85.jpg" alt="BMW R 1300 GS ADVENTURE TRIPLE BLACK | BTW Motor" loading="lazy" decoding="async"></a><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-bmw-bmw-r-1300-gs-adventure-triple-black-2" aria-pressed="false" aria-label="Bewaar BMW R 1300 GS ADVENTURE TRIPLE BLACK | BTW Motor"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-bmw-bmw-r-1300-gs-adventure-triple-black-2/">BMW R 1300 GS ADVENTURE TRIPLE BLACK | BTW Motor</a></h3>
+    <h3><a href="v/motoren-bmw-bmw-r-1300-gs-adventure-triple-black-2/">BMW R 1300 GS ADVENTURE TRIPLE BLACK</a></h3>
     <p class="st-spec">1.576 km</p>
     <div class="st-foot">
       <span class="st-price">€ 31.775</span>
@@ -539,7 +606,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-bmw-bmw-m-1000-xr-aurelius-green-btw-mot-3" data-rang="2" data-merk="BMW" data-prijs="29775" data-jaar="2026" data-zoek="bmw m 1000 xr aurelius green | btw motor bmw">
   <div class="st-shot"><a class="st-link" href="v/motoren-bmw-bmw-m-1000-xr-aurelius-green-btw-mot-3/" aria-label="BMW M 1000 XR Aurelius Green | BTW Motor"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/024ee5b6-a4ef-40a8-8595-88d2c2590117?rule=ecg_mp_eps$_85.jpg" alt="BMW M 1000 XR Aurelius Green | BTW Motor" loading="lazy" decoding="async"></a><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-bmw-bmw-m-1000-xr-aurelius-green-btw-mot-3" aria-pressed="false" aria-label="Bewaar BMW M 1000 XR Aurelius Green | BTW Motor"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-bmw-bmw-m-1000-xr-aurelius-green-btw-mot-3/">BMW M 1000 XR Aurelius Green | BTW Motor</a></h3>
+    <h3><a href="v/motoren-bmw-bmw-m-1000-xr-aurelius-green-btw-mot-3/">BMW M 1000 XR Aurelius Green</a></h3>
     <p class="st-spec">2.119 km</p>
     <div class="st-foot">
       <span class="st-price">€ 29.775</span>
@@ -549,7 +616,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-ducati-ducati-panigale-v2-akrapovic-btw--4" data-rang="3" data-merk="Ducati" data-prijs="23775" data-jaar="2023" data-kenmerk="Sportuitlaat" data-zoek="ducati panigale v2 akrapovic | btw motor ducati sportuitlaat">
   <div class="st-shot"><a class="st-link" href="v/motoren-ducati-ducati-panigale-v2-akrapovic-btw--4/" aria-label="DUCATI PANIGALE V2 Akrapovic | BTW Motor"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0cdf9b82-a560-4b47-ab5d-af9e16295207?rule=ecg_mp_eps$_85.jpg" alt="DUCATI PANIGALE V2 Akrapovic | BTW Motor" loading="lazy" decoding="async"></a><span class="st-year">2023</span><button class="st-bewaar" type="button" data-bewaar="motoren-ducati-ducati-panigale-v2-akrapovic-btw--4" aria-pressed="false" aria-label="Bewaar DUCATI PANIGALE V2 Akrapovic | BTW Motor"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-ducati-ducati-panigale-v2-akrapovic-btw--4/">DUCATI PANIGALE V2 Akrapovic | BTW Motor</a></h3>
+    <h3><a href="v/motoren-ducati-ducati-panigale-v2-akrapovic-btw--4/">DUCATI PANIGALE V2 Akrapovic</a></h3>
     <p class="st-spec">963 km</p>
     <div class="st-foot">
       <span class="st-price">€ 23.775</span>
@@ -559,7 +626,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-ducati-ducati-panigale-v2-s-termignoni-b-5" data-rang="4" data-merk="Ducati" data-prijs="22475" data-jaar="2026" data-zoek="ducati panigale v2 s termignoni | btw motor ducati">
   <div class="st-shot"><a class="st-link" href="v/motoren-ducati-ducati-panigale-v2-s-termignoni-b-5/" aria-label="DUCATI PANIGALE V2 S Termignoni | BTW Motor"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/00837fd3-d807-4e72-b2e3-82406a353394?rule=ecg_mp_eps$_85.jpg" alt="DUCATI PANIGALE V2 S Termignoni | BTW Motor" loading="lazy" decoding="async"></a><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-ducati-ducati-panigale-v2-s-termignoni-b-5" aria-pressed="false" aria-label="Bewaar DUCATI PANIGALE V2 S Termignoni | BTW Motor"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-ducati-ducati-panigale-v2-s-termignoni-b-5/">DUCATI PANIGALE V2 S Termignoni | BTW Motor</a></h3>
+    <h3><a href="v/motoren-ducati-ducati-panigale-v2-s-termignoni-b-5/">DUCATI PANIGALE V2 S Termignoni</a></h3>
     <p class="st-spec">1.350 km</p>
     <div class="st-foot">
       <span class="st-price">€ 22.475</span>
@@ -569,7 +636,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-bmw-bmw-r-1250-gs-rallye-full-option-6" data-rang="5" data-merk="BMW" data-prijs="21975" data-jaar="2023" data-zoek="bmw r 1250 gs | rallye | full-option bmw">
   <div class="st-shot"><a class="st-link" href="v/motoren-bmw-bmw-r-1250-gs-rallye-full-option-6/" aria-label="BMW R 1250 GS | Rallye | Full-Option"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8270f348-5660-4b8c-8e3e-46140ee7abff?rule=ecg_mp_eps$_85.jpg" alt="BMW R 1250 GS | Rallye | Full-Option" loading="lazy" decoding="async"></a><span class="st-year">2023</span><button class="st-bewaar" type="button" data-bewaar="motoren-bmw-bmw-r-1250-gs-rallye-full-option-6" aria-pressed="false" aria-label="Bewaar BMW R 1250 GS | Rallye | Full-Option"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-bmw-bmw-r-1250-gs-rallye-full-option-6/">BMW R 1250 GS | Rallye | Full-Option</a></h3>
+    <h3><a href="v/motoren-bmw-bmw-r-1250-gs-rallye-full-option-6/">BMW R 1250 GS</a></h3>
     <p class="st-spec">6.190 km</p>
     <div class="st-foot">
       <span class="st-price">€ 21.975</span>
@@ -579,7 +646,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-ducati-ducati-xdiavel-black-star-uniek-5-7" data-rang="6" data-merk="Ducati" data-prijs="21775" data-jaar="2021" data-zoek="ducati xdiavel black star | uniek - 50st. gelimiteerd! ducati">
   <div class="st-shot"><a class="st-link" href="v/motoren-ducati-ducati-xdiavel-black-star-uniek-5-7/" aria-label="DUCATI XDIAVEL BLACK STAR | Uniek - 50st. Gelimiteerd!"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bb9dcd74-21ac-464a-b361-d225411571fa?rule=ecg_mp_eps$_85.jpg" alt="DUCATI XDIAVEL BLACK STAR | Uniek - 50st. Gelimiteerd!" loading="lazy" decoding="async"></a><span class="st-year">2021</span><button class="st-bewaar" type="button" data-bewaar="motoren-ducati-ducati-xdiavel-black-star-uniek-5-7" aria-pressed="false" aria-label="Bewaar DUCATI XDIAVEL BLACK STAR | Uniek - 50st. Gelimiteerd!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-ducati-ducati-xdiavel-black-star-uniek-5-7/">DUCATI XDIAVEL BLACK STAR | Uniek - 50st. Gelimiteerd!</a></h3>
+    <h3><a href="v/motoren-ducati-ducati-xdiavel-black-star-uniek-5-7/">DUCATI XDIAVEL BLACK STAR</a></h3>
     <p class="st-spec">6.843 km</p>
     <div class="st-foot">
       <span class="st-price">€ 21.775</span>
@@ -589,7 +656,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-ducati-ducati-streetfighter-v2-s-btw-mot-8" data-rang="7" data-merk="Ducati" data-prijs="18775" data-jaar="2025" data-zoek="ducati streetfighter v2 s | btw motor ducati">
   <div class="st-shot"><a class="st-link" href="v/motoren-ducati-ducati-streetfighter-v2-s-btw-mot-8/" aria-label="DUCATI STREETFIGHTER V2 S | BTW Motor"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b46f2a9c-d935-46d1-bbd8-e61f8b95c3e1?rule=ecg_mp_eps$_85.jpg" alt="DUCATI STREETFIGHTER V2 S | BTW Motor" loading="lazy" decoding="async"></a><span class="st-year">2025</span><button class="st-bewaar" type="button" data-bewaar="motoren-ducati-ducati-streetfighter-v2-s-btw-mot-8" aria-pressed="false" aria-label="Bewaar DUCATI STREETFIGHTER V2 S | BTW Motor"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-ducati-ducati-streetfighter-v2-s-btw-mot-8/">DUCATI STREETFIGHTER V2 S | BTW Motor</a></h3>
+    <h3><a href="v/motoren-ducati-ducati-streetfighter-v2-s-btw-mot-8/">DUCATI STREETFIGHTER V2 S</a></h3>
     <p class="st-spec">1.100 km</p>
     <div class="st-foot">
       <span class="st-price">€ 18.775</span>
@@ -599,7 +666,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-ktm-verkocht-ktm-1290-super-adventure-s--9" data-rang="8" data-merk="KTM" data-prijs="16975" data-jaar="2022" data-zoek="*verkocht* ktm 1290 super adventure s | techpack + arrow dem ktm">
   <div class="st-shot"><a class="st-link" href="v/motoren-ktm-verkocht-ktm-1290-super-adventure-s--9/" aria-label="*VERKOCHT* KTM 1290 SUPER ADVENTURE S | TechPack + Arrow Dem"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6f7d119e-2b5a-40b9-ad9b-5472273fc959?rule=ecg_mp_eps$_85.jpg" alt="*VERKOCHT* KTM 1290 SUPER ADVENTURE S | TechPack + Arrow Dem" loading="lazy" decoding="async"></a><span class="st-year">2022</span><button class="st-bewaar" type="button" data-bewaar="motoren-ktm-verkocht-ktm-1290-super-adventure-s--9" aria-pressed="false" aria-label="Bewaar *VERKOCHT* KTM 1290 SUPER ADVENTURE S | TechPack + Arrow Dem"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-ktm-verkocht-ktm-1290-super-adventure-s--9/">*VERKOCHT* KTM 1290 SUPER ADVENTURE S | TechPack + Arrow Dem</a></h3>
+    <h3><a href="v/motoren-ktm-verkocht-ktm-1290-super-adventure-s--9/">*VERKOCHT* KTM 1290 SUPER ADVENTURE S</a></h3>
     <p class="st-spec">4.776 km</p>
     <div class="st-foot">
       <span class="st-price">€ 16.975</span>
@@ -609,7 +676,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-ducati-ducati-hypermotard-950-rve-btw-mo-10" data-rang="9" data-merk="Ducati" data-prijs="16975" data-jaar="2025" data-zoek="ducati hypermotard 950 rve | btw motor ducati">
   <div class="st-shot"><a class="st-link" href="v/motoren-ducati-ducati-hypermotard-950-rve-btw-mo-10/" aria-label="DUCATI HYPERMOTARD 950 RVE | BTW Motor"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6655e152-a264-443d-ab29-456eb52d7f8e?rule=ecg_mp_eps$_85.jpg" alt="DUCATI HYPERMOTARD 950 RVE | BTW Motor" loading="lazy" decoding="async"></a><span class="st-year">2025</span><button class="st-bewaar" type="button" data-bewaar="motoren-ducati-ducati-hypermotard-950-rve-btw-mo-10" aria-pressed="false" aria-label="Bewaar DUCATI HYPERMOTARD 950 RVE | BTW Motor"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-ducati-ducati-hypermotard-950-rve-btw-mo-10/">DUCATI HYPERMOTARD 950 RVE | BTW Motor</a></h3>
+    <h3><a href="v/motoren-ducati-ducati-hypermotard-950-rve-btw-mo-10/">DUCATI HYPERMOTARD 950 RVE</a></h3>
     <p class="st-spec">1.578 km</p>
     <div class="st-foot">
       <span class="st-price">€ 16.975</span>
@@ -619,7 +686,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-ducati-ducati-hypermotard-v2-btw-motor-11" data-rang="10" data-merk="Ducati" data-prijs="16775" data-jaar="2026" data-zoek="ducati hypermotard v2 | btw motor ducati">
   <div class="st-shot"><a class="st-link" href="v/motoren-ducati-ducati-hypermotard-v2-btw-motor-11/" aria-label="DUCATI HYPERMOTARD V2 | BTW Motor"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d7b0ab51-cb8c-4127-a716-582059a5e0cf?rule=ecg_mp_eps$_85.jpg" alt="DUCATI HYPERMOTARD V2 | BTW Motor" loading="lazy" decoding="async"></a><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-ducati-ducati-hypermotard-v2-btw-motor-11" aria-pressed="false" aria-label="Bewaar DUCATI HYPERMOTARD V2 | BTW Motor"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-ducati-ducati-hypermotard-v2-btw-motor-11/">DUCATI HYPERMOTARD V2 | BTW Motor</a></h3>
+    <h3><a href="v/motoren-ducati-ducati-hypermotard-v2-btw-motor-11/">DUCATI HYPERMOTARD V2</a></h3>
     <p class="st-spec">1.260 km</p>
     <div class="st-foot">
       <span class="st-price">€ 16.775</span>
@@ -629,7 +696,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-ducati-ducati-hypermotard-950-rve-btw-mo-12" data-rang="11" data-merk="Ducati" data-prijs="15975" data-jaar="2025" data-zoek="ducati hypermotard 950 rve | btw motor ducati">
   <div class="st-shot"><a class="st-link" href="v/motoren-ducati-ducati-hypermotard-950-rve-btw-mo-12/" aria-label="DUCATI HYPERMOTARD 950 RVE | BTW Motor"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ae71c653-29ea-42ab-a3f8-951839f4587f?rule=ecg_mp_eps$_85.jpg" alt="DUCATI HYPERMOTARD 950 RVE | BTW Motor" loading="lazy" decoding="async"></a><span class="st-year">2025</span><button class="st-bewaar" type="button" data-bewaar="motoren-ducati-ducati-hypermotard-950-rve-btw-mo-12" aria-pressed="false" aria-label="Bewaar DUCATI HYPERMOTARD 950 RVE | BTW Motor"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-ducati-ducati-hypermotard-950-rve-btw-mo-12/">DUCATI HYPERMOTARD 950 RVE | BTW Motor</a></h3>
+    <h3><a href="v/motoren-ducati-ducati-hypermotard-950-rve-btw-mo-12/">DUCATI HYPERMOTARD 950 RVE</a></h3>
     <p class="st-spec">1.578 km</p>
     <div class="st-foot">
       <span class="st-price">€ 15.975</span>
@@ -639,7 +706,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-triumph-triumph-tiger-900-rally-pro-3-de-13" data-rang="12" data-merk="Triumph" data-prijs="15775" data-jaar="2023" data-kenmerk="Koffers" data-zoek="triumph tiger 900 rally pro | 3-delige kofferset triumph koffers">
   <div class="st-shot"><a class="st-link" href="v/motoren-triumph-triumph-tiger-900-rally-pro-3-de-13/" aria-label="TRIUMPH TIGER 900 RALLY PRO | 3-Delige kofferset"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9d0267f3-ae11-4742-b029-892ea7efba0a?rule=ecg_mp_eps$_85.jpg" alt="TRIUMPH TIGER 900 RALLY PRO | 3-Delige kofferset" loading="lazy" decoding="async"></a><span class="st-year">2023</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-tiger-900-rally-pro-3-de-13" aria-pressed="false" aria-label="Bewaar TRIUMPH TIGER 900 RALLY PRO | 3-Delige kofferset"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-triumph-triumph-tiger-900-rally-pro-3-de-13/">TRIUMPH TIGER 900 RALLY PRO | 3-Delige kofferset</a></h3>
+    <h3><a href="v/motoren-triumph-triumph-tiger-900-rally-pro-3-de-13/">TRIUMPH TIGER 900 RALLY PRO</a></h3>
     <p class="st-spec">8.252 km</p>
     <div class="st-foot">
       <span class="st-price">€ 15.775</span>
@@ -649,7 +716,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-overige-merken-verkocht-indian-motorcycl-14" data-rang="13" data-merk="Overige Merken" data-prijs="14775" data-jaar="2022" data-zoek="*verkocht* indian motorcycle scout bobber | dr. jekill &amp; mr. overige merken">
   <div class="st-shot"><a class="st-link" href="v/motoren-overige-merken-verkocht-indian-motorcycl-14/" aria-label="*VERKOCHT* INDIAN MOTORCYCLE SCOUT BOBBER | Dr. Jekill &amp; Mr."><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0d1e5d67-08a8-4e4f-8285-f51035301b1b?rule=ecg_mp_eps$_85.jpg" alt="*VERKOCHT* INDIAN MOTORCYCLE SCOUT BOBBER | Dr. Jekill &amp; Mr." loading="lazy" decoding="async"></a><span class="st-year">2022</span><button class="st-bewaar" type="button" data-bewaar="motoren-overige-merken-verkocht-indian-motorcycl-14" aria-pressed="false" aria-label="Bewaar *VERKOCHT* INDIAN MOTORCYCLE SCOUT BOBBER | Dr. Jekill &amp; Mr."><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-overige-merken-verkocht-indian-motorcycl-14/">*VERKOCHT* INDIAN MOTORCYCLE SCOUT BOBBER | Dr. Jekill &amp; Mr.</a></h3>
+    <h3><a href="v/motoren-overige-merken-verkocht-indian-motorcycl-14/">*VERKOCHT* INDIAN MOTORCYCLE SCOUT BOBBER</a></h3>
     <p class="st-spec">11.494 km</p>
     <div class="st-foot">
       <span class="st-price">€ 14.775</span>
@@ -669,7 +736,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-mv-agusta-mv-agusta-brutale-800-r-btw-mo-16" data-rang="15" data-merk="MV Agusta" data-prijs="12775" data-jaar="2024" data-zoek="mv agusta brutale 800 r | btw motor mv agusta">
   <div class="st-shot"><a class="st-link" href="v/motoren-mv-agusta-mv-agusta-brutale-800-r-btw-mo-16/" aria-label="MV AGUSTA BRUTALE 800 R | BTW Motor"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b62f2e53-f646-4cdc-88dd-cdf5cf833956?rule=ecg_mp_eps$_85.jpg" alt="MV AGUSTA BRUTALE 800 R | BTW Motor" loading="lazy" decoding="async"></a><span class="st-year">2024</span><button class="st-bewaar" type="button" data-bewaar="motoren-mv-agusta-mv-agusta-brutale-800-r-btw-mo-16" aria-pressed="false" aria-label="Bewaar MV AGUSTA BRUTALE 800 R | BTW Motor"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-mv-agusta-mv-agusta-brutale-800-r-btw-mo-16/">MV AGUSTA BRUTALE 800 R | BTW Motor</a></h3>
+    <h3><a href="v/motoren-mv-agusta-mv-agusta-brutale-800-r-btw-mo-16/">MV AGUSTA BRUTALE 800 R</a></h3>
     <p class="st-spec">2.152 km</p>
     <div class="st-foot">
       <span class="st-price">€ 12.775</span>
@@ -679,7 +746,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-triumph-triumph-street-triple-765-rs-pha-17" data-rang="16" data-merk="Triumph" data-prijs="11975" data-jaar="2024" data-zoek="triumph street triple 765 rs | phantom black triumph">
   <div class="st-shot"><a class="st-link" href="v/motoren-triumph-triumph-street-triple-765-rs-pha-17/" aria-label="TRIUMPH STREET TRIPLE 765 RS | Phantom Black"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/63ebc023-a994-4b9a-a1b1-19e4fcbb3ef2?rule=ecg_mp_eps$_85.jpg" alt="TRIUMPH STREET TRIPLE 765 RS | Phantom Black" loading="lazy" decoding="async"></a><span class="st-year">2024</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-street-triple-765-rs-pha-17" aria-pressed="false" aria-label="Bewaar TRIUMPH STREET TRIPLE 765 RS | Phantom Black"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-triumph-triumph-street-triple-765-rs-pha-17/">TRIUMPH STREET TRIPLE 765 RS | Phantom Black</a></h3>
+    <h3><a href="v/motoren-triumph-triumph-street-triple-765-rs-pha-17/">TRIUMPH STREET TRIPLE 765 RS</a></h3>
     <p class="st-spec">8.327 km</p>
     <div class="st-foot">
       <span class="st-price">€ 11.975</span>
@@ -689,7 +756,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-ducati-ducati-monster-937-termignoni-18" data-rang="17" data-merk="Ducati" data-prijs="9975" data-jaar="2022" data-zoek="ducati monster 937 + | termignoni ducati">
   <div class="st-shot"><a class="st-link" href="v/motoren-ducati-ducati-monster-937-termignoni-18/" aria-label="DUCATI MONSTER 937 + | Termignoni"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bbf2844d-8993-4de2-8baf-891a7c2447a3?rule=ecg_mp_eps$_85.jpg" alt="DUCATI MONSTER 937 + | Termignoni" loading="lazy" decoding="async"></a><span class="st-year">2022</span><button class="st-bewaar" type="button" data-bewaar="motoren-ducati-ducati-monster-937-termignoni-18" aria-pressed="false" aria-label="Bewaar DUCATI MONSTER 937 + | Termignoni"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-ducati-ducati-monster-937-termignoni-18/">DUCATI MONSTER 937 + | Termignoni</a></h3>
+    <h3><a href="v/motoren-ducati-ducati-monster-937-termignoni-18/">DUCATI MONSTER 937 +</a></h3>
     <p class="st-spec">10.478 km</p>
     <div class="st-foot">
       <span class="st-price">€ 9.975</span>
@@ -703,7 +770,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div>
 <div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div></div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>18</b><span>voertuigen staan klaar</span></div><div><b>€ 9.975</b><span>de goedkoopste van dit moment</span></div><div><b>2024</b><span>mediaan bouwjaar</span></div><div><b>5</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Vlissingen.</p>
+  <ul class="sec-belofte-lijst"><li><b>18</b> voertuigen staan klaar</li><li>vanaf <b>€ 9.975</b></li><li>gemiddeld bouwjaar <b>2024</b></li></ul>
+</div></section>
 <section class="sec-flow">
   <div class="wrap">
     <div class="head rv"><h2>Zo gaat het</h2></div>

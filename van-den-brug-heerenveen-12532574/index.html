@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #26292e}
+section:nth-of-type(even){background:#1b1e23}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#9aa0a6;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#c8a97e;color:#0b0c0e;padding:9px 15px;border-radius:2px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#c8a97e;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#9aa0a6;font-size:15px}
 .sec-trust a{color:#f2f3f4}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #26292e;color:#9aa0a6;font-size:15.5px}
+.sec-vestiging strong{color:#f2f3f4;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #26292e;color:#9aa0a6;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:1.35em;color:#c8a97e;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#9aa0a6;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #26292e;border-radius:2px;background:#1b1e23;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:2px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#9aa0a6;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#141619;border:1px solid #26292e;border-radius:2px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#c8a97e66}
+.ug-shot{aspect-ratio:4/3;background:#1b1e23;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#9aa0a6;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#c8a97e;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #26292e;background:#141619}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -425,7 +465,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Van den Brug Heerenveen (prestige, mediaanprijs EUR 44345, 240 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet nachtshowroom, 'Archivo Expanded' als display op 'Archivo', hoeken 2px, accent #c8a97e.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > stock > process > about > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > uitgelicht > stock > process > about > promise > hours > contact.
 FORM: prestige-nachtshowroom-cinematic-mosaic-archivoexpanded-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -441,7 +481,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/22c301e2-a7f2-4c7e-9d03-0ffc1dd53d7f?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/22c301e2-a7f2-4c7e-9d03-0ffc1dd53d7f?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/22c301e2-a7f2-4c7e-9d03-0ffc1dd53d7f?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/22c301e2-a7f2-4c7e-9d03-0ffc1dd53d7f?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/22c301e2-a7f2-4c7e-9d03-0ffc1dd53d7f?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Audi Q7 S-line 55 TFSI e quattro | Matrix LED | Stoel &amp; Stuu" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Audi Q7 S-line 55 TFSI e quattro | Matrix LED | Stoel &amp; Stuu</span><span class="h-plate-p">€ 84.400</span></figcaption></figure>
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>Audi Q7 S-line 55 TFSI e quattro | Matrix LED · € 84.400</p><h1>Nu in de showroom <em>in Heerenveen</em></h1><p class="h-lede">Bij Van den Brug kun je terecht voor alles wat met jouw auto te maken heeft. Van aankoop tot onderhoud en de aanschaf van 100% originele onderdelen en accessoires. Als officieel merkdealer v</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-btn" href="tel:+31513202602">Bel 051-3202602</a></div><div class="h-facts"><span>4.3 uit 286 beoordelingen</span><span>17 jaar op Marktplaats</span><span>4 merken in huis</span><span>Kom langs in Heerenveen</span></div></div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.3</b><span>gemiddeld uit 286 beoordelingen</span></div><div><b>17</b><span>jaar op Marktplaats</span></div><div><b>Heerenveen</b><span><a href="https://maps.google.com/?q=Heerenveen" target="_blank" rel="noreferrer">Heerenveen</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.3</b><span>gemiddeld uit 286 beoordelingen</span></div><div><b>17</b><span>jaar op Marktplaats</span></div><div><b>4</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Heerenveen</strong> · <a href="https://maps.google.com/?q=Heerenveen" target="_blank" rel="noreferrer">Heerenveen</a></p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/audi-audi-q7-s-line-55-tfsi-e-quattro-matrix-led-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/22c301e2-a7f2-4c7e-9d03-0ffc1dd53d7f?rule=ecg_mp_eps$_86.jpg" alt="Audi Q7 S-line 55 TFSI e quattro" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Audi Q7 S-line 55 TFSI e quattro</h3>
+    <p class="ug-spec">2025 · 16.184 km</p>
+    <p class="ug-prijs">€ 84.400</p>
+  </div>
+</a><a class="ug-kaart" href="v/audi-audi-a8-s-line-60-tfsi-e-462-pk-quattro-vie-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/79b16ef5-f805-4a2b-af76-be0f93e58af0?rule=ecg_mp_eps$_86.jpg" alt="Audi A8 S-Line 60 TFSI e 462 PK QUATTRO" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Audi A8 S-Line 60 TFSI e 462 PK QUATTRO</h3>
+    <p class="ug-spec">2025 · 46.934 km</p>
+    <p class="ug-prijs">€ 73.900</p>
+  </div>
+</a><a class="ug-kaart" href="v/audi-audi-a5-avant-s-line-2-0-e-hybrid-299-pk-qu-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d363687a-d0bf-4f0f-8608-74d53bc260b2?rule=ecg_mp_eps$_86.jpg" alt="Audi A5 Avant S-Line 2.0 e-hybrid 299 PK QUATTRO" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Audi A5 Avant S-Line 2.0 e-hybrid 299 PK QUATTRO</h3>
+    <p class="ug-spec">2026 · 8.778 km</p>
+    <p class="ug-prijs">€ 59.900</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
@@ -497,7 +564,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="audi-audi-q7-s-line-55-tfsi-e-quattro-matrix-led-1" data-rang="0" data-merk="Audi" data-prijs="84400" data-jaar="2025" data-zoek="audi q7 s-line 55 tfsi e quattro | matrix led | stoel &amp; stuu audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-q7-s-line-55-tfsi-e-quattro-matrix-led-1/" aria-label="Audi Q7 S-line 55 TFSI e quattro | Matrix LED | Stoel &amp; Stuu"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/22c301e2-a7f2-4c7e-9d03-0ffc1dd53d7f?rule=ecg_mp_eps$_86.jpg" alt="Audi Q7 S-line 55 TFSI e quattro | Matrix LED | Stoel &amp; Stuu" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-q7-s-line-55-tfsi-e-quattro-matrix-led-1" aria-pressed="false" aria-label="Bewaar Audi Q7 S-line 55 TFSI e quattro | Matrix LED | Stoel &amp; Stuu"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-q7-s-line-55-tfsi-e-quattro-matrix-led-1/">Audi Q7 S-line 55 TFSI e quattro | Matrix LED | Stoel &amp; Stuu</a></h3>
+    <h3><a href="v/audi-audi-q7-s-line-55-tfsi-e-quattro-matrix-led-1/">Audi Q7 S-line 55 TFSI e quattro</a></h3>
     <p class="st-spec">2025 · 16.184 km</p>
     <div class="st-foot">
       <span class="st-price">€ 84.400</span>
@@ -507,7 +574,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-a8-s-line-60-tfsi-e-462-pk-quattro-vie-2" data-rang="1" data-merk="Audi" data-prijs="73900" data-jaar="2025" data-zoek="audi a8 s-line 60 tfsi e 462 pk quattro | vierwielbesturing audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a8-s-line-60-tfsi-e-462-pk-quattro-vie-2/" aria-label="Audi A8 S-Line 60 TFSI e 462 PK QUATTRO | Vierwielbesturing"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/79b16ef5-f805-4a2b-af76-be0f93e58af0?rule=ecg_mp_eps$_85.jpg" alt="Audi A8 S-Line 60 TFSI e 462 PK QUATTRO | Vierwielbesturing" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a8-s-line-60-tfsi-e-462-pk-quattro-vie-2" aria-pressed="false" aria-label="Bewaar Audi A8 S-Line 60 TFSI e 462 PK QUATTRO | Vierwielbesturing"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a8-s-line-60-tfsi-e-462-pk-quattro-vie-2/">Audi A8 S-Line 60 TFSI e 462 PK QUATTRO | Vierwielbesturing</a></h3>
+    <h3><a href="v/audi-audi-a8-s-line-60-tfsi-e-462-pk-quattro-vie-2/">Audi A8 S-Line 60 TFSI e 462 PK QUATTRO</a></h3>
     <p class="st-spec">2025 · 46.934 km</p>
     <div class="st-foot">
       <span class="st-price">€ 73.900</span>
@@ -517,7 +584,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="audi-audi-a5-avant-s-line-2-0-e-hybrid-299-pk-qu-3" data-rang="2" data-merk="Audi" data-prijs="59900" data-jaar="2026" data-zoek="audi a5 avant s-line 2.0 e-hybrid 299 pk quattro | led plus audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a5-avant-s-line-2-0-e-hybrid-299-pk-qu-3/" aria-label="Audi A5 Avant S-Line 2.0 e-hybrid 299 PK QUATTRO | LED Plus"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d363687a-d0bf-4f0f-8608-74d53bc260b2?rule=ecg_mp_eps$_86.jpg" alt="Audi A5 Avant S-Line 2.0 e-hybrid 299 PK QUATTRO | LED Plus" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a5-avant-s-line-2-0-e-hybrid-299-pk-qu-3" aria-pressed="false" aria-label="Bewaar Audi A5 Avant S-Line 2.0 e-hybrid 299 PK QUATTRO | LED Plus"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a5-avant-s-line-2-0-e-hybrid-299-pk-qu-3/">Audi A5 Avant S-Line 2.0 e-hybrid 299 PK QUATTRO | LED Plus</a></h3>
+    <h3><a href="v/audi-audi-a5-avant-s-line-2-0-e-hybrid-299-pk-qu-3/">Audi A5 Avant S-Line 2.0 e-hybrid 299 PK QUATTRO</a></h3>
     <p class="st-spec">2026 · 8.778 km</p>
     <div class="st-foot">
       <span class="st-price">€ 59.900</span>
@@ -527,7 +594,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volkswagen-volkswagen-tayron-r-line-edition-1-5--4" data-rang="3" data-merk="Volkswagen" data-prijs="58850" data-jaar="2026" data-zoek="volkswagen tayron r-line edition 1.5 ehybrid 272 pk | camera volkswagen">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-tayron-r-line-edition-1-5--4/" aria-label="Volkswagen Tayron R-Line Edition 1.5 eHybrid 272 PK | Camera"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/51cdfad0-f45d-4936-acc8-6ea4e47fbb59?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tayron R-Line Edition 1.5 eHybrid 272 PK | Camera" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-tayron-r-line-edition-1-5--4" aria-pressed="false" aria-label="Bewaar Volkswagen Tayron R-Line Edition 1.5 eHybrid 272 PK | Camera"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-tayron-r-line-edition-1-5--4/">Volkswagen Tayron R-Line Edition 1.5 eHybrid 272 PK | Camera</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-tayron-r-line-edition-1-5--4/">Volkswagen Tayron R-Line Edition 1.5 eHybrid 272 PK</a></h3>
     <p class="st-spec">2026 · 15 km</p>
     <div class="st-foot">
       <span class="st-price">€ 58.850</span>
@@ -537,7 +604,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-q6-e-tron-edition-83-kwh-s-line-252-pk-5" data-rang="4" data-merk="Audi" data-prijs="57900" data-jaar="2025" data-zoek="audi q6 e-tron edition 83 kwh s-line 252 pk | bijrijdersdisp audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-q6-e-tron-edition-83-kwh-s-line-252-pk-5/" aria-label="Audi Q6 e-tron edition 83 kWh S-Line 252 PK | Bijrijdersdisp"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f57dfe04-0661-4dd4-a223-ebedd30b1067?rule=ecg_mp_eps$_85.jpg" alt="Audi Q6 e-tron edition 83 kWh S-Line 252 PK | Bijrijdersdisp" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-q6-e-tron-edition-83-kwh-s-line-252-pk-5" aria-pressed="false" aria-label="Bewaar Audi Q6 e-tron edition 83 kWh S-Line 252 PK | Bijrijdersdisp"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-q6-e-tron-edition-83-kwh-s-line-252-pk-5/">Audi Q6 e-tron edition 83 kWh S-Line 252 PK | Bijrijdersdisp</a></h3>
+    <h3><a href="v/audi-audi-q6-e-tron-edition-83-kwh-s-line-252-pk-5/">Audi Q6 e-tron edition 83 kWh S-Line 252 PK</a></h3>
     <p class="st-spec">2025 · 11.430 km</p>
     <div class="st-foot">
       <span class="st-price">€ 57.900</span>
@@ -547,7 +614,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-a5-avant-s-edition-2-0-e-hybrid-299-pk-6" data-rang="5" data-merk="Audi" data-prijs="55900" data-jaar="2025" data-zoek="audi a5 avant s edition 2.0 e-hybrid 299 pk quattro | led pl audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a5-avant-s-edition-2-0-e-hybrid-299-pk-6/" aria-label="Audi A5 Avant S Edition 2.0 e-hybrid 299 PK quattro | LED Pl"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1377475b-3cb9-472f-971c-56f90f4c21a9?rule=ecg_mp_eps$_85.jpg" alt="Audi A5 Avant S Edition 2.0 e-hybrid 299 PK quattro | LED Pl" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a5-avant-s-edition-2-0-e-hybrid-299-pk-6" aria-pressed="false" aria-label="Bewaar Audi A5 Avant S Edition 2.0 e-hybrid 299 PK quattro | LED Pl"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a5-avant-s-edition-2-0-e-hybrid-299-pk-6/">Audi A5 Avant S Edition 2.0 e-hybrid 299 PK quattro | LED Pl</a></h3>
+    <h3><a href="v/audi-audi-a5-avant-s-edition-2-0-e-hybrid-299-pk-6/">Audi A5 Avant S Edition 2.0 e-hybrid 299 PK quattro</a></h3>
     <p class="st-spec">2025 · 8.101 km</p>
     <div class="st-foot">
       <span class="st-price">€ 55.900</span>
@@ -557,7 +624,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="skoda-skoda-kodiaq-sportline-business-1-5-tsi-ph-7" data-rang="6" data-merk="Skoda" data-prijs="54674" data-jaar="2026" data-kenmerk="Trekhaak" data-zoek="skoda kodiaq sportline business 1.5 tsi phev | trekhaak | pa skoda trekhaak">
   <div class="st-shot"><a class="st-link" href="v/skoda-skoda-kodiaq-sportline-business-1-5-tsi-ph-7/" aria-label="Skoda Kodiaq Sportline Business 1.5 TSI PHEV | Trekhaak | Pa"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ecf1d05a-f8ef-40e8-af44-80efd8a646ae?rule=ecg_mp_eps$_85.jpg" alt="Skoda Kodiaq Sportline Business 1.5 TSI PHEV | Trekhaak | Pa" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="skoda-skoda-kodiaq-sportline-business-1-5-tsi-ph-7" aria-pressed="false" aria-label="Bewaar Skoda Kodiaq Sportline Business 1.5 TSI PHEV | Trekhaak | Pa"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/skoda-skoda-kodiaq-sportline-business-1-5-tsi-ph-7/">Skoda Kodiaq Sportline Business 1.5 TSI PHEV | Trekhaak | Pa</a></h3>
+    <h3><a href="v/skoda-skoda-kodiaq-sportline-business-1-5-tsi-ph-7/">Skoda Kodiaq Sportline Business 1.5 TSI PHEV</a></h3>
     <p class="st-spec">2026 · 9 km</p>
     <div class="st-foot">
       <span class="st-price">€ 54.674</span>
@@ -567,7 +634,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="skoda-skoda-superb-combi-1-5-tsi-204pk-phev-spor-8" data-rang="7" data-merk="Skoda" data-prijs="49450" data-jaar="2025" data-zoek="skoda superb combi 1.5 tsi 204pk phev sportline business | t skoda">
   <div class="st-shot"><a class="st-link" href="v/skoda-skoda-superb-combi-1-5-tsi-204pk-phev-spor-8/" aria-label="Skoda Superb Combi 1.5 TSI 204pk PHEV Sportline Business | T"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/092a8935-4808-48a8-be86-9cb79a3014b4?rule=ecg_mp_eps$_86.jpg" alt="Skoda Superb Combi 1.5 TSI 204pk PHEV Sportline Business | T" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="skoda-skoda-superb-combi-1-5-tsi-204pk-phev-spor-8" aria-pressed="false" aria-label="Bewaar Skoda Superb Combi 1.5 TSI 204pk PHEV Sportline Business | T"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/skoda-skoda-superb-combi-1-5-tsi-204pk-phev-spor-8/">Skoda Superb Combi 1.5 TSI 204pk PHEV Sportline Business | T</a></h3>
+    <h3><a href="v/skoda-skoda-superb-combi-1-5-tsi-204pk-phev-spor-8/">Skoda Superb Combi 1.5 TSI 204pk PHEV Sportline Business</a></h3>
     <p class="st-spec">2025 · 10.234 km</p>
     <div class="st-foot">
       <span class="st-price">€ 49.450</span>
@@ -577,7 +644,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volkswagen-volkswagen-tiguan-r-line-1-5-ehybrid--9" data-rang="8" data-merk="Volkswagen" data-prijs="45900" data-jaar="2025" data-zoek="volkswagen tiguan r-line 1.5 ehybrid 272 pk | led plus | bla volkswagen">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-tiguan-r-line-1-5-ehybrid--9/" aria-label="Volkswagen Tiguan R-Line 1.5 eHybrid 272 PK | LED Plus | Bla"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/79fca188-b266-4a91-8c3a-7be319903d4f?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tiguan R-Line 1.5 eHybrid 272 PK | LED Plus | Bla" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-tiguan-r-line-1-5-ehybrid--9" aria-pressed="false" aria-label="Bewaar Volkswagen Tiguan R-Line 1.5 eHybrid 272 PK | LED Plus | Bla"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-tiguan-r-line-1-5-ehybrid--9/">Volkswagen Tiguan R-Line 1.5 eHybrid 272 PK | LED Plus | Bla</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-tiguan-r-line-1-5-ehybrid--9/">Volkswagen Tiguan R-Line 1.5 eHybrid 272 PK</a></h3>
     <p class="st-spec">2025 · 39.627 km</p>
     <div class="st-foot">
       <span class="st-price">€ 45.900</span>
@@ -587,7 +654,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volkswagen-volkswagen-t-roc-1-5-tsi-dsg-r-line-1-10" data-rang="9" data-merk="Volkswagen" data-prijs="42790" data-jaar="2025" data-kenmerk="Automaat" data-zoek="volkswagen t-roc 1.5 tsi dsg r-line 150pk automaat | matrix volkswagen automaat">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-t-roc-1-5-tsi-dsg-r-line-1-10/" aria-label="Volkswagen T-Roc 1.5 TSI DSG R-Line 150PK Automaat | Matrix"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/66d001f8-cf22-4415-a728-76261d5cb53d?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen T-Roc 1.5 TSI DSG R-Line 150PK Automaat | Matrix" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-t-roc-1-5-tsi-dsg-r-line-1-10" aria-pressed="false" aria-label="Bewaar Volkswagen T-Roc 1.5 TSI DSG R-Line 150PK Automaat | Matrix"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-t-roc-1-5-tsi-dsg-r-line-1-10/">Volkswagen T-Roc 1.5 TSI DSG R-Line 150PK Automaat | Matrix</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-t-roc-1-5-tsi-dsg-r-line-1-10/">Volkswagen T-Roc 1.5 TSI DSG R-Line 150PK Automaat</a></h3>
     <p class="st-spec">2025 · 3.332 km</p>
     <div class="st-foot">
       <span class="st-price">€ 42.790</span>
@@ -597,7 +664,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-a3-sportback-s-line-competion-1-5-e-hy-11" data-rang="10" data-merk="Audi" data-prijs="41900" data-jaar="2025" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="audi a3 sportback s-line competion 1.5 e-hybrid 272pk | lede audi hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a3-sportback-s-line-competion-1-5-e-hy-11/" aria-label="Audi A3 Sportback S-line Competion 1.5 e-hybrid 272pk | Lede"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f9ee0bf2-f471-416f-8c4e-494406a75bbc?rule=ecg_mp_eps$_85.jpg" alt="Audi A3 Sportback S-line Competion 1.5 e-hybrid 272pk | Lede" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a3-sportback-s-line-competion-1-5-e-hy-11" aria-pressed="false" aria-label="Bewaar Audi A3 Sportback S-line Competion 1.5 e-hybrid 272pk | Lede"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a3-sportback-s-line-competion-1-5-e-hy-11/">Audi A3 Sportback S-line Competion 1.5 e-hybrid 272pk | Lede</a></h3>
+    <h3><a href="v/audi-audi-a3-sportback-s-line-competion-1-5-e-hy-11/">Audi A3 Sportback S-line Competion 1.5 e-hybrid 272pk</a></h3>
     <p class="st-spec">2025 · 7.307 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 41.900</span>
@@ -607,7 +674,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="skoda-elroq-12" data-rang="11" data-merk="Skoda" data-prijs="39990" data-jaar="2026" data-brandstof="Elektrisch" data-zoek="skoda elroq tour edition | camera | stoelverwarming | adapti skoda elroq elektrisch">
   <div class="st-shot"><a class="st-link" href="v/skoda-elroq-12/" aria-label="Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dd19ca0c-b4a4-4756-9810-0da0daaa502a?rule=ecg_mp_eps$_85.jpg" alt="Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="skoda-elroq-12" aria-pressed="false" aria-label="Bewaar Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/skoda-elroq-12/">Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti</a></h3>
+    <h3><a href="v/skoda-elroq-12/">Skoda Elroq Tour Edition</a></h3>
     <p class="st-spec">2026 · 10 km · Elektrisch</p>
     <div class="st-foot">
       <span class="st-price">€ 39.990</span>
@@ -617,7 +684,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="cupra-cupra-born-business-61-kwh-190-pk-facelift-13" data-rang="12" data-merk="Cupra" data-prijs="36900" data-jaar="2026" data-zoek="cupra born business 61 kwh 190 pk | facelift model! | achter cupra">
   <div class="st-shot"><a class="st-link" href="v/cupra-cupra-born-business-61-kwh-190-pk-facelift-13/" aria-label="CUPRA Born Business 61 kWh 190 PK | Facelift model! | Achter"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f992253d-7cfb-4cda-9288-afea8bc77047?rule=ecg_mp_eps$_86.jpg" alt="CUPRA Born Business 61 kWh 190 PK | Facelift model! | Achter" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="cupra-cupra-born-business-61-kwh-190-pk-facelift-13" aria-pressed="false" aria-label="Bewaar CUPRA Born Business 61 kWh 190 PK | Facelift model! | Achter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/cupra-cupra-born-business-61-kwh-190-pk-facelift-13/">CUPRA Born Business 61 kWh 190 PK | Facelift model! | Achter</a></h3>
+    <h3><a href="v/cupra-cupra-born-business-61-kwh-190-pk-facelift-13/">CUPRA Born Business 61 kWh 190 PK</a></h3>
     <p class="st-spec">2026 · 3.889 km</p>
     <div class="st-foot">
       <span class="st-price">€ 36.900</span>
@@ -627,7 +694,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="skoda-elroq-14" data-rang="13" data-merk="Skoda" data-prijs="35490" data-jaar="0" data-brandstof="Elektrisch" data-zoek="skoda elroq tour edition | camera | stoelverwarming | adapti skoda elroq elektrisch">
   <div class="st-shot"><a class="st-link" href="v/skoda-elroq-14/" aria-label="Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8796a1a5-5ee1-48ed-807e-07098039927d?rule=ecg_mp_eps$_85.jpg" alt="Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="skoda-elroq-14" aria-pressed="false" aria-label="Bewaar Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/skoda-elroq-14/">Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti</a></h3>
+    <h3><a href="v/skoda-elroq-14/">Skoda Elroq Tour Edition</a></h3>
     <p class="st-spec">11 km · Elektrisch</p>
     <div class="st-foot">
       <span class="st-price">€ 35.490</span>
@@ -637,7 +704,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="skoda-skoda-elroq-tour-edition-camera-stoelverwa-15" data-rang="14" data-merk="Skoda" data-prijs="35490" data-jaar="2026" data-zoek="skoda elroq tour edition | camera | stoelverwarming | adapti skoda">
   <div class="st-shot"><a class="st-link" href="v/skoda-skoda-elroq-tour-edition-camera-stoelverwa-15/" aria-label="Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e15a9944-381a-44e8-80cb-eb38a9013778?rule=ecg_mp_eps$_85.jpg" alt="Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="skoda-skoda-elroq-tour-edition-camera-stoelverwa-15" aria-pressed="false" aria-label="Bewaar Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/skoda-skoda-elroq-tour-edition-camera-stoelverwa-15/">Skoda Elroq Tour Edition | Camera | Stoelverwarming | Adapti</a></h3>
+    <h3><a href="v/skoda-skoda-elroq-tour-edition-camera-stoelverwa-15/">Skoda Elroq Tour Edition</a></h3>
     <p class="st-spec">2026 · 6 km</p>
     <div class="st-foot">
       <span class="st-price">€ 35.490</span>
@@ -647,7 +714,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volkswagen-id-3-16" data-rang="15" data-merk="Volkswagen" data-prijs="34750" data-jaar="2026" data-zoek="volkswagen id.3 pro limited edition 58 kwh accu / 204 pk | 3 volkswagen id.3">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-id-3-16/" aria-label="Volkswagen ID.3 Pro Limited Edition 58 kWh accu / 204 PK | 3"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f75be124-0570-4138-b332-4b1760afe7bb?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen ID.3 Pro Limited Edition 58 kWh accu / 204 PK | 3" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-id-3-16" aria-pressed="false" aria-label="Bewaar Volkswagen ID.3 Pro Limited Edition 58 kWh accu / 204 PK | 3"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-id-3-16/">Volkswagen ID.3 Pro Limited Edition 58 kWh accu / 204 PK | 3</a></h3>
+    <h3><a href="v/volkswagen-id-3-16/">Volkswagen ID.3 Pro Limited Edition 58 kWh accu / 204 PK</a></h3>
     <p class="st-spec">2026 · 15 km</p>
     <div class="st-foot">
       <span class="st-price">€ 34.750</span>
@@ -657,7 +724,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volkswagen-id-3-17" data-rang="16" data-merk="Volkswagen" data-prijs="33900" data-jaar="2024" data-zoek="volkswagen id.3 pro s business 77 kwh 231pk | soh 99% | iq m volkswagen id.3">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-id-3-17/" aria-label="Volkswagen ID.3 Pro S Business 77 kWh 231pk | SoH 99% | IQ M"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b51cec1d-23a1-4e69-a316-3acb49e19b71?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen ID.3 Pro S Business 77 kWh 231pk | SoH 99% | IQ M" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-id-3-17" aria-pressed="false" aria-label="Bewaar Volkswagen ID.3 Pro S Business 77 kWh 231pk | SoH 99% | IQ M"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-id-3-17/">Volkswagen ID.3 Pro S Business 77 kWh 231pk | SoH 99% | IQ M</a></h3>
+    <h3><a href="v/volkswagen-id-3-17/">Volkswagen ID.3 Pro S Business 77 kWh 231pk</a></h3>
     <p class="st-spec">2024 · 32.223 km</p>
     <div class="st-foot">
       <span class="st-price">€ 33.900</span>
@@ -667,7 +734,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="volkswagen-volkswagen-golf-1-5-ehybrid-style-edi-18" data-rang="17" data-merk="Volkswagen" data-prijs="30800" data-jaar="2025" data-zoek="volkswagen golf 1.5 ehybrid style edition 204pk | ergo-stoel volkswagen">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-golf-1-5-ehybrid-style-edi-18/" aria-label="Volkswagen Golf 1.5 eHybrid Style Edition 204pk | Ergo-stoel"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/40689c98-4a2c-4376-9606-3883acc71abe?rule=ecg_mp_eps$_86.jpg" alt="Volkswagen Golf 1.5 eHybrid Style Edition 204pk | Ergo-stoel" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-golf-1-5-ehybrid-style-edi-18" aria-pressed="false" aria-label="Bewaar Volkswagen Golf 1.5 eHybrid Style Edition 204pk | Ergo-stoel"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-golf-1-5-ehybrid-style-edi-18/">Volkswagen Golf 1.5 eHybrid Style Edition 204pk | Ergo-stoel</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-golf-1-5-ehybrid-style-edi-18/">Volkswagen Golf 1.5 eHybrid Style Edition 204pk</a></h3>
     <p class="st-spec">2025 · 18.736 km</p>
     <div class="st-foot">
       <span class="st-price">€ 30.800</span>
@@ -698,7 +765,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/93/93e1eaed-4a40-4bab-a1ed-038075e80061?rule=ecg_mp_eps$_85.jpg" alt="Van den Brug Heerenveen" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>240</b><span>voertuigen staan klaar</span></div><div><b>€ 30.800</b><span>de goedkoopste van dit moment</span></div><div><b>2025</b><span>mediaan bouwjaar</span></div><div><b>17</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Heerenveen.</p>
+  <ul class="sec-belofte-lijst"><li><b>240</b> voertuigen staan klaar</li><li>vanaf <b>€ 30.800</b></li><li>gemiddeld bouwjaar <b>2025</b></li></ul>
+</div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

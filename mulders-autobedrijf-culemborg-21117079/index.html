@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e4e4df}
+section:nth-of-type(even){background:#eef1ee}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#5f646c;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#1f5f4f;color:#ffffff;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#1f5f4f;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#5f646c;font-size:15px}
 .sec-trust a{color:#16181c}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e4e4df;color:#5f646c;font-size:15.5px}
+.sec-vestiging strong{color:#16181c;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e4e4df;color:#5f646c;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:1.35em;color:#1f5f4f;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#5f646c;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e4e4df;border-radius:14px;background:#eef1ee;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:14px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#5f646c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e4e4df;border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#1f5f4f66}
+.ug-shot{aspect-ratio:4/3;background:#eef1ee;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#5f646c;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#1f5f4f;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e4e4df;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -432,7 +472,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Mulders Autobedrijf Culemborg (familie, mediaanprijs EUR 22191, 105 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet daglicht, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #1f5f4f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties about > stock > process > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties about > uitgelicht > stock > process > hours > contact.
 FORM: familie-daglicht-split-mosaic-gabarito-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -457,6 +497,33 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <p>Welkom bij Mulders Autobedrijf Culemborg. Ons bedrijf staat al meer dan 90 jaar voor kwaliteit en vertrouwen. Wij zijn officieel dealer van Citroën, Opel &amp; Peugeot, daarnaast EuroRepar Service voor het onderhoud van alle merken.</p>
     </div>
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/71/71951ea5-377e-430b-94e6-a66c6517b562?rule=ecg_mp_eps$_85.jpg" alt="Mulders Autobedrijf Culemborg" loading="lazy"></div>
+  </div>
+</section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/leapmotor-leapmotor-c10-design-promax-awd-600pk--1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ebb2b1fc-5ff4-49d9-8518-a86a53a6d0d4?rule=ecg_mp_eps$_86.jpg" alt="Leapmotor C10 Design ProMax AWD 600pk 81.9 kWh VOORRAAD KORT" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Leapmotor C10 Design ProMax AWD 600pk 81.9 kWh VOORRAAD KORT</h3>
+    <p class="ug-spec">2026 · 1 km</p>
+    <p class="ug-prijs">€ 42.855</p>
+  </div>
+</a><a class="ug-kaart" href="v/peugeot-peugeot-5008-1-2-hybrid-145-gt-7p-automa-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f5c8cc8a-0f1f-4076-98bd-d497bc574107?rule=ecg_mp_eps$_86.jpg" alt="Peugeot 5008 1.2 Hybrid 145 GT 7p Automaat" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Peugeot 5008 1.2 Hybrid 145 GT 7p Automaat</h3>
+    <p class="ug-spec">2026 · 11.621 km</p>
+    <p class="ug-prijs">€ 39.945</p>
+  </div>
+</a><a class="ug-kaart" href="v/citroen-citroen-c3-aircross-1-2-hybrid-145pk-col-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9d0bcbe4-90ef-42f2-8b3c-de45f2339bc0?rule=ecg_mp_eps$_86.jpg" alt="Citroen C3 Aircross 1.2 Hybrid 145pk Collection VOORRAAD KOR" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Citroen C3 Aircross 1.2 Hybrid 145pk Collection VOORRAAD KOR</h3>
+    <p class="ug-spec">2026 · 1 km</p>
+    <p class="ug-prijs">€ 30.959</p>
+  </div>
+</a></div>
   </div>
 </section>
 <section id="voorraad">
@@ -534,7 +601,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-5008-1-2-hybrid-145-gt-7p-automa-2" data-rang="1" data-merk="Peugeot" data-prijs="39945" data-jaar="2026" data-brandstof="Hybride Elektrisch/Benzine" data-kenmerk="Automaat" data-zoek="peugeot 5008 1.2 hybrid 145 gt 7p automaat | camera/stoel&amp;st peugeot hybride elektrisch/benzine automaat">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-5008-1-2-hybrid-145-gt-7p-automa-2/" aria-label="Peugeot 5008 1.2 Hybrid 145 GT 7p Automaat | Camera/Stoel&amp;St"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f5c8cc8a-0f1f-4076-98bd-d497bc574107?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 5008 1.2 Hybrid 145 GT 7p Automaat | Camera/Stoel&amp;St" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-5008-1-2-hybrid-145-gt-7p-automa-2" aria-pressed="false" aria-label="Bewaar Peugeot 5008 1.2 Hybrid 145 GT 7p Automaat | Camera/Stoel&amp;St"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-5008-1-2-hybrid-145-gt-7p-automa-2/">Peugeot 5008 1.2 Hybrid 145 GT 7p Automaat | Camera/Stoel&amp;St</a></h3>
+    <h3><a href="v/peugeot-peugeot-5008-1-2-hybrid-145-gt-7p-automa-2/">Peugeot 5008 1.2 Hybrid 145 GT 7p Automaat</a></h3>
     <p class="st-spec">2026 · 11.621 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 39.945</span>
@@ -574,7 +641,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="opel-opel-mokka-1-2-turbo-hybrid-gs-automaat-cam-6" data-rang="5" data-merk="Opel" data-prijs="26945" data-jaar="2025" data-brandstof="Hybride Elektrisch/Benzine" data-kenmerk="Airco|Automaat" data-zoek="opel mokka 1.2 turbo hybrid gs automaat | camera/climate/car opel hybride elektrisch/benzine airco automaat">
   <div class="st-shot"><a class="st-link" href="v/opel-opel-mokka-1-2-turbo-hybrid-gs-automaat-cam-6/" aria-label="Opel Mokka 1.2 Turbo Hybrid GS Automaat | Camera/Climate/Car"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f77df272-bacf-4fa3-957f-a491bb0acd25?rule=ecg_mp_eps$_85.jpg" alt="Opel Mokka 1.2 Turbo Hybrid GS Automaat | Camera/Climate/Car" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="opel-opel-mokka-1-2-turbo-hybrid-gs-automaat-cam-6" aria-pressed="false" aria-label="Bewaar Opel Mokka 1.2 Turbo Hybrid GS Automaat | Camera/Climate/Car"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/opel-opel-mokka-1-2-turbo-hybrid-gs-automaat-cam-6/">Opel Mokka 1.2 Turbo Hybrid GS Automaat | Camera/Climate/Car</a></h3>
+    <h3><a href="v/opel-opel-mokka-1-2-turbo-hybrid-gs-automaat-cam-6/">Opel Mokka 1.2 Turbo Hybrid GS Automaat</a></h3>
     <p class="st-spec">2025 · 28.252 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 26.945</span>
@@ -584,7 +651,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-e-308-gt-ev-54-kwh-panoramadak-a-7" data-rang="6" data-merk="Peugeot" data-prijs="26937" data-jaar="2024" data-zoek="peugeot e-308 gt ev 54 kwh | panoramadak/alcantara agr inter peugeot">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-e-308-gt-ev-54-kwh-panoramadak-a-7/" aria-label="Peugeot e-308 GT EV 54 kWh | Panoramadak/Alcantara AGR Inter"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8e242c11-3e57-4502-88b2-a31332ce882c?rule=ecg_mp_eps$_85.jpg" alt="Peugeot e-308 GT EV 54 kWh | Panoramadak/Alcantara AGR Inter" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-e-308-gt-ev-54-kwh-panoramadak-a-7" aria-pressed="false" aria-label="Bewaar Peugeot e-308 GT EV 54 kWh | Panoramadak/Alcantara AGR Inter"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-e-308-gt-ev-54-kwh-panoramadak-a-7/">Peugeot e-308 GT EV 54 kWh | Panoramadak/Alcantara AGR Inter</a></h3>
+    <h3><a href="v/peugeot-peugeot-e-308-gt-ev-54-kwh-panoramadak-a-7/">Peugeot e-308 GT EV 54 kWh</a></h3>
     <p class="st-spec">2024 · 49.302 km</p>
     <div class="st-foot">
       <span class="st-price">€ 26.937</span>
@@ -594,7 +661,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="peugeot-408-8" data-rang="7" data-merk="Peugeot" data-prijs="24345" data-jaar="2023" data-brandstof="Benzine" data-kenmerk="Navigatie|Automaat" data-zoek="peugeot 408 1.2t allure pack 130 eat8 automaat | camera/navi peugeot 408 benzine navigatie automaat">
   <div class="st-shot"><a class="st-link" href="v/peugeot-408-8/" aria-label="Peugeot 408 1.2T Allure Pack 130 EAT8 Automaat | Camera/Navi"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ecdffd5-8d8d-4a0c-b03c-bda988ba1b5a?rule=ecg_mp_eps$_86.jpg" alt="Peugeot 408 1.2T Allure Pack 130 EAT8 Automaat | Camera/Navi" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-408-8" aria-pressed="false" aria-label="Bewaar Peugeot 408 1.2T Allure Pack 130 EAT8 Automaat | Camera/Navi"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-408-8/">Peugeot 408 1.2T Allure Pack 130 EAT8 Automaat | Camera/Navi</a></h3>
+    <h3><a href="v/peugeot-408-8/">Peugeot 408 1.2T Allure Pack 130 EAT8 Automaat</a></h3>
     <p class="st-spec">2023 · 35.857 km · Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 24.345</span>
@@ -614,7 +681,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-308-1-2-pt-130-gt-automaat-360-c-10" data-rang="9" data-merk="Peugeot" data-prijs="20445" data-jaar="2022" data-kenmerk="Navigatie|Automaat" data-zoek="peugeot 308 1.2 pt 130 gt | automaat | 360 camera / navi / peugeot navigatie automaat">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-308-1-2-pt-130-gt-automaat-360-c-10/" aria-label="Peugeot 308 1.2 PT 130 GT | Automaat | 360 Camera / Navi /"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/105237a9-0701-4368-b36c-a8b7ce5beefa?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 308 1.2 PT 130 GT | Automaat | 360 Camera / Navi /" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-308-1-2-pt-130-gt-automaat-360-c-10" aria-pressed="false" aria-label="Bewaar Peugeot 308 1.2 PT 130 GT | Automaat | 360 Camera / Navi /"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-308-1-2-pt-130-gt-automaat-360-c-10/">Peugeot 308 1.2 PT 130 GT | Automaat | 360 Camera / Navi /</a></h3>
+    <h3><a href="v/peugeot-peugeot-308-1-2-pt-130-gt-automaat-360-c-10/">Peugeot 308 1.2 PT 130 GT</a></h3>
     <p class="st-spec">2022 · 62.258 km</p>
     <div class="st-foot">
       <span class="st-price">€ 20.445</span>
@@ -654,7 +721,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-2008-1-2t-allure-camera-navi-cli-14" data-rang="13" data-merk="Peugeot" data-prijs="17945" data-jaar="2022" data-kenmerk="Airco|Navigatie" data-zoek="peugeot 2008 1.2t allure | camera/navi/climate peugeot airco navigatie">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-2008-1-2t-allure-camera-navi-cli-14/" aria-label="Peugeot 2008 1.2T Allure | Camera/Navi/Climate"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a9a0c119-1924-4e31-989c-1542c04bfe5a?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 2008 1.2T Allure | Camera/Navi/Climate" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-2008-1-2t-allure-camera-navi-cli-14" aria-pressed="false" aria-label="Bewaar Peugeot 2008 1.2T Allure | Camera/Navi/Climate"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-2008-1-2t-allure-camera-navi-cli-14/">Peugeot 2008 1.2T Allure | Camera/Navi/Climate</a></h3>
+    <h3><a href="v/peugeot-peugeot-2008-1-2t-allure-camera-navi-cli-14/">Peugeot 2008 1.2T Allure</a></h3>
     <p class="st-spec">2022 · 63.108 km</p>
     <div class="st-foot">
       <span class="st-price">€ 17.945</span>
@@ -674,7 +741,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="opel-opel-mokka-1-2-turbo-ultimate-trekhaak-came-16" data-rang="15" data-merk="Opel" data-prijs="16945" data-jaar="2021" data-kenmerk="Trekhaak" data-zoek="opel mokka 1.2 turbo ultimate | trekhaak/camera/leder opel trekhaak">
   <div class="st-shot"><a class="st-link" href="v/opel-opel-mokka-1-2-turbo-ultimate-trekhaak-came-16/" aria-label="Opel Mokka 1.2 Turbo Ultimate | Trekhaak/Camera/Leder"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2961f0b2-b88b-47c1-b682-fc1d684d5ca9?rule=ecg_mp_eps$_85.jpg" alt="Opel Mokka 1.2 Turbo Ultimate | Trekhaak/Camera/Leder" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="opel-opel-mokka-1-2-turbo-ultimate-trekhaak-came-16" aria-pressed="false" aria-label="Bewaar Opel Mokka 1.2 Turbo Ultimate | Trekhaak/Camera/Leder"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/opel-opel-mokka-1-2-turbo-ultimate-trekhaak-came-16/">Opel Mokka 1.2 Turbo Ultimate | Trekhaak/Camera/Leder</a></h3>
+    <h3><a href="v/opel-opel-mokka-1-2-turbo-ultimate-trekhaak-came-16/">Opel Mokka 1.2 Turbo Ultimate</a></h3>
     <p class="st-spec">2021 · 87.616 km</p>
     <div class="st-foot">
       <span class="st-price">€ 16.945</span>
@@ -684,7 +751,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-2008-1-2t-blue-lease-allure-auto-17" data-rang="16" data-merk="Peugeot" data-prijs="16945" data-jaar="2020" data-kenmerk="Automaat" data-zoek="peugeot 2008 1.2t blue lease allure automaat | panoramadak/c peugeot automaat">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-2008-1-2t-blue-lease-allure-auto-17/" aria-label="Peugeot 2008 1.2T Blue Lease Allure Automaat | Panoramadak/C"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7cb36e4f-7d0b-4dd4-813e-33af733a9e6b?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 2008 1.2T Blue Lease Allure Automaat | Panoramadak/C" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-2008-1-2t-blue-lease-allure-auto-17" aria-pressed="false" aria-label="Bewaar Peugeot 2008 1.2T Blue Lease Allure Automaat | Panoramadak/C"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-2008-1-2t-blue-lease-allure-auto-17/">Peugeot 2008 1.2T Blue Lease Allure Automaat | Panoramadak/C</a></h3>
+    <h3><a href="v/peugeot-peugeot-2008-1-2t-blue-lease-allure-auto-17/">Peugeot 2008 1.2T Blue Lease Allure Automaat</a></h3>
     <p class="st-spec">2020 · 84.941 km</p>
     <div class="st-foot">
       <span class="st-price">€ 16.945</span>

@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e2e5ea}
+section:nth-of-type(even){background:#eaeef7}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#5c626c;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#22439b;color:#ffffff;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.035em;color:#22439b;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#5c626c;font-size:15px}
 .sec-trust a{color:#14171d}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e2e5ea;color:#5c626c;font-size:15.5px}
+.sec-vestiging strong{color:#14171d;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;letter-spacing:-0.035em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e2e5ea;color:#5c626c;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:1.35em;color:#22439b;letter-spacing:-0.035em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#5c626c;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e2e5ea;border-radius:14px;background:#eaeef7;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:14px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#5c626c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e2e5ea;border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#22439b66}
+.ug-shot{aspect-ratio:4/3;background:#eaeef7;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#5c626c;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.035em;color:#22439b;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e2e5ea;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -432,7 +472,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van autobedrijf De Riet (familie, mediaanprijs EUR 13245, 20 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet kobalt, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #22439b.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "mosaic", secties trust > stock > about > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "mosaic", secties trust > uitgelicht > stock > about > promise > process > hours > contact.
 FORM: familie-kobalt-stack-mosaic-schibstedgrotesk-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -448,7 +488,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>20 occasions op voorraad · Den Ham</p><div class="h-facts"><span>5.0 uit 115 beoordelingen</span><span>21 jaar op Marktplaats</span><span>12 merken in huis</span><span>Kom langs in Den Ham</span></div><h1>Uw volgende auto staat klaar <em>in Den Ham</em></h1><p class="h-lede">Bent u op zoek naar een nieuwe auto? Dan bent u bij Autobedrijf De Riet aan het juiste adres. Met vele jaren ervaring in de Automotive branche, zijn wij gespecialiseerd in het in en ver</p><div class="h-cta"><a class="h-btn is-primary" href="https://wa.me/31628461073?text=Hallo%20autobedrijf%20De%20Riet%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a><a class="h-btn" href="tel:+31628461073">Bel 06-2846 1073</a></div></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="BMW 3-serie Touring 330i High Executive Edition /19'' / PANO" fetchpriority="high"></figure>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>5.0</b><span>gemiddeld uit 115 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>Den Ham</b><span><a href="https://maps.google.com/?q=Nijlaar%2012%2C%207683NC%20Den%20Ham" target="_blank" rel="noreferrer">Nijlaar 12, 7683NC Den Ham</a></span></div><div><b>KvK</b><span>89046846</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>5.0</b><span>gemiddeld uit 115 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>12</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Den Ham</strong> · <a href="https://maps.google.com/?q=Nijlaar%2012%2C%207683NC%20Den%20Ham" target="_blank" rel="noreferrer">Nijlaar 12, 7683NC Den Ham</a> · KvK 89046846</p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/bmw-bmw-3-serie-touring-330i-high-executive-edit-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ed05423-6389-4191-9f43-7f11d26885d4?rule=ecg_mp_eps$_86.jpg" alt="BMW 3-serie Touring 330i High Executive Edition /19'' / PANO" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW 3-serie Touring 330i High Executive Edition /19'' / PANO</h3>
+    <p class="ug-spec">2020 · 165.307 km</p>
+    <p class="ug-prijs">€ 25.995</p>
+  </div>
+</a><a class="ug-kaart" href="v/hyundai-hyundai-i30-fastback-2-0-t-gdi-280pk-19--2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c4fb0421-5c07-40b0-a5d2-b60f23048beb?rule=ecg_mp_eps$_86.jpg" alt="Hyundai I30 Fastback 2.0 T-GDI 280PK /19''/PANO/CAMERA/PDC V" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Hyundai I30 Fastback 2.0 T-GDI 280PK /19''/PANO/CAMERA/PDC V</h3>
+    <p class="ug-spec">2019 · 59.303 km</p>
+    <p class="ug-prijs">€ 23.949</p>
+  </div>
+</a><a class="ug-kaart" href="v/volkswagen-volkswagen-polo-2-0-tsi-gti-dsg-pano--3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9fd9ad92-d8eb-40d5-b2aa-6cfbd5cdde4f?rule=ecg_mp_eps$_86.jpg" alt="Volkswagen Polo 2.0 TSI GTI DSG" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Volkswagen Polo 2.0 TSI GTI DSG</h3>
+    <p class="ug-spec">2020 · 107.896 km</p>
+    <p class="ug-prijs">€ 21.995</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>Onze voorraad</h2>
@@ -524,7 +591,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="volkswagen-volkswagen-polo-2-0-tsi-gti-dsg-pano--3" data-rang="2" data-merk="Volkswagen" data-prijs="21995" data-jaar="2020" data-zoek="volkswagen polo 2.0 tsi gti dsg|pano|camera|beats|maxton|vir volkswagen">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-polo-2-0-tsi-gti-dsg-pano--3/" aria-label="Volkswagen Polo 2.0 TSI GTI DSG|PANO|CAMERA|BEATS|MAXTON|VIR"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9fd9ad92-d8eb-40d5-b2aa-6cfbd5cdde4f?rule=ecg_mp_eps$_86.jpg" alt="Volkswagen Polo 2.0 TSI GTI DSG|PANO|CAMERA|BEATS|MAXTON|VIR" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-polo-2-0-tsi-gti-dsg-pano--3" aria-pressed="false" aria-label="Bewaar Volkswagen Polo 2.0 TSI GTI DSG|PANO|CAMERA|BEATS|MAXTON|VIR"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-polo-2-0-tsi-gti-dsg-pano--3/">Volkswagen Polo 2.0 TSI GTI DSG|PANO|CAMERA|BEATS|MAXTON|VIR</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-polo-2-0-tsi-gti-dsg-pano--3/">Volkswagen Polo 2.0 TSI GTI DSG</a></h3>
     <p class="st-spec">2020 · 107.896 km</p>
     <div class="st-foot">
       <span class="st-price">€ 21.995</span>
@@ -534,7 +601,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="suzuki-suzuki-swift-1-4-sport-maxton-18-lm-cruis-4" data-rang="3" data-merk="Suzuki" data-prijs="21895" data-jaar="2023" data-kenmerk="Navigatie" data-zoek="suzuki swift 1.4 sport|maxton|18''lm|cruise|acc|navi|led|car suzuki navigatie">
   <div class="st-shot"><a class="st-link" href="v/suzuki-suzuki-swift-1-4-sport-maxton-18-lm-cruis-4/" aria-label="Suzuki SWIFT 1.4 SPORT|MAXTON|18''LM|CRUISE|ACC|NAVI|LED|CAR"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/708e430f-2361-4873-8340-20fdcfc1fbbc?rule=ecg_mp_eps$_85.jpg" alt="Suzuki SWIFT 1.4 SPORT|MAXTON|18''LM|CRUISE|ACC|NAVI|LED|CAR" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="suzuki-suzuki-swift-1-4-sport-maxton-18-lm-cruis-4" aria-pressed="false" aria-label="Bewaar Suzuki SWIFT 1.4 SPORT|MAXTON|18''LM|CRUISE|ACC|NAVI|LED|CAR"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/suzuki-suzuki-swift-1-4-sport-maxton-18-lm-cruis-4/">Suzuki SWIFT 1.4 SPORT|MAXTON|18''LM|CRUISE|ACC|NAVI|LED|CAR</a></h3>
+    <h3><a href="v/suzuki-suzuki-swift-1-4-sport-maxton-18-lm-cruis-4/">Suzuki SWIFT 1.4 SPORT</a></h3>
     <p class="st-spec">2023 · 53.085 km</p>
     <div class="st-foot">
       <span class="st-price">€ 21.895</span>
@@ -544,7 +611,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="hyundai-hyundai-tucson-1-6-gdi-19-lm-velgen-came-5" data-rang="4" data-merk="Hyundai" data-prijs="20495" data-jaar="2020" data-kenmerk="Airco" data-zoek="hyundai tucson 1.6 gdi|19&quot;lm velgen|camera|airco|cruise|stoe hyundai airco">
   <div class="st-shot"><a class="st-link" href="v/hyundai-hyundai-tucson-1-6-gdi-19-lm-velgen-came-5/" aria-label="Hyundai Tucson 1.6 GDI|19&quot;LM VELGEN|CAMERA|AIRCO|CRUISE|STOE"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/28bd5f5a-bc86-4508-923e-2de0c259d278?rule=ecg_mp_eps$_85.jpg" alt="Hyundai Tucson 1.6 GDI|19&quot;LM VELGEN|CAMERA|AIRCO|CRUISE|STOE" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="hyundai-hyundai-tucson-1-6-gdi-19-lm-velgen-came-5" aria-pressed="false" aria-label="Bewaar Hyundai Tucson 1.6 GDI|19&quot;LM VELGEN|CAMERA|AIRCO|CRUISE|STOE"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/hyundai-hyundai-tucson-1-6-gdi-19-lm-velgen-came-5/">Hyundai Tucson 1.6 GDI|19&quot;LM VELGEN|CAMERA|AIRCO|CRUISE|STOE</a></h3>
+    <h3><a href="v/hyundai-hyundai-tucson-1-6-gdi-19-lm-velgen-came-5/">Hyundai Tucson 1.6 GDI</a></h3>
     <p class="st-spec">2020 · 43.763 km</p>
     <div class="st-foot">
       <span class="st-price">€ 20.495</span>
@@ -564,7 +631,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-megane-estate-1-6-tce-gt-4-contr-7" data-rang="6" data-merk="Renault" data-prijs="15995" data-jaar="2018" data-kenmerk="Navigatie" data-zoek="renault mégane estate 1.6 tce gt 4-control|headup|navi|came renault navigatie">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-megane-estate-1-6-tce-gt-4-contr-7/" aria-label="Renault Mégane Estate 1.6 TCe GT 4-CONTROL|HEADUP|NAVI|CAME"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a6a1012c-ce51-4d42-ae34-5cd82b2aa7fc?rule=ecg_mp_eps$_85.jpg" alt="Renault Mégane Estate 1.6 TCe GT 4-CONTROL|HEADUP|NAVI|CAME" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-megane-estate-1-6-tce-gt-4-contr-7" aria-pressed="false" aria-label="Bewaar Renault Mégane Estate 1.6 TCe GT 4-CONTROL|HEADUP|NAVI|CAME"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-megane-estate-1-6-tce-gt-4-contr-7/">Renault Mégane Estate 1.6 TCe GT 4-CONTROL|HEADUP|NAVI|CAME</a></h3>
+    <h3><a href="v/renault-renault-megane-estate-1-6-tce-gt-4-contr-7/">Renault Mégane Estate 1.6 TCe GT 4-CONTROL</a></h3>
     <p class="st-spec">2018 · 98.362 km</p>
     <div class="st-foot">
       <span class="st-price">€ 15.995</span>
@@ -574,7 +641,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="seat-seat-ibiza-1-5-tsi-150pk-fr-18-lm-alcantara-8" data-rang="7" data-merk="SEAT" data-prijs="13895" data-jaar="2018" data-kenmerk="Navigatie" data-zoek="seat ibiza 1.5 tsi 150pk|fr|18''lm|alcantara|navi|led|pdc v+ seat navigatie">
   <div class="st-shot"><a class="st-link" href="v/seat-seat-ibiza-1-5-tsi-150pk-fr-18-lm-alcantara-8/" aria-label="SEAT Ibiza 1.5 TSI 150PK|FR|18''LM|ALCANTARA|NAVI|LED|PDC V+"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/523a71b1-8fe8-4d88-a2b3-5e05bb479805?rule=ecg_mp_eps$_86.jpg" alt="SEAT Ibiza 1.5 TSI 150PK|FR|18''LM|ALCANTARA|NAVI|LED|PDC V+" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="seat-seat-ibiza-1-5-tsi-150pk-fr-18-lm-alcantara-8" aria-pressed="false" aria-label="Bewaar SEAT Ibiza 1.5 TSI 150PK|FR|18''LM|ALCANTARA|NAVI|LED|PDC V+"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/seat-seat-ibiza-1-5-tsi-150pk-fr-18-lm-alcantara-8/">SEAT Ibiza 1.5 TSI 150PK|FR|18''LM|ALCANTARA|NAVI|LED|PDC V+</a></h3>
+    <h3><a href="v/seat-seat-ibiza-1-5-tsi-150pk-fr-18-lm-alcantara-8/">SEAT Ibiza 1.5 TSI 150PK</a></h3>
     <p class="st-spec">2018 · 142.669 km</p>
     <div class="st-foot">
       <span class="st-price">€ 13.895</span>
@@ -584,7 +651,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="seat-seat-arona-1-0-tsi-beats-led-cruise-camera--9" data-rang="8" data-merk="SEAT" data-prijs="13495" data-jaar="2019" data-zoek="seat arona 1.0 tsi|beats|led|cruise|camera|alcantara|apple c seat">
   <div class="st-shot"><a class="st-link" href="v/seat-seat-arona-1-0-tsi-beats-led-cruise-camera--9/" aria-label="Seat ARONA 1.0 TSI|BEATS|LED|CRUISE|CAMERA|ALCANTARA|APPLE C"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f1e08832-8bc2-4b6b-9007-83a04dd1d2fb?rule=ecg_mp_eps$_85.jpg" alt="Seat ARONA 1.0 TSI|BEATS|LED|CRUISE|CAMERA|ALCANTARA|APPLE C" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="seat-seat-arona-1-0-tsi-beats-led-cruise-camera--9" aria-pressed="false" aria-label="Bewaar Seat ARONA 1.0 TSI|BEATS|LED|CRUISE|CAMERA|ALCANTARA|APPLE C"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/seat-seat-arona-1-0-tsi-beats-led-cruise-camera--9/">Seat ARONA 1.0 TSI|BEATS|LED|CRUISE|CAMERA|ALCANTARA|APPLE C</a></h3>
+    <h3><a href="v/seat-seat-arona-1-0-tsi-beats-led-cruise-camera--9/">Seat ARONA 1.0 TSI</a></h3>
     <p class="st-spec">2019 · 115.320 km</p>
     <div class="st-foot">
       <span class="st-price">€ 13.495</span>
@@ -604,7 +671,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-208-1-2-puretech-gt-line-leder-v-11" data-rang="10" data-merk="Peugeot" data-prijs="12495" data-jaar="2020" data-zoek="peugeot 208 1.2 puretech|gt-line|leder|virtual|17''lm|acc|cr peugeot">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-208-1-2-puretech-gt-line-leder-v-11/" aria-label="Peugeot 208 1.2 PURETECH|GT-Line|LEDER|VIRTUAL|17''LM|ACC|CR"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5d872837-998b-4aef-9639-336eeacb9a24?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 208 1.2 PURETECH|GT-Line|LEDER|VIRTUAL|17''LM|ACC|CR" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-208-1-2-puretech-gt-line-leder-v-11" aria-pressed="false" aria-label="Bewaar Peugeot 208 1.2 PURETECH|GT-Line|LEDER|VIRTUAL|17''LM|ACC|CR"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-208-1-2-puretech-gt-line-leder-v-11/">Peugeot 208 1.2 PURETECH|GT-Line|LEDER|VIRTUAL|17''LM|ACC|CR</a></h3>
+    <h3><a href="v/peugeot-peugeot-208-1-2-puretech-gt-line-leder-v-11/">Peugeot 208 1.2 PURETECH</a></h3>
     <p class="st-spec">2020 · 99.675 km</p>
     <div class="st-foot">
       <span class="st-price">€ 12.495</span>
@@ -654,7 +721,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volkswagen-volkswagen-tiguan-2-0-tsi-dsg-4motion-16" data-rang="15" data-merk="Volkswagen" data-prijs="7995" data-jaar="2008" data-zoek="volkswagen tiguan 2.0 tsi dsg 4motion|pano|leder|camera|pdc volkswagen">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-tiguan-2-0-tsi-dsg-4motion-16/" aria-label="Volkswagen Tiguan 2.0 TSI DSG 4Motion|PANO|LEDER|CAMERA|PDC"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2b89de00-8541-47d2-a840-73ab6a6683e9?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tiguan 2.0 TSI DSG 4Motion|PANO|LEDER|CAMERA|PDC" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-tiguan-2-0-tsi-dsg-4motion-16" aria-pressed="false" aria-label="Bewaar Volkswagen Tiguan 2.0 TSI DSG 4Motion|PANO|LEDER|CAMERA|PDC"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-tiguan-2-0-tsi-dsg-4motion-16/">Volkswagen Tiguan 2.0 TSI DSG 4Motion|PANO|LEDER|CAMERA|PDC</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-tiguan-2-0-tsi-dsg-4motion-16/">Volkswagen Tiguan 2.0 TSI DSG 4Motion</a></h3>
     <p class="st-spec">2008 · 198.250 km</p>
     <div class="st-foot">
       <span class="st-price">€ 7.995</span>
@@ -664,7 +731,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-twingo-1-0-sce-limited-15-pdc-ai-17" data-rang="16" data-merk="Renault" data-prijs="7495" data-jaar="2018" data-kenmerk="Airco" data-zoek="renault twingo 1.0 sce limited|15''|pdc|airco|cruisecontrol| renault airco">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-twingo-1-0-sce-limited-15-pdc-ai-17/" aria-label="Renault Twingo 1.0 SCe LIMITED|15''|PDC|AIRCO|CRUISECONTROL|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0c412827-21b6-457f-bf3a-1a69af433c54?rule=ecg_mp_eps$_85.jpg" alt="Renault Twingo 1.0 SCe LIMITED|15''|PDC|AIRCO|CRUISECONTROL|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-twingo-1-0-sce-limited-15-pdc-ai-17" aria-pressed="false" aria-label="Bewaar Renault Twingo 1.0 SCe LIMITED|15''|PDC|AIRCO|CRUISECONTROL|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-twingo-1-0-sce-limited-15-pdc-ai-17/">Renault Twingo 1.0 SCe LIMITED|15''|PDC|AIRCO|CRUISECONTROL|</a></h3>
+    <h3><a href="v/renault-renault-twingo-1-0-sce-limited-15-pdc-ai-17/">Renault Twingo 1.0 SCe LIMITED</a></h3>
     <p class="st-spec">2018 · 89.526 km</p>
     <div class="st-foot">
       <span class="st-price">€ 7.495</span>
@@ -674,7 +741,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="audi-audi-a3-cabriolet-2-0-tfsi-dsg-200pk-s-line-18" data-rang="17" data-merk="Audi" data-prijs="7495" data-jaar="2009" data-kenmerk="Navigatie" data-zoek="audi a3 cabriolet 2.0 tfsi dsg 200pk s-line|navi|leder|cruis audi navigatie">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a3-cabriolet-2-0-tfsi-dsg-200pk-s-line-18/" aria-label="Audi A3 Cabriolet 2.0 TFSI DSG 200PK S-Line|NAVI|LEDER|CRUIS"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e80332a-d9ed-47e2-996a-b1aaabda91eb?rule=ecg_mp_eps$_86.jpg" alt="Audi A3 Cabriolet 2.0 TFSI DSG 200PK S-Line|NAVI|LEDER|CRUIS" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a3-cabriolet-2-0-tfsi-dsg-200pk-s-line-18" aria-pressed="false" aria-label="Bewaar Audi A3 Cabriolet 2.0 TFSI DSG 200PK S-Line|NAVI|LEDER|CRUIS"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a3-cabriolet-2-0-tfsi-dsg-200pk-s-line-18/">Audi A3 Cabriolet 2.0 TFSI DSG 200PK S-Line|NAVI|LEDER|CRUIS</a></h3>
+    <h3><a href="v/audi-audi-a3-cabriolet-2-0-tfsi-dsg-200pk-s-line-18/">Audi A3 Cabriolet 2.0 TFSI DSG 200PK S-Line</a></h3>
     <p class="st-spec">2009 · 244.002 km</p>
     <div class="st-foot">
       <span class="st-price">€ 7.495</span>
@@ -697,7 +764,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/6cbb8970-7205-421e-9564-6bbe729cc38e?rule=ecg_mp_eps$_85.jpg" alt="autobedrijf De Riet" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>20</b><span>voertuigen staan klaar</span></div><div><b>€ 7.495</b><span>de goedkoopste van dit moment</span></div><div><b>2019</b><span>mediaan bouwjaar</span></div><div><b>21</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Den Ham.</p>
+  <ul class="sec-belofte-lijst"><li><b>20</b> voertuigen staan klaar</li><li>vanaf <b>€ 7.495</b></li><li>gemiddeld bouwjaar <b>2019</b></li></ul>
+</div></section>
 <section class="sec-flow">
   <div class="wrap">
     <div class="head rv"><h2>Zo gaat het</h2></div>

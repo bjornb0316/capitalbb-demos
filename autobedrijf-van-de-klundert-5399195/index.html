@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #26292e}
+section:nth-of-type(even){background:#1b1e23}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#9aa0a6;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#c8a97e;color:#0b0c0e;padding:9px 15px;border-radius:2px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#c8a97e;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#9aa0a6;font-size:15px}
 .sec-trust a{color:#f2f3f4}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #26292e;color:#9aa0a6;font-size:15.5px}
+.sec-vestiging strong{color:#f2f3f4;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #26292e;color:#9aa0a6;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:1.35em;color:#c8a97e;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#9aa0a6;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #26292e;border-radius:2px;background:#1b1e23;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:2px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#9aa0a6;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#141619;border:1px solid #26292e;border-radius:2px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#c8a97e66}
+.ug-shot{aspect-ratio:4/3;background:#1b1e23;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#9aa0a6;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#c8a97e;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #26292e;background:#141619}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -355,7 +395,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autobedrijf van de Klundert (prestige, mediaanprijs EUR 55945, 22 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet nachtshowroom, 'Archivo Expanded' als display op 'Archivo', hoeken 2px, accent #c8a97e.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties trust > stock > process > about > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties trust > uitgelicht > stock > process > about > promise > hours > contact.
 FORM: prestige-nachtshowroom-stack-rail-archivoexpanded-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -371,7 +411,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>Porsche Taycan Cross Turismo Turbo 93 · € 97.945</p><h1>Nu in de showroom <em>in Roosendaal</em></h1><p class="h-lede">Welkom bij Autobedrijf Van de Klundert – dé plek voor wie op zoek is naar kwaliteit, zekerheid en een onderscheidende occasion.</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-btn" href="tel:+31611252429">Bel 06-1125 2429</a></div><div class="h-facts"><span>5.0 uit 96 beoordelingen</span><span>20 jaar op Marktplaats</span><span>6 merken in huis</span><span>Kom langs in Roosendaal</span></div></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b5962420-1713-482e-9c56-75da8ac6bcf8?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b5962420-1713-482e-9c56-75da8ac6bcf8?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b5962420-1713-482e-9c56-75da8ac6bcf8?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b5962420-1713-482e-9c56-75da8ac6bcf8?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b5962420-1713-482e-9c56-75da8ac6bcf8?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Porsche Taycan Cross Turismo Turbo 93 kWh | burmester | acht" fetchpriority="high"></figure>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>5.0</b><span>gemiddeld uit 96 beoordelingen</span></div><div><b>20</b><span>jaar op Marktplaats</span></div><div><b>Roosendaal</b><span><a href="https://maps.google.com/?q=Bosstraat%2C%204704RL%20Roosendaal" target="_blank" rel="noreferrer">Bosstraat, 4704RL Roosendaal</a></span></div><div><b>KvK</b><span>82073309</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>5.0</b><span>gemiddeld uit 96 beoordelingen</span></div><div><b>20</b><span>jaar op Marktplaats</span></div><div><b>6</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Roosendaal</strong> · <a href="https://maps.google.com/?q=Bosstraat%2C%204704RL%20Roosendaal" target="_blank" rel="noreferrer">Bosstraat, 4704RL Roosendaal</a> · KvK 82073309</p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/porsche-porsche-taycan-cross-turismo-turbo-93-kw-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b5962420-1713-482e-9c56-75da8ac6bcf8?rule=ecg_mp_eps$_86.jpg" alt="Porsche Taycan Cross Turismo Turbo 93 kWh" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Porsche Taycan Cross Turismo Turbo 93 kWh</h3>
+    <p class="ug-spec">2024 · 21.227 km</p>
+    <p class="ug-prijs">€ 97.945</p>
+  </div>
+</a><a class="ug-kaart" href="v/mercedes-benz-mercedes-benz-c-klasse-estate-amg--2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8e410361-05d5-445c-987a-3d926857c8f4?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz C-klasse Estate AMG 63 S E Performance" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mercedes-Benz C-klasse Estate AMG 63 S E Performance</h3>
+    <p class="ug-spec">2025 · 14.975 km</p>
+    <p class="ug-prijs">€ 89.945</p>
+  </div>
+</a><a class="ug-kaart" href="v/bmw-bmw-8-serie-gran-coupe-840i-m-sport-facelift-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6e1c66a3-8dc3-48a9-a581-09398aaddf7b?rule=ecg_mp_eps$_86.jpg" alt="BMW 8-serie Gran Coupé 840i M-sport" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW 8-serie Gran Coupé 840i M-sport</h3>
+    <p class="ug-spec">2023 · 34.300 km</p>
+    <p class="ug-prijs">€ 69.945</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
@@ -381,7 +448,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="st-rail"><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/porsche-porsche-taycan-cross-turismo-turbo-93-kw-1/" aria-label="Porsche Taycan Cross Turismo Turbo 93 kWh | burmester | acht"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b5962420-1713-482e-9c56-75da8ac6bcf8?rule=ecg_mp_eps$_85.jpg" alt="Porsche Taycan Cross Turismo Turbo 93 kWh | burmester | acht" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/porsche-porsche-taycan-cross-turismo-turbo-93-kw-1/">Porsche Taycan Cross Turismo Turbo 93 kWh | burmester | acht</a></h3>
+    <h3><a href="v/porsche-porsche-taycan-cross-turismo-turbo-93-kw-1/">Porsche Taycan Cross Turismo Turbo 93 kWh</a></h3>
     <p class="st-spec">2024 · 21.227 km</p>
     <div class="st-foot">
       <span class="st-price">€ 97.945</span>
@@ -391,7 +458,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-c-klasse-estate-amg--1/" aria-label="Mercedes-Benz C-klasse Estate AMG 63 S E Performance | burme"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8e410361-05d5-445c-987a-3d926857c8f4?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-klasse Estate AMG 63 S E Performance | burme" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-estate-amg--1/">Mercedes-Benz C-klasse Estate AMG 63 S E Performance | burme</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-estate-amg--1/">Mercedes-Benz C-klasse Estate AMG 63 S E Performance</a></h3>
     <p class="st-spec">2025 · 14.975 km</p>
     <div class="st-foot">
       <span class="st-price">€ 89.945</span>
@@ -401,7 +468,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-8-serie-gran-coupe-840i-m-sport-facelift-1/" aria-label="BMW 8-serie Gran Coupé 840i M-sport | Facelift | frozen gre"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6e1c66a3-8dc3-48a9-a581-09398aaddf7b?rule=ecg_mp_eps$_85.jpg" alt="BMW 8-serie Gran Coupé 840i M-sport | Facelift | frozen gre" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-8-serie-gran-coupe-840i-m-sport-facelift-1/">BMW 8-serie Gran Coupé 840i M-sport | Facelift | frozen gre</a></h3>
+    <h3><a href="v/bmw-bmw-8-serie-gran-coupe-840i-m-sport-facelift-1/">BMW 8-serie Gran Coupé 840i M-sport</a></h3>
     <p class="st-spec">2023 · 34.300 km</p>
     <div class="st-foot">
       <span class="st-price">€ 69.945</span>
@@ -411,7 +478,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-c-klasse-coupe-amg-6-1/" aria-label="Mercedes-Benz C-klasse Coupé AMG 63 Premium Plus Pack | 1e"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5cc76042-c84d-491b-af0c-19712e8a2956?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-klasse Coupé AMG 63 Premium Plus Pack | 1e" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-coupe-amg-6-1/">Mercedes-Benz C-klasse Coupé AMG 63 Premium Plus Pack | 1e</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-coupe-amg-6-1/">Mercedes-Benz C-klasse Coupé AMG 63 Premium Plus Pack</a></h3>
     <p class="st-spec">2019 · 55.519 km</p>
     <div class="st-foot">
       <span class="st-price">€ 69.945</span>
@@ -421,7 +488,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/land-rover-land-rover-range-rover-p400e-limited--1/" aria-label="Land Rover Range Rover P400e Limited Edition | panoramadak |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f90cd033-66ce-446c-8774-19d8b37bc883?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Range Rover P400e Limited Edition | panoramadak |" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/land-rover-land-rover-range-rover-p400e-limited--1/">Land Rover Range Rover P400e Limited Edition | panoramadak |</a></h3>
+    <h3><a href="v/land-rover-land-rover-range-rover-p400e-limited--1/">Land Rover Range Rover P400e Limited Edition</a></h3>
     <p class="st-spec">2021 · 53.355 km</p>
     <div class="st-foot">
       <span class="st-price">€ 64.945</span>
@@ -431,7 +498,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-c-klasse-cabrio-63-a-1/" aria-label="Mercedes-Benz C-klasse Cabrio 63 AMG | AMG Drivers Package |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/beaea848-edc6-4170-afd5-dabc0271ea9d?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-klasse Cabrio 63 AMG | AMG Drivers Package |" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-cabrio-63-a-1/">Mercedes-Benz C-klasse Cabrio 63 AMG | AMG Drivers Package |</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-cabrio-63-a-1/">Mercedes-Benz C-klasse Cabrio 63 AMG</a></h3>
     <p class="st-spec">2019 · 28.691 km</p>
     <div class="st-foot">
       <span class="st-price">€ 62.945</span>
@@ -441,7 +508,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x3-m40i-xdrive-high-executive-m-sport-pa-1/" aria-label="BMW X3 M40i xDrive High Executive M-sport | panoramadak | he"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ee632973-0615-45eb-823a-522865a6aa4f?rule=ecg_mp_eps$_85.jpg" alt="BMW X3 M40i xDrive High Executive M-sport | panoramadak | he" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x3-m40i-xdrive-high-executive-m-sport-pa-1/">BMW X3 M40i xDrive High Executive M-sport | panoramadak | he</a></h3>
+    <h3><a href="v/bmw-bmw-x3-m40i-xdrive-high-executive-m-sport-pa-1/">BMW X3 M40i xDrive High Executive M-sport</a></h3>
     <p class="st-spec">2022 · 59.377 km</p>
     <div class="st-foot">
       <span class="st-price">€ 62.945</span>
@@ -451,7 +518,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-glc-klasse-coupe-amg-1/" aria-label="Mercedes-Benz GLC-klasse Coupé AMG 43 4MATIC Premium Plus |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0c27936b-d3e6-4742-b3c8-3e5934a2baf3?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLC-klasse Coupé AMG 43 4MATIC Premium Plus |" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-glc-klasse-coupe-amg-1/">Mercedes-Benz GLC-klasse Coupé AMG 43 4MATIC Premium Plus |</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-glc-klasse-coupe-amg-1/">Mercedes-Benz GLC-klasse Coupé AMG 43 4MATIC Premium Plus</a></h3>
     <p class="st-spec">2020 · 42.530 km</p>
     <div class="st-foot">
       <span class="st-price">€ 57.945</span>
@@ -461,7 +528,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x5-xdrive45e-high-executive-m-sport-pano-1/" aria-label="BMW X5 XDrive45e High Executive M-sport | panoramadak | adap"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5bbcd211-4487-43ce-bf04-277b3f27465e?rule=ecg_mp_eps$_85.jpg" alt="BMW X5 XDrive45e High Executive M-sport | panoramadak | adap" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x5-xdrive45e-high-executive-m-sport-pano-1/">BMW X5 XDrive45e High Executive M-sport | panoramadak | adap</a></h3>
+    <h3><a href="v/bmw-bmw-x5-xdrive45e-high-executive-m-sport-pano-1/">BMW X5 XDrive45e High Executive M-sport</a></h3>
     <p class="st-spec">2022 · 59.188 km</p>
     <div class="st-foot">
       <span class="st-price">€ 56.945</span>
@@ -471,7 +538,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x4-m40i-m-sport-panoramadak-head-up-disp-1/" aria-label="BMW X4 M40i M-sport | panoramadak | head-up display | 360 ca"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fc01015f-3ddb-4f43-b9a6-79b3dca8bd05?rule=ecg_mp_eps$_85.jpg" alt="BMW X4 M40i M-sport | panoramadak | head-up display | 360 ca" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x4-m40i-m-sport-panoramadak-head-up-disp-1/">BMW X4 M40i M-sport | panoramadak | head-up display | 360 ca</a></h3>
+    <h3><a href="v/bmw-bmw-x4-m40i-m-sport-panoramadak-head-up-disp-1/">BMW X4 M40i M-sport</a></h3>
     <p class="st-spec">2022 · 91.411 km</p>
     <div class="st-foot">
       <span class="st-price">€ 54.945</span>
@@ -481,7 +548,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-gle-klasse-350-de-4m-1/" aria-label="Mercedes-Benz GLE-klasse 350 de 4MATIC Premium Plus | panora"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d04dcd7-dc37-4e94-a90b-46528fd7aeed?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLE-klasse 350 de 4MATIC Premium Plus | panora" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-gle-klasse-350-de-4m-1/">Mercedes-Benz GLE-klasse 350 de 4MATIC Premium Plus | panora</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-gle-klasse-350-de-4m-1/">Mercedes-Benz GLE-klasse 350 de 4MATIC Premium Plus</a></h3>
     <p class="st-spec">2020 · 83.113 km</p>
     <div class="st-foot">
       <span class="st-price">€ 51.945</span>
@@ -491,7 +558,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-rs5-coupe-2-9-tfsi-rs-5-quattro-kerami-1/" aria-label="Audi RS5 Coupé 2.9 TFSI RS 5 Quattro | keramisch | dynamic"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/506b2aff-15cf-4931-a35f-1528edf24aff?rule=ecg_mp_eps$_85.jpg" alt="Audi RS5 Coupé 2.9 TFSI RS 5 Quattro | keramisch | dynamic" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-rs5-coupe-2-9-tfsi-rs-5-quattro-kerami-1/">Audi RS5 Coupé 2.9 TFSI RS 5 Quattro | keramisch | dynamic</a></h3>
+    <h3><a href="v/audi-audi-rs5-coupe-2-9-tfsi-rs-5-quattro-kerami-1/">Audi RS5 Coupé 2.9 TFSI RS 5 Quattro</a></h3>
     <p class="st-spec">2018 · 82.275 km</p>
     <div class="st-foot">
       <span class="st-price">€ 51.945</span>
@@ -501,7 +568,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-gle-klasse-coupe-350-1/" aria-label="Mercedes-Benz GLE-klasse Coupé 350 de 4MATIC | panoramadak"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d7aba9c2-581a-4e8d-8d83-61786352eaf1?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLE-klasse Coupé 350 de 4MATIC | panoramadak" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-gle-klasse-coupe-350-1/">Mercedes-Benz GLE-klasse Coupé 350 de 4MATIC | panoramadak</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-gle-klasse-coupe-350-1/">Mercedes-Benz GLE-klasse Coupé 350 de 4MATIC</a></h3>
     <p class="st-spec">2021 · 136.212 km</p>
     <div class="st-foot">
       <span class="st-price">€ 49.945</span>
@@ -511,7 +578,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a6-allroad-quattro-50-tdi-panoramadak--1/" aria-label="Audi A6 Allroad Quattro 50 TDI | panoramadak | B&amp;O | head-up"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c9f0b37d-31ae-4905-a9af-75d3fa247f89?rule=ecg_mp_eps$_85.jpg" alt="Audi A6 Allroad Quattro 50 TDI | panoramadak | B&amp;O | head-up" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a6-allroad-quattro-50-tdi-panoramadak--1/">Audi A6 Allroad Quattro 50 TDI | panoramadak | B&amp;O | head-up</a></h3>
+    <h3><a href="v/audi-audi-a6-allroad-quattro-50-tdi-panoramadak--1/">Audi A6 Allroad Quattro 50 TDI</a></h3>
     <p class="st-spec">2021 · 95.275 km</p>
     <div class="st-foot">
       <span class="st-price">€ 44.945</span>
@@ -521,7 +588,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-ix-xdrive40-m-sport-panorama-skylounge-e-1/" aria-label="BMW IX XDrive40 M-sport | panorama skylounge | elek. trekhaa"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/165598f0-f076-4023-a06c-2fd91c980e86?rule=ecg_mp_eps$_85.jpg" alt="BMW IX XDrive40 M-sport | panorama skylounge | elek. trekhaa" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-ix-xdrive40-m-sport-panorama-skylounge-e-1/">BMW IX XDrive40 M-sport | panorama skylounge | elek. trekhaa</a></h3>
+    <h3><a href="v/bmw-bmw-ix-xdrive40-m-sport-panorama-skylounge-e-1/">BMW IX XDrive40 M-sport</a></h3>
     <p class="st-spec">2022 · 29.931 km</p>
     <div class="st-foot">
       <span class="st-price">€ 44.945</span>
@@ -531,7 +598,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-i4-m50-high-executive-m-sport-schuifkant-1/" aria-label="BMW I4 M50 High Executive M-sport | schuifkanteldak | m-spor"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6cdb0a2d-d3d4-4f71-ac36-1d24fa711724?rule=ecg_mp_eps$_85.jpg" alt="BMW I4 M50 High Executive M-sport | schuifkanteldak | m-spor" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-i4-m50-high-executive-m-sport-schuifkant-1/">BMW I4 M50 High Executive M-sport | schuifkanteldak | m-spor</a></h3>
+    <h3><a href="v/bmw-bmw-i4-m50-high-executive-m-sport-schuifkant-1/">BMW I4 M50 High Executive M-sport</a></h3>
     <p class="st-spec">2021 · 65.014 km</p>
     <div class="st-foot">
       <span class="st-price">€ 44.945</span>
@@ -551,7 +618,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/volvo-volvo-v60-2-0-t6-plug-in-hybrid-awd-plus-b-1/" aria-label="Volvo V60 2.0 T6 Plug-in hybrid AWD Plus Bright | 360 camera"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6eb96eeb-7043-443f-82cb-d336fc01d0c8?rule=ecg_mp_eps$_85.jpg" alt="Volvo V60 2.0 T6 Plug-in hybrid AWD Plus Bright | 360 camera" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/volvo-volvo-v60-2-0-t6-plug-in-hybrid-awd-plus-b-1/">Volvo V60 2.0 T6 Plug-in hybrid AWD Plus Bright | 360 camera</a></h3>
+    <h3><a href="v/volvo-volvo-v60-2-0-t6-plug-in-hybrid-awd-plus-b-1/">Volvo V60 2.0 T6 Plug-in hybrid AWD Plus Bright</a></h3>
     <p class="st-spec">2024 · 49.485 km</p>
     <div class="st-foot">
       <span class="st-price">€ 35.945</span>
@@ -577,7 +644,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/6c/6c1f26d1-16f0-479c-8ad5-2010fda930b6?rule=ecg_mp_eps$_85.jpg" alt="Autobedrijf van de Klundert" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>22</b><span>voertuigen staan klaar</span></div><div><b>€ 35.945</b><span>de goedkoopste van dit moment</span></div><div><b>2022</b><span>mediaan bouwjaar</span></div><div><b>20</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Roosendaal.</p>
+  <ul class="sec-belofte-lijst"><li><b>22</b> voertuigen staan klaar</li><li>vanaf <b>€ 35.945</b></li><li>gemiddeld bouwjaar <b>2022</b></li></ul>
+</div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

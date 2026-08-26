@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #26292e}
+section:nth-of-type(even){background:#1b1e23}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#9aa0a6;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#c8a97e;color:#0b0c0e;padding:9px 15px;border-radius:2px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.02em;color:#c8a97e;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#9aa0a6;font-size:15px}
 .sec-trust a{color:#f2f3f4}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #26292e;color:#9aa0a6;font-size:15.5px}
+.sec-vestiging strong{color:#f2f3f4;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;letter-spacing:-0.02em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #26292e;color:#9aa0a6;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:1.35em;color:#c8a97e;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#9aa0a6;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #26292e;border-radius:2px;background:#1b1e23;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:2px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#9aa0a6;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#141619;border:1px solid #26292e;border-radius:2px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#c8a97e66}
+.ug-shot{aspect-ratio:4/3;background:#1b1e23;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#9aa0a6;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.02em;color:#c8a97e;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #26292e;background:#141619}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -355,7 +395,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Carpoint Woerden (prestige, mediaanprijs EUR 34990, 36 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet nachtshowroom, 'Bodoni Moda' als display op 'Archivo', hoeken 2px, accent #c8a97e.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties about > stock > trust > process > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties about > uitgelicht > stock > trust > process > contact.
 FORM: prestige-nachtshowroom-stack-rail-bodonimoda-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -380,6 +420,33 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/31/31f0fa2b-395c-4be4-af7b-663a4b618e66?rule=ecg_mp_eps$_85.jpg" alt="Carpoint Woerden" loading="lazy"></div>
   </div>
 </section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/audi-audi-rs3-2-5-tfsi-rs-3-quattro-schaalstoele-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa1bcad7-fea4-4b83-9c96-5e09c71097f7?rule=ecg_mp_eps$_86.jpg" alt="Audi RS3 2.5 TFSI RS 3 quattro" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Audi RS3 2.5 TFSI RS 3 quattro</h3>
+    <p class="ug-spec">2025 · 2.283 km</p>
+    <p class="ug-prijs">€ 94.990</p>
+  </div>
+</a><a class="ug-kaart" href="v/mercedes-benz-mercedes-benz-e-klasse-amg-63-s-4m-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3aa782b7-78c4-4c8e-bbbe-b4bc89cf1a34?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz E-klasse AMG 63 S 4MATIC+ E63S" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mercedes-Benz E-klasse AMG 63 S 4MATIC+ E63S</h3>
+    <p class="ug-spec">2017 · 93.093 km</p>
+    <p class="ug-prijs">€ 68.990</p>
+  </div>
+</a><a class="ug-kaart" href="v/mercedes-benz-mercedes-benz-cla-klasse-shooting--3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/050b33da-5d7a-46a1-b598-eaccf6b6b41e?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz CLA-klasse Shooting Brake AMG 45 S 4MATIC+ PAN" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mercedes-Benz CLA-klasse Shooting Brake AMG 45 S 4MATIC+ PAN</h3>
+    <p class="ug-spec">2021 · 85.447 km</p>
+    <p class="ug-prijs">€ 59.990</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
@@ -389,7 +456,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="st-rail"><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-rs3-2-5-tfsi-rs-3-quattro-schaalstoele-1/" aria-label="Audi RS3 2.5 TFSI RS 3 quattro | SCHAALSTOELEN | ALCANTARA |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa1bcad7-fea4-4b83-9c96-5e09c71097f7?rule=ecg_mp_eps$_85.jpg" alt="Audi RS3 2.5 TFSI RS 3 quattro | SCHAALSTOELEN | ALCANTARA |" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-rs3-2-5-tfsi-rs-3-quattro-schaalstoele-1/">Audi RS3 2.5 TFSI RS 3 quattro | SCHAALSTOELEN | ALCANTARA |</a></h3>
+    <h3><a href="v/audi-audi-rs3-2-5-tfsi-rs-3-quattro-schaalstoele-1/">Audi RS3 2.5 TFSI RS 3 quattro</a></h3>
     <p class="st-spec">2025 · 2.283 km</p>
     <div class="st-foot">
       <span class="st-price">€ 94.990</span>
@@ -399,7 +466,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-e-klasse-amg-63-s-4m-1/" aria-label="Mercedes-Benz E-klasse AMG 63 S 4MATIC+ E63S | NAP! | BURMES"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3aa782b7-78c4-4c8e-bbbe-b4bc89cf1a34?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz E-klasse AMG 63 S 4MATIC+ E63S | NAP! | BURMES" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-e-klasse-amg-63-s-4m-1/">Mercedes-Benz E-klasse AMG 63 S 4MATIC+ E63S | NAP! | BURMES</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-e-klasse-amg-63-s-4m-1/">Mercedes-Benz E-klasse AMG 63 S 4MATIC+ E63S</a></h3>
     <p class="st-spec">2017 · 93.093 km</p>
     <div class="st-foot">
       <span class="st-price">€ 68.990</span>
@@ -419,7 +486,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-glc-1/" aria-label="Mercedes-Benz GLC-klasse AMG 43 4MATIC | PANO | BURMESTER |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3c697c21-3d25-4eeb-b3e7-45542c163673?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLC-klasse AMG 43 4MATIC | PANO | BURMESTER |" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-glc-1/">Mercedes-Benz GLC-klasse AMG 43 4MATIC | PANO | BURMESTER |</a></h3>
+    <h3><a href="v/mercedes-benz-glc-1/">Mercedes-Benz GLC-klasse AMG 43 4MATIC</a></h3>
     <p class="st-spec">2019 · 73.034 km · Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 57.990</span>
@@ -429,7 +496,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-golf-2-0-tsi-r-4motion-akr-1/" aria-label="Volkswagen GOLF 2.0 TSI R 4Motion | AKRAPOVIC | PANO | HUD"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a933bfa6-3123-4390-b47d-8d273d39881d?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen GOLF 2.0 TSI R 4Motion | AKRAPOVIC | PANO | HUD" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-golf-2-0-tsi-r-4motion-akr-1/">Volkswagen GOLF 2.0 TSI R 4Motion | AKRAPOVIC | PANO | HUD</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-golf-2-0-tsi-r-4motion-akr-1/">Volkswagen GOLF 2.0 TSI R 4Motion</a></h3>
     <p class="st-spec">2021 · 66.490 km</p>
     <div class="st-foot">
       <span class="st-price">€ 39.990</span>
@@ -439,7 +506,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-glc-1/" aria-label="Mercedes-Benz GLC-klasse 300 4MATIC Off Road Premium | PANO"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/148af7fc-6a57-4d29-802e-1cf0bf248619?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLC-klasse 300 4MATIC Off Road Premium | PANO" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-glc-1/">Mercedes-Benz GLC-klasse 300 4MATIC Off Road Premium | PANO</a></h3>
+    <h3><a href="v/mercedes-benz-glc-1/">Mercedes-Benz GLC-klasse 300 4MATIC Off Road Premium</a></h3>
     <p class="st-spec">2019 · 185.015 km · Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 37.990</span>
@@ -449,7 +516,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-tiguan-2-0-tsi-4motion-3x--1/" aria-label="Volkswagen Tiguan 2.0 TSI 4Motion 3X R-LINE | IQ LIGHT | 360"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/822db88a-8896-4f11-b2df-3364f7877534?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tiguan 2.0 TSI 4Motion 3X R-LINE | IQ LIGHT | 360" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-tiguan-2-0-tsi-4motion-3x--1/">Volkswagen Tiguan 2.0 TSI 4Motion 3X R-LINE | IQ LIGHT | 360</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-tiguan-2-0-tsi-4motion-3x--1/">Volkswagen Tiguan 2.0 TSI 4Motion 3X R-LINE</a></h3>
     <p class="st-spec">2021 · 166.571 km</p>
     <div class="st-foot">
       <span class="st-price">€ 36.990</span>
@@ -459,7 +526,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-gla-klasse-180-amg-l-1/" aria-label="Mercedes-Benz GLA-klasse 180 AMG | LED | WIDESCREEN | TREKHA"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4e6d7cd8-b1b6-49df-8e21-8e0862ddf4a7?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLA-klasse 180 AMG | LED | WIDESCREEN | TREKHA" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-gla-klasse-180-amg-l-1/">Mercedes-Benz GLA-klasse 180 AMG | LED | WIDESCREEN | TREKHA</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-gla-klasse-180-amg-l-1/">Mercedes-Benz GLA-klasse 180 AMG</a></h3>
     <p class="st-spec">2022 · 23.073 km</p>
     <div class="st-foot">
       <span class="st-price">€ 36.990</span>
@@ -469,7 +536,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-sq5-1/" aria-label="Audi SQ5 3.0 TFSI SQ5 quattro PANO| B&amp;O | SFEERVERL. | TREKH"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d92c1ba8-f900-4579-a401-cdab99cb7f5b?rule=ecg_mp_eps$_85.jpg" alt="Audi SQ5 3.0 TFSI SQ5 quattro PANO| B&amp;O | SFEERVERL. | TREKH" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-sq5-1/">Audi SQ5 3.0 TFSI SQ5 quattro PANO| B&amp;O | SFEERVERL. | TREKH</a></h3>
+    <h3><a href="v/audi-sq5-1/">Audi SQ5 3.0 TFSI SQ5 quattro PANO</a></h3>
     <p class="st-spec">2017 · 142.045 km · Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 35.990</span>
@@ -479,7 +546,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-t-cross-1/" aria-label="Volkswagen T-CROSS 1.5 TSI R-Line DSG | IQ LED | CAMERA | TR"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/431bae28-ad61-4105-869c-9b0c842e3be3?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen T-CROSS 1.5 TSI R-Line DSG | IQ LED | CAMERA | TR" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-t-cross-1/">Volkswagen T-CROSS 1.5 TSI R-Line DSG | IQ LED | CAMERA | TR</a></h3>
+    <h3><a href="v/volkswagen-t-cross-1/">Volkswagen T-CROSS 1.5 TSI R-Line DSG</a></h3>
     <p class="st-spec">2025 · 3.058 km</p>
     <div class="st-foot">
       <span class="st-price">€ 33.990</span>
@@ -489,7 +556,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-q3-45-tfsi-e-3x-s-line-led-trekhaak-hy-1/" aria-label="Audi Q3 45 TFSI e 3X S-LINE | LED | TREKHAAK | HYBRIDE"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/170a438c-4932-410a-b72f-8068321dc71d?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 45 TFSI e 3X S-LINE | LED | TREKHAAK | HYBRIDE" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-q3-45-tfsi-e-3x-s-line-led-trekhaak-hy-1/">Audi Q3 45 TFSI e 3X S-LINE | LED | TREKHAAK | HYBRIDE</a></h3>
+    <h3><a href="v/audi-audi-q3-45-tfsi-e-3x-s-line-led-trekhaak-hy-1/">Audi Q3 45 TFSI e 3X S-LINE</a></h3>
     <p class="st-spec">2021 · 72.424 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 33.990</span>
@@ -499,7 +566,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-sq5-1/" aria-label="Audi SQ5 3.0 TFSI SQ5 quattro PANO | CARBON | SFEERVERL. | T"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/38a10f87-e4c5-4bf2-9a26-7c6388721880?rule=ecg_mp_eps$_85.jpg" alt="Audi SQ5 3.0 TFSI SQ5 quattro PANO | CARBON | SFEERVERL. | T" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-sq5-1/">Audi SQ5 3.0 TFSI SQ5 quattro PANO | CARBON | SFEERVERL. | T</a></h3>
+    <h3><a href="v/audi-sq5-1/">Audi SQ5 3.0 TFSI SQ5 quattro PANO</a></h3>
     <p class="st-spec">2017 · 176.330 km · Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 32.990</span>
@@ -509,7 +576,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-1-serie-120i-camera-led-stoelverw-2024-1/" aria-label="BMW 1-serie 120i | CAMERA | LED | STOELVERW. | 2024"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ab20bd61-f9c0-4634-b4c8-3f17084a3dd7?rule=ecg_mp_eps$_85.jpg" alt="BMW 1-serie 120i | CAMERA | LED | STOELVERW. | 2024" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-1-serie-120i-camera-led-stoelverw-2024-1/">BMW 1-serie 120i | CAMERA | LED | STOELVERW. | 2024</a></h3>
+    <h3><a href="v/bmw-bmw-1-serie-120i-camera-led-stoelverw-2024-1/">BMW 1-serie 120i</a></h3>
     <p class="st-spec">2024 · 16.668 km</p>
     <div class="st-foot">
       <span class="st-price">€ 32.990</span>
@@ -519,7 +586,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a1-sportback-40-tfsi-3x-s-line-led-207-1/" aria-label="Audi A1 SPORTBACK 40 TFSI 3X S-LINE | LED | 207 PK | VIRTUAL"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/15aa96bd-8ab6-47cf-a574-436d0774b635?rule=ecg_mp_eps$_85.jpg" alt="Audi A1 SPORTBACK 40 TFSI 3X S-LINE | LED | 207 PK | VIRTUAL" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a1-sportback-40-tfsi-3x-s-line-led-207-1/">Audi A1 SPORTBACK 40 TFSI 3X S-LINE | LED | 207 PK | VIRTUAL</a></h3>
+    <h3><a href="v/audi-audi-a1-sportback-40-tfsi-3x-s-line-led-207-1/">Audi A1 SPORTBACK 40 TFSI 3X S-LINE</a></h3>
     <p class="st-spec">2023 · 40.135 km</p>
     <div class="st-foot">
       <span class="st-price">€ 32.990</span>
@@ -529,7 +596,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-t-roc-2-0-tsi-4motion-3x-r-1/" aria-label="Volkswagen T-Roc 2.0 TSI 4Motion 3X R-LINE | PANO | IQ LIGHT"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/384700b1-2935-4c66-8dcc-b365db7f2cb2?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen T-Roc 2.0 TSI 4Motion 3X R-LINE | PANO | IQ LIGHT" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-t-roc-2-0-tsi-4motion-3x-r-1/">Volkswagen T-Roc 2.0 TSI 4Motion 3X R-LINE | PANO | IQ LIGHT</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-t-roc-2-0-tsi-4motion-3x-r-1/">Volkswagen T-Roc 2.0 TSI 4Motion 3X R-LINE</a></h3>
     <p class="st-spec">2022 · 83.650 km</p>
     <div class="st-foot">
       <span class="st-price">€ 32.990</span>
@@ -539,7 +606,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-t-cross-1/" aria-label="Volkswagen T-Cross 1.5 TSI 3X R-Line | IQ LIGHT | CAM | KEYL"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0cee4c65-30d9-4cd4-abf2-4cff8493c746?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen T-Cross 1.5 TSI 3X R-Line | IQ LIGHT | CAM | KEYL" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-t-cross-1/">Volkswagen T-Cross 1.5 TSI 3X R-Line | IQ LIGHT | CAM | KEYL</a></h3>
+    <h3><a href="v/volkswagen-t-cross-1/">Volkswagen T-Cross 1.5 TSI 3X R-Line</a></h3>
     <p class="st-spec">2024 · 12.993 km</p>
     <div class="st-foot">
       <span class="st-price">€ 31.990</span>
@@ -549,7 +616,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-q3-40-tfsi-quattro-s-line-edition-one--1/" aria-label="Audi Q3 40 TFSI Quattro S-Line Edition One PANO|B&amp;O|360|SFEE"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/635af9fd-71f1-41d7-adee-8de9f31fcc8d?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 40 TFSI Quattro S-Line Edition One PANO|B&amp;O|360|SFEE" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-q3-40-tfsi-quattro-s-line-edition-one--1/">Audi Q3 40 TFSI Quattro S-Line Edition One PANO|B&amp;O|360|SFEE</a></h3>
+    <h3><a href="v/audi-audi-q3-40-tfsi-quattro-s-line-edition-one--1/">Audi Q3 40 TFSI Quattro S-Line Edition One PANO</a></h3>
     <p class="st-spec">2019 · 94.725 km</p>
     <div class="st-foot">
       <span class="st-price">€ 30.990</span>
@@ -559,7 +626,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-q3-40-tfsi-quattro-3x-s-line-pano-b-o--1/" aria-label="Audi Q3 40 TFSI quattro 3X S-LINE | PANO | B&amp;O | SFEERVERL."><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8e713ffd-feab-42f4-aa11-b821290bd1d3?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 40 TFSI quattro 3X S-LINE | PANO | B&amp;O | SFEERVERL." loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-q3-40-tfsi-quattro-3x-s-line-pano-b-o--1/">Audi Q3 40 TFSI quattro 3X S-LINE | PANO | B&amp;O | SFEERVERL.</a></h3>
+    <h3><a href="v/audi-audi-q3-40-tfsi-quattro-3x-s-line-pano-b-o--1/">Audi Q3 40 TFSI quattro 3X S-LINE</a></h3>
     <p class="st-spec">2020 · 143.804 km</p>
     <div class="st-foot">
       <span class="st-price">€ 30.990</span>
@@ -568,7 +635,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   </div>
 </article></div><div class="wrap"><div class="more"><span>Er staan er nog 18 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31616622922?text=Hallo%20Carpoint%20Woerden%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.9</b><span>gemiddeld uit 78 beoordelingen</span></div><div><b>9</b><span>jaar op Marktplaats</span></div><div><b>Woerden</b><span><a href="https://maps.google.com/?q=Barwoutswaarder%203T%2C%203449HE%20Woerden" target="_blank" rel="noreferrer">Barwoutswaarder 3T, 3449HE Woerden</a></span></div><div><b>KvK</b><span>69335583</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.9</b><span>gemiddeld uit 78 beoordelingen</span></div><div><b>9</b><span>jaar op Marktplaats</span></div><div><b>4</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Woerden</strong> · <a href="https://maps.google.com/?q=Barwoutswaarder%203T%2C%203449HE%20Woerden" target="_blank" rel="noreferrer">Barwoutswaarder 3T, 3449HE Woerden</a> · KvK 69335583</p></div></section>
 <section class="sec-flow">
   <div class="wrap">
     <div class="head rv"><h2>Zo gaat het</h2></div>

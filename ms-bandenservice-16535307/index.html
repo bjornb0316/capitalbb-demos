@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #dcdcd8}
+section:nth-of-type(even){background:#e8e8e4}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#585c62;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#cd4217;color:#ffffff;padding:9px 15px;border-radius:0px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.01em;color:#cd4217;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#585c62;font-size:15px}
 .sec-trust a{color:#141518}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #dcdcd8;color:#585c62;font-size:15.5px}
+.sec-vestiging strong{color:#141518;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;letter-spacing:-0.01em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #dcdcd8;color:#585c62;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:1.35em;color:#cd4217;letter-spacing:-0.01em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#585c62;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #dcdcd8;border-radius:0px;background:#e8e8e4;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:0px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#585c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #dcdcd8;border-radius:0px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#cd421766}
+.ug-shot{aspect-ratio:4/3;background:#e8e8e4;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#585c62;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.01em;color:#cd4217;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #dcdcd8;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -439,7 +479,7 @@ footer{border-top:2px solid #141518}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van MS Bandenservice (buurtgarage, mediaanprijs EUR 4745, 22 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet staal, 'Anton' als display op 'Barlow', hoeken 0px, accent #cd4217.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > stock > process > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > uitgelicht > stock > process > contact.
 FORM: buurtgarage-staal-cinematic-grid-anton-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -455,7 +495,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e2de9ec-57f0-41ba-8534-0327c479bc14?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e2de9ec-57f0-41ba-8534-0327c479bc14?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e2de9ec-57f0-41ba-8534-0327c479bc14?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e2de9ec-57f0-41ba-8534-0327c479bc14?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e2de9ec-57f0-41ba-8534-0327c479bc14?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Kia Picanto 1.2 CVVT Comfort Automaat | Airco | Rijklaar" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Kia Picanto 1.2 CVVT Comfort Automaat | Airco | Rijklaar</span><span class="h-plate-p">€ 8.750</span></figcaption></figure>
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>22 auto's op voorraad · vanaf € 3.195 · Roosendaal</p><h1><a href="tel:+31683242643">06-8324 2643</a></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31683242643">Bel 06-8324 2643</a><a class="h-btn" href="https://wa.me/31683242643?text=Hallo%20MS%20Bandenservice%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div><div class="h-facts"><span>4.8 uit 73 beoordelingen</span><span>15 jaar op Marktplaats</span><span>11 merken in huis</span><span>Kom langs in Roosendaal</span></div></div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.8</b><span>gemiddeld uit 73 beoordelingen</span></div><div><b>15</b><span>jaar op Marktplaats</span></div><div><b>Roosendaal</b><span><a href="https://maps.google.com/?q=4704RK%20Roosendaal" target="_blank" rel="noreferrer">4704RK Roosendaal</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.8</b><span>gemiddeld uit 73 beoordelingen</span></div><div><b>15</b><span>jaar op Marktplaats</span></div><div><b>11</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Roosendaal</strong> · <a href="https://maps.google.com/?q=4704RK%20Roosendaal" target="_blank" rel="noreferrer">4704RK Roosendaal</a></p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/kia-kia-picanto-1-2-cvvt-comfort-automaat-airco--1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e2de9ec-57f0-41ba-8534-0327c479bc14?rule=ecg_mp_eps$_86.jpg" alt="Kia Picanto 1.2 CVVT Comfort Automaat" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Kia Picanto 1.2 CVVT Comfort Automaat</h3>
+    <p class="ug-spec">2012 · 94.699 km</p>
+    <p class="ug-prijs">€ 8.750</p>
+  </div>
+</a><a class="ug-kaart" href="v/citroen-ds3-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a23eda7d-562f-4557-95d4-be378edd64b9?rule=ecg_mp_eps$_86.jpg" alt="Citroën DS3 1.2 Ultra Prestige 110pk Camera (bj 2016)" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Citroën DS3 1.2 Ultra Prestige 110pk Camera (bj 2016)</h3>
+    <p class="ug-spec">2016 · 79.223 km</p>
+    <p class="ug-prijs">€ 7.995</p>
+  </div>
+</a><a class="ug-kaart" href="v/citroen-citroen-berlingo-1-2-puretech-feel-5-per-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f03d8755-0dc2-4d6d-8820-91570161b154?rule=ecg_mp_eps$_86.jpg" alt="Citroën Berlingo 1.2 PureTech Feel 5 Persoons (bj 2017)" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Citroën Berlingo 1.2 PureTech Feel 5 Persoons (bj 2017)</h3>
+    <p class="ug-spec">2017 · 97.796 km</p>
+    <p class="ug-prijs">€ 7.495</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
@@ -511,7 +578,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-grid" data-voorraad><article class="st-card " data-slug="kia-kia-picanto-1-2-cvvt-comfort-automaat-airco--1" data-rang="0" data-merk="Kia" data-prijs="8750" data-jaar="2012" data-kenmerk="Airco|Automaat" data-zoek="kia picanto 1.2 cvvt comfort automaat | airco | rijklaar kia airco automaat">
   <div class="st-shot"><a class="st-link" href="v/kia-kia-picanto-1-2-cvvt-comfort-automaat-airco--1/" aria-label="Kia Picanto 1.2 CVVT Comfort Automaat | Airco | Rijklaar"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e2de9ec-57f0-41ba-8534-0327c479bc14?rule=ecg_mp_eps$_85.jpg" alt="Kia Picanto 1.2 CVVT Comfort Automaat | Airco | Rijklaar" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="kia-kia-picanto-1-2-cvvt-comfort-automaat-airco--1" aria-pressed="false" aria-label="Bewaar Kia Picanto 1.2 CVVT Comfort Automaat | Airco | Rijklaar"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/kia-kia-picanto-1-2-cvvt-comfort-automaat-airco--1/">Kia Picanto 1.2 CVVT Comfort Automaat | Airco | Rijklaar</a></h3>
+    <h3><a href="v/kia-kia-picanto-1-2-cvvt-comfort-automaat-airco--1/">Kia Picanto 1.2 CVVT Comfort Automaat</a></h3>
     <p class="st-spec">2012 · 94.699 km</p>
     <div class="st-foot">
       <span class="st-price">€ 8.750</span>
@@ -541,7 +608,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="fiat-fiat-500c-0-9-twinair-lounge-automaat-leer--4" data-rang="3" data-merk="Fiat" data-prijs="7395" data-jaar="2012" data-kenmerk="Airco|Automaat" data-zoek="fiat 500c 0.9 twinair lounge automaat | leer | airco fiat airco automaat">
   <div class="st-shot"><a class="st-link" href="v/fiat-fiat-500c-0-9-twinair-lounge-automaat-leer--4/" aria-label="Fiat 500C 0.9 TwinAir Lounge Automaat | Leer | Airco"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/380830e6-c4fe-48a0-9a37-9ffae1438157?rule=ecg_mp_eps$_85.jpg" alt="Fiat 500C 0.9 TwinAir Lounge Automaat | Leer | Airco" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="fiat-fiat-500c-0-9-twinair-lounge-automaat-leer--4" aria-pressed="false" aria-label="Bewaar Fiat 500C 0.9 TwinAir Lounge Automaat | Leer | Airco"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/fiat-fiat-500c-0-9-twinair-lounge-automaat-leer--4/">Fiat 500C 0.9 TwinAir Lounge Automaat | Leer | Airco</a></h3>
+    <h3><a href="v/fiat-fiat-500c-0-9-twinair-lounge-automaat-leer--4/">Fiat 500C 0.9 TwinAir Lounge Automaat</a></h3>
     <p class="st-spec">2012 · 99.851 km</p>
     <div class="st-foot">
       <span class="st-price">€ 7.395</span>
@@ -561,7 +628,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volkswagen-up-6" data-rang="5" data-merk="Volkswagen" data-prijs="5495" data-jaar="2012" data-kenmerk="Airco" data-zoek="volkswagen up! 1.0 high up! airco | pano | leer (bj 2012) volkswagen up! airco">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-up-6/" aria-label="Volkswagen up! 1.0 high up! Airco | Pano | Leer (bj 2012)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/65d45630-8e38-45ef-847a-b482caf34503?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen up! 1.0 high up! Airco | Pano | Leer (bj 2012)" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-up-6" aria-pressed="false" aria-label="Bewaar Volkswagen up! 1.0 high up! Airco | Pano | Leer (bj 2012)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-up-6/">Volkswagen up! 1.0 high up! Airco | Pano | Leer (bj 2012)</a></h3>
+    <h3><a href="v/volkswagen-up-6/">Volkswagen up! 1.0 high up! Airco</a></h3>
     <p class="st-spec">2012 · 171.579 km</p>
     <div class="st-foot">
       <span class="st-price">€ 5.495</span>
@@ -571,7 +638,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-1-serie-7" data-rang="6" data-merk="BMW" data-prijs="5250" data-jaar="2011" data-kenmerk="Airco" data-zoek="bmw 1-serie 116i high executive airco | stoelverwarming bmw 1-serie airco">
   <div class="st-shot"><a class="st-link" href="v/bmw-1-serie-7/" aria-label="BMW 1-serie 116i High Executive Airco | Stoelverwarming"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0637a85e-819e-49bf-a957-8ac2a1382675?rule=ecg_mp_eps$_85.jpg" alt="BMW 1-serie 116i High Executive Airco | Stoelverwarming" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-1-serie-7" aria-pressed="false" aria-label="Bewaar BMW 1-serie 116i High Executive Airco | Stoelverwarming"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-1-serie-7/">BMW 1-serie 116i High Executive Airco | Stoelverwarming</a></h3>
+    <h3><a href="v/bmw-1-serie-7/">BMW 1-serie 116i High Executive Airco</a></h3>
     <p class="st-spec">2011 · 136.337 km</p>
     <div class="st-foot">
       <span class="st-price">€ 5.250</span>
@@ -581,7 +648,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="skoda-skoda-citigo-1-0-grt-sprint-5drs-airco-bj--8" data-rang="7" data-merk="Skoda" data-prijs="4995" data-jaar="2013" data-kenmerk="Airco" data-zoek="skoda citigo 1.0 grt. sprint 5drs | airco (bj 2013) skoda airco">
   <div class="st-shot"><a class="st-link" href="v/skoda-skoda-citigo-1-0-grt-sprint-5drs-airco-bj--8/" aria-label="Skoda Citigo 1.0 Grt. Sprint 5Drs | Airco (bj 2013)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/06326316-7c9e-4cca-9f6b-89f6396611d6?rule=ecg_mp_eps$_85.jpg" alt="Skoda Citigo 1.0 Grt. Sprint 5Drs | Airco (bj 2013)" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="skoda-skoda-citigo-1-0-grt-sprint-5drs-airco-bj--8" aria-pressed="false" aria-label="Bewaar Skoda Citigo 1.0 Grt. Sprint 5Drs | Airco (bj 2013)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/skoda-skoda-citigo-1-0-grt-sprint-5drs-airco-bj--8/">Skoda Citigo 1.0 Grt. Sprint 5Drs | Airco (bj 2013)</a></h3>
+    <h3><a href="v/skoda-skoda-citigo-1-0-grt-sprint-5drs-airco-bj--8/">Skoda Citigo 1.0 Grt. Sprint 5Drs</a></h3>
     <p class="st-spec">2013 · 130.540 km</p>
     <div class="st-foot">
       <span class="st-price">€ 4.995</span>
@@ -591,7 +658,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="opel-opel-corsa-1-4-16v-111-edition-panorama-air-9" data-rang="8" data-merk="Opel" data-prijs="4995" data-jaar="2010" data-kenmerk="Airco" data-zoek="opel corsa 1.4-16v 111 edition panorama | airco (bj 2010) opel airco">
   <div class="st-shot"><a class="st-link" href="v/opel-opel-corsa-1-4-16v-111-edition-panorama-air-9/" aria-label="Opel Corsa 1.4-16V 111 Edition Panorama | Airco (bj 2010)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fe0912ec-9709-40fe-b351-5b534b4b54c6?rule=ecg_mp_eps$_85.jpg" alt="Opel Corsa 1.4-16V 111 Edition Panorama | Airco (bj 2010)" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="opel-opel-corsa-1-4-16v-111-edition-panorama-air-9" aria-pressed="false" aria-label="Bewaar Opel Corsa 1.4-16V 111 Edition Panorama | Airco (bj 2010)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/opel-opel-corsa-1-4-16v-111-edition-panorama-air-9/">Opel Corsa 1.4-16V 111 Edition Panorama | Airco (bj 2010)</a></h3>
+    <h3><a href="v/opel-opel-corsa-1-4-16v-111-edition-panorama-air-9/">Opel Corsa 1.4-16V 111 Edition Panorama</a></h3>
     <p class="st-spec">2010 · 142.239 km</p>
     <div class="st-foot">
       <span class="st-price">€ 4.995</span>
@@ -611,7 +678,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="seat-mii-11" data-rang="10" data-merk="SEAT" data-prijs="3995" data-jaar="2013" data-kenmerk="Airco" data-zoek="seat mii 1.0 reference 5drs | airco (bj 2013) seat mii airco">
   <div class="st-shot"><a class="st-link" href="v/seat-mii-11/" aria-label="SEAT Mii 1.0 Reference 5Drs | Airco (bj 2013)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a4f772a5-574a-41b2-8203-5d6571a6a3b7?rule=ecg_mp_eps$_85.jpg" alt="SEAT Mii 1.0 Reference 5Drs | Airco (bj 2013)" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="seat-mii-11" aria-pressed="false" aria-label="Bewaar SEAT Mii 1.0 Reference 5Drs | Airco (bj 2013)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/seat-mii-11/">SEAT Mii 1.0 Reference 5Drs | Airco (bj 2013)</a></h3>
+    <h3><a href="v/seat-mii-11/">SEAT Mii 1.0 Reference 5Drs</a></h3>
     <p class="st-spec">2013 · 210.882 km</p>
     <div class="st-foot">
       <span class="st-price">€ 3.995</span>
@@ -631,7 +698,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="citroen-c1-13" data-rang="12" data-merk="Citroen" data-prijs="3695" data-jaar="2010" data-kenmerk="Airco|Automaat" data-zoek="citroën c1 1.0-12v ambiance airco | automaat (bj 2010) citroen c1 airco automaat">
   <div class="st-shot"><a class="st-link" href="v/citroen-c1-13/" aria-label="Citroën C1 1.0-12V Ambiance Airco | Automaat (bj 2010)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0ac629c1-e7ea-4150-85eb-7ac916233f3c?rule=ecg_mp_eps$_85.jpg" alt="Citroën C1 1.0-12V Ambiance Airco | Automaat (bj 2010)" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="citroen-c1-13" aria-pressed="false" aria-label="Bewaar Citroën C1 1.0-12V Ambiance Airco | Automaat (bj 2010)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/citroen-c1-13/">Citroën C1 1.0-12V Ambiance Airco | Automaat (bj 2010)</a></h3>
+    <h3><a href="v/citroen-c1-13/">Citroën C1 1.0-12V Ambiance Airco</a></h3>
     <p class="st-spec">2010 · 222.150 km</p>
     <div class="st-foot">
       <span class="st-price">€ 3.695</span>
@@ -641,7 +708,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="citroen-c3-14" data-rang="13" data-merk="Citroen" data-prijs="3495" data-jaar="2010" data-brandstof="Benzine" data-kenmerk="Airco" data-zoek="citroën c3 1.4 business pano | cruise | airco (bj 2010) citroen c3 benzine airco">
   <div class="st-shot"><a class="st-link" href="v/citroen-c3-14/" aria-label="Citroën C3 1.4 Business Pano | Cruise | Airco (bj 2010)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b36b2b11-ad68-47b5-8946-ca668b85d64c?rule=ecg_mp_eps$_85.jpg" alt="Citroën C3 1.4 Business Pano | Cruise | Airco (bj 2010)" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="citroen-c3-14" aria-pressed="false" aria-label="Bewaar Citroën C3 1.4 Business Pano | Cruise | Airco (bj 2010)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/citroen-c3-14/">Citroën C3 1.4 Business Pano | Cruise | Airco (bj 2010)</a></h3>
+    <h3><a href="v/citroen-c3-14/">Citroën C3 1.4 Business Pano</a></h3>
     <p class="st-spec">2010 · 150.294 km · Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 3.495</span>

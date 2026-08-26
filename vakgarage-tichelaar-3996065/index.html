@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e8e1da}
+section:nth-of-type(even){background:#f2e9e2}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#6b625a;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#a4482a;color:#fffaf7;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.035em;color:#a4482a;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#6b625a;font-size:15px}
 .sec-trust a{color:#1c1815}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e8e1da;color:#6b625a;font-size:15.5px}
+.sec-vestiging strong{color:#1c1815;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;letter-spacing:-0.035em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e8e1da;color:#6b625a;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:1.35em;color:#a4482a;letter-spacing:-0.035em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#6b625a;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e8e1da;border-radius:14px;background:#f2e9e2;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:14px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#6b625a;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e8e1da;border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#a4482a66}
+.ug-shot{aspect-ratio:4/3;background:#f2e9e2;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#6b625a;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.035em;color:#a4482a;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e8e1da;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -432,7 +472,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Vakgarage Tichelaar (familie, mediaanprijs EUR 19249, 150 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet terra, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #a4482a.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "mosaic", secties about > stock > process > trust > hours > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "mosaic", secties about > uitgelicht > stock > process > trust > hours > contact.
 FORM: familie-terra-stack-mosaic-schibstedgrotesk-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -455,6 +495,33 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <p>Vakgarage Tichelaar is sinds 1992 gevestigd in Wekerom (Gemeente Ede).Wij zijn een full service autobedrijf dat is aangesloten bij Vakgarage. Dit betekend dat wij een merk onafhankelijk autobedrijf zijn en dus alle voorkomende werkzaamheden aan alle automerken voor u kunnen verrichten. Naast onderhoud en reparatie hebben wij altijd een ruime keus aan jong gebruikte occasions. Tevens leveren wij al</p>
     </div>
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/aa1b1227-30d5-429b-aeac-adddfe90778f?rule=ecg_mp_eps$_85.jpg" alt="Vakgarage Tichelaar" loading="lazy"></div>
+  </div>
+</section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/mazda-mazda-cx-5-2-0-skyactiv-g-165-sportive-tre-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ec0b246c-3cd4-4d84-9281-bc3bd2720176?rule=ecg_mp_eps$_86.jpg" alt="Mazda CX-5 2.0 SkyActiv-G 165 Sportive" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mazda CX-5 2.0 SkyActiv-G 165 Sportive</h3>
+    <p class="ug-spec">2022 · 32.310 km</p>
+    <p class="ug-prijs">€ 33.899</p>
+  </div>
+</a><a class="ug-kaart" href="v/audi-audi-a4-allroad-quattro-45-tfsi-mhev-pro-li-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0f3d5996-510f-4297-bff7-b079a2bfa651?rule=ecg_mp_eps$_86.jpg" alt="Audi A4 allroad quattro 45 TFSI MHEV Pro Line Plus" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Audi A4 allroad quattro 45 TFSI MHEV Pro Line Plus</h3>
+    <p class="ug-spec">2019 · 76.296 km</p>
+    <p class="ug-prijs">€ 25.999</p>
+  </div>
+</a><a class="ug-kaart" href="v/audi-audi-a5-sportback-40-tfsi-sport-3x-s-line-b-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0023fbc4-34c4-4ad6-861c-c368d0ae6b11?rule=ecg_mp_eps$_86.jpg" alt="Audi A5 Sportback 40 TFSI Sport 3X S-line black edition" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Audi A5 Sportback 40 TFSI Sport 3X S-line black edition</h3>
+    <p class="ug-spec">2019 · 166.006 km</p>
+    <p class="ug-prijs">€ 23.399</p>
+  </div>
+</a></div>
   </div>
 </section>
 <section id="voorraad">
@@ -512,7 +579,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="mazda-mazda-cx-5-2-0-skyactiv-g-165-sportive-tre-1" data-rang="0" data-merk="Mazda" data-prijs="33899" data-jaar="2022" data-kenmerk="Trekhaak" data-zoek="mazda cx-5 2.0 skyactiv-g 165 sportive | trekhaak | carplay mazda trekhaak">
   <div class="st-shot"><a class="st-link" href="v/mazda-mazda-cx-5-2-0-skyactiv-g-165-sportive-tre-1/" aria-label="Mazda CX-5 2.0 SkyActiv-G 165 Sportive | Trekhaak | CarPlay"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ec0b246c-3cd4-4d84-9281-bc3bd2720176?rule=ecg_mp_eps$_86.jpg" alt="Mazda CX-5 2.0 SkyActiv-G 165 Sportive | Trekhaak | CarPlay" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mazda-mazda-cx-5-2-0-skyactiv-g-165-sportive-tre-1" aria-pressed="false" aria-label="Bewaar Mazda CX-5 2.0 SkyActiv-G 165 Sportive | Trekhaak | CarPlay"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mazda-mazda-cx-5-2-0-skyactiv-g-165-sportive-tre-1/">Mazda CX-5 2.0 SkyActiv-G 165 Sportive | Trekhaak | CarPlay</a></h3>
+    <h3><a href="v/mazda-mazda-cx-5-2-0-skyactiv-g-165-sportive-tre-1/">Mazda CX-5 2.0 SkyActiv-G 165 Sportive</a></h3>
     <p class="st-spec">2022 · 32.310 km</p>
     <div class="st-foot">
       <span class="st-price">€ 33.899</span>
@@ -522,7 +589,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-a4-allroad-quattro-45-tfsi-mhev-pro-li-2" data-rang="1" data-merk="Audi" data-prijs="25999" data-jaar="2019" data-zoek="audi a4 allroad quattro 45 tfsi mhev pro line plus | camera audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a4-allroad-quattro-45-tfsi-mhev-pro-li-2/" aria-label="Audi A4 allroad quattro 45 TFSI MHEV Pro Line Plus | Camera"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0f3d5996-510f-4297-bff7-b079a2bfa651?rule=ecg_mp_eps$_85.jpg" alt="Audi A4 allroad quattro 45 TFSI MHEV Pro Line Plus | Camera" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a4-allroad-quattro-45-tfsi-mhev-pro-li-2" aria-pressed="false" aria-label="Bewaar Audi A4 allroad quattro 45 TFSI MHEV Pro Line Plus | Camera"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a4-allroad-quattro-45-tfsi-mhev-pro-li-2/">Audi A4 allroad quattro 45 TFSI MHEV Pro Line Plus | Camera</a></h3>
+    <h3><a href="v/audi-audi-a4-allroad-quattro-45-tfsi-mhev-pro-li-2/">Audi A4 allroad quattro 45 TFSI MHEV Pro Line Plus</a></h3>
     <p class="st-spec">2019 · 76.296 km</p>
     <div class="st-foot">
       <span class="st-price">€ 25.999</span>
@@ -532,7 +599,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="audi-audi-a5-sportback-40-tfsi-sport-3x-s-line-b-3" data-rang="2" data-merk="Audi" data-prijs="23399" data-jaar="2019" data-zoek="audi a5 sportback 40 tfsi sport 3x s-line black edition | or audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a5-sportback-40-tfsi-sport-3x-s-line-b-3/" aria-label="Audi A5 Sportback 40 TFSI Sport 3X S-line black edition | Or"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0023fbc4-34c4-4ad6-861c-c368d0ae6b11?rule=ecg_mp_eps$_86.jpg" alt="Audi A5 Sportback 40 TFSI Sport 3X S-line black edition | Or" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a5-sportback-40-tfsi-sport-3x-s-line-b-3" aria-pressed="false" aria-label="Bewaar Audi A5 Sportback 40 TFSI Sport 3X S-line black edition | Or"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a5-sportback-40-tfsi-sport-3x-s-line-b-3/">Audi A5 Sportback 40 TFSI Sport 3X S-line black edition | Or</a></h3>
+    <h3><a href="v/audi-audi-a5-sportback-40-tfsi-sport-3x-s-line-b-3/">Audi A5 Sportback 40 TFSI Sport 3X S-line black edition</a></h3>
     <p class="st-spec">2019 · 166.006 km</p>
     <div class="st-foot">
       <span class="st-price">€ 23.399</span>
@@ -542,7 +609,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-3-serie-330e-centennial-high-executive-m-4" data-rang="3" data-merk="BMW" data-prijs="22899" data-jaar="2016" data-zoek="bmw 3-serie 330e centennial high executive m-sport | panoram bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-3-serie-330e-centennial-high-executive-m-4/" aria-label="BMW 3-serie 330e Centennial High Executive M-Sport | Panoram"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aed45bc3-9aee-4768-a23f-e9bedbcaa992?rule=ecg_mp_eps$_85.jpg" alt="BMW 3-serie 330e Centennial High Executive M-Sport | Panoram" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-3-serie-330e-centennial-high-executive-m-4" aria-pressed="false" aria-label="Bewaar BMW 3-serie 330e Centennial High Executive M-Sport | Panoram"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-3-serie-330e-centennial-high-executive-m-4/">BMW 3-serie 330e Centennial High Executive M-Sport | Panoram</a></h3>
+    <h3><a href="v/bmw-bmw-3-serie-330e-centennial-high-executive-m-4/">BMW 3-serie 330e Centennial High Executive M-Sport</a></h3>
     <p class="st-spec">2016 · 110.659 km</p>
     <div class="st-foot">
       <span class="st-price">€ 22.899</span>
@@ -552,7 +619,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volvo-volvo-v60-2-0-t8-twin-engine-awd-inscripti-5" data-rang="4" data-merk="Volvo" data-prijs="22399" data-jaar="2019" data-zoek="volvo v60 2.0 t8 twin engine awd inscription | panoramadak | volvo">
   <div class="st-shot"><a class="st-link" href="v/volvo-volvo-v60-2-0-t8-twin-engine-awd-inscripti-5/" aria-label="Volvo V60 2.0 T8 Twin Engine AWD Inscription | Panoramadak |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/36563b3c-567d-45c2-82e4-8b72cbdcf70b?rule=ecg_mp_eps$_85.jpg" alt="Volvo V60 2.0 T8 Twin Engine AWD Inscription | Panoramadak |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volvo-volvo-v60-2-0-t8-twin-engine-awd-inscripti-5" aria-pressed="false" aria-label="Bewaar Volvo V60 2.0 T8 Twin Engine AWD Inscription | Panoramadak |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volvo-volvo-v60-2-0-t8-twin-engine-awd-inscripti-5/">Volvo V60 2.0 T8 Twin Engine AWD Inscription | Panoramadak |</a></h3>
+    <h3><a href="v/volvo-volvo-v60-2-0-t8-twin-engine-awd-inscripti-5/">Volvo V60 2.0 T8 Twin Engine AWD Inscription</a></h3>
     <p class="st-spec">2019 · 158.453 km</p>
     <div class="st-foot">
       <span class="st-price">€ 22.399</span>
@@ -562,7 +629,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="honda-honda-hr-v-1-5-i-vtec-elegance-org-nl-42-0-6" data-rang="5" data-merk="Honda" data-prijs="21899" data-jaar="2020" data-zoek="honda hr-v 1.5 i-vtec elegance | org nl | 42.000 km! | trekh honda">
   <div class="st-shot"><a class="st-link" href="v/honda-honda-hr-v-1-5-i-vtec-elegance-org-nl-42-0-6/" aria-label="Honda HR-V 1.5 i-VTEC Elegance | Org NL | 42.000 KM! | Trekh"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/05f431db-4dc2-4b31-87b1-a4b9570ce54a?rule=ecg_mp_eps$_85.jpg" alt="Honda HR-V 1.5 i-VTEC Elegance | Org NL | 42.000 KM! | Trekh" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="honda-honda-hr-v-1-5-i-vtec-elegance-org-nl-42-0-6" aria-pressed="false" aria-label="Bewaar Honda HR-V 1.5 i-VTEC Elegance | Org NL | 42.000 KM! | Trekh"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/honda-honda-hr-v-1-5-i-vtec-elegance-org-nl-42-0-6/">Honda HR-V 1.5 i-VTEC Elegance | Org NL | 42.000 KM! | Trekh</a></h3>
+    <h3><a href="v/honda-honda-hr-v-1-5-i-vtec-elegance-org-nl-42-0-6/">Honda HR-V 1.5 i-VTEC Elegance</a></h3>
     <p class="st-spec">2020 · 42.757 km</p>
     <div class="st-foot">
       <span class="st-price">€ 21.899</span>
@@ -572,7 +639,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="opel-opel-grandland-1-2-turbo-gs-line-trekhaak-a-7" data-rang="6" data-merk="Opel" data-prijs="21699" data-jaar="2022" data-kenmerk="Trekhaak|Automaat" data-zoek="opel grandland 1.2 turbo gs line | trekhaak | automaat | car opel trekhaak automaat">
   <div class="st-shot"><a class="st-link" href="v/opel-opel-grandland-1-2-turbo-gs-line-trekhaak-a-7/" aria-label="Opel Grandland 1.2 Turbo GS Line | Trekhaak | Automaat | Car"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6f84e6d7-3ad8-4e52-86c3-8544a37b6df0?rule=ecg_mp_eps$_85.jpg" alt="Opel Grandland 1.2 Turbo GS Line | Trekhaak | Automaat | Car" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="opel-opel-grandland-1-2-turbo-gs-line-trekhaak-a-7" aria-pressed="false" aria-label="Bewaar Opel Grandland 1.2 Turbo GS Line | Trekhaak | Automaat | Car"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/opel-opel-grandland-1-2-turbo-gs-line-trekhaak-a-7/">Opel Grandland 1.2 Turbo GS Line | Trekhaak | Automaat | Car</a></h3>
+    <h3><a href="v/opel-opel-grandland-1-2-turbo-gs-line-trekhaak-a-7/">Opel Grandland 1.2 Turbo GS Line</a></h3>
     <p class="st-spec">2022 · 34.333 km</p>
     <div class="st-foot">
       <span class="st-price">€ 21.699</span>
@@ -582,7 +649,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="mazda-mazda-6-sportbreak-2-0-skyactiv-g-165-luxu-8" data-rang="7" data-merk="Mazda" data-prijs="19999" data-jaar="2019" data-kenmerk="Trekhaak" data-zoek="mazda 6 sportbreak 2.0 skyactiv-g 165 luxury | trekhaak | or mazda trekhaak">
   <div class="st-shot"><a class="st-link" href="v/mazda-mazda-6-sportbreak-2-0-skyactiv-g-165-luxu-8/" aria-label="Mazda 6 Sportbreak 2.0 SkyActiv-G 165 Luxury | Trekhaak | Or"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6e50aad6-4d1a-42cd-b75c-f0a019ed7efe?rule=ecg_mp_eps$_86.jpg" alt="Mazda 6 Sportbreak 2.0 SkyActiv-G 165 Luxury | Trekhaak | Or" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mazda-mazda-6-sportbreak-2-0-skyactiv-g-165-luxu-8" aria-pressed="false" aria-label="Bewaar Mazda 6 Sportbreak 2.0 SkyActiv-G 165 Luxury | Trekhaak | Or"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mazda-mazda-6-sportbreak-2-0-skyactiv-g-165-luxu-8/">Mazda 6 Sportbreak 2.0 SkyActiv-G 165 Luxury | Trekhaak | Or</a></h3>
+    <h3><a href="v/mazda-mazda-6-sportbreak-2-0-skyactiv-g-165-luxu-8/">Mazda 6 Sportbreak 2.0 SkyActiv-G 165 Luxury</a></h3>
     <p class="st-spec">2019 · 131.959 km</p>
     <div class="st-foot">
       <span class="st-price">€ 19.999</span>
@@ -592,7 +659,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="suzuki-suzuki-vitara-1-5-hybrid-style-org-nl-nav-9" data-rang="8" data-merk="Suzuki" data-prijs="19299" data-jaar="2022" data-kenmerk="Navigatie" data-zoek="suzuki vitara 1.5 hybrid style | org nl | navigatie | adap. suzuki navigatie">
   <div class="st-shot"><a class="st-link" href="v/suzuki-suzuki-vitara-1-5-hybrid-style-org-nl-nav-9/" aria-label="Suzuki Vitara 1.5 Hybrid Style | Org NL | Navigatie | Adap."><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5e79ebd3-48b2-4fcf-ae5f-49f639653a3b?rule=ecg_mp_eps$_85.jpg" alt="Suzuki Vitara 1.5 Hybrid Style | Org NL | Navigatie | Adap." loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="suzuki-suzuki-vitara-1-5-hybrid-style-org-nl-nav-9" aria-pressed="false" aria-label="Bewaar Suzuki Vitara 1.5 Hybrid Style | Org NL | Navigatie | Adap."><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/suzuki-suzuki-vitara-1-5-hybrid-style-org-nl-nav-9/">Suzuki Vitara 1.5 Hybrid Style | Org NL | Navigatie | Adap.</a></h3>
+    <h3><a href="v/suzuki-suzuki-vitara-1-5-hybrid-style-org-nl-nav-9/">Suzuki Vitara 1.5 Hybrid Style</a></h3>
     <p class="st-spec">2022 · 149.292 km</p>
     <div class="st-foot">
       <span class="st-price">€ 19.299</span>
@@ -602,7 +669,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volkswagen-volkswagen-tiguan-1-4-tsi-4motion-hig-10" data-rang="9" data-merk="Volkswagen" data-prijs="19199" data-jaar="2018" data-kenmerk="Trekhaak" data-zoek="volkswagen tiguan 1.4 tsi 4motion highline | trekhaak | pano volkswagen trekhaak">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-tiguan-1-4-tsi-4motion-hig-10/" aria-label="Volkswagen Tiguan 1.4 TSI 4Motion Highline | Trekhaak | Pano"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/84587b30-4236-468b-9311-1d4e23878f12?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tiguan 1.4 TSI 4Motion Highline | Trekhaak | Pano" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-tiguan-1-4-tsi-4motion-hig-10" aria-pressed="false" aria-label="Bewaar Volkswagen Tiguan 1.4 TSI 4Motion Highline | Trekhaak | Pano"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-tiguan-1-4-tsi-4motion-hig-10/">Volkswagen Tiguan 1.4 TSI 4Motion Highline | Trekhaak | Pano</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-tiguan-1-4-tsi-4motion-hig-10/">Volkswagen Tiguan 1.4 TSI 4Motion Highline</a></h3>
     <p class="st-spec">2018 · 159.474 km</p>
     <div class="st-foot">
       <span class="st-price">€ 19.199</span>
@@ -612,7 +679,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="ford-ford-kuga-1-5-ecoboost-st-line-awd-carplay--11" data-rang="10" data-merk="Ford" data-prijs="17599" data-jaar="2017" data-zoek="ford kuga 1.5 ecoboost st line awd | carplay | camera | sony ford">
   <div class="st-shot"><a class="st-link" href="v/ford-ford-kuga-1-5-ecoboost-st-line-awd-carplay--11/" aria-label="Ford Kuga 1.5 EcoBoost ST Line AWD | CarPlay | Camera | Sony"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/26ab44ad-6757-417e-bf08-d930c66ba701?rule=ecg_mp_eps$_85.jpg" alt="Ford Kuga 1.5 EcoBoost ST Line AWD | CarPlay | Camera | Sony" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="ford-ford-kuga-1-5-ecoboost-st-line-awd-carplay--11" aria-pressed="false" aria-label="Bewaar Ford Kuga 1.5 EcoBoost ST Line AWD | CarPlay | Camera | Sony"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/ford-ford-kuga-1-5-ecoboost-st-line-awd-carplay--11/">Ford Kuga 1.5 EcoBoost ST Line AWD | CarPlay | Camera | Sony</a></h3>
+    <h3><a href="v/ford-ford-kuga-1-5-ecoboost-st-line-awd-carplay--11/">Ford Kuga 1.5 EcoBoost ST Line AWD</a></h3>
     <p class="st-spec">2017 · 95.747 km</p>
     <div class="st-foot">
       <span class="st-price">€ 17.599</span>
@@ -622,7 +689,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volvo-volvo-v40-1-5-t3-polar-sport-r-design-pano-12" data-rang="11" data-merk="Volvo" data-prijs="16999" data-jaar="2019" data-zoek="volvo v40 1.5 t3 polar+ sport r-design | panoramadak | org n volvo">
   <div class="st-shot"><a class="st-link" href="v/volvo-volvo-v40-1-5-t3-polar-sport-r-design-pano-12/" aria-label="Volvo V40 1.5 T3 Polar+ Sport R-Design | Panoramadak | Org N"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c0a84b9-afcb-408e-87a3-32f57ae0b297?rule=ecg_mp_eps$_85.jpg" alt="Volvo V40 1.5 T3 Polar+ Sport R-Design | Panoramadak | Org N" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volvo-volvo-v40-1-5-t3-polar-sport-r-design-pano-12" aria-pressed="false" aria-label="Bewaar Volvo V40 1.5 T3 Polar+ Sport R-Design | Panoramadak | Org N"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volvo-volvo-v40-1-5-t3-polar-sport-r-design-pano-12/">Volvo V40 1.5 T3 Polar+ Sport R-Design | Panoramadak | Org N</a></h3>
+    <h3><a href="v/volvo-volvo-v40-1-5-t3-polar-sport-r-design-pano-12/">Volvo V40 1.5 T3 Polar+ Sport R-Design</a></h3>
     <p class="st-spec">2019 · 125.845 km</p>
     <div class="st-foot">
       <span class="st-price">€ 16.999</span>
@@ -632,7 +699,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="volkswagen-volkswagen-golf-variant-1-0-etsi-life-13" data-rang="12" data-merk="Volkswagen" data-prijs="16699" data-jaar="2021" data-zoek="volkswagen golf variant 1.0 etsi life business | camera | au volkswagen">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-golf-variant-1-0-etsi-life-13/" aria-label="Volkswagen Golf Variant 1.0 eTSI Life Business | Camera | Au"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3eee7d12-b47b-44ad-88a2-ce73ff63f584?rule=ecg_mp_eps$_86.jpg" alt="Volkswagen Golf Variant 1.0 eTSI Life Business | Camera | Au" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-golf-variant-1-0-etsi-life-13" aria-pressed="false" aria-label="Bewaar Volkswagen Golf Variant 1.0 eTSI Life Business | Camera | Au"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-golf-variant-1-0-etsi-life-13/">Volkswagen Golf Variant 1.0 eTSI Life Business | Camera | Au</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-golf-variant-1-0-etsi-life-13/">Volkswagen Golf Variant 1.0 eTSI Life Business</a></h3>
     <p class="st-spec">2021 · 134.288 km</p>
     <div class="st-foot">
       <span class="st-price">€ 16.699</span>
@@ -642,7 +709,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="skoda-karoq-14" data-rang="13" data-merk="Skoda" data-prijs="15899" data-jaar="2021" data-zoek="skoda karoq 1.0 tsi business edition | carplay | camera | st skoda karoq">
   <div class="st-shot"><a class="st-link" href="v/skoda-karoq-14/" aria-label="Skoda Karoq 1.0 TSI Business Edition | CarPlay | Camera | St"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0ef664af-50e8-45dd-b5b2-c791a2e7a629?rule=ecg_mp_eps$_85.jpg" alt="Skoda Karoq 1.0 TSI Business Edition | CarPlay | Camera | St" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="skoda-karoq-14" aria-pressed="false" aria-label="Bewaar Skoda Karoq 1.0 TSI Business Edition | CarPlay | Camera | St"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/skoda-karoq-14/">Skoda Karoq 1.0 TSI Business Edition | CarPlay | Camera | St</a></h3>
+    <h3><a href="v/skoda-karoq-14/">Skoda Karoq 1.0 TSI Business Edition</a></h3>
     <p class="st-spec">2021 · 129.807 km</p>
     <div class="st-foot">
       <span class="st-price">€ 15.899</span>
@@ -652,7 +719,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volkswagen-volkswagen-tiguan-1-4-tsi-comfortline-15" data-rang="14" data-merk="Volkswagen" data-prijs="15699" data-jaar="2018" data-zoek="volkswagen tiguan 1.4 tsi comfortline business | camera | di volkswagen">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-tiguan-1-4-tsi-comfortline-15/" aria-label="Volkswagen Tiguan 1.4 TSI Comfortline Business | Camera | Di"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/afdcbc89-1039-4c78-b151-520610404a65?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Tiguan 1.4 TSI Comfortline Business | Camera | Di" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-tiguan-1-4-tsi-comfortline-15" aria-pressed="false" aria-label="Bewaar Volkswagen Tiguan 1.4 TSI Comfortline Business | Camera | Di"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-tiguan-1-4-tsi-comfortline-15/">Volkswagen Tiguan 1.4 TSI Comfortline Business | Camera | Di</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-tiguan-1-4-tsi-comfortline-15/">Volkswagen Tiguan 1.4 TSI Comfortline Business</a></h3>
     <p class="st-spec">2018 · 207.594 km</p>
     <div class="st-foot">
       <span class="st-price">€ 15.699</span>
@@ -662,7 +729,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="kia-kia-niro-1-6-gdi-hybrid-dynamicline-afn-trek-16" data-rang="15" data-merk="Kia" data-prijs="15399" data-jaar="2019" data-kenmerk="Trekhaak" data-zoek="kia niro 1.6 gdi hybrid dynamicline | afn. trekhaak | panora kia trekhaak">
   <div class="st-shot"><a class="st-link" href="v/kia-kia-niro-1-6-gdi-hybrid-dynamicline-afn-trek-16/" aria-label="Kia Niro 1.6 GDi Hybrid DynamicLine | Afn. Trekhaak | Panora"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0499c0f3-db50-4b00-a1c3-287df68bdceb?rule=ecg_mp_eps$_85.jpg" alt="Kia Niro 1.6 GDi Hybrid DynamicLine | Afn. Trekhaak | Panora" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="kia-kia-niro-1-6-gdi-hybrid-dynamicline-afn-trek-16" aria-pressed="false" aria-label="Bewaar Kia Niro 1.6 GDi Hybrid DynamicLine | Afn. Trekhaak | Panora"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/kia-kia-niro-1-6-gdi-hybrid-dynamicline-afn-trek-16/">Kia Niro 1.6 GDi Hybrid DynamicLine | Afn. Trekhaak | Panora</a></h3>
+    <h3><a href="v/kia-kia-niro-1-6-gdi-hybrid-dynamicline-afn-trek-16/">Kia Niro 1.6 GDi Hybrid DynamicLine</a></h3>
     <p class="st-spec">2019 · 135.628 km</p>
     <div class="st-foot">
       <span class="st-price">€ 15.399</span>
@@ -672,7 +739,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-308-1-6-e-thp-gti-250-org-nl-cam-17" data-rang="16" data-merk="Peugeot" data-prijs="14899" data-jaar="2016" data-zoek="peugeot 308 1.6 e-thp gti 250 | org nl | camera | stoelverwa peugeot">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-308-1-6-e-thp-gti-250-org-nl-cam-17/" aria-label="Peugeot 308 1.6 e-THP GTi 250 | Org NL | Camera | Stoelverwa"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fa84a0b7-e011-491e-857e-a581be9e4e37?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 308 1.6 e-THP GTi 250 | Org NL | Camera | Stoelverwa" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-308-1-6-e-thp-gti-250-org-nl-cam-17" aria-pressed="false" aria-label="Bewaar Peugeot 308 1.6 e-THP GTi 250 | Org NL | Camera | Stoelverwa"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-308-1-6-e-thp-gti-250-org-nl-cam-17/">Peugeot 308 1.6 e-THP GTi 250 | Org NL | Camera | Stoelverwa</a></h3>
+    <h3><a href="v/peugeot-peugeot-308-1-6-e-thp-gti-250-org-nl-cam-17/">Peugeot 308 1.6 e-THP GTi 250</a></h3>
     <p class="st-spec">2016 · 117.029 km</p>
     <div class="st-foot">
       <span class="st-price">€ 14.899</span>
@@ -682,7 +749,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="kia-kia-niro-1-6-gdi-hybrid-dynamicline-camera-c-18" data-rang="17" data-merk="Kia" data-prijs="14699" data-jaar="2019" data-zoek="kia niro 1.6 gdi hybrid dynamicline | camera | carplay | nav kia">
   <div class="st-shot"><a class="st-link" href="v/kia-kia-niro-1-6-gdi-hybrid-dynamicline-camera-c-18/" aria-label="Kia Niro 1.6 GDi Hybrid DynamicLine | Camera | CarPlay | Nav"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b88991c4-9f24-4dbc-8f7b-99aabe329840?rule=ecg_mp_eps$_86.jpg" alt="Kia Niro 1.6 GDi Hybrid DynamicLine | Camera | CarPlay | Nav" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="kia-kia-niro-1-6-gdi-hybrid-dynamicline-camera-c-18" aria-pressed="false" aria-label="Bewaar Kia Niro 1.6 GDi Hybrid DynamicLine | Camera | CarPlay | Nav"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/kia-kia-niro-1-6-gdi-hybrid-dynamicline-camera-c-18/">Kia Niro 1.6 GDi Hybrid DynamicLine | Camera | CarPlay | Nav</a></h3>
+    <h3><a href="v/kia-kia-niro-1-6-gdi-hybrid-dynamicline-camera-c-18/">Kia Niro 1.6 GDi Hybrid DynamicLine</a></h3>
     <p class="st-spec">2019 · 122.558 km</p>
     <div class="st-foot">
       <span class="st-price">€ 14.699</span>
@@ -704,7 +771,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     </ol>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.6</b><span>gemiddeld uit 985 beoordelingen</span></div><div><b>20</b><span>jaar op Marktplaats</span></div><div><b>Wekerom</b><span><a href="https://maps.google.com/?q=Lenderinkweg%2015%2C%206733AX%20Wekerom" target="_blank" rel="noreferrer">Lenderinkweg 15, 6733AX Wekerom</a></span></div><div><b>KvK</b><span>09073967</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.6</b><span>gemiddeld uit 985 beoordelingen</span></div><div><b>20</b><span>jaar op Marktplaats</span></div><div><b>12</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Wekerom</strong> · <a href="https://maps.google.com/?q=Lenderinkweg%2015%2C%206733AX%20Wekerom" target="_blank" rel="noreferrer">Lenderinkweg 15, 6733AX Wekerom</a> · KvK 09073967</p></div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

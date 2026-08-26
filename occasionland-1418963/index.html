@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e4e4df}
+section:nth-of-type(even){background:#eef1ee}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#5f646c;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#1f5f4f;color:#ffffff;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.035em;color:#1f5f4f;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#5f646c;font-size:15px}
 .sec-trust a{color:#16181c}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e4e4df;color:#5f646c;font-size:15.5px}
+.sec-vestiging strong{color:#16181c;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;letter-spacing:-0.035em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e4e4df;color:#5f646c;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:1.35em;color:#1f5f4f;letter-spacing:-0.035em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#5f646c;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e4e4df;border-radius:14px;background:#eef1ee;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:14px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#5f646c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e4e4df;border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#1f5f4f66}
+.ug-shot{aspect-ratio:4/3;background:#eef1ee;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#5f646c;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.035em;color:#1f5f4f;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e4e4df;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -432,7 +472,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Occasionland (familie, mediaanprijs EUR 23375, 67 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet daglicht, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #1f5f4f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties trust > stock > about > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties trust > uitgelicht > stock > about > promise > process > hours > contact.
 FORM: familie-daglicht-split-mosaic-schibstedgrotesk-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -450,7 +490,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dffcd512-7895-436b-96ea-4c27e2ea0548?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz E-klasse 300 e AMG Line|PANO|TREKHAAK|KEYLESS|" decoding="async" fetchpriority="high"><figcaption><span>Mercedes-Benz E-klasse 300 e AMG Line|PA</span><span>€ 38.900</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6aa9feba-c19d-4b49-bf40-3303617063a9?rule=ecg_mp_eps$_85.jpg" alt="Audi Q7 3.0 TFSI quattro Pro Line S|PANO|LUCHTVERING|HUD|KEY" decoding="async"><figcaption><span>Audi Q7 3.0 TFSI quattro Pro Line S|PANO</span><span>€ 35.400</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/70e2462a-436c-4b07-bd98-bd9bc97aa99e?rule=ecg_mp_eps$_85.jpg" alt="BMW 5-serie Touring 530e Business Edition Plus M-Pakket|PANO" decoding="async"><figcaption><span>BMW 5-serie Touring 530e Business Editio</span><span>€ 32.450</span></figcaption></figure></div></div>
   </div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.8</b><span>gemiddeld uit 183 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>Aalsmeer</b><span><a href="https://maps.google.com/?q=Turfstekerstraat%2051b%2C%201431GD%20Aalsmeer" target="_blank" rel="noreferrer">Turfstekerstraat 51b, 1431GD Aalsmeer</a></span></div><div><b>KvK</b><span>82557802</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.8</b><span>gemiddeld uit 183 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>8</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Aalsmeer</strong> · <a href="https://maps.google.com/?q=Turfstekerstraat%2051b%2C%201431GD%20Aalsmeer" target="_blank" rel="noreferrer">Turfstekerstraat 51b, 1431GD Aalsmeer</a> · KvK 82557802</p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/mercedes-benz-mercedes-benz-e-klasse-300-e-amg-l-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dffcd512-7895-436b-96ea-4c27e2ea0548?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz E-klasse 300 e AMG Line" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mercedes-Benz E-klasse 300 e AMG Line</h3>
+    <p class="ug-spec">2021 · 128.490 km</p>
+    <p class="ug-prijs">€ 38.900</p>
+  </div>
+</a><a class="ug-kaart" href="v/audi-audi-q7-3-0-tfsi-quattro-pro-line-s-pano-lu-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6aa9feba-c19d-4b49-bf40-3303617063a9?rule=ecg_mp_eps$_86.jpg" alt="Audi Q7 3.0 TFSI quattro Pro Line S" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Audi Q7 3.0 TFSI quattro Pro Line S</h3>
+    <p class="ug-spec">2016 · 134.838 km</p>
+    <p class="ug-prijs">€ 35.400</p>
+  </div>
+</a><a class="ug-kaart" href="v/bmw-bmw-5-serie-touring-530e-business-edition-pl-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/70e2462a-436c-4b07-bd98-bd9bc97aa99e?rule=ecg_mp_eps$_86.jpg" alt="BMW 5-serie Touring 530e Business Edition Plus M-Pakket" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW 5-serie Touring 530e Business Edition Plus M-Pakket</h3>
+    <p class="ug-spec">2022 · 121.245 km</p>
+    <p class="ug-prijs">€ 32.450</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>Onze voorraad</h2>
@@ -511,7 +578,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="mercedes-benz-mercedes-benz-e-klasse-300-e-amg-l-1" data-rang="0" data-merk="Mercedes-Benz" data-prijs="38900" data-jaar="2021" data-kenmerk="Trekhaak" data-zoek="mercedes-benz e-klasse 300 e amg line|pano|trekhaak|keyless| mercedes-benz trekhaak">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-e-klasse-300-e-amg-l-1/" aria-label="Mercedes-Benz E-klasse 300 e AMG Line|PANO|TREKHAAK|KEYLESS|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dffcd512-7895-436b-96ea-4c27e2ea0548?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz E-klasse 300 e AMG Line|PANO|TREKHAAK|KEYLESS|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-e-klasse-300-e-amg-l-1" aria-pressed="false" aria-label="Bewaar Mercedes-Benz E-klasse 300 e AMG Line|PANO|TREKHAAK|KEYLESS|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-e-klasse-300-e-amg-l-1/">Mercedes-Benz E-klasse 300 e AMG Line|PANO|TREKHAAK|KEYLESS|</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-e-klasse-300-e-amg-l-1/">Mercedes-Benz E-klasse 300 e AMG Line</a></h3>
     <p class="st-spec">2021 · 128.490 km</p>
     <div class="st-foot">
       <span class="st-price">€ 38.900</span>
@@ -521,7 +588,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-q7-3-0-tfsi-quattro-pro-line-s-pano-lu-2" data-rang="1" data-merk="Audi" data-prijs="35400" data-jaar="2016" data-zoek="audi q7 3.0 tfsi quattro pro line s|pano|luchtvering|hud|key audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-q7-3-0-tfsi-quattro-pro-line-s-pano-lu-2/" aria-label="Audi Q7 3.0 TFSI quattro Pro Line S|PANO|LUCHTVERING|HUD|KEY"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6aa9feba-c19d-4b49-bf40-3303617063a9?rule=ecg_mp_eps$_85.jpg" alt="Audi Q7 3.0 TFSI quattro Pro Line S|PANO|LUCHTVERING|HUD|KEY" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-q7-3-0-tfsi-quattro-pro-line-s-pano-lu-2" aria-pressed="false" aria-label="Bewaar Audi Q7 3.0 TFSI quattro Pro Line S|PANO|LUCHTVERING|HUD|KEY"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-q7-3-0-tfsi-quattro-pro-line-s-pano-lu-2/">Audi Q7 3.0 TFSI quattro Pro Line S|PANO|LUCHTVERING|HUD|KEY</a></h3>
+    <h3><a href="v/audi-audi-q7-3-0-tfsi-quattro-pro-line-s-pano-lu-2/">Audi Q7 3.0 TFSI quattro Pro Line S</a></h3>
     <p class="st-spec">2016 · 134.838 km</p>
     <div class="st-foot">
       <span class="st-price">€ 35.400</span>
@@ -531,7 +598,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="bmw-bmw-5-serie-touring-530e-business-edition-pl-3" data-rang="2" data-merk="BMW" data-prijs="32450" data-jaar="2022" data-zoek="bmw 5-serie touring 530e business edition plus m-pakket|pano bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-5-serie-touring-530e-business-edition-pl-3/" aria-label="BMW 5-serie Touring 530e Business Edition Plus M-Pakket|PANO"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/70e2462a-436c-4b07-bd98-bd9bc97aa99e?rule=ecg_mp_eps$_86.jpg" alt="BMW 5-serie Touring 530e Business Edition Plus M-Pakket|PANO" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-5-serie-touring-530e-business-edition-pl-3" aria-pressed="false" aria-label="Bewaar BMW 5-serie Touring 530e Business Edition Plus M-Pakket|PANO"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-5-serie-touring-530e-business-edition-pl-3/">BMW 5-serie Touring 530e Business Edition Plus M-Pakket|PANO</a></h3>
+    <h3><a href="v/bmw-bmw-5-serie-touring-530e-business-edition-pl-3/">BMW 5-serie Touring 530e Business Edition Plus M-Pakket</a></h3>
     <p class="st-spec">2022 · 121.245 km</p>
     <div class="st-foot">
       <span class="st-price">€ 32.450</span>
@@ -551,7 +618,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-x3-xdrive30e-business-edition-plus-pano--5" data-rang="4" data-merk="BMW" data-prijs="26700" data-jaar="2021" data-zoek="bmw x3 xdrive30e business edition plus|pano|soh100%|360cam|p bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x3-xdrive30e-business-edition-plus-pano--5/" aria-label="BMW X3 XDrive30e Business Edition Plus|PANO|SOH100%|360CAM|P"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/301e4b3b-20a9-4604-88c5-767cbfb18a56?rule=ecg_mp_eps$_85.jpg" alt="BMW X3 XDrive30e Business Edition Plus|PANO|SOH100%|360CAM|P" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x3-xdrive30e-business-edition-plus-pano--5" aria-pressed="false" aria-label="Bewaar BMW X3 XDrive30e Business Edition Plus|PANO|SOH100%|360CAM|P"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x3-xdrive30e-business-edition-plus-pano--5/">BMW X3 XDrive30e Business Edition Plus|PANO|SOH100%|360CAM|P</a></h3>
+    <h3><a href="v/bmw-bmw-x3-xdrive30e-business-edition-plus-pano--5/">BMW X3 XDrive30e Business Edition Plus</a></h3>
     <p class="st-spec">2021 · 100.491 km</p>
     <div class="st-foot">
       <span class="st-price">€ 26.700</span>
@@ -561,7 +628,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-a3-limousine-30-tfsi-s-edition-3x-s-li-6" data-rang="5" data-merk="Audi" data-prijs="26300" data-jaar="2023" data-zoek="audi a3 limousine 30 tfsi s edition 3x s-line|led|sfeer|acc| audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a3-limousine-30-tfsi-s-edition-3x-s-li-6/" aria-label="Audi A3 Limousine 30 TFSI S edition 3x S-Line|LED|SFEER|ACC|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6b6083b6-0163-4334-8000-28cf8cb97330?rule=ecg_mp_eps$_85.jpg" alt="Audi A3 Limousine 30 TFSI S edition 3x S-Line|LED|SFEER|ACC|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a3-limousine-30-tfsi-s-edition-3x-s-li-6" aria-pressed="false" aria-label="Bewaar Audi A3 Limousine 30 TFSI S edition 3x S-Line|LED|SFEER|ACC|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a3-limousine-30-tfsi-s-edition-3x-s-li-6/">Audi A3 Limousine 30 TFSI S edition 3x S-Line|LED|SFEER|ACC|</a></h3>
+    <h3><a href="v/audi-audi-a3-limousine-30-tfsi-s-edition-3x-s-li-6/">Audi A3 Limousine 30 TFSI S edition 3x S-Line</a></h3>
     <p class="st-spec">2023 · 54.385 km</p>
     <div class="st-foot">
       <span class="st-price">€ 26.300</span>
@@ -571,7 +638,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-6-serie-gran-turismo-630i-high-executive-7" data-rang="6" data-merk="BMW" data-prijs="25900" data-jaar="2018" data-zoek="bmw 6-serie gran turismo 630i high executive m-sport|pano|hu bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-6-serie-gran-turismo-630i-high-executive-7/" aria-label="BMW 6-serie Gran Turismo 630i High Executive M-Sport|PANO|HU"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7a1f65dd-cf97-4fbd-bdb9-747cab5933d1?rule=ecg_mp_eps$_85.jpg" alt="BMW 6-serie Gran Turismo 630i High Executive M-Sport|PANO|HU" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-6-serie-gran-turismo-630i-high-executive-7" aria-pressed="false" aria-label="Bewaar BMW 6-serie Gran Turismo 630i High Executive M-Sport|PANO|HU"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-6-serie-gran-turismo-630i-high-executive-7/">BMW 6-serie Gran Turismo 630i High Executive M-Sport|PANO|HU</a></h3>
+    <h3><a href="v/bmw-bmw-6-serie-gran-turismo-630i-high-executive-7/">BMW 6-serie Gran Turismo 630i High Executive M-Sport</a></h3>
     <p class="st-spec">2018 · 156.750 km</p>
     <div class="st-foot">
       <span class="st-price">€ 25.900</span>
@@ -581,7 +648,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="mercedes-benz-mercedes-benz-cla-klasse-180-busin-8" data-rang="7" data-merk="Mercedes-Benz" data-prijs="23900" data-jaar="2018" data-zoek="mercedes-benz cla-klasse 180 business solution amg|pano|led| mercedes-benz">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-cla-klasse-180-busin-8/" aria-label="Mercedes-Benz CLA-klasse 180 Business Solution AMG|PANO|LED|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8291990c-2b65-4474-9974-1278fd060c71?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz CLA-klasse 180 Business Solution AMG|PANO|LED|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-cla-klasse-180-busin-8" aria-pressed="false" aria-label="Bewaar Mercedes-Benz CLA-klasse 180 Business Solution AMG|PANO|LED|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-cla-klasse-180-busin-8/">Mercedes-Benz CLA-klasse 180 Business Solution AMG|PANO|LED|</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-cla-klasse-180-busin-8/">Mercedes-Benz CLA-klasse 180 Business Solution AMG</a></h3>
     <p class="st-spec">2018 · 52.975 km</p>
     <div class="st-foot">
       <span class="st-price">€ 23.900</span>
@@ -591,7 +658,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="lexus-lexus-is-300h-hybrid-f-sport-line-dealeron-9" data-rang="8" data-merk="Lexus" data-prijs="23900" data-jaar="2017" data-kenmerk="NAP" data-zoek="lexus is 300h hybrid f-sport line|dealeronderhouden|nap|came lexus nap">
   <div class="st-shot"><a class="st-link" href="v/lexus-lexus-is-300h-hybrid-f-sport-line-dealeron-9/" aria-label="Lexus IS 300h Hybrid F-Sport Line|DEALERONDERHOUDEN|NAP|CAME"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a701c1f9-1d76-4cd8-9129-368426cada3c?rule=ecg_mp_eps$_85.jpg" alt="Lexus IS 300h Hybrid F-Sport Line|DEALERONDERHOUDEN|NAP|CAME" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="lexus-lexus-is-300h-hybrid-f-sport-line-dealeron-9" aria-pressed="false" aria-label="Bewaar Lexus IS 300h Hybrid F-Sport Line|DEALERONDERHOUDEN|NAP|CAME"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/lexus-lexus-is-300h-hybrid-f-sport-line-dealeron-9/">Lexus IS 300h Hybrid F-Sport Line|DEALERONDERHOUDEN|NAP|CAME</a></h3>
+    <h3><a href="v/lexus-lexus-is-300h-hybrid-f-sport-line-dealeron-9/">Lexus IS 300h Hybrid F-Sport Line</a></h3>
     <p class="st-spec">2017 · 106.835 km</p>
     <div class="st-foot">
       <span class="st-price">€ 23.900</span>
@@ -601,7 +668,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-e-klasse-350-e-lease-10" data-rang="9" data-merk="Mercedes-Benz" data-prijs="22850" data-jaar="2016" data-zoek="mercedes-benz e-klasse 350 e lease edition|nl-auto|led|stoel mercedes-benz">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-e-klasse-350-e-lease-10/" aria-label="Mercedes-Benz E-klasse 350 e Lease Edition|NL-AUTO|LED|STOEL"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/551d9dd4-2f91-43b2-9b4f-8440c5612d2e?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz E-klasse 350 e Lease Edition|NL-AUTO|LED|STOEL" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-e-klasse-350-e-lease-10" aria-pressed="false" aria-label="Bewaar Mercedes-Benz E-klasse 350 e Lease Edition|NL-AUTO|LED|STOEL"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-e-klasse-350-e-lease-10/">Mercedes-Benz E-klasse 350 e Lease Edition|NL-AUTO|LED|STOEL</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-e-klasse-350-e-lease-10/">Mercedes-Benz E-klasse 350 e Lease Edition</a></h3>
     <p class="st-spec">2016 · 131.325 km</p>
     <div class="st-foot">
       <span class="st-price">€ 22.850</span>
@@ -611,7 +678,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-e-klasse-200-busines-11" data-rang="10" data-merk="Mercedes-Benz" data-prijs="21900" data-jaar="2017" data-zoek="mercedes-benz e-klasse 200 business solution|dealer ondh|sfe mercedes-benz">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-e-klasse-200-busines-11/" aria-label="Mercedes-Benz E-klasse 200 Business Solution|DEALER ONDH|SFE"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ee784df6-a260-4dcb-8979-19e19a14dc5c?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz E-klasse 200 Business Solution|DEALER ONDH|SFE" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-e-klasse-200-busines-11" aria-pressed="false" aria-label="Bewaar Mercedes-Benz E-klasse 200 Business Solution|DEALER ONDH|SFE"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-e-klasse-200-busines-11/">Mercedes-Benz E-klasse 200 Business Solution|DEALER ONDH|SFE</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-e-klasse-200-busines-11/">Mercedes-Benz E-klasse 200 Business Solution</a></h3>
     <p class="st-spec">2017 · 139.014 km</p>
     <div class="st-foot">
       <span class="st-price">€ 21.900</span>
@@ -621,7 +688,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-508-sw-1-6-puretech-gt-line-pano-12" data-rang="11" data-merk="Peugeot" data-prijs="19450" data-jaar="2019" data-kenmerk="Trekhaak" data-zoek="peugeot 508 sw 1.6 puretech gt line|pano|led|trekhaak|focal| peugeot trekhaak">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-508-sw-1-6-puretech-gt-line-pano-12/" aria-label="Peugeot 508 SW 1.6 PureTech GT Line|PANO|LED|TREKHAAK|FOCAL|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/894bd215-f14c-49f1-85ec-8f84c7548e37?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 508 SW 1.6 PureTech GT Line|PANO|LED|TREKHAAK|FOCAL|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-508-sw-1-6-puretech-gt-line-pano-12" aria-pressed="false" aria-label="Bewaar Peugeot 508 SW 1.6 PureTech GT Line|PANO|LED|TREKHAAK|FOCAL|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-508-sw-1-6-puretech-gt-line-pano-12/">Peugeot 508 SW 1.6 PureTech GT Line|PANO|LED|TREKHAAK|FOCAL|</a></h3>
+    <h3><a href="v/peugeot-peugeot-508-sw-1-6-puretech-gt-line-pano-12/">Peugeot 508 SW 1.6 PureTech GT Line</a></h3>
     <p class="st-spec">2019 · 96.350 km</p>
     <div class="st-foot">
       <span class="st-price">€ 19.450</span>
@@ -631,7 +698,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="volvo-volvo-xc90-2-0-t8-twin-engine-awd-inscript-13" data-rang="12" data-merk="Volvo" data-prijs="19400" data-jaar="2016" data-zoek="volvo xc90 2.0 t8 twin engine awd inscription 7p.|pano|trekh volvo">
   <div class="st-shot"><a class="st-link" href="v/volvo-volvo-xc90-2-0-t8-twin-engine-awd-inscript-13/" aria-label="Volvo XC90 2.0 T8 Twin Engine AWD Inscription 7p.|PANO|TREKH"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f75813dc-cf67-46b4-bea7-0c3e81f61b95?rule=ecg_mp_eps$_86.jpg" alt="Volvo XC90 2.0 T8 Twin Engine AWD Inscription 7p.|PANO|TREKH" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volvo-volvo-xc90-2-0-t8-twin-engine-awd-inscript-13" aria-pressed="false" aria-label="Bewaar Volvo XC90 2.0 T8 Twin Engine AWD Inscription 7p.|PANO|TREKH"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volvo-volvo-xc90-2-0-t8-twin-engine-awd-inscript-13/">Volvo XC90 2.0 T8 Twin Engine AWD Inscription 7p.|PANO|TREKH</a></h3>
+    <h3><a href="v/volvo-volvo-xc90-2-0-t8-twin-engine-awd-inscript-13/">Volvo XC90 2.0 T8 Twin Engine AWD Inscription 7p.</a></h3>
     <p class="st-spec">2016 · 234.055 km</p>
     <div class="st-foot">
       <span class="st-price">€ 19.400</span>
@@ -641,7 +708,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-a1-sportback-1-4-tfsi-sport-pro-line-s-14" data-rang="13" data-merk="Audi" data-prijs="18900" data-jaar="2016" data-zoek="audi a1 sportback 1.4 tfsi sport pro line s|pano|dsg|led|sto audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a1-sportback-1-4-tfsi-sport-pro-line-s-14/" aria-label="Audi A1 Sportback 1.4 TFSI Sport Pro Line S|PANO|DSG|LED|STO"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/227046f3-6031-4e35-9b09-ec9b9a2ce0ed?rule=ecg_mp_eps$_85.jpg" alt="Audi A1 Sportback 1.4 TFSI Sport Pro Line S|PANO|DSG|LED|STO" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a1-sportback-1-4-tfsi-sport-pro-line-s-14" aria-pressed="false" aria-label="Bewaar Audi A1 Sportback 1.4 TFSI Sport Pro Line S|PANO|DSG|LED|STO"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a1-sportback-1-4-tfsi-sport-pro-line-s-14/">Audi A1 Sportback 1.4 TFSI Sport Pro Line S|PANO|DSG|LED|STO</a></h3>
+    <h3><a href="v/audi-audi-a1-sportback-1-4-tfsi-sport-pro-line-s-14/">Audi A1 Sportback 1.4 TFSI Sport Pro Line S</a></h3>
     <p class="st-spec">2016 · 67.050 km</p>
     <div class="st-foot">
       <span class="st-price">€ 18.900</span>
@@ -651,7 +718,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="ds-ds-4-1-2-puretech-performance-line-matrix-dod-15" data-rang="14" data-merk="DS" data-prijs="18450" data-jaar="2022" data-zoek="ds 4 1.2 puretech performance line+|matrix|dodehoek|acc|sfee ds">
   <div class="st-shot"><a class="st-link" href="v/ds-ds-4-1-2-puretech-performance-line-matrix-dod-15/" aria-label="DS 4 1.2 PureTech Performance Line+|MATRIX|DODEHOEK|ACC|SFEE"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a5288e01-e139-43e5-b87c-20603d99885b?rule=ecg_mp_eps$_85.jpg" alt="DS 4 1.2 PureTech Performance Line+|MATRIX|DODEHOEK|ACC|SFEE" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="ds-ds-4-1-2-puretech-performance-line-matrix-dod-15" aria-pressed="false" aria-label="Bewaar DS 4 1.2 PureTech Performance Line+|MATRIX|DODEHOEK|ACC|SFEE"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/ds-ds-4-1-2-puretech-performance-line-matrix-dod-15/">DS 4 1.2 PureTech Performance Line+|MATRIX|DODEHOEK|ACC|SFEE</a></h3>
+    <h3><a href="v/ds-ds-4-1-2-puretech-performance-line-matrix-dod-15/">DS 4 1.2 PureTech Performance Line+</a></h3>
     <p class="st-spec">2022 · 141.950 km</p>
     <div class="st-foot">
       <span class="st-price">€ 18.450</span>
@@ -661,7 +728,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mini-mini-5-deurs-1-5-one-pepper-nap-sfeer-cruis-16" data-rang="15" data-merk="MINI" data-prijs="17900" data-jaar="2018" data-kenmerk="NAP" data-zoek="mini 5-deurs 1.5 one pepper|nap|sfeer|cruise|carplay|bluetoo mini nap">
   <div class="st-shot"><a class="st-link" href="v/mini-mini-5-deurs-1-5-one-pepper-nap-sfeer-cruis-16/" aria-label="Mini 5-Deurs 1.5 One Pepper|NAP|SFEER|CRUISE|CARPLAY|BLUETOO"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2a5e4fe4-a707-4112-8f03-e8b65b024d57?rule=ecg_mp_eps$_85.jpg" alt="Mini 5-Deurs 1.5 One Pepper|NAP|SFEER|CRUISE|CARPLAY|BLUETOO" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mini-mini-5-deurs-1-5-one-pepper-nap-sfeer-cruis-16" aria-pressed="false" aria-label="Bewaar Mini 5-Deurs 1.5 One Pepper|NAP|SFEER|CRUISE|CARPLAY|BLUETOO"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mini-mini-5-deurs-1-5-one-pepper-nap-sfeer-cruis-16/">Mini 5-Deurs 1.5 One Pepper|NAP|SFEER|CRUISE|CARPLAY|BLUETOO</a></h3>
+    <h3><a href="v/mini-mini-5-deurs-1-5-one-pepper-nap-sfeer-cruis-16/">Mini 5-Deurs 1.5 One Pepper</a></h3>
     <p class="st-spec">2018 · 56.730 km</p>
     <div class="st-foot">
       <span class="st-price">€ 17.900</span>
@@ -671,7 +738,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-c-klasse-estate-350--17" data-rang="16" data-merk="Mercedes-Benz" data-prijs="17400" data-jaar="2015" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="mercedes-benz c-klasse estate 350 e lease edition|led|stoelv mercedes-benz hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-c-klasse-estate-350--17/" aria-label="Mercedes-Benz C-klasse Estate 350 e Lease Edition|LED|STOELV"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a5055139-2c1e-4bfc-9bff-ebb564958dac?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-klasse Estate 350 e Lease Edition|LED|STOELV" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-c-klasse-estate-350--17" aria-pressed="false" aria-label="Bewaar Mercedes-Benz C-klasse Estate 350 e Lease Edition|LED|STOELV"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-estate-350--17/">Mercedes-Benz C-klasse Estate 350 e Lease Edition|LED|STOELV</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-estate-350--17/">Mercedes-Benz C-klasse Estate 350 e Lease Edition</a></h3>
     <p class="st-spec">2015 · 106.559 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 17.400</span>
@@ -681,7 +748,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="volvo-volvo-v40-cross-country-1-5-t3-dynamic-edi-18" data-rang="17" data-merk="Volvo" data-prijs="16700" data-jaar="2018" data-zoek="volvo v40 cross country 1.5 t3 dynamic edition|stoelv|led|cr volvo">
   <div class="st-shot"><a class="st-link" href="v/volvo-volvo-v40-cross-country-1-5-t3-dynamic-edi-18/" aria-label="Volvo V40 Cross Country 1.5 T3 Dynamic Edition|STOELV|LED|CR"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/98d8e512-1c88-4277-9d04-e4fb171cf0bb?rule=ecg_mp_eps$_86.jpg" alt="Volvo V40 Cross Country 1.5 T3 Dynamic Edition|STOELV|LED|CR" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volvo-volvo-v40-cross-country-1-5-t3-dynamic-edi-18" aria-pressed="false" aria-label="Bewaar Volvo V40 Cross Country 1.5 T3 Dynamic Edition|STOELV|LED|CR"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volvo-volvo-v40-cross-country-1-5-t3-dynamic-edi-18/">Volvo V40 Cross Country 1.5 T3 Dynamic Edition|STOELV|LED|CR</a></h3>
+    <h3><a href="v/volvo-volvo-v40-cross-country-1-5-t3-dynamic-edi-18/">Volvo V40 Cross Country 1.5 T3 Dynamic Edition</a></h3>
     <p class="st-spec">2018 · 102.398 km</p>
     <div class="st-foot">
       <span class="st-price">€ 16.700</span>
@@ -704,7 +771,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/be/bed894e0-6a2b-4a54-abf6-e0b1a9b676a3?rule=ecg_mp_eps$_85.jpg" alt="Occasionland" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>67</b><span>voertuigen staan klaar</span></div><div><b>€ 16.700</b><span>de goedkoopste van dit moment</span></div><div><b>2018</b><span>mediaan bouwjaar</span></div><div><b>21</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Aalsmeer.</p>
+  <ul class="sec-belofte-lijst"><li><b>67</b> voertuigen staan klaar</li><li>vanaf <b>€ 16.700</b></li><li>gemiddeld bouwjaar <b>2018</b></li></ul>
+</div></section>
 <section class="sec-flow">
   <div class="wrap">
     <div class="head rv"><h2>Zo gaat het</h2></div>

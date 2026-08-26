@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #dde5e8}
+section:nth-of-type(even){background:#e4edf0}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#586268;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#125a72;color:#ffffff;padding:9px 15px;border-radius:20px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.02em;color:#125a72;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#586268;font-size:15px}
 .sec-trust a{color:#131a1d}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #dde5e8;color:#586268;font-size:15.5px}
+.sec-vestiging strong{color:#131a1d;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;letter-spacing:-0.02em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #dde5e8;color:#586268;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:1.35em;color:#125a72;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#586268;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #dde5e8;border-radius:20px;background:#e4edf0;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:20px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#586268;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #dde5e8;border-radius:20px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#125a7266}
+.ug-shot{aspect-ratio:4/3;background:#e4edf0;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#586268;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.02em;color:#125a72;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #dde5e8;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -428,7 +468,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Russcher Auto's B.V. | Russcher Campers B.V. (reizen, mediaanprijs EUR 74950, 157 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet diepwater, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #125a72.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "grid", secties trust > stock > process > about > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "grid", secties trust > uitgelicht > stock > process > about > promise > hours > contact.
 FORM: reizen-diepwater-panorama-grid-archivoexpanded-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -446,7 +486,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-facts"><span>4.5 uit 1177 beoordelingen</span><span>21 jaar op Marktplaats</span><span>6 merken in huis</span><span>Kom langs in Staphorst</span></div>
   </div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.5</b><span>gemiddeld uit 1177 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>Staphorst</b><span><a href="https://maps.google.com/?q=Esakker%204%2C%207951SV%20Staphorst" target="_blank" rel="noreferrer">Esakker 4, 7951SV Staphorst</a></span></div><div><b>KvK</b><span>04073628</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.5</b><span>gemiddeld uit 1177 beoordelingen</span></div><div><b>21</b><span>jaar op Marktplaats</span></div><div><b>6</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Staphorst</strong> · <a href="https://maps.google.com/?q=Esakker%204%2C%207951SV%20Staphorst" target="_blank" rel="noreferrer">Esakker 4, 7951SV Staphorst</a> · KvK 04073628</p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/campers-niesmann-bischoff-arto-78-e-2026-dakairc-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/51/512ff4ab-2faf-47a9-b92f-54ea1602b53d?rule=ecg_mp_eps$_86.jpg" alt="Niesmann Bischoff Arto 78 E" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Niesmann Bischoff Arto 78 E</h3>
+    <p class="ug-spec">2026 · 100 km</p>
+    <p class="ug-prijs">€ 258.950</p>
+  </div>
+</a><a class="ug-kaart" href="v/campers-niesmann-bischoff-ismove-6-9-180pk-autom-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/12eaa1f0-7a88-4914-a658-44a1b8fa0295?rule=ecg_mp_eps$_86.jpg" alt="Niesmann+Bischoff iSmove 6.9 180Pk Autom" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Niesmann+Bischoff iSmove 6.9 180Pk Autom</h3>
+    <p class="ug-spec">2026 · 56 km</p>
+    <p class="ug-prijs">€ 173.900</p>
+  </div>
+</a><a class="ug-kaart" href="v/campers-niesmann-bischoff-ismove-6-9-e-180pk-aut-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1d/1d3ff2c8-3a34-4394-99be-13ca9924322b?rule=ecg_mp_eps$_86.jpg" alt="Niesmann Bischoff iSmove 6.9 E 180Pk Automaat. Eifelgrijs," loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Niesmann Bischoff iSmove 6.9 E 180Pk Automaat. Eifelgrijs,</h3>
+    <p class="ug-spec">2025 · 918 km</p>
+    <p class="ug-prijs">€ 173.500</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
@@ -502,7 +569,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-grid" data-voorraad><article class="st-card " data-slug="campers-niesmann-bischoff-arto-78-e-2026-dakairc-1" data-rang="0" data-prijs="258950" data-jaar="2026" data-zoek="niesmann bischoff arto 78 e | 2026 | dakairco | lithium |">
   <div class="st-shot"><a class="st-link" href="v/campers-niesmann-bischoff-arto-78-e-2026-dakairc-1/" aria-label="Niesmann Bischoff Arto 78 E | 2026 | Dakairco | Lithium |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/51/512ff4ab-2faf-47a9-b92f-54ea1602b53d?rule=ecg_mp_eps$_85.jpg" alt="Niesmann Bischoff Arto 78 E | 2026 | Dakairco | Lithium |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="campers-niesmann-bischoff-arto-78-e-2026-dakairc-1" aria-pressed="false" aria-label="Bewaar Niesmann Bischoff Arto 78 E | 2026 | Dakairco | Lithium |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/campers-niesmann-bischoff-arto-78-e-2026-dakairc-1/">Niesmann Bischoff Arto 78 E | 2026 | Dakairco | Lithium |</a></h3>
+    <h3><a href="v/campers-niesmann-bischoff-arto-78-e-2026-dakairc-1/">Niesmann Bischoff Arto 78 E</a></h3>
     <p class="st-spec">2026 · 100 km</p>
     <div class="st-foot">
       <span class="st-price">€ 258.950</span>
@@ -512,7 +579,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="campers-niesmann-bischoff-ismove-6-9-180pk-autom-2" data-rang="1" data-prijs="173900" data-jaar="2026" data-brandstof="Diesel" data-zoek="niesmann+bischoff ismove 6.9 180pk autom | nieuw  model 2026 diesel">
   <div class="st-shot"><a class="st-link" href="v/campers-niesmann-bischoff-ismove-6-9-180pk-autom-2/" aria-label="Niesmann+Bischoff iSmove 6.9 180Pk Autom | Nieuw  Model 2026"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/12eaa1f0-7a88-4914-a658-44a1b8fa0295?rule=ecg_mp_eps$_85.jpg" alt="Niesmann+Bischoff iSmove 6.9 180Pk Autom | Nieuw  Model 2026" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="campers-niesmann-bischoff-ismove-6-9-180pk-autom-2" aria-pressed="false" aria-label="Bewaar Niesmann+Bischoff iSmove 6.9 180Pk Autom | Nieuw  Model 2026"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/campers-niesmann-bischoff-ismove-6-9-180pk-autom-2/">Niesmann+Bischoff iSmove 6.9 180Pk Autom | Nieuw  Model 2026</a></h3>
+    <h3><a href="v/campers-niesmann-bischoff-ismove-6-9-180pk-autom-2/">Niesmann+Bischoff iSmove 6.9 180Pk Autom</a></h3>
     <p class="st-spec">2026 · 56 km · Diesel</p>
     <div class="st-foot">
       <span class="st-price">€ 173.900</span>
@@ -532,7 +599,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="campers-niesmann-bischoff-arto-85e-180pk-aut-lev-4" data-rang="3" data-prijs="169950" data-jaar="2022" data-brandstof="Diesel" data-zoek="niesmann bischoff arto 85e 180pk aut. | levelsysteem | dakai diesel">
   <div class="st-shot"><a class="st-link" href="v/campers-niesmann-bischoff-arto-85e-180pk-aut-lev-4/" aria-label="NIESMANN BISCHOFF ARTO 85E 180Pk Aut. | Levelsysteem | Dakai"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a14bf45-fdde-43a6-a178-72b6354f5d8f?rule=ecg_mp_eps$_85.jpg" alt="NIESMANN BISCHOFF ARTO 85E 180Pk Aut. | Levelsysteem | Dakai" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="campers-niesmann-bischoff-arto-85e-180pk-aut-lev-4" aria-pressed="false" aria-label="Bewaar NIESMANN BISCHOFF ARTO 85E 180Pk Aut. | Levelsysteem | Dakai"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/campers-niesmann-bischoff-arto-85e-180pk-aut-lev-4/">NIESMANN BISCHOFF ARTO 85E 180Pk Aut. | Levelsysteem | Dakai</a></h3>
+    <h3><a href="v/campers-niesmann-bischoff-arto-85e-180pk-aut-lev-4/">NIESMANN BISCHOFF ARTO 85E 180Pk Aut.</a></h3>
     <p class="st-spec">2022 · 36.935 km · Diesel</p>
     <div class="st-foot">
       <span class="st-price">€ 169.950</span>
@@ -542,7 +609,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="campers-hymer-bmc-i-680-170pk-automaat-levelsyst-5" data-rang="4" data-prijs="169950" data-jaar="2024" data-brandstof="Diesel" data-zoek="hymer bmc i 680 | 170pk automaat. | levelsysteem | maxxfan | diesel">
   <div class="st-shot"><a class="st-link" href="v/campers-hymer-bmc-i-680-170pk-automaat-levelsyst-5/" aria-label="Hymer BMC I 680 | 170Pk Automaat. | Levelsysteem | Maxxfan |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8d155dd1-b2e2-47e9-856f-00f06a3a3afb?rule=ecg_mp_eps$_85.jpg" alt="Hymer BMC I 680 | 170Pk Automaat. | Levelsysteem | Maxxfan |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="campers-hymer-bmc-i-680-170pk-automaat-levelsyst-5" aria-pressed="false" aria-label="Bewaar Hymer BMC I 680 | 170Pk Automaat. | Levelsysteem | Maxxfan |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/campers-hymer-bmc-i-680-170pk-automaat-levelsyst-5/">Hymer BMC I 680 | 170Pk Automaat. | Levelsysteem | Maxxfan |</a></h3>
+    <h3><a href="v/campers-hymer-bmc-i-680-170pk-automaat-levelsyst-5/">Hymer BMC I 680</a></h3>
     <p class="st-spec">2024 · 12.161 km · Diesel</p>
     <div class="st-foot">
       <span class="st-price">€ 169.950</span>
@@ -572,7 +639,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-x5-8" data-rang="7" data-merk="BMW" data-prijs="109950" data-jaar="2026" data-zoek="bmw x5 xdrive50e 490pk x-drive | m-sport pro | shadowline | bmw x5">
   <div class="st-shot"><a class="st-link" href="v/bmw-x5-8/" aria-label="BMW X5 xDrive50e 490Pk X-Drive | M-Sport Pro | Shadowline |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dfc5d58f-a665-4a41-afb6-7d2a18e48d84?rule=ecg_mp_eps$_85.jpg" alt="BMW X5 xDrive50e 490Pk X-Drive | M-Sport Pro | Shadowline |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-x5-8" aria-pressed="false" aria-label="Bewaar BMW X5 xDrive50e 490Pk X-Drive | M-Sport Pro | Shadowline |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-x5-8/">BMW X5 xDrive50e 490Pk X-Drive | M-Sport Pro | Shadowline |</a></h3>
+    <h3><a href="v/bmw-x5-8/">BMW X5 xDrive50e 490Pk X-Drive</a></h3>
     <p class="st-spec">2026 · 4.053 km</p>
     <div class="st-foot">
       <span class="st-price">€ 109.950</span>
@@ -582,7 +649,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="porsche-porsche-taycan-cross-turismo-476pk-4wd-l-9" data-rang="8" data-merk="Porsche" data-prijs="79950" data-jaar="2023" data-zoek="porsche taycan cross turismo 476pk | 4wd | luchtvering | pan porsche">
   <div class="st-shot"><a class="st-link" href="v/porsche-porsche-taycan-cross-turismo-476pk-4wd-l-9/" aria-label="Porsche Taycan Cross Turismo 476Pk | 4WD | Luchtvering | Pan"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/51006f37-51f6-40ae-b7b3-5f58d9717a19?rule=ecg_mp_eps$_85.jpg" alt="Porsche Taycan Cross Turismo 476Pk | 4WD | Luchtvering | Pan" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="porsche-porsche-taycan-cross-turismo-476pk-4wd-l-9" aria-pressed="false" aria-label="Bewaar Porsche Taycan Cross Turismo 476Pk | 4WD | Luchtvering | Pan"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/porsche-porsche-taycan-cross-turismo-476pk-4wd-l-9/">Porsche Taycan Cross Turismo 476Pk | 4WD | Luchtvering | Pan</a></h3>
+    <h3><a href="v/porsche-porsche-taycan-cross-turismo-476pk-4wd-l-9/">Porsche Taycan Cross Turismo 476Pk</a></h3>
     <p class="st-spec">2023 · 42.470 km</p>
     <div class="st-foot">
       <span class="st-price">€ 79.950</span>
@@ -592,7 +659,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bestelauto-s-dodge-ram-1500-3-0l-548pk-limited-n-10" data-rang="9" data-prijs="69950" data-jaar="2024" data-zoek="dodge ram 1500 3.0l 548pk limited night | h.o. sst | 4x4 cre">
   <div class="st-shot"><a class="st-link" href="v/bestelauto-s-dodge-ram-1500-3-0l-548pk-limited-n-10/" aria-label="Dodge Ram 1500 3.0L 548Pk Limited Night | H.O. SST | 4x4 Cre"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/98e78e4f-7cc0-440f-ad58-ae6e6ca8a322?rule=ecg_mp_eps$_85.jpg" alt="Dodge Ram 1500 3.0L 548Pk Limited Night | H.O. SST | 4x4 Cre" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-dodge-ram-1500-3-0l-548pk-limited-n-10" aria-pressed="false" aria-label="Bewaar Dodge Ram 1500 3.0L 548Pk Limited Night | H.O. SST | 4x4 Cre"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bestelauto-s-dodge-ram-1500-3-0l-548pk-limited-n-10/">Dodge Ram 1500 3.0L 548Pk Limited Night | H.O. SST | 4x4 Cre</a></h3>
+    <h3><a href="v/bestelauto-s-dodge-ram-1500-3-0l-548pk-limited-n-10/">Dodge Ram 1500 3.0L 548Pk Limited Night</a></h3>
     <p class="st-spec">2024 · 12.561 km</p>
     <div class="st-foot">
       <span class="st-price">€ 69.950</span>
@@ -602,7 +669,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bestelauto-s-mercedes-benz-vito-119cdi-190pk-9g--11" data-rang="10" data-prijs="69950" data-jaar="2024" data-zoek="mercedes-benz vito 119cdi 190pk 9g-tronic aut. | dubbele cab">
   <div class="st-shot"><a class="st-link" href="v/bestelauto-s-mercedes-benz-vito-119cdi-190pk-9g--11/" aria-label="Mercedes-Benz Vito 119Cdi 190Pk 9G-Tronic Aut. | Dubbele Cab"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d19d6d47-a386-4870-bb3e-e5f0b917300d?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz Vito 119Cdi 190Pk 9G-Tronic Aut. | Dubbele Cab" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-mercedes-benz-vito-119cdi-190pk-9g--11" aria-pressed="false" aria-label="Bewaar Mercedes-Benz Vito 119Cdi 190Pk 9G-Tronic Aut. | Dubbele Cab"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bestelauto-s-mercedes-benz-vito-119cdi-190pk-9g--11/">Mercedes-Benz Vito 119Cdi 190Pk 9G-Tronic Aut. | Dubbele Cab</a></h3>
+    <h3><a href="v/bestelauto-s-mercedes-benz-vito-119cdi-190pk-9g--11/">Mercedes-Benz Vito 119Cdi 190Pk 9G-Tronic Aut.</a></h3>
     <p class="st-spec">2024 · 10 km</p>
     <div class="st-foot">
       <span class="st-price">€ 69.950</span>
@@ -612,7 +679,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="campers-mclouis-nevis-150pk-queensbed-dakairco-l-12" data-rang="11" data-prijs="65950" data-jaar="2019" data-zoek="mclouis nevis 150pk | queensbed | dakairco | luchtvering | z">
   <div class="st-shot"><a class="st-link" href="v/campers-mclouis-nevis-150pk-queensbed-dakairco-l-12/" aria-label="McLouis Nevis 150Pk | Queensbed | Dakairco | Luchtvering | Z"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ccdd836d-42ae-4e52-8463-67645dfde6a1?rule=ecg_mp_eps$_85.jpg" alt="McLouis Nevis 150Pk | Queensbed | Dakairco | Luchtvering | Z" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="campers-mclouis-nevis-150pk-queensbed-dakairco-l-12" aria-pressed="false" aria-label="Bewaar McLouis Nevis 150Pk | Queensbed | Dakairco | Luchtvering | Z"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/campers-mclouis-nevis-150pk-queensbed-dakairco-l-12/">McLouis Nevis 150Pk | Queensbed | Dakairco | Luchtvering | Z</a></h3>
+    <h3><a href="v/campers-mclouis-nevis-150pk-queensbed-dakairco-l-12/">McLouis Nevis 150Pk</a></h3>
     <p class="st-spec">2019 · 32.467 km</p>
     <div class="st-foot">
       <span class="st-price">€ 65.950</span>
@@ -622,7 +689,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bestelauto-s-mercedes-benz-vito-119cdi-190pk-9g--13" data-rang="12" data-prijs="64950" data-jaar="2024" data-brandstof="Diesel" data-zoek="mercedes-benz vito 119cdi 190pk 9g-tronic aut. | dubbele cab diesel">
   <div class="st-shot"><a class="st-link" href="v/bestelauto-s-mercedes-benz-vito-119cdi-190pk-9g--13/" aria-label="Mercedes-Benz Vito 119Cdi 190Pk 9G-Tronic Aut. | Dubbele Cab"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7d1d7d89-1757-4c91-be4a-8420bd507e69?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz Vito 119Cdi 190Pk 9G-Tronic Aut. | Dubbele Cab" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-mercedes-benz-vito-119cdi-190pk-9g--13" aria-pressed="false" aria-label="Bewaar Mercedes-Benz Vito 119Cdi 190Pk 9G-Tronic Aut. | Dubbele Cab"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bestelauto-s-mercedes-benz-vito-119cdi-190pk-9g--13/">Mercedes-Benz Vito 119Cdi 190Pk 9G-Tronic Aut. | Dubbele Cab</a></h3>
+    <h3><a href="v/bestelauto-s-mercedes-benz-vito-119cdi-190pk-9g--13/">Mercedes-Benz Vito 119Cdi 190Pk 9G-Tronic Aut.</a></h3>
     <p class="st-spec">2024 · 8.829 km · Diesel</p>
     <div class="st-foot">
       <span class="st-price">€ 64.950</span>
@@ -632,7 +699,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-q3-s-line-e-hybrid-272pk-panoramadak-h-14" data-rang="13" data-merk="Audi" data-prijs="59950" data-jaar="2025" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="audi q3 s-line | e-hybrid 272pk | panoramadak | head-up disp audi hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-q3-s-line-e-hybrid-272pk-panoramadak-h-14/" aria-label="Audi Q3 S-Line | e-hybrid 272Pk | Panoramadak | Head-Up Disp"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/61a07469-e9e6-4a29-aaa1-c99936323d10?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 S-Line | e-hybrid 272Pk | Panoramadak | Head-Up Disp" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-q3-s-line-e-hybrid-272pk-panoramadak-h-14" aria-pressed="false" aria-label="Bewaar Audi Q3 S-Line | e-hybrid 272Pk | Panoramadak | Head-Up Disp"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-q3-s-line-e-hybrid-272pk-panoramadak-h-14/">Audi Q3 S-Line | e-hybrid 272Pk | Panoramadak | Head-Up Disp</a></h3>
+    <h3><a href="v/audi-audi-q3-s-line-e-hybrid-272pk-panoramadak-h-14/">Audi Q3 S-Line</a></h3>
     <p class="st-spec">2025 · 6.827 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 59.950</span>
@@ -642,7 +709,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="ford-ford-ranger-wildtrak-3-0-v6-240pk-aut-doubl-15" data-rang="14" data-merk="Ford" data-prijs="58950" data-jaar="2024" data-zoek="ford ranger wildtrak 3.0 v6 240pk aut. | double cab | 2-pers ford">
   <div class="st-shot"><a class="st-link" href="v/ford-ford-ranger-wildtrak-3-0-v6-240pk-aut-doubl-15/" aria-label="Ford Ranger Wildtrak 3.0 V6 240Pk Aut. | Double Cab | 2-pers"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/559a0809-1a09-4fc7-8570-9edcded18f73?rule=ecg_mp_eps$_85.jpg" alt="Ford Ranger Wildtrak 3.0 V6 240Pk Aut. | Double Cab | 2-pers" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="ford-ford-ranger-wildtrak-3-0-v6-240pk-aut-doubl-15" aria-pressed="false" aria-label="Bewaar Ford Ranger Wildtrak 3.0 V6 240Pk Aut. | Double Cab | 2-pers"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/ford-ford-ranger-wildtrak-3-0-v6-240pk-aut-doubl-15/">Ford Ranger Wildtrak 3.0 V6 240Pk Aut. | Double Cab | 2-pers</a></h3>
+    <h3><a href="v/ford-ford-ranger-wildtrak-3-0-v6-240pk-aut-doubl-15/">Ford Ranger Wildtrak 3.0 V6 240Pk Aut.</a></h3>
     <p class="st-spec">2024 · 14 km</p>
     <div class="st-foot">
       <span class="st-price">€ 58.950</span>
@@ -652,7 +719,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bestelauto-s-volkswagen-transporter-l2h1-2-0tdi--16" data-rang="15" data-prijs="54950" data-jaar="2024" data-zoek="volkswagen transporter l2h1 2.0tdi 150pk dsg7 | bulli | 28 |">
   <div class="st-shot"><a class="st-link" href="v/bestelauto-s-volkswagen-transporter-l2h1-2-0tdi--16/" aria-label="Volkswagen Transporter L2H1 2.0Tdi 150Pk DSG7 | Bulli | 28 |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/308981c6-a967-41b9-a9ec-15f3e6b61e1f?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Transporter L2H1 2.0Tdi 150Pk DSG7 | Bulli | 28 |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-volkswagen-transporter-l2h1-2-0tdi--16" aria-pressed="false" aria-label="Bewaar Volkswagen Transporter L2H1 2.0Tdi 150Pk DSG7 | Bulli | 28 |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bestelauto-s-volkswagen-transporter-l2h1-2-0tdi--16/">Volkswagen Transporter L2H1 2.0Tdi 150Pk DSG7 | Bulli | 28 |</a></h3>
+    <h3><a href="v/bestelauto-s-volkswagen-transporter-l2h1-2-0tdi--16/">Volkswagen Transporter L2H1 2.0Tdi 150Pk DSG7</a></h3>
     <p class="st-spec">2024 · 10 km</p>
     <div class="st-foot">
       <span class="st-price">€ 54.950</span>
@@ -662,7 +729,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bestelauto-s-ford-transit-l3h2-2-0tdci-165pk-a8--17" data-rang="16" data-prijs="48950" data-jaar="2024" data-zoek="ford transit l3h2 | 2.0tdci 165pk a8 aut. | 350 | raptor edi">
   <div class="st-shot"><a class="st-link" href="v/bestelauto-s-ford-transit-l3h2-2-0tdci-165pk-a8--17/" aria-label="Ford Transit L3H2 | 2.0Tdci 165Pk A8 Aut. | 350 | Raptor Edi"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/834a8262-3a09-4348-9308-aedbfe554674?rule=ecg_mp_eps$_85.jpg" alt="Ford Transit L3H2 | 2.0Tdci 165Pk A8 Aut. | 350 | Raptor Edi" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-ford-transit-l3h2-2-0tdci-165pk-a8--17" aria-pressed="false" aria-label="Bewaar Ford Transit L3H2 | 2.0Tdci 165Pk A8 Aut. | 350 | Raptor Edi"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bestelauto-s-ford-transit-l3h2-2-0tdci-165pk-a8--17/">Ford Transit L3H2 | 2.0Tdci 165Pk A8 Aut. | 350 | Raptor Edi</a></h3>
+    <h3><a href="v/bestelauto-s-ford-transit-l3h2-2-0tdci-165pk-a8--17/">Ford Transit L3H2</a></h3>
     <p class="st-spec">2024 · 13 km</p>
     <div class="st-foot">
       <span class="st-price">€ 48.950</span>
@@ -672,7 +739,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bestelauto-s-ford-transit-l2h2-2-0tdci-165pk-a8--18" data-rang="17" data-prijs="47950" data-jaar="2024" data-zoek="ford transit l2h2 | 2.0tdci 165pk a8 aut. | 350 | raptor edi">
   <div class="st-shot"><a class="st-link" href="v/bestelauto-s-ford-transit-l2h2-2-0tdci-165pk-a8--18/" aria-label="Ford Transit L2H2 | 2.0Tdci 165Pk A8 Aut. | 350 | Raptor Edi"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a28a3431-abbe-4a73-8ad6-1ad7364c7953?rule=ecg_mp_eps$_85.jpg" alt="Ford Transit L2H2 | 2.0Tdci 165Pk A8 Aut. | 350 | Raptor Edi" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bestelauto-s-ford-transit-l2h2-2-0tdci-165pk-a8--18" aria-pressed="false" aria-label="Bewaar Ford Transit L2H2 | 2.0Tdci 165Pk A8 Aut. | 350 | Raptor Edi"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bestelauto-s-ford-transit-l2h2-2-0tdci-165pk-a8--18/">Ford Transit L2H2 | 2.0Tdci 165Pk A8 Aut. | 350 | Raptor Edi</a></h3>
+    <h3><a href="v/bestelauto-s-ford-transit-l2h2-2-0tdci-165pk-a8--18/">Ford Transit L2H2</a></h3>
     <p class="st-spec">2024 · 13 km</p>
     <div class="st-foot">
       <span class="st-price">€ 47.950</span>
@@ -703,7 +770,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/b9/b94ebacd-c4df-49a5-ae1a-0aa1936f3ff0?rule=ecg_mp_eps$_85.jpg" alt="Russcher Auto's B.V. | Russcher Campers B.V." loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>157</b><span>voertuigen staan klaar</span></div><div><b>€ 47.950</b><span>de goedkoopste van dit moment</span></div><div><b>2024</b><span>mediaan bouwjaar</span></div><div><b>21</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Staphorst.</p>
+  <ul class="sec-belofte-lijst"><li><b>157</b> voertuigen staan klaar</li><li>vanaf <b>€ 47.950</b></li><li>gemiddeld bouwjaar <b>2024</b></li></ul>
+</div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

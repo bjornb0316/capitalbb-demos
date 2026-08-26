@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e8e1da}
+section:nth-of-type(even){background:#f2e9e2}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#6b625a;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#a4482a;color:#fffaf7;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#a4482a;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#6b625a;font-size:15px}
 .sec-trust a{color:#1c1815}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e8e1da;color:#6b625a;font-size:15.5px}
+.sec-vestiging strong{color:#1c1815;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e8e1da;color:#6b625a;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:1.35em;color:#a4482a;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#6b625a;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e8e1da;border-radius:14px;background:#f2e9e2;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:14px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#6b625a;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e8e1da;border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#a4482a66}
+.ug-shot{aspect-ratio:4/3;background:#f2e9e2;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#6b625a;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#a4482a;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e8e1da;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -432,7 +472,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autobedrijf Sips (familie, mediaanprijs EUR 14198, 60 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet terra, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #a4482a.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "mosaic", secties about > stock > process > trust > hours > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "mosaic", secties about > uitgelicht > stock > process > trust > hours > contact.
 FORM: familie-terra-stack-mosaic-gabarito-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -455,6 +495,33 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <p>Autobedrijf Sips is gevestigd aan de van Ghertstraat 10 in Rijen. Wij zijn een jong en fris bedrijf dat streeft naar kwaliteit. Wij zullen u zo goed mogelijk van dienst zijn en eventueel kunt u een proefrit maken met de occasion waarin u bent geïnteresseerd.</p>
     </div>
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/16/16b3394a-48c1-4b74-9bfa-8caefedf2686?rule=ecg_mp_eps$_85.jpg" alt="Autobedrijf Sips" loading="lazy"></div>
+  </div>
+</section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/volkswagen-volkswagen-tiguan-1-4-tsi-ehybrid-r-l-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8b21998c-0f0c-432c-b05b-4ef3f1775413?rule=ecg_mp_eps$_86.jpg" alt="Volkswagen Tiguan 1.4 TSI eHybrid R-Line Business+" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Volkswagen Tiguan 1.4 TSI eHybrid R-Line Business+</h3>
+    <p class="ug-spec">2023 · 181.661 km</p>
+    <p class="ug-prijs">€ 24.950</p>
+  </div>
+</a><a class="ug-kaart" href="v/audi-audi-a4-avant-1-4-tfsi-design-pro-line-trek-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4ab11f5d-078d-4019-9950-75f8981dc11c?rule=ecg_mp_eps$_86.jpg" alt="Audi A4 Avant 1.4 TFSI Design Pro Line" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Audi A4 Avant 1.4 TFSI Design Pro Line</h3>
+    <p class="ug-spec">2018 · 67.558 km</p>
+    <p class="ug-prijs">€ 19.950</p>
+  </div>
+</a><a class="ug-kaart" href="v/volkswagen-volkswagen-t-roc-2-0-tsi-4motion-spor-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e9b08823-ecbb-4738-a8db-3a4dc2397213?rule=ecg_mp_eps$_86.jpg" alt="Volkswagen T-ROC 2.0 TSI 4Motion Sport" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Volkswagen T-ROC 2.0 TSI 4Motion Sport</h3>
+    <p class="ug-spec">2018 · 131.531 km</p>
+    <p class="ug-prijs">€ 19.500</p>
+  </div>
+</a></div>
   </div>
 </section>
 <section id="voorraad">
@@ -522,7 +589,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="volkswagen-volkswagen-tiguan-1-4-tsi-ehybrid-r-l-1" data-rang="0" data-merk="Volkswagen" data-prijs="24950" data-jaar="2023" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="volkswagen tiguan 1.4 tsi ehybrid r-line business+ | pano | volkswagen hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-tiguan-1-4-tsi-ehybrid-r-l-1/" aria-label="Volkswagen Tiguan 1.4 TSI eHybrid R-Line Business+ | Pano |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8b21998c-0f0c-432c-b05b-4ef3f1775413?rule=ecg_mp_eps$_86.jpg" alt="Volkswagen Tiguan 1.4 TSI eHybrid R-Line Business+ | Pano |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-tiguan-1-4-tsi-ehybrid-r-l-1" aria-pressed="false" aria-label="Bewaar Volkswagen Tiguan 1.4 TSI eHybrid R-Line Business+ | Pano |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-tiguan-1-4-tsi-ehybrid-r-l-1/">Volkswagen Tiguan 1.4 TSI eHybrid R-Line Business+ | Pano |</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-tiguan-1-4-tsi-ehybrid-r-l-1/">Volkswagen Tiguan 1.4 TSI eHybrid R-Line Business+</a></h3>
     <p class="st-spec">2023 · 181.661 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 24.950</span>
@@ -532,7 +599,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-a4-avant-1-4-tfsi-design-pro-line-trek-2" data-rang="1" data-merk="Audi" data-prijs="19950" data-jaar="2018" data-kenmerk="Navigatie|Trekhaak" data-zoek="audi a4 avant 1.4 tfsi design pro line | trekhaak | navi | s audi navigatie trekhaak">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a4-avant-1-4-tfsi-design-pro-line-trek-2/" aria-label="Audi A4 Avant 1.4 TFSI Design Pro Line | Trekhaak | Navi | S"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4ab11f5d-078d-4019-9950-75f8981dc11c?rule=ecg_mp_eps$_85.jpg" alt="Audi A4 Avant 1.4 TFSI Design Pro Line | Trekhaak | Navi | S" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a4-avant-1-4-tfsi-design-pro-line-trek-2" aria-pressed="false" aria-label="Bewaar Audi A4 Avant 1.4 TFSI Design Pro Line | Trekhaak | Navi | S"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a4-avant-1-4-tfsi-design-pro-line-trek-2/">Audi A4 Avant 1.4 TFSI Design Pro Line | Trekhaak | Navi | S</a></h3>
+    <h3><a href="v/audi-audi-a4-avant-1-4-tfsi-design-pro-line-trek-2/">Audi A4 Avant 1.4 TFSI Design Pro Line</a></h3>
     <p class="st-spec">2018 · 67.558 km</p>
     <div class="st-foot">
       <span class="st-price">€ 19.950</span>
@@ -542,7 +609,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="volkswagen-volkswagen-t-roc-2-0-tsi-4motion-spor-3" data-rang="2" data-merk="Volkswagen" data-prijs="19500" data-jaar="2018" data-zoek="volkswagen t-roc 2.0 tsi 4motion sport | pano | stoel &amp; stuu volkswagen">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-t-roc-2-0-tsi-4motion-spor-3/" aria-label="Volkswagen T-ROC 2.0 TSI 4Motion Sport | Pano | Stoel &amp; Stuu"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e9b08823-ecbb-4738-a8db-3a4dc2397213?rule=ecg_mp_eps$_86.jpg" alt="Volkswagen T-ROC 2.0 TSI 4Motion Sport | Pano | Stoel &amp; Stuu" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-t-roc-2-0-tsi-4motion-spor-3" aria-pressed="false" aria-label="Bewaar Volkswagen T-ROC 2.0 TSI 4Motion Sport | Pano | Stoel &amp; Stuu"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-t-roc-2-0-tsi-4motion-spor-3/">Volkswagen T-ROC 2.0 TSI 4Motion Sport | Pano | Stoel &amp; Stuu</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-t-roc-2-0-tsi-4motion-spor-3/">Volkswagen T-ROC 2.0 TSI 4Motion Sport</a></h3>
     <p class="st-spec">2018 · 131.531 km</p>
     <div class="st-foot">
       <span class="st-price">€ 19.500</span>
@@ -552,7 +619,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-a7-sportback-2-0-tfsi-3-x-s-line-stoel-4" data-rang="3" data-merk="Audi" data-prijs="17950" data-jaar="2015" data-zoek="audi a7 sportback 2.0 tfsi | 3 x s-line | stoelverwarming | audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a7-sportback-2-0-tfsi-3-x-s-line-stoel-4/" aria-label="Audi A7 Sportback 2.0 TFSI | 3 x S-Line | Stoelverwarming |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/651db389-e3cb-4811-a164-736c553d03c7?rule=ecg_mp_eps$_85.jpg" alt="Audi A7 Sportback 2.0 TFSI | 3 x S-Line | Stoelverwarming |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a7-sportback-2-0-tfsi-3-x-s-line-stoel-4" aria-pressed="false" aria-label="Bewaar Audi A7 Sportback 2.0 TFSI | 3 x S-Line | Stoelverwarming |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a7-sportback-2-0-tfsi-3-x-s-line-stoel-4/">Audi A7 Sportback 2.0 TFSI | 3 x S-Line | Stoelverwarming |</a></h3>
+    <h3><a href="v/audi-audi-a7-sportback-2-0-tfsi-3-x-s-line-stoel-4/">Audi A7 Sportback 2.0 TFSI</a></h3>
     <p class="st-spec">2015 · 219.896 km</p>
     <div class="st-foot">
       <span class="st-price">€ 17.950</span>
@@ -562,7 +629,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="tesla-tesla-model-s-75-business-economy-1e-eigen-5" data-rang="4" data-merk="Tesla" data-prijs="17450" data-jaar="2017" data-zoek="tesla model s 75 business economy | 1e eigenaar | pano tesla">
   <div class="st-shot"><a class="st-link" href="v/tesla-tesla-model-s-75-business-economy-1e-eigen-5/" aria-label="Tesla Model S 75 Business Economy | 1e Eigenaar | Pano"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aad21f1b-7773-4dd1-b9db-c7ad922baf90?rule=ecg_mp_eps$_85.jpg" alt="Tesla Model S 75 Business Economy | 1e Eigenaar | Pano" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="tesla-tesla-model-s-75-business-economy-1e-eigen-5" aria-pressed="false" aria-label="Bewaar Tesla Model S 75 Business Economy | 1e Eigenaar | Pano"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/tesla-tesla-model-s-75-business-economy-1e-eigen-5/">Tesla Model S 75 Business Economy | 1e Eigenaar | Pano</a></h3>
+    <h3><a href="v/tesla-tesla-model-s-75-business-economy-1e-eigen-5/">Tesla Model S 75 Business Economy</a></h3>
     <p class="st-spec">2017 · 223.925 km</p>
     <div class="st-foot">
       <span class="st-price">€ 17.450</span>
@@ -572,7 +639,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-a6-6" data-rang="5" data-merk="Audi" data-prijs="15950" data-jaar="2016" data-brandstof="Benzine" data-kenmerk="Trekhaak" data-zoek="audi a6 avant 1.8 tfsi | 3 x s-line | pano | trekhaak | stoe audi a6 benzine trekhaak">
   <div class="st-shot"><a class="st-link" href="v/audi-a6-6/" aria-label="Audi A6 Avant 1.8 TFSI | 3 x S-Line | Pano | Trekhaak | Stoe"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a9ddc3e3-7a7f-4e00-9288-02b012731df5?rule=ecg_mp_eps$_85.jpg" alt="Audi A6 Avant 1.8 TFSI | 3 x S-Line | Pano | Trekhaak | Stoe" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-a6-6" aria-pressed="false" aria-label="Bewaar Audi A6 Avant 1.8 TFSI | 3 x S-Line | Pano | Trekhaak | Stoe"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-a6-6/">Audi A6 Avant 1.8 TFSI | 3 x S-Line | Pano | Trekhaak | Stoe</a></h3>
+    <h3><a href="v/audi-a6-6/">Audi A6 Avant 1.8 TFSI</a></h3>
     <p class="st-spec">2016 · 193.335 km · Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 15.950</span>
@@ -582,7 +649,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-a3-limousine-1-8-tfsi-3x-s-line-matrix-7" data-rang="6" data-merk="Audi" data-prijs="15450" data-jaar="2013" data-zoek="audi a3 limousine 1.8 tfsi | 3x s-line | matrix | stoelverwa audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a3-limousine-1-8-tfsi-3x-s-line-matrix-7/" aria-label="Audi A3 LIMOUSINE 1.8 TFSI | 3x S-Line | Matrix | Stoelverwa"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e87fd7b-5d4d-482e-ab7a-3e11982c3d91?rule=ecg_mp_eps$_85.jpg" alt="Audi A3 LIMOUSINE 1.8 TFSI | 3x S-Line | Matrix | Stoelverwa" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a3-limousine-1-8-tfsi-3x-s-line-matrix-7" aria-pressed="false" aria-label="Bewaar Audi A3 LIMOUSINE 1.8 TFSI | 3x S-Line | Matrix | Stoelverwa"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a3-limousine-1-8-tfsi-3x-s-line-matrix-7/">Audi A3 LIMOUSINE 1.8 TFSI | 3x S-Line | Matrix | Stoelverwa</a></h3>
+    <h3><a href="v/audi-audi-a3-limousine-1-8-tfsi-3x-s-line-matrix-7/">Audi A3 LIMOUSINE 1.8 TFSI</a></h3>
     <p class="st-spec">2013 · 165.856 km</p>
     <div class="st-foot">
       <span class="st-price">€ 15.450</span>
@@ -592,7 +659,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="kia-xceed-8" data-rang="7" data-merk="Kia" data-prijs="15000" data-jaar="2021" data-zoek="kia xceed 1.5 t-gdi mhev dynamicline | stoel &amp; stuurverw. | kia xceed">
   <div class="st-shot"><a class="st-link" href="v/kia-xceed-8/" aria-label="Kia XCeed 1.5 T-GDI MHEV DynamicLine | Stoel &amp; Stuurverw. |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/197e889b-4841-4ec1-80df-15893470a0a0?rule=ecg_mp_eps$_86.jpg" alt="Kia XCeed 1.5 T-GDI MHEV DynamicLine | Stoel &amp; Stuurverw. |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="kia-xceed-8" aria-pressed="false" aria-label="Bewaar Kia XCeed 1.5 T-GDI MHEV DynamicLine | Stoel &amp; Stuurverw. |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/kia-xceed-8/">Kia XCeed 1.5 T-GDI MHEV DynamicLine | Stoel &amp; Stuurverw. |</a></h3>
+    <h3><a href="v/kia-xceed-8/">Kia XCeed 1.5 T-GDI MHEV DynamicLine</a></h3>
     <p class="st-spec">2021 · 141.190 km</p>
     <div class="st-foot">
       <span class="st-price">€ 15.000</span>
@@ -602,7 +669,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-q3-2-0-tfsi-quattro-pro-line-s-pano-st-9" data-rang="8" data-merk="Audi" data-prijs="14945" data-jaar="2013" data-zoek="audi q3 2.0 tfsi quattro pro line s | pano | stoelverw. | au audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-q3-2-0-tfsi-quattro-pro-line-s-pano-st-9/" aria-label="Audi Q3 2.0 TFSI quattro Pro Line S | Pano | Stoelverw. | Au"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/990b96fb-7a42-4ff7-a30a-558ab38a38e6?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 2.0 TFSI quattro Pro Line S | Pano | Stoelverw. | Au" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-q3-2-0-tfsi-quattro-pro-line-s-pano-st-9" aria-pressed="false" aria-label="Bewaar Audi Q3 2.0 TFSI quattro Pro Line S | Pano | Stoelverw. | Au"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-q3-2-0-tfsi-quattro-pro-line-s-pano-st-9/">Audi Q3 2.0 TFSI quattro Pro Line S | Pano | Stoelverw. | Au</a></h3>
+    <h3><a href="v/audi-audi-q3-2-0-tfsi-quattro-pro-line-s-pano-st-9/">Audi Q3 2.0 TFSI quattro Pro Line S</a></h3>
     <p class="st-spec">2013 · 119.997 km</p>
     <div class="st-foot">
       <span class="st-price">€ 14.945</span>
@@ -612,7 +679,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-c-klasse-180-prestig-10" data-rang="9" data-merk="Mercedes-Benz" data-prijs="13450" data-jaar="2014" data-kenmerk="Automaat" data-zoek="mercedes-benz c-klasse 180 prestige | automaat | stoelverwar mercedes-benz automaat">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-c-klasse-180-prestig-10/" aria-label="Mercedes-Benz C-klasse 180 Prestige | Automaat | Stoelverwar"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a66f04fd-1b56-4571-811e-9ffabde65156?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-klasse 180 Prestige | Automaat | Stoelverwar" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-c-klasse-180-prestig-10" aria-pressed="false" aria-label="Bewaar Mercedes-Benz C-klasse 180 Prestige | Automaat | Stoelverwar"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-180-prestig-10/">Mercedes-Benz C-klasse 180 Prestige | Automaat | Stoelverwar</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-180-prestig-10/">Mercedes-Benz C-klasse 180 Prestige</a></h3>
     <p class="st-spec">2014 · 187.295 km</p>
     <div class="st-foot">
       <span class="st-price">€ 13.450</span>
@@ -622,7 +689,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="subaru-subaru-xv-2-0i-premium-awd-schuifdak-stoe-11" data-rang="10" data-merk="Subaru" data-prijs="11950" data-jaar="2016" data-kenmerk="Navigatie" data-zoek="subaru xv 2.0i premium awd | schuifdak | stoelverw. | navi | subaru navigatie">
   <div class="st-shot"><a class="st-link" href="v/subaru-subaru-xv-2-0i-premium-awd-schuifdak-stoe-11/" aria-label="Subaru XV 2.0i Premium AWD | Schuifdak | Stoelverw. | Navi |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f2019489-757f-4e24-9186-8d81078ef840?rule=ecg_mp_eps$_85.jpg" alt="Subaru XV 2.0i Premium AWD | Schuifdak | Stoelverw. | Navi |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="subaru-subaru-xv-2-0i-premium-awd-schuifdak-stoe-11" aria-pressed="false" aria-label="Bewaar Subaru XV 2.0i Premium AWD | Schuifdak | Stoelverw. | Navi |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/subaru-subaru-xv-2-0i-premium-awd-schuifdak-stoe-11/">Subaru XV 2.0i Premium AWD | Schuifdak | Stoelverw. | Navi |</a></h3>
+    <h3><a href="v/subaru-subaru-xv-2-0i-premium-awd-schuifdak-stoe-11/">Subaru XV 2.0i Premium AWD</a></h3>
     <p class="st-spec">2016 · 152.131 km</p>
     <div class="st-foot">
       <span class="st-price">€ 11.950</span>
@@ -632,7 +699,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-a1-sportback-1-4-tfsi-sport-s-line-edi-12" data-rang="11" data-merk="Audi" data-prijs="11750" data-jaar="2017" data-kenmerk="Automaat" data-zoek="audi a1 sportback 1.4 tfsi sport s line edition | automaat | audi automaat">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a1-sportback-1-4-tfsi-sport-s-line-edi-12/" aria-label="Audi A1 Sportback 1.4 TFSI Sport S line Edition | Automaat |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/28f167ef-7f3f-4c71-b8c3-42ea48ece950?rule=ecg_mp_eps$_85.jpg" alt="Audi A1 Sportback 1.4 TFSI Sport S line Edition | Automaat |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a1-sportback-1-4-tfsi-sport-s-line-edi-12" aria-pressed="false" aria-label="Bewaar Audi A1 Sportback 1.4 TFSI Sport S line Edition | Automaat |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a1-sportback-1-4-tfsi-sport-s-line-edi-12/">Audi A1 Sportback 1.4 TFSI Sport S line Edition | Automaat |</a></h3>
+    <h3><a href="v/audi-audi-a1-sportback-1-4-tfsi-sport-s-line-edi-12/">Audi A1 Sportback 1.4 TFSI Sport S line Edition</a></h3>
     <p class="st-spec">2017 · 178.940 km</p>
     <div class="st-foot">
       <span class="st-price">€ 11.750</span>
@@ -642,7 +709,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="audi-audi-a1-sportback-1-4-tfsi-3-x-s-line-schaa-13" data-rang="12" data-merk="Audi" data-prijs="9945" data-jaar="2012" data-zoek="audi a1 sportback 1.4 tfsi | 3 x s-line | schaalstoelen | bo audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a1-sportback-1-4-tfsi-3-x-s-line-schaa-13/" aria-label="Audi A1 Sportback 1.4 TFSI | 3 x S-Line | Schaalstoelen | Bo"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2aba508f-302d-4815-a989-10b796789bd8?rule=ecg_mp_eps$_86.jpg" alt="Audi A1 Sportback 1.4 TFSI | 3 x S-Line | Schaalstoelen | Bo" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a1-sportback-1-4-tfsi-3-x-s-line-schaa-13" aria-pressed="false" aria-label="Bewaar Audi A1 Sportback 1.4 TFSI | 3 x S-Line | Schaalstoelen | Bo"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a1-sportback-1-4-tfsi-3-x-s-line-schaa-13/">Audi A1 Sportback 1.4 TFSI | 3 x S-Line | Schaalstoelen | Bo</a></h3>
+    <h3><a href="v/audi-audi-a1-sportback-1-4-tfsi-3-x-s-line-schaa-13/">Audi A1 Sportback 1.4 TFSI</a></h3>
     <p class="st-spec">2012 · 146.935 km</p>
     <div class="st-foot">
       <span class="st-price">€ 9.945</span>
@@ -652,7 +719,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-clio-1-6-r-s-automaat-navi-leder-14" data-rang="13" data-merk="Renault" data-prijs="9250" data-jaar="2013" data-kenmerk="Navigatie|Automaat" data-zoek="renault clio 1.6 r.s automaat | navi | leder | stoelverwarmi renault navigatie automaat">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-clio-1-6-r-s-automaat-navi-leder-14/" aria-label="Renault Clio 1.6 R.S Automaat | Navi | Leder | Stoelverwarmi"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aa0aa328-801a-4a07-be1d-e0fe6870bd7b?rule=ecg_mp_eps$_85.jpg" alt="Renault Clio 1.6 R.S Automaat | Navi | Leder | Stoelverwarmi" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-clio-1-6-r-s-automaat-navi-leder-14" aria-pressed="false" aria-label="Bewaar Renault Clio 1.6 R.S Automaat | Navi | Leder | Stoelverwarmi"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-clio-1-6-r-s-automaat-navi-leder-14/">Renault Clio 1.6 R.S Automaat | Navi | Leder | Stoelverwarmi</a></h3>
+    <h3><a href="v/renault-renault-clio-1-6-r-s-automaat-navi-leder-14/">Renault Clio 1.6 R.S Automaat</a></h3>
     <p class="st-spec">2013 · 197.705 km</p>
     <div class="st-foot">
       <span class="st-price">€ 9.250</span>
@@ -662,7 +729,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="seat-ibiza-15" data-rang="14" data-merk="SEAT" data-prijs="8750" data-jaar="2018" data-zoek="seat ibiza 1.0 tsi excellence limited edition | pano seat ibiza">
   <div class="st-shot"><a class="st-link" href="v/seat-ibiza-15/" aria-label="Seat IBIZA 1.0 TSI Excellence Limited Edition | Pano"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1be3b971-80df-49c3-b927-de4f12414306?rule=ecg_mp_eps$_85.jpg" alt="Seat IBIZA 1.0 TSI Excellence Limited Edition | Pano" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="seat-ibiza-15" aria-pressed="false" aria-label="Bewaar Seat IBIZA 1.0 TSI Excellence Limited Edition | Pano"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/seat-ibiza-15/">Seat IBIZA 1.0 TSI Excellence Limited Edition | Pano</a></h3>
+    <h3><a href="v/seat-ibiza-15/">Seat IBIZA 1.0 TSI Excellence Limited Edition</a></h3>
     <p class="st-spec">2018 · 190.711 km</p>
     <div class="st-foot">
       <span class="st-price">€ 8.750</span>
@@ -672,7 +739,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-7-serie-730i-executive-automaat-full-opt-16" data-rang="15" data-merk="BMW" data-prijs="7950" data-jaar="1994" data-kenmerk="Automaat" data-zoek="bmw 7-serie 730i executive | automaat | full-option | nieuws bmw automaat">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-7-serie-730i-executive-automaat-full-opt-16/" aria-label="BMW 7-serie 730i Executive | Automaat | Full-Option | Nieuws"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/66876057-7d2a-4015-a1f8-98cd0817436e?rule=ecg_mp_eps$_85.jpg" alt="BMW 7-serie 730i Executive | Automaat | Full-Option | Nieuws" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-7-serie-730i-executive-automaat-full-opt-16" aria-pressed="false" aria-label="Bewaar BMW 7-serie 730i Executive | Automaat | Full-Option | Nieuws"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-7-serie-730i-executive-automaat-full-opt-16/">BMW 7-serie 730i Executive | Automaat | Full-Option | Nieuws</a></h3>
+    <h3><a href="v/bmw-bmw-7-serie-730i-executive-automaat-full-opt-16/">BMW 7-serie 730i Executive</a></h3>
     <p class="st-spec">1994 · 380.918 km</p>
     <div class="st-foot">
       <span class="st-price">€ 7.950</span>
@@ -682,7 +749,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="opel-opel-mokka-1-6-cosmo-schuifdak-camera-stoel-17" data-rang="16" data-merk="Opel" data-prijs="6950" data-jaar="2013" data-zoek="opel mokka 1.6 cosmo | schuifdak | camera | stoelverwarming opel">
   <div class="st-shot"><a class="st-link" href="v/opel-opel-mokka-1-6-cosmo-schuifdak-camera-stoel-17/" aria-label="Opel Mokka 1.6 Cosmo | Schuifdak | Camera | Stoelverwarming"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1182f409-f5e1-4aef-ba47-4202244715dd?rule=ecg_mp_eps$_85.jpg" alt="Opel Mokka 1.6 Cosmo | Schuifdak | Camera | Stoelverwarming" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="opel-opel-mokka-1-6-cosmo-schuifdak-camera-stoel-17" aria-pressed="false" aria-label="Bewaar Opel Mokka 1.6 Cosmo | Schuifdak | Camera | Stoelverwarming"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/opel-opel-mokka-1-6-cosmo-schuifdak-camera-stoel-17/">Opel Mokka 1.6 Cosmo | Schuifdak | Camera | Stoelverwarming</a></h3>
+    <h3><a href="v/opel-opel-mokka-1-6-cosmo-schuifdak-camera-stoel-17/">Opel Mokka 1.6 Cosmo</a></h3>
     <p class="st-spec">2013 · 222.114 km</p>
     <div class="st-foot">
       <span class="st-price">€ 6.950</span>
@@ -692,7 +759,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="renault-renault-clio-estate-limited-airco-navi-c-18" data-rang="17" data-merk="Renault" data-prijs="6945" data-jaar="2020" data-kenmerk="Airco|Navigatie" data-zoek="renault clio estate limited | airco | navi | cruise control renault airco navigatie">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-clio-estate-limited-airco-navi-c-18/" aria-label="Renault Clio Estate Limited | Airco | Navi | Cruise Control"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b63f4e33-8463-4c66-9765-dee030859ce5?rule=ecg_mp_eps$_86.jpg" alt="Renault Clio Estate Limited | Airco | Navi | Cruise Control" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-clio-estate-limited-airco-navi-c-18" aria-pressed="false" aria-label="Bewaar Renault Clio Estate Limited | Airco | Navi | Cruise Control"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-clio-estate-limited-airco-navi-c-18/">Renault Clio Estate Limited | Airco | Navi | Cruise Control</a></h3>
+    <h3><a href="v/renault-renault-clio-estate-limited-airco-navi-c-18/">Renault Clio Estate Limited</a></h3>
     <p class="st-spec">2020 · 156.590 km</p>
     <div class="st-foot">
       <span class="st-price">€ 6.945</span>
@@ -714,7 +781,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     </ol>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.3</b><span>gemiddeld uit 158 beoordelingen</span></div><div><b>15</b><span>jaar op Marktplaats</span></div><div><b>Rijen</b><span><a href="https://maps.google.com/?q=Rijen" target="_blank" rel="noreferrer">Rijen</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.3</b><span>gemiddeld uit 158 beoordelingen</span></div><div><b>15</b><span>jaar op Marktplaats</span></div><div><b>10</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Rijen</strong> · <a href="https://maps.google.com/?q=Rijen" target="_blank" rel="noreferrer">Rijen</a></p></div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

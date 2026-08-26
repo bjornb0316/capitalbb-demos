@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e8e1da}
+section:nth-of-type(even){background:#f2e9e2}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#6b625a;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#a4482a;color:#fffaf7;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#a4482a;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#6b625a;font-size:15px}
 .sec-trust a{color:#1c1815}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e8e1da;color:#6b625a;font-size:15.5px}
+.sec-vestiging strong{color:#1c1815;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e8e1da;color:#6b625a;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:1.35em;color:#a4482a;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#6b625a;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e8e1da;border-radius:14px;background:#f2e9e2;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:14px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#6b625a;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e8e1da;border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#a4482a66}
+.ug-shot{aspect-ratio:4/3;background:#f2e9e2;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#6b625a;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#a4482a;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e8e1da;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -432,7 +472,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van ABD (familie, mediaanprijs EUR 36945, 529 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet terra, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #a4482a.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > stock > process > brands > about > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > uitgelicht > stock > process > brands > about > promise > hours > contact.
 FORM: familie-terra-cinematic-grid-gabarito-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -448,7 +488,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/164372f7-763a-42e7-8ad9-42d24d6d270c?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/164372f7-763a-42e7-8ad9-42d24d6d270c?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/164372f7-763a-42e7-8ad9-42d24d6d270c?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/164372f7-763a-42e7-8ad9-42d24d6d270c?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/164372f7-763a-42e7-8ad9-42d24d6d270c?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Renault Rafale E-Tech 4x4 plug-in hybrid 300pk atelier Alpin" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Renault Rafale E-Tech 4x4 plug-in hybrid 300pk atelier Alpin</span><span class="h-plate-p">€ 54.750</span></figcaption></figure>
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>529 occasions op voorraad · Drachten</p><div class="h-facts"><span>4.7 uit 773 beoordelingen</span><span>18 jaar op Marktplaats</span><span>4 merken in huis</span><span>Kom langs in Drachten</span></div><h1>Kom kijken wanneer het u schikt <em>in Drachten</em></h1><p class="h-lede">ABD is hét Friese autobedrijf. U kunt ons vinden in Dokkum, Drachten, Heerenveen, Leeuwarden en Sneek.</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31512515615">Bel 051-2515615</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div></div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.7</b><span>gemiddeld uit 773 beoordelingen</span></div><div><b>18</b><span>jaar op Marktplaats</span></div><div><b>Drachten</b><span><a href="https://maps.google.com/?q=Jade%201%2C%209207GL%20Drachten" target="_blank" rel="noreferrer">Jade 1, 9207GL Drachten</a></span></div><div><b>KvK</b><span>01098330</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.7</b><span>gemiddeld uit 773 beoordelingen</span></div><div><b>18</b><span>jaar op Marktplaats</span></div><div><b>4</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Drachten</strong> · <a href="https://maps.google.com/?q=Jade%201%2C%209207GL%20Drachten" target="_blank" rel="noreferrer">Jade 1, 9207GL Drachten</a> · KvK 01098330</p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/renault-renault-rafale-e-tech-4x4-plug-in-hybrid-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/164372f7-763a-42e7-8ad9-42d24d6d270c?rule=ecg_mp_eps$_86.jpg" alt="Renault Rafale E-Tech 4x4 plug-in hybrid 300pk atelier Alpin" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Renault Rafale E-Tech 4x4 plug-in hybrid 300pk atelier Alpin</h3>
+    <p class="ug-spec">2026 · 35 km</p>
+    <p class="ug-prijs">€ 54.750</p>
+  </div>
+</a><a class="ug-kaart" href="v/renault-rafale-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5fd1cd7a-95f2-49bf-8852-4ab52bfb248e?rule=ecg_mp_eps$_86.jpg" alt="Renault Rafale E-Tech full hybrid 200pk esprit Alpine" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Renault Rafale E-Tech full hybrid 200pk esprit Alpine</h3>
+    <p class="ug-spec">2026 · 35 km</p>
+    <p class="ug-prijs">€ 52.945</p>
+  </div>
+</a><a class="ug-kaart" href="v/renault-espace-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/10e984ee-8481-4151-b1d9-17a621b18b7d?rule=ecg_mp_eps$_86.jpg" alt="Renault Espace E-Tech full hybrid 200 esprit Alpine 7p." loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Renault Espace E-Tech full hybrid 200 esprit Alpine 7p.</h3>
+    <p class="ug-spec">2026 · 35 km</p>
+    <p class="ug-prijs">€ 49.945</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>Onze voorraad</h2>
@@ -514,7 +581,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-rafale-2" data-rang="1" data-merk="Renault" data-prijs="52945" data-jaar="2026" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="renault rafale e-tech full hybrid 200pk esprit alpine | hud renault rafale hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/renault-rafale-2/" aria-label="Renault Rafale E-Tech full hybrid 200pk esprit Alpine | HUD"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5fd1cd7a-95f2-49bf-8852-4ab52bfb248e?rule=ecg_mp_eps$_85.jpg" alt="Renault Rafale E-Tech full hybrid 200pk esprit Alpine | HUD" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-rafale-2" aria-pressed="false" aria-label="Bewaar Renault Rafale E-Tech full hybrid 200pk esprit Alpine | HUD"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-rafale-2/">Renault Rafale E-Tech full hybrid 200pk esprit Alpine | HUD</a></h3>
+    <h3><a href="v/renault-rafale-2/">Renault Rafale E-Tech full hybrid 200pk esprit Alpine</a></h3>
     <p class="st-spec">2026 · 35 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 52.945</span>
@@ -524,7 +591,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-espace-3" data-rang="2" data-merk="Renault" data-prijs="49945" data-jaar="2026" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="renault espace e-tech full hybrid 200 esprit alpine 7p. | fu renault espace hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/renault-espace-3/" aria-label="Renault Espace E-Tech full hybrid 200 esprit Alpine 7p. | Fu"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/10e984ee-8481-4151-b1d9-17a621b18b7d?rule=ecg_mp_eps$_85.jpg" alt="Renault Espace E-Tech full hybrid 200 esprit Alpine 7p. | Fu" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-espace-3" aria-pressed="false" aria-label="Bewaar Renault Espace E-Tech full hybrid 200 esprit Alpine 7p. | Fu"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-espace-3/">Renault Espace E-Tech full hybrid 200 esprit Alpine 7p. | Fu</a></h3>
+    <h3><a href="v/renault-espace-3/">Renault Espace E-Tech full hybrid 200 esprit Alpine 7p.</a></h3>
     <p class="st-spec">2026 · 35 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 49.945</span>
@@ -534,7 +601,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-austral-e-tech-full-hybrid-200pk-4" data-rang="3" data-merk="Renault" data-prijs="49945" data-jaar="2026" data-zoek="renault austral e-tech full hybrid 200pk esprit alpine | vij renault">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-austral-e-tech-full-hybrid-200pk-4/" aria-label="Renault Austral E-Tech full hybrid 200pk esprit Alpine | Vij"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7aa2c8ef-fc71-4f1b-905c-345d89b05173?rule=ecg_mp_eps$_85.jpg" alt="Renault Austral E-Tech full hybrid 200pk esprit Alpine | Vij" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-austral-e-tech-full-hybrid-200pk-4" aria-pressed="false" aria-label="Bewaar Renault Austral E-Tech full hybrid 200pk esprit Alpine | Vij"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-austral-e-tech-full-hybrid-200pk-4/">Renault Austral E-Tech full hybrid 200pk esprit Alpine | Vij</a></h3>
+    <h3><a href="v/renault-renault-austral-e-tech-full-hybrid-200pk-4/">Renault Austral E-Tech full hybrid 200pk esprit Alpine</a></h3>
     <p class="st-spec">2026 · 35 km</p>
     <div class="st-foot">
       <span class="st-price">€ 49.945</span>
@@ -544,7 +611,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-austral-e-tech-full-hybrid-200pk-5" data-rang="4" data-merk="Renault" data-prijs="49345" data-jaar="2026" data-zoek="renault austral e-tech full hybrid 200pk esprit alpine | vij renault">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-austral-e-tech-full-hybrid-200pk-5/" aria-label="Renault Austral E-Tech full hybrid 200pk esprit Alpine | Vij"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5bd1691f-b292-4a32-b687-c8616e6c8867?rule=ecg_mp_eps$_85.jpg" alt="Renault Austral E-Tech full hybrid 200pk esprit Alpine | Vij" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-austral-e-tech-full-hybrid-200pk-5" aria-pressed="false" aria-label="Bewaar Renault Austral E-Tech full hybrid 200pk esprit Alpine | Vij"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-austral-e-tech-full-hybrid-200pk-5/">Renault Austral E-Tech full hybrid 200pk esprit Alpine | Vij</a></h3>
+    <h3><a href="v/renault-renault-austral-e-tech-full-hybrid-200pk-5/">Renault Austral E-Tech full hybrid 200pk esprit Alpine</a></h3>
     <p class="st-spec">2026 · 35 km</p>
     <div class="st-foot">
       <span class="st-price">€ 49.345</span>
@@ -554,7 +621,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="nissan-nissan-qashqai-158pk-mhev-nismo-nissan-mo-6" data-rang="5" data-merk="Nissan" data-prijs="48245" data-jaar="2026" data-zoek="nissan qashqai 158pk mhev nismo + | nissan motorsport | excl nissan">
   <div class="st-shot"><a class="st-link" href="v/nissan-nissan-qashqai-158pk-mhev-nismo-nissan-mo-6/" aria-label="Nissan Qashqai 158pk MHEV Nismo + | Nissan Motorsport | Excl"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/48423489-3ed6-423a-be6b-aeb2b19b2208?rule=ecg_mp_eps$_85.jpg" alt="Nissan Qashqai 158pk MHEV Nismo + | Nissan Motorsport | Excl" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="nissan-nissan-qashqai-158pk-mhev-nismo-nissan-mo-6" aria-pressed="false" aria-label="Bewaar Nissan Qashqai 158pk MHEV Nismo + | Nissan Motorsport | Excl"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/nissan-nissan-qashqai-158pk-mhev-nismo-nissan-mo-6/">Nissan Qashqai 158pk MHEV Nismo + | Nissan Motorsport | Excl</a></h3>
+    <h3><a href="v/nissan-nissan-qashqai-158pk-mhev-nismo-nissan-mo-6/">Nissan Qashqai 158pk MHEV Nismo +</a></h3>
     <p class="st-spec">2026 · 5.000 km</p>
     <div class="st-foot">
       <span class="st-price">€ 48.245</span>
@@ -564,7 +631,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-scenic-e-tech-ev87-long-range-es-7" data-rang="6" data-merk="Renault" data-prijs="46495" data-jaar="2026" data-zoek="renault scenic e-tech ev87 long range esprit alpine | vijf j renault">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-scenic-e-tech-ev87-long-range-es-7/" aria-label="Renault Scenic E-Tech EV87 long range esprit Alpine | Vijf j"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ed3cebbb-836d-4b5e-a915-db077b44ea03?rule=ecg_mp_eps$_85.jpg" alt="Renault Scenic E-Tech EV87 long range esprit Alpine | Vijf j" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-scenic-e-tech-ev87-long-range-es-7" aria-pressed="false" aria-label="Bewaar Renault Scenic E-Tech EV87 long range esprit Alpine | Vijf j"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-scenic-e-tech-ev87-long-range-es-7/">Renault Scenic E-Tech EV87 long range esprit Alpine | Vijf j</a></h3>
+    <h3><a href="v/renault-renault-scenic-e-tech-ev87-long-range-es-7/">Renault Scenic E-Tech EV87 long range esprit Alpine</a></h3>
     <p class="st-spec">2026 · 35 km</p>
     <div class="st-foot">
       <span class="st-price">€ 46.495</span>
@@ -574,7 +641,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-scenic-8" data-rang="7" data-merk="Renault" data-prijs="43995" data-jaar="2026" data-brandstof="Elektrisch" data-zoek="renault scenic e-tech ev87 long range techno | vijf jaar gar renault scénic elektrisch">
   <div class="st-shot"><a class="st-link" href="v/renault-scenic-8/" aria-label="Renault Scenic E-Tech EV87 long range techno | Vijf jaar gar"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f14a93a8-9ff2-4260-9add-662c9bf3380c?rule=ecg_mp_eps$_85.jpg" alt="Renault Scenic E-Tech EV87 long range techno | Vijf jaar gar" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-scenic-8" aria-pressed="false" aria-label="Bewaar Renault Scenic E-Tech EV87 long range techno | Vijf jaar gar"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-scenic-8/">Renault Scenic E-Tech EV87 long range techno | Vijf jaar gar</a></h3>
+    <h3><a href="v/renault-scenic-8/">Renault Scenic E-Tech EV87 long range techno</a></h3>
     <p class="st-spec">2026 · 35 km · Elektrisch</p>
     <div class="st-foot">
       <span class="st-price">€ 43.995</span>
@@ -584,7 +651,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-4-comfort-range-iconic-52-kwh-vi-9" data-rang="8" data-merk="Renault" data-prijs="37945" data-jaar="2026" data-kenmerk="Garantie" data-zoek="renault 4 comfort range iconic 52 kwh | vijf jaar garantie | renault garantie">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-4-comfort-range-iconic-52-kwh-vi-9/" aria-label="Renault 4 comfort range iconic 52 kWh | Vijf jaar garantie |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b2a91b30-6cb3-404f-af31-8858dd65a694?rule=ecg_mp_eps$_85.jpg" alt="Renault 4 comfort range iconic 52 kWh | Vijf jaar garantie |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-4-comfort-range-iconic-52-kwh-vi-9" aria-pressed="false" aria-label="Bewaar Renault 4 comfort range iconic 52 kWh | Vijf jaar garantie |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-4-comfort-range-iconic-52-kwh-vi-9/">Renault 4 comfort range iconic 52 kWh | Vijf jaar garantie |</a></h3>
+    <h3><a href="v/renault-renault-4-comfort-range-iconic-52-kwh-vi-9/">Renault 4 comfort range iconic 52 kWh</a></h3>
     <p class="st-spec">2026 · 35 km</p>
     <div class="st-foot">
       <span class="st-price">€ 37.945</span>
@@ -594,7 +661,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mitsubishi-mitsubishi-asx-1-8-hev-at-executive-a-10" data-rang="9" data-merk="Mitsubishi" data-prijs="35945" data-jaar="2026" data-zoek="mitsubishi asx 1.8 hev at executive | adaptieve cruise contr mitsubishi">
   <div class="st-shot"><a class="st-link" href="v/mitsubishi-mitsubishi-asx-1-8-hev-at-executive-a-10/" aria-label="Mitsubishi ASX 1.8 HEV AT Executive | Adaptieve Cruise Contr"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/533b46a9-65fe-4aa4-9860-d354fd6ff0e5?rule=ecg_mp_eps$_85.jpg" alt="Mitsubishi ASX 1.8 HEV AT Executive | Adaptieve Cruise Contr" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mitsubishi-mitsubishi-asx-1-8-hev-at-executive-a-10" aria-pressed="false" aria-label="Bewaar Mitsubishi ASX 1.8 HEV AT Executive | Adaptieve Cruise Contr"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mitsubishi-mitsubishi-asx-1-8-hev-at-executive-a-10/">Mitsubishi ASX 1.8 HEV AT Executive | Adaptieve Cruise Contr</a></h3>
+    <h3><a href="v/mitsubishi-mitsubishi-asx-1-8-hev-at-executive-a-10/">Mitsubishi ASX 1.8 HEV AT Executive</a></h3>
     <p class="st-spec">2026 · 101 km</p>
     <div class="st-foot">
       <span class="st-price">€ 35.945</span>
@@ -604,7 +671,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mitsubishi-mitsubishi-asx-1-8-hev-at-executive-a-11" data-rang="10" data-merk="Mitsubishi" data-prijs="35945" data-jaar="2026" data-zoek="mitsubishi asx 1.8 hev at executive | adaptieve cruise contr mitsubishi">
   <div class="st-shot"><a class="st-link" href="v/mitsubishi-mitsubishi-asx-1-8-hev-at-executive-a-11/" aria-label="Mitsubishi ASX 1.8 HEV AT Executive | Adaptieve Cruise Contr"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/feebef89-bd19-4e73-a699-672f9867125a?rule=ecg_mp_eps$_85.jpg" alt="Mitsubishi ASX 1.8 HEV AT Executive | Adaptieve Cruise Contr" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mitsubishi-mitsubishi-asx-1-8-hev-at-executive-a-11" aria-pressed="false" aria-label="Bewaar Mitsubishi ASX 1.8 HEV AT Executive | Adaptieve Cruise Contr"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mitsubishi-mitsubishi-asx-1-8-hev-at-executive-a-11/">Mitsubishi ASX 1.8 HEV AT Executive | Adaptieve Cruise Contr</a></h3>
+    <h3><a href="v/mitsubishi-mitsubishi-asx-1-8-hev-at-executive-a-11/">Mitsubishi ASX 1.8 HEV AT Executive</a></h3>
     <p class="st-spec">2026 · 1.410 km</p>
     <div class="st-foot">
       <span class="st-price">€ 35.945</span>
@@ -614,7 +681,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-symbioz-e-tech-full-hybrid-160pk-12" data-rang="11" data-merk="Renault" data-prijs="33795" data-jaar="2026" data-zoek="renault symbioz e-tech full hybrid 160pk techno | vijf jaar renault">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-symbioz-e-tech-full-hybrid-160pk-12/" aria-label="Renault Symbioz E-Tech full hybrid 160pk techno | Vijf jaar"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c19e4663-bbff-449b-8bfa-7d2d7a59f5a6?rule=ecg_mp_eps$_85.jpg" alt="Renault Symbioz E-Tech full hybrid 160pk techno | Vijf jaar" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-symbioz-e-tech-full-hybrid-160pk-12" aria-pressed="false" aria-label="Bewaar Renault Symbioz E-Tech full hybrid 160pk techno | Vijf jaar"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-symbioz-e-tech-full-hybrid-160pk-12/">Renault Symbioz E-Tech full hybrid 160pk techno | Vijf jaar</a></h3>
+    <h3><a href="v/renault-renault-symbioz-e-tech-full-hybrid-160pk-12/">Renault Symbioz E-Tech full hybrid 160pk techno</a></h3>
     <p class="st-spec">2026 · 35 km</p>
     <div class="st-foot">
       <span class="st-price">€ 33.795</span>
@@ -624,7 +691,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-captur-e-tech-full-hybrid-160pk--13" data-rang="12" data-merk="Renault" data-prijs="33495" data-jaar="2026" data-zoek="renault captur e-tech full hybrid 160pk techno | vijf jaar g renault">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-captur-e-tech-full-hybrid-160pk--13/" aria-label="Renault Captur E-Tech full hybrid 160pk techno | Vijf jaar g"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ac1f3f44-8e70-47f8-8ec0-040a6e4c3001?rule=ecg_mp_eps$_85.jpg" alt="Renault Captur E-Tech full hybrid 160pk techno | Vijf jaar g" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-captur-e-tech-full-hybrid-160pk--13" aria-pressed="false" aria-label="Bewaar Renault Captur E-Tech full hybrid 160pk techno | Vijf jaar g"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-captur-e-tech-full-hybrid-160pk--13/">Renault Captur E-Tech full hybrid 160pk techno | Vijf jaar g</a></h3>
+    <h3><a href="v/renault-renault-captur-e-tech-full-hybrid-160pk--13/">Renault Captur E-Tech full hybrid 160pk techno</a></h3>
     <p class="st-spec">2026 · 35 km</p>
     <div class="st-foot">
       <span class="st-price">€ 33.495</span>
@@ -634,7 +701,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="dacia-duster-14" data-rang="13" data-merk="Dacia" data-prijs="32475" data-jaar="2026" data-zoek="dacia duster hybrid 155pk journey | stoel- en stuurwielverwa dacia duster">
   <div class="st-shot"><a class="st-link" href="v/dacia-duster-14/" aria-label="Dacia Duster hybrid 155pk Journey | Stoel- en stuurwielverwa"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/370e95c5-67de-47d1-ac4b-d47851be0fb9?rule=ecg_mp_eps$_85.jpg" alt="Dacia Duster hybrid 155pk Journey | Stoel- en stuurwielverwa" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="dacia-duster-14" aria-pressed="false" aria-label="Bewaar Dacia Duster hybrid 155pk Journey | Stoel- en stuurwielverwa"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/dacia-duster-14/">Dacia Duster hybrid 155pk Journey | Stoel- en stuurwielverwa</a></h3>
+    <h3><a href="v/dacia-duster-14/">Dacia Duster hybrid 155pk Journey</a></h3>
     <p class="st-spec">2026 · 35 km</p>
     <div class="st-foot">
       <span class="st-price">€ 32.475</span>
@@ -644,7 +711,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="dacia-dacia-duster-mild-hybrid-140pk-expression--15" data-rang="14" data-merk="Dacia" data-prijs="29495" data-jaar="2026" data-kenmerk="Navigatie" data-zoek="dacia duster mild hybrid 140pk expression | navigatie | lich dacia navigatie">
   <div class="st-shot"><a class="st-link" href="v/dacia-dacia-duster-mild-hybrid-140pk-expression--15/" aria-label="Dacia Duster mild hybrid 140pk expression | Navigatie | Lich"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c65cd1be-9a5d-4bb0-af76-e5d614b0ad4c?rule=ecg_mp_eps$_85.jpg" alt="Dacia Duster mild hybrid 140pk expression | Navigatie | Lich" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="dacia-dacia-duster-mild-hybrid-140pk-expression--15" aria-pressed="false" aria-label="Bewaar Dacia Duster mild hybrid 140pk expression | Navigatie | Lich"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/dacia-dacia-duster-mild-hybrid-140pk-expression--15/">Dacia Duster mild hybrid 140pk expression | Navigatie | Lich</a></h3>
+    <h3><a href="v/dacia-dacia-duster-mild-hybrid-140pk-expression--15/">Dacia Duster mild hybrid 140pk expression</a></h3>
     <p class="st-spec">2026 · 35 km</p>
     <div class="st-foot">
       <span class="st-price">€ 29.495</span>
@@ -654,7 +721,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-5-urban-range-evolution-40-kwh-v-16" data-rang="15" data-merk="Renault" data-prijs="27945" data-jaar="2026" data-kenmerk="Garantie" data-zoek="renault 5 urban range evolution 40 kwh | vijf jaar garantie renault garantie">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-5-urban-range-evolution-40-kwh-v-16/" aria-label="Renault 5 urban range evolution 40 kWh | Vijf jaar garantie"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4aba4bd7-8e46-43bb-b963-7bdff76e384d?rule=ecg_mp_eps$_85.jpg" alt="Renault 5 urban range evolution 40 kWh | Vijf jaar garantie" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-5-urban-range-evolution-40-kwh-v-16" aria-pressed="false" aria-label="Bewaar Renault 5 urban range evolution 40 kWh | Vijf jaar garantie"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-5-urban-range-evolution-40-kwh-v-16/">Renault 5 urban range evolution 40 kWh | Vijf jaar garantie</a></h3>
+    <h3><a href="v/renault-renault-5-urban-range-evolution-40-kwh-v-16/">Renault 5 urban range evolution 40 kWh</a></h3>
     <p class="st-spec">2026 · 35 km</p>
     <div class="st-foot">
       <span class="st-price">€ 27.945</span>
@@ -664,7 +731,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-austral-mild-hybrid-advanced-130-17" data-rang="16" data-merk="Renault" data-prijs="25945" data-jaar="2023" data-zoek="renault austral mild hybrid advanced 130pk techno | achterui renault">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-austral-mild-hybrid-advanced-130-17/" aria-label="Renault Austral Mild hybrid advanced 130pk techno | Achterui"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d389a468-8457-4037-bf3b-9c6c7c3516f2?rule=ecg_mp_eps$_85.jpg" alt="Renault Austral Mild hybrid advanced 130pk techno | Achterui" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-austral-mild-hybrid-advanced-130-17" aria-pressed="false" aria-label="Bewaar Renault Austral Mild hybrid advanced 130pk techno | Achterui"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-austral-mild-hybrid-advanced-130-17/">Renault Austral Mild hybrid advanced 130pk techno | Achterui</a></h3>
+    <h3><a href="v/renault-renault-austral-mild-hybrid-advanced-130-17/">Renault Austral Mild hybrid advanced 130pk techno</a></h3>
     <p class="st-spec">2023 · 28.129 km</p>
     <div class="st-foot">
       <span class="st-price">€ 25.945</span>
@@ -674,7 +741,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-clio-18" data-rang="17" data-merk="Renault" data-prijs="23650" data-jaar="2025" data-brandstof="Benzine" data-kenmerk="Airco" data-zoek="renault clio tce 90pk gpf evolution | airco | parkeersensore renault clio benzine airco">
   <div class="st-shot"><a class="st-link" href="v/renault-clio-18/" aria-label="Renault Clio TCe 90pk GPF evolution | Airco | Parkeersensore"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b4ca51e7-eedf-4bd1-9594-6294cb5b5040?rule=ecg_mp_eps$_85.jpg" alt="Renault Clio TCe 90pk GPF evolution | Airco | Parkeersensore" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-clio-18" aria-pressed="false" aria-label="Bewaar Renault Clio TCe 90pk GPF evolution | Airco | Parkeersensore"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-clio-18/">Renault Clio TCe 90pk GPF evolution | Airco | Parkeersensore</a></h3>
+    <h3><a href="v/renault-clio-18/">Renault Clio TCe 90pk GPF evolution</a></h3>
     <p class="st-spec">2025 · 40 km · Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 23.650</span>
@@ -706,7 +773,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/49/498aa8d9-9185-47bc-b07b-16293b2de9e3?rule=ecg_mp_eps$_85.jpg" alt="ABD" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>529</b><span>voertuigen staan klaar</span></div><div><b>€ 23.650</b><span>de goedkoopste van dit moment</span></div><div><b>2026</b><span>mediaan bouwjaar</span></div><div><b>18</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Drachten.</p>
+  <ul class="sec-belofte-lijst"><li><b>529</b> voertuigen staan klaar</li><li>vanaf <b>€ 23.650</b></li><li>gemiddeld bouwjaar <b>2026</b></li></ul>
+</div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

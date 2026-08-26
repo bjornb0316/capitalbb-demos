@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #2c2427}
+section:nth-of-type(even){background:#1d1618}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#a2999b;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#b2453c;color:#fff8f6;padding:9px 15px;border-radius:2px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#b2453c;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#a2999b;font-size:15px}
 .sec-trust a{color:#f3f0f0}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #2c2427;color:#a2999b;font-size:15.5px}
+.sec-vestiging strong{color:#f3f0f0;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #2c2427;color:#a2999b;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:1.35em;color:#b2453c;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#a2999b;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #2c2427;border-radius:2px;background:#1d1618;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:2px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#a2999b;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#171315;border:1px solid #2c2427;border-radius:2px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#b2453c66}
+.ug-shot{aspect-ratio:4/3;background:#1d1618;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#a2999b;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#b2453c;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #2c2427;background:#171315}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -425,7 +465,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autobedrijf Veste B.V. (prestige, mediaanprijs EUR 57600, 22 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet oxblood, 'Archivo Expanded' als display op 'Archivo', hoeken 2px, accent #b2453c.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "mosaic", secties about > stock > process > trust > hours > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "mosaic", secties about > uitgelicht > stock > process > trust > hours > contact.
 FORM: prestige-oxblood-stack-mosaic-archivoexpanded-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -448,6 +488,33 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <p>Autobedrijf Veste heeft met zorg unieke en luxe auto's voor u geselecteerd. Uw volgende auto moet uniek zijn om aan onze en uw wensen te voldoen..</p>
     </div>
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/8f/8faaea7c-a52a-492d-adc3-700c7f71ebf7?rule=ecg_mp_eps$_85.jpg" alt="Autobedrijf Veste B.V." loading="lazy"></div>
+  </div>
+</section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/bentley-bentley-bentayga-4-0-v8-navi-leder-massa-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4cff90d2-9f99-427e-aff0-06f173d19331?rule=ecg_mp_eps$_86.jpg" alt="Bentley Bentayga 4.0 V8 Navi" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Bentley Bentayga 4.0 V8 Navi</h3>
+    <p class="ug-spec">2022 · 93.179 km</p>
+    <p class="ug-prijs">€ 175.400</p>
+  </div>
+</a><a class="ug-kaart" href="v/porsche-porsche-cayenne-coupe-4-0-turbo-v8-e-hyb-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5ad4176a-61f7-4558-a5cf-ceb5237790a0?rule=ecg_mp_eps$_86.jpg" alt="Porsche Cayenne Coupé 4.0 Turbo V8 E-Hybrid Panoramadak" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Porsche Cayenne Coupé 4.0 Turbo V8 E-Hybrid Panoramadak</h3>
+    <p class="ug-spec">2024 · 42.795 km</p>
+    <p class="ug-prijs">€ 162.800</p>
+  </div>
+</a><a class="ug-kaart" href="v/campers-kabe-kabe-tmrx-780-lxl-travelmaster-king-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1b726e88-bbf6-4df6-a9d2-cb2e3a07c9b2?rule=ecg_mp_eps$_86.jpg" alt="Kabe KABE TMRX 780 LXL Travelmaster *Kingsize* 2.3 160 Aut." loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Kabe KABE TMRX 780 LXL Travelmaster *Kingsize* 2.3 160 Aut.</h3>
+    <p class="ug-spec">2021 · 10.639 km</p>
+    <p class="ug-prijs">€ 124.800</p>
+  </div>
+</a></div>
   </div>
 </section>
 <section id="voorraad">
@@ -505,7 +572,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="bentley-bentley-bentayga-4-0-v8-navi-leder-massa-1" data-rang="0" data-merk="Bentley" data-prijs="175400" data-jaar="2022" data-kenmerk="Navigatie" data-zoek="bentley bentayga 4.0 v8 navi|leder|massage|night-vision|orgn bentley navigatie">
   <div class="st-shot"><a class="st-link" href="v/bentley-bentley-bentayga-4-0-v8-navi-leder-massa-1/" aria-label="Bentley Bentayga 4.0 V8 Navi|Leder|Massage|Night-Vision|OrgN"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4cff90d2-9f99-427e-aff0-06f173d19331?rule=ecg_mp_eps$_86.jpg" alt="Bentley Bentayga 4.0 V8 Navi|Leder|Massage|Night-Vision|OrgN" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bentley-bentley-bentayga-4-0-v8-navi-leder-massa-1" aria-pressed="false" aria-label="Bewaar Bentley Bentayga 4.0 V8 Navi|Leder|Massage|Night-Vision|OrgN"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bentley-bentley-bentayga-4-0-v8-navi-leder-massa-1/">Bentley Bentayga 4.0 V8 Navi|Leder|Massage|Night-Vision|OrgN</a></h3>
+    <h3><a href="v/bentley-bentley-bentayga-4-0-v8-navi-leder-massa-1/">Bentley Bentayga 4.0 V8 Navi</a></h3>
     <p class="st-spec">2022 · 93.179 km</p>
     <div class="st-foot">
       <span class="st-price">€ 175.400</span>
@@ -515,7 +582,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="porsche-porsche-cayenne-coupe-4-0-turbo-v8-e-hyb-2" data-rang="1" data-merk="Porsche" data-prijs="162800" data-jaar="2024" data-zoek="porsche cayenne coupé 4.0 turbo v8 e-hybrid panoramadak|ker porsche">
   <div class="st-shot"><a class="st-link" href="v/porsche-porsche-cayenne-coupe-4-0-turbo-v8-e-hyb-2/" aria-label="Porsche Cayenne Coupé 4.0 Turbo V8 E-Hybrid Panoramadak|Ker"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5ad4176a-61f7-4558-a5cf-ceb5237790a0?rule=ecg_mp_eps$_85.jpg" alt="Porsche Cayenne Coupé 4.0 Turbo V8 E-Hybrid Panoramadak|Ker" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="porsche-porsche-cayenne-coupe-4-0-turbo-v8-e-hyb-2" aria-pressed="false" aria-label="Bewaar Porsche Cayenne Coupé 4.0 Turbo V8 E-Hybrid Panoramadak|Ker"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/porsche-porsche-cayenne-coupe-4-0-turbo-v8-e-hyb-2/">Porsche Cayenne Coupé 4.0 Turbo V8 E-Hybrid Panoramadak|Ker</a></h3>
+    <h3><a href="v/porsche-porsche-cayenne-coupe-4-0-turbo-v8-e-hyb-2/">Porsche Cayenne Coupé 4.0 Turbo V8 E-Hybrid Panoramadak</a></h3>
     <p class="st-spec">2024 · 42.795 km</p>
     <div class="st-foot">
       <span class="st-price">€ 162.800</span>
@@ -555,7 +622,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-7-serie-m760e-xdrive-navi-massage-theate-6" data-rang="5" data-merk="BMW" data-prijs="98400" data-jaar="2023" data-kenmerk="Navigatie" data-zoek="bmw 7-serie m760e xdrive navi|massage|theater screen|auto-do bmw navigatie">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-7-serie-m760e-xdrive-navi-massage-theate-6/" aria-label="BMW 7-serie M760e xDrive Navi|Massage|Theater Screen|Auto-Do"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/54de40b6-9430-4b8e-8610-49d1d31c7d70?rule=ecg_mp_eps$_85.jpg" alt="BMW 7-serie M760e xDrive Navi|Massage|Theater Screen|Auto-Do" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-7-serie-m760e-xdrive-navi-massage-theate-6" aria-pressed="false" aria-label="Bewaar BMW 7-serie M760e xDrive Navi|Massage|Theater Screen|Auto-Do"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-7-serie-m760e-xdrive-navi-massage-theate-6/">BMW 7-serie M760e xDrive Navi|Massage|Theater Screen|Auto-Do</a></h3>
+    <h3><a href="v/bmw-bmw-7-serie-m760e-xdrive-navi-massage-theate-6/">BMW 7-serie M760e xDrive Navi</a></h3>
     <p class="st-spec">2023 · 66.363 km</p>
     <div class="st-foot">
       <span class="st-price">€ 98.400</span>
@@ -565,7 +632,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-8-serie-m8-coupe-competition-carbon-pak--7" data-rang="6" data-merk="BMW" data-prijs="83800" data-jaar="2019" data-zoek="bmw 8-serie m8 coupe competition carbon pak.|acc|b&amp;w|dealer bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-8-serie-m8-coupe-competition-carbon-pak--7/" aria-label="BMW 8-serie M8 Coupe Competition Carbon Pak.|ACC|B&amp;W|Dealer"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bcba883c-c037-4ad3-9f30-6d0b63892853?rule=ecg_mp_eps$_85.jpg" alt="BMW 8-serie M8 Coupe Competition Carbon Pak.|ACC|B&amp;W|Dealer" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-8-serie-m8-coupe-competition-carbon-pak--7" aria-pressed="false" aria-label="Bewaar BMW 8-serie M8 Coupe Competition Carbon Pak.|ACC|B&amp;W|Dealer"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-8-serie-m8-coupe-competition-carbon-pak--7/">BMW 8-serie M8 Coupe Competition Carbon Pak.|ACC|B&amp;W|Dealer</a></h3>
+    <h3><a href="v/bmw-bmw-8-serie-m8-coupe-competition-carbon-pak--7/">BMW 8-serie M8 Coupe Competition Carbon Pak.</a></h3>
     <p class="st-spec">2019 · 85.130 km</p>
     <div class="st-foot">
       <span class="st-price">€ 83.800</span>
@@ -575,7 +642,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="audi-audi-rs4-sedan-4-2-v8-rs-4-quattro-uniek-ke-8" data-rang="7" data-merk="Audi" data-prijs="63800" data-jaar="2006" data-zoek="audi rs4 sedan 4.2 v8 rs 4 quattro *uniek* keramisch|schaals audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-rs4-sedan-4-2-v8-rs-4-quattro-uniek-ke-8/" aria-label="Audi RS4 Sedan 4.2 V8 RS 4 Quattro *Uniek* Keramisch|Schaals"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b391b1f6-7562-4fc1-a84d-76a54c8ff6d9?rule=ecg_mp_eps$_86.jpg" alt="Audi RS4 Sedan 4.2 V8 RS 4 Quattro *Uniek* Keramisch|Schaals" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-rs4-sedan-4-2-v8-rs-4-quattro-uniek-ke-8" aria-pressed="false" aria-label="Bewaar Audi RS4 Sedan 4.2 V8 RS 4 Quattro *Uniek* Keramisch|Schaals"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-rs4-sedan-4-2-v8-rs-4-quattro-uniek-ke-8/">Audi RS4 Sedan 4.2 V8 RS 4 Quattro *Uniek* Keramisch|Schaals</a></h3>
+    <h3><a href="v/audi-audi-rs4-sedan-4-2-v8-rs-4-quattro-uniek-ke-8/">Audi RS4 Sedan 4.2 V8 RS 4 Quattro *Uniek* Keramisch</a></h3>
     <p class="st-spec">2006 · 76.552 km</p>
     <div class="st-foot">
       <span class="st-price">€ 63.800</span>
@@ -595,7 +662,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="porsche-porsche-718-boxster-2-0-leder-navi-orgnl-10" data-rang="9" data-merk="Porsche" data-prijs="55400" data-jaar="2017" data-kenmerk="Navigatie" data-zoek="porsche 718 boxster 2.0 leder|navi|orgnl|compleet dealer ond porsche navigatie">
   <div class="st-shot"><a class="st-link" href="v/porsche-porsche-718-boxster-2-0-leder-navi-orgnl-10/" aria-label="Porsche 718 Boxster 2.0 Leder|Navi|OrgNL|Compleet Dealer ond"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f7d74455-3d38-4c5e-879e-0f7b7b10f94d?rule=ecg_mp_eps$_85.jpg" alt="Porsche 718 Boxster 2.0 Leder|Navi|OrgNL|Compleet Dealer ond" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="porsche-porsche-718-boxster-2-0-leder-navi-orgnl-10" aria-pressed="false" aria-label="Bewaar Porsche 718 Boxster 2.0 Leder|Navi|OrgNL|Compleet Dealer ond"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/porsche-porsche-718-boxster-2-0-leder-navi-orgnl-10/">Porsche 718 Boxster 2.0 Leder|Navi|OrgNL|Compleet Dealer ond</a></h3>
+    <h3><a href="v/porsche-porsche-718-boxster-2-0-leder-navi-orgnl-10/">Porsche 718 Boxster 2.0 Leder</a></h3>
     <p class="st-spec">2017 · 86.345 km</p>
     <div class="st-foot">
       <span class="st-price">€ 55.400</span>
@@ -605,7 +672,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-rs4-avant-2-9-tfsi-rs-4-quattro-panora-11" data-rang="10" data-merk="Audi" data-prijs="54400" data-jaar="2018" data-zoek="audi rs4 avant 2.9 tfsi rs 4 quattro panoramadak|massage|mat audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-rs4-avant-2-9-tfsi-rs-4-quattro-panora-11/" aria-label="Audi RS4 Avant 2.9 TFSI RS 4 Quattro Panoramadak|Massage|Mat"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/df9457e6-ef30-4f70-b494-959ad2790d9b?rule=ecg_mp_eps$_85.jpg" alt="Audi RS4 Avant 2.9 TFSI RS 4 Quattro Panoramadak|Massage|Mat" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-rs4-avant-2-9-tfsi-rs-4-quattro-panora-11" aria-pressed="false" aria-label="Bewaar Audi RS4 Avant 2.9 TFSI RS 4 Quattro Panoramadak|Massage|Mat"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-rs4-avant-2-9-tfsi-rs-4-quattro-panora-11/">Audi RS4 Avant 2.9 TFSI RS 4 Quattro Panoramadak|Massage|Mat</a></h3>
+    <h3><a href="v/audi-audi-rs4-avant-2-9-tfsi-rs-4-quattro-panora-11/">Audi RS4 Avant 2.9 TFSI RS 4 Quattro Panoramadak</a></h3>
     <p class="st-spec">2018 · 75.919 km</p>
     <div class="st-foot">
       <span class="st-price">€ 54.400</span>
@@ -625,7 +692,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="land-rover-land-rover-discovery-3-0-si6-hse-luxu-13" data-rang="12" data-merk="Land Rover" data-prijs="47400" data-jaar="2018" data-kenmerk="Navigatie" data-zoek="land rover discovery 3.0 si6 hse luxury 7p. navi|panoramadak land rover navigatie">
   <div class="st-shot"><a class="st-link" href="v/land-rover-land-rover-discovery-3-0-si6-hse-luxu-13/" aria-label="Land Rover DISCOVERY 3.0 Si6 HSE Luxury 7p. Navi|Panoramadak"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f563f950-26bb-45c9-a817-43a76fa5698e?rule=ecg_mp_eps$_86.jpg" alt="Land Rover DISCOVERY 3.0 Si6 HSE Luxury 7p. Navi|Panoramadak" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="land-rover-land-rover-discovery-3-0-si6-hse-luxu-13" aria-pressed="false" aria-label="Bewaar Land Rover DISCOVERY 3.0 Si6 HSE Luxury 7p. Navi|Panoramadak"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/land-rover-land-rover-discovery-3-0-si6-hse-luxu-13/">Land Rover DISCOVERY 3.0 Si6 HSE Luxury 7p. Navi|Panoramadak</a></h3>
+    <h3><a href="v/land-rover-land-rover-discovery-3-0-si6-hse-luxu-13/">Land Rover DISCOVERY 3.0 Si6 HSE Luxury 7p. Navi</a></h3>
     <p class="st-spec">2018 · 101.496 km</p>
     <div class="st-foot">
       <span class="st-price">€ 47.400</span>
@@ -645,7 +712,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="porsche-porsche-macan-2-0-panoramadak-leder-orgn-15" data-rang="14" data-merk="Porsche" data-prijs="31800" data-jaar="2018" data-zoek="porsche macan 2.0 panoramadak|leder|orgnl|bose|luchtvering|l porsche">
   <div class="st-shot"><a class="st-link" href="v/porsche-porsche-macan-2-0-panoramadak-leder-orgn-15/" aria-label="Porsche Macan 2.0 Panoramadak|Leder|OrgNL|Bose|Luchtvering|L"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9b927c39-5083-47c9-a310-0ee8c2c013d1?rule=ecg_mp_eps$_85.jpg" alt="Porsche Macan 2.0 Panoramadak|Leder|OrgNL|Bose|Luchtvering|L" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="porsche-porsche-macan-2-0-panoramadak-leder-orgn-15" aria-pressed="false" aria-label="Bewaar Porsche Macan 2.0 Panoramadak|Leder|OrgNL|Bose|Luchtvering|L"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/porsche-porsche-macan-2-0-panoramadak-leder-orgn-15/">Porsche Macan 2.0 Panoramadak|Leder|OrgNL|Bose|Luchtvering|L</a></h3>
+    <h3><a href="v/porsche-porsche-macan-2-0-panoramadak-leder-orgn-15/">Porsche Macan 2.0 Panoramadak</a></h3>
     <p class="st-spec">2018 · 151.987 km</p>
     <div class="st-foot">
       <span class="st-price">€ 31.800</span>
@@ -697,7 +764,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     </ol>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.8</b><span>gemiddeld uit 95 beoordelingen</span></div><div><b>20</b><span>jaar op Marktplaats</span></div><div><b>Roermond</b><span><a href="https://maps.google.com/?q=Roermond" target="_blank" rel="noreferrer">Roermond</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.8</b><span>gemiddeld uit 95 beoordelingen</span></div><div><b>20</b><span>jaar op Marktplaats</span></div><div><b>7</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Roermond</strong> · <a href="https://maps.google.com/?q=Roermond" target="_blank" rel="noreferrer">Roermond</a></p></div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

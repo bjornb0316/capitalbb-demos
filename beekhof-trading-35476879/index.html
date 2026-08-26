@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #282d33}
+section:nth-of-type(even){background:#1e2328}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#9ba1a8;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#4fb372;color:#0d1013;padding:9px 15px;border-radius:0px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.01em;color:#4fb372;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#9ba1a8;font-size:15px}
 .sec-trust a{color:#f4f5f6}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #282d33;color:#9ba1a8;font-size:15.5px}
+.sec-vestiging strong{color:#f4f5f6;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;letter-spacing:-0.01em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #282d33;color:#9ba1a8;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:1.35em;color:#4fb372;letter-spacing:-0.01em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#9ba1a8;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #282d33;border-radius:0px;background:#1e2328;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:0px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#9ba1a8;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#191d21;border:1px solid #282d33;border-radius:0px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#4fb37266}
+.ug-shot{aspect-ratio:4/3;background:#1e2328;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#9ba1a8;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.01em;color:#4fb372;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #282d33;background:#191d21}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -369,7 +409,7 @@ footer{border-top:2px solid #f4f5f6}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Beekhof.trading (buurtgarage, mediaanprijs EUR 2625, 3 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet olie, 'Anton' als display op 'Barlow', hoeken 0px, accent #4fb372.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties trust > stock > promise > process > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties trust > uitgelicht > stock > promise > process > contact.
 FORM: buurtgarage-olie-split-grid-anton-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -387,7 +427,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc666756-4b43-4345-8e46-95f48fd6c22c?rule=ecg_mp_eps$_85.jpg" alt="Fiat 500 1.2 C 2014 Grijs" decoding="async" fetchpriority="high"><figcaption><span>Fiat 500 1.2 C 2014 Grijs</span><span>€ 3.499</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a6068b21-5b8e-4a4b-a952-974f6bb7f6fe?rule=ecg_mp_eps$_85.jpg" alt="Annsems 305x180 tandemasser" decoding="async"><figcaption><span>Annsems 305x180 tandemasser</span><span>€ 1.750</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/53867366-33f6-4bee-88bb-5e571c4bd14e?rule=ecg_mp_eps$_85.jpg" alt="GasGas EC 300 Enduro – Nederlands kenteken—90 uur gelopen" decoding="async"><figcaption><span>GasGas EC 300 Enduro – Nederlands kentek</span><span></span></figcaption></figure></div></div>
   </div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.5</b><span>gemiddeld uit 30 beoordelingen</span></div><div><b>7</b><span>jaar op Marktplaats</span></div><div><b>IJsselmuiden</b><span><a href="https://maps.google.com/?q=IJsselmuiden" target="_blank" rel="noreferrer">IJsselmuiden</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.5</b><span>gemiddeld uit 30 beoordelingen</span></div><div><b>7</b><span>jaar op Marktplaats</span></div><div><b>3</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>IJsselmuiden</strong> · <a href="https://maps.google.com/?q=IJsselmuiden" target="_blank" rel="noreferrer">IJsselmuiden</a></p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/fiat-fiat-500-1-2-c-2014-grijs-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dc666756-4b43-4345-8e46-95f48fd6c22c?rule=ecg_mp_eps$_86.jpg" alt="Fiat 500 1.2 C 2014 Grijs" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Fiat 500 1.2 C 2014 Grijs</h3>
+    <p class="ug-spec">2014</p>
+    <p class="ug-prijs">€ 3.499</p>
+  </div>
+</a><a class="ug-kaart" href="v/aanhangers-en-bagagewagens-annsems-305x180-tande-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a6068b21-5b8e-4a4b-a952-974f6bb7f6fe?rule=ecg_mp_eps$_86.jpg" alt="Annsems 305x180 tandemasser" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Annsems 305x180 tandemasser</h3>
+    <p class="ug-spec"></p>
+    <p class="ug-prijs">€ 1.750</p>
+  </div>
+</a><a class="ug-kaart" href="v/motoren-ktm-gasgas-ec-300-enduro-nederlands-kent-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/53867366-33f6-4bee-88bb-5e571c4bd14e?rule=ecg_mp_eps$_86.jpg" alt="GasGas EC 300 Enduro – Nederlands kenteken—90 uur gelopen" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>GasGas EC 300 Enduro – Nederlands kenteken—90 uur gelopen</h3>
+    <p class="ug-spec">2018 · 90 km</p>
+    <p class="ug-prijs">Op aanvraag</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
@@ -426,7 +493,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   </div>
 </article></div></div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>3</b><span>voertuigen staan klaar</span></div><div><b>€ 1.750</b><span>de goedkoopste van dit moment</span></div><div><b>2016</b><span>mediaan bouwjaar</span></div><div><b>7</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in IJsselmuiden.</p>
+  <ul class="sec-belofte-lijst"><li><b>3</b> voertuigen staan klaar</li><li>vanaf <b>€ 1.750</b></li><li>gemiddeld bouwjaar <b>2016</b></li></ul>
+</div></section>
 <section class="sec-flow">
   <div class="wrap">
     <div class="head rv"><h2>Zo gaat het</h2></div>

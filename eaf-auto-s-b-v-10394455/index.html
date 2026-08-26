@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #2b2e34}
+section:nth-of-type(even){background:#15171b}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#9b9ea4;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#7fb2d9;color:#0a0b0d;padding:9px 15px;border-radius:2px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#7fb2d9;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#9b9ea4;font-size:15px}
 .sec-trust a{color:#f4f4f5}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #2b2e34;color:#9b9ea4;font-size:15.5px}
+.sec-vestiging strong{color:#f4f4f5;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #2b2e34;color:#9b9ea4;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:1.35em;color:#7fb2d9;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#9b9ea4;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #2b2e34;border-radius:2px;background:#15171b;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:2px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#9b9ea4;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#191b1f;border:1px solid #2b2e34;border-radius:2px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#7fb2d966}
+.ug-shot{aspect-ratio:4/3;background:#15171b;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#9b9ea4;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#7fb2d9;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #2b2e34;background:#191b1f}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -425,7 +465,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van EAF Auto's B.V (prestige, mediaanprijs EUR 101900, 65 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet graphite, 'Archivo Expanded' als display op 'Archivo', hoeken 2px, accent #7fb2d9.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > stock > brands > about > process > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > uitgelicht > stock > brands > about > process > hours > contact.
 FORM: prestige-graphite-cinematic-mosaic-archivoexpanded-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -441,7 +481,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon</span><span class="h-plate-p">€ 239.950</span></figcaption></figure>
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>Mercedes-Benz G-klasse 63 Manufaktur / Olijf · € 239.950</p><h1>De collectie <em>vanaf € 64.950</em></h1><p class="h-lede">Onze missie - auto's verkopen op een wijze waarop wij zelf graag een auto aanschaffen - is de drijfveer van ons bedrijf. Iedere dag opnieuw streven we er naar top-service aan onze klanten te</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31633630537">Bel 06-3363 0537</a><a class="h-btn" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div><div class="h-facts"><span>4.9 uit 542 beoordelingen</span><span>18 jaar op Marktplaats</span><span>3 merken in huis</span><span>Kom langs in Voorschoten</span></div></div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.9</b><span>gemiddeld uit 542 beoordelingen</span></div><div><b>18</b><span>jaar op Marktplaats</span></div><div><b>Voorschoten</b><span><a href="https://maps.google.com/?q=Veurseweg%2C%2081A%2C%202251AA%20Voorschoten" target="_blank" rel="noreferrer">Veurseweg, 81A, 2251AA Voorschoten</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.9</b><span>gemiddeld uit 542 beoordelingen</span></div><div><b>18</b><span>jaar op Marktplaats</span></div><div><b>3</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Voorschoten</strong> · <a href="https://maps.google.com/?q=Veurseweg%2C%2081A%2C%202251AA%20Voorschoten" target="_blank" rel="noreferrer">Veurseweg, 81A, 2251AA Voorschoten</a></p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/mercedes-benz-g-klasse-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon</h3>
+    <p class="ug-spec">2022 · 23.110 km</p>
+    <p class="ug-prijs">€ 239.950</p>
+  </div>
+</a><a class="ug-kaart" href="v/mercedes-benz-mercedes-benz-amg-gt-4-door-coupe--2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/354462fb-3b2a-4a5d-8d7b-9069c090ebfc?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz AMG GT 4-Door Coupe AMG 63 S E Performance / 8" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mercedes-Benz AMG GT 4-Door Coupe AMG 63 S E Performance / 8</h3>
+    <p class="ug-spec">2025 · 8.997 km</p>
+    <p class="ug-prijs">€ 229.950</p>
+  </div>
+</a><a class="ug-kaart" href="v/mercedes-benz-g-klasse-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fbdc632f-b0e7-4b93-915e-de9a81003e15?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz G-klasse 63 Edition 1 BRABUS UITVOERING / Mat" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mercedes-Benz G-klasse 63 Edition 1 BRABUS UITVOERING / Mat</h3>
+    <p class="ug-spec">2019 · 50.930 km</p>
+    <p class="ug-prijs">€ 199.950</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>

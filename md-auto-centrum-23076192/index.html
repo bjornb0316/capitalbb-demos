@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #2c2427}
+section:nth-of-type(even){background:#1d1618}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#a2999b;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#b2453c;color:#fff8f6;padding:9px 15px;border-radius:2px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.02em;color:#b2453c;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#a2999b;font-size:15px}
 .sec-trust a{color:#f3f0f0}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #2c2427;color:#a2999b;font-size:15.5px}
+.sec-vestiging strong{color:#f3f0f0;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;letter-spacing:-0.02em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #2c2427;color:#a2999b;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:1.35em;color:#b2453c;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#a2999b;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #2c2427;border-radius:2px;background:#1d1618;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:2px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#a2999b;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#171315;border:1px solid #2c2427;border-radius:2px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#b2453c66}
+.ug-shot{aspect-ratio:4/3;background:#1d1618;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#a2999b;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.02em;color:#b2453c;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #2c2427;background:#171315}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -425,7 +465,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van MD Auto-centrum (prestige, mediaanprijs EUR 40995, 11 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet oxblood, 'Bodoni Moda' als display op 'Archivo', hoeken 2px, accent #b2453c.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties trust > stock > about > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties trust > uitgelicht > stock > about > promise > process > hours > contact.
 FORM: prestige-oxblood-split-mosaic-bodonimoda-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -443,7 +483,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a5fe70f6-63d7-4698-9a42-8659f0dbbe1f?rule=ecg_mp_eps$_85.jpg" alt="BMW X5 XDrive50e M-Sport| Pano| Laser| Softclose| H/K| Massa" decoding="async" fetchpriority="high"><figcaption><span>BMW X5 XDrive50e M-Sport| Pano| Laser| S</span><span>€ 83.888</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/50ce2801-e8aa-4cec-955d-a5b71c9238c2?rule=ecg_mp_eps$_85.jpg" alt="BMW X5 XDrive45e High Executive M Sport| Pano| Laser| 360 ca" decoding="async"><figcaption><span>BMW X5 XDrive45e High Executive M Sport|</span><span>€ 56.775</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d05f7c1b-9e49-4420-b3ef-ebce0ac8452d?rule=ecg_mp_eps$_85.jpg" alt="Audi Q5 50 TFSI e 3x S-Line| Pano| RS Zetels| Massage| B&amp;O|" decoding="async"><figcaption><span>Audi Q5 50 TFSI e 3x S-Line| Pano| RS Ze</span><span>€ 45.777</span></figcaption></figure></div></div>
   </div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>5.0</b><span>gemiddeld uit 106 beoordelingen</span></div><div><b>10</b><span>jaar op Marktplaats</span></div><div><b>Oss</b><span><a href="https://maps.google.com/?q=Galli%C3%ABrsweg%2059%2C%205342PN%20Oss" target="_blank" rel="noreferrer">Galliërsweg 59, 5342PN Oss</a></span></div><div><b>KvK</b><span>80083935</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>5.0</b><span>gemiddeld uit 106 beoordelingen</span></div><div><b>10</b><span>jaar op Marktplaats</span></div><div><b>4</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Oss</strong> · <a href="https://maps.google.com/?q=Galli%C3%ABrsweg%2059%2C%205342PN%20Oss" target="_blank" rel="noreferrer">Galliërsweg 59, 5342PN Oss</a> · KvK 80083935</p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/bmw-x5-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a5fe70f6-63d7-4698-9a42-8659f0dbbe1f?rule=ecg_mp_eps$_86.jpg" alt="BMW X5 XDrive50e M-Sport" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW X5 XDrive50e M-Sport</h3>
+    <p class="ug-spec">2024 · 40.678 km</p>
+    <p class="ug-prijs">€ 83.888</p>
+  </div>
+</a><a class="ug-kaart" href="v/bmw-bmw-x5-xdrive45e-high-executive-m-sport-pano-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/50ce2801-e8aa-4cec-955d-a5b71c9238c2?rule=ecg_mp_eps$_86.jpg" alt="BMW X5 XDrive45e High Executive M Sport" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>BMW X5 XDrive45e High Executive M Sport</h3>
+    <p class="ug-spec">2020 · 71.040 km</p>
+    <p class="ug-prijs">€ 56.775</p>
+  </div>
+</a><a class="ug-kaart" href="v/audi-q5-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d05f7c1b-9e49-4420-b3ef-ebce0ac8452d?rule=ecg_mp_eps$_86.jpg" alt="Audi Q5 50 TFSI e 3x S-Line" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Audi Q5 50 TFSI e 3x S-Line</h3>
+    <p class="ug-spec">2022 · 61.642 km</p>
+    <p class="ug-prijs">€ 45.777</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
@@ -504,7 +571,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="bmw-x5-1" data-rang="0" data-merk="BMW" data-prijs="83888" data-jaar="2024" data-zoek="bmw x5 xdrive50e m-sport| pano| laser| softclose| h/k| massa bmw x5">
   <div class="st-shot"><a class="st-link" href="v/bmw-x5-1/" aria-label="BMW X5 XDrive50e M-Sport| Pano| Laser| Softclose| H/K| Massa"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a5fe70f6-63d7-4698-9a42-8659f0dbbe1f?rule=ecg_mp_eps$_86.jpg" alt="BMW X5 XDrive50e M-Sport| Pano| Laser| Softclose| H/K| Massa" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-x5-1" aria-pressed="false" aria-label="Bewaar BMW X5 XDrive50e M-Sport| Pano| Laser| Softclose| H/K| Massa"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-x5-1/">BMW X5 XDrive50e M-Sport| Pano| Laser| Softclose| H/K| Massa</a></h3>
+    <h3><a href="v/bmw-x5-1/">BMW X5 XDrive50e M-Sport</a></h3>
     <p class="st-spec">2024 · 40.678 km</p>
     <div class="st-foot">
       <span class="st-price">€ 83.888</span>
@@ -514,7 +581,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="bmw-bmw-x5-xdrive45e-high-executive-m-sport-pano-2" data-rang="1" data-merk="BMW" data-prijs="56775" data-jaar="2020" data-zoek="bmw x5 xdrive45e high executive m sport| pano| laser| 360 ca bmw">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x5-xdrive45e-high-executive-m-sport-pano-2/" aria-label="BMW X5 XDrive45e High Executive M Sport| Pano| Laser| 360 ca"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/50ce2801-e8aa-4cec-955d-a5b71c9238c2?rule=ecg_mp_eps$_85.jpg" alt="BMW X5 XDrive45e High Executive M Sport| Pano| Laser| 360 ca" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x5-xdrive45e-high-executive-m-sport-pano-2" aria-pressed="false" aria-label="Bewaar BMW X5 XDrive45e High Executive M Sport| Pano| Laser| 360 ca"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x5-xdrive45e-high-executive-m-sport-pano-2/">BMW X5 XDrive45e High Executive M Sport| Pano| Laser| 360 ca</a></h3>
+    <h3><a href="v/bmw-bmw-x5-xdrive45e-high-executive-m-sport-pano-2/">BMW X5 XDrive45e High Executive M Sport</a></h3>
     <p class="st-spec">2020 · 71.040 km</p>
     <div class="st-foot">
       <span class="st-price">€ 56.775</span>
@@ -524,7 +591,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="audi-q5-3" data-rang="2" data-merk="Audi" data-prijs="45777" data-jaar="2022" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="audi q5 50 tfsi e 3x s-line| pano| rs zetels| massage| b&amp;o| audi q5 hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/audi-q5-3/" aria-label="Audi Q5 50 TFSI e 3x S-Line| Pano| RS Zetels| Massage| B&amp;O|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d05f7c1b-9e49-4420-b3ef-ebce0ac8452d?rule=ecg_mp_eps$_86.jpg" alt="Audi Q5 50 TFSI e 3x S-Line| Pano| RS Zetels| Massage| B&amp;O|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-q5-3" aria-pressed="false" aria-label="Bewaar Audi Q5 50 TFSI e 3x S-Line| Pano| RS Zetels| Massage| B&amp;O|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-q5-3/">Audi Q5 50 TFSI e 3x S-Line| Pano| RS Zetels| Massage| B&amp;O|</a></h3>
+    <h3><a href="v/audi-q5-3/">Audi Q5 50 TFSI e 3x S-Line</a></h3>
     <p class="st-spec">2022 · 61.642 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 45.777</span>
@@ -534,7 +601,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-q5-50-tfsi-e-3x-s-line-pano-360-camera-4" data-rang="3" data-merk="Audi" data-prijs="45495" data-jaar="2022" data-zoek="audi q5 50 tfsi e 3x s-line| pano| 360 camera| 21 inch audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-q5-50-tfsi-e-3x-s-line-pano-360-camera-4/" aria-label="Audi Q5 50 TFSI e 3x S-Line| Pano| 360 camera| 21 inch"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/37bee1b5-3f9f-49cb-9dbf-5277d1e659be?rule=ecg_mp_eps$_85.jpg" alt="Audi Q5 50 TFSI e 3x S-Line| Pano| 360 camera| 21 inch" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-q5-50-tfsi-e-3x-s-line-pano-360-camera-4" aria-pressed="false" aria-label="Bewaar Audi Q5 50 TFSI e 3x S-Line| Pano| 360 camera| 21 inch"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-q5-50-tfsi-e-3x-s-line-pano-360-camera-4/">Audi Q5 50 TFSI e 3x S-Line| Pano| 360 camera| 21 inch</a></h3>
+    <h3><a href="v/audi-audi-q5-50-tfsi-e-3x-s-line-pano-360-camera-4/">Audi Q5 50 TFSI e 3x S-Line</a></h3>
     <p class="st-spec">2022 · 44.869 km</p>
     <div class="st-foot">
       <span class="st-price">€ 45.495</span>
@@ -544,7 +611,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-q5-55-tfsi-e-s-line-367-pk-pano-matrix-5" data-rang="4" data-merk="Audi" data-prijs="43495" data-jaar="2021" data-zoek="audi q5 55 tfsi e s-line| 367 pk| pano| matrix| memory| mass audi">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-q5-55-tfsi-e-s-line-367-pk-pano-matrix-5/" aria-label="Audi Q5 55 TFSI e S-Line| 367 pk| Pano| Matrix| Memory| Mass"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/08fcfe04-17e4-492b-a4fc-c5e37f1cc1d8?rule=ecg_mp_eps$_85.jpg" alt="Audi Q5 55 TFSI e S-Line| 367 pk| Pano| Matrix| Memory| Mass" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-q5-55-tfsi-e-s-line-367-pk-pano-matrix-5" aria-pressed="false" aria-label="Bewaar Audi Q5 55 TFSI e S-Line| 367 pk| Pano| Matrix| Memory| Mass"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-q5-55-tfsi-e-s-line-367-pk-pano-matrix-5/">Audi Q5 55 TFSI e S-Line| 367 pk| Pano| Matrix| Memory| Mass</a></h3>
+    <h3><a href="v/audi-audi-q5-55-tfsi-e-s-line-367-pk-pano-matrix-5/">Audi Q5 55 TFSI e S-Line</a></h3>
     <p class="st-spec">2021 · 55.187 km</p>
     <div class="st-foot">
       <span class="st-price">€ 43.495</span>
@@ -564,7 +631,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volkswagen-volkswagen-golf-1-5-gte-272pk-pano-le-7" data-rang="6" data-merk="Volkswagen" data-prijs="39995" data-jaar="2025" data-zoek="volkswagen golf 1.5 gte| 272pk| pano| leder| i.q. 3d| hud| 3 volkswagen">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-golf-1-5-gte-272pk-pano-le-7/" aria-label="Volkswagen GOLF 1.5 GTE| 272pk| Pano| Leder| I.Q. 3D| HuD| 3"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2bb549a2-d515-43b0-9636-2cba39090de7?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen GOLF 1.5 GTE| 272pk| Pano| Leder| I.Q. 3D| HuD| 3" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-golf-1-5-gte-272pk-pano-le-7" aria-pressed="false" aria-label="Bewaar Volkswagen GOLF 1.5 GTE| 272pk| Pano| Leder| I.Q. 3D| HuD| 3"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-golf-1-5-gte-272pk-pano-le-7/">Volkswagen GOLF 1.5 GTE| 272pk| Pano| Leder| I.Q. 3D| HuD| 3</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-golf-1-5-gte-272pk-pano-le-7/">Volkswagen GOLF 1.5 GTE</a></h3>
     <p class="st-spec">2025 · 12.200 km</p>
     <div class="st-foot">
       <span class="st-price">€ 39.995</span>
@@ -584,7 +651,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mercedes-benz-a-klasse-9" data-rang="8" data-merk="Mercedes-Benz" data-prijs="25995" data-jaar="2015" data-brandstof="Benzine" data-zoek="mercedes-benz a-klasse amg 45 4matic 381 pk| aero pakket| pe mercedes-benz a-klasse benzine">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-a-klasse-9/" aria-label="Mercedes-Benz A-klasse AMG 45 4MATIC 381 pk| Aero pakket| Pe"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4fa3854e-4c1e-4cce-8022-2e0562f2c4cf?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz A-klasse AMG 45 4MATIC 381 pk| Aero pakket| Pe" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-a-klasse-9" aria-pressed="false" aria-label="Bewaar Mercedes-Benz A-klasse AMG 45 4MATIC 381 pk| Aero pakket| Pe"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-a-klasse-9/">Mercedes-Benz A-klasse AMG 45 4MATIC 381 pk| Aero pakket| Pe</a></h3>
+    <h3><a href="v/mercedes-benz-a-klasse-9/">Mercedes-Benz A-klasse AMG 45 4MATIC 381 pk</a></h3>
     <p class="st-spec">2015 · 145.963 km · Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 25.995</span>
@@ -594,7 +661,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-gla-klasse-200-amg-p-10" data-rang="9" data-merk="Mercedes-Benz" data-prijs="23495" data-jaar="2017" data-zoek="mercedes-benz gla-klasse 200 amg| pano| 360 camera| memory| mercedes-benz">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-gla-klasse-200-amg-p-10/" aria-label="Mercedes-Benz GLA-klasse 200 AMG| Pano| 360 camera| Memory|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bd35f585-e8b8-4af2-ab50-f71c03d8c4af?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLA-klasse 200 AMG| Pano| 360 camera| Memory|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-gla-klasse-200-amg-p-10" aria-pressed="false" aria-label="Bewaar Mercedes-Benz GLA-klasse 200 AMG| Pano| 360 camera| Memory|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-gla-klasse-200-amg-p-10/">Mercedes-Benz GLA-klasse 200 AMG| Pano| 360 camera| Memory|</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-gla-klasse-200-amg-p-10/">Mercedes-Benz GLA-klasse 200 AMG</a></h3>
     <p class="st-spec">2017 · 101.060 km</p>
     <div class="st-foot">
       <span class="st-price">€ 23.495</span>
@@ -604,7 +671,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-a-klasse-200-amg-pan-11" data-rang="10" data-merk="Mercedes-Benz" data-prijs="19995" data-jaar="2018" data-zoek="mercedes-benz a-klasse 200 amg| pano| multibeam| burmester| mercedes-benz">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-a-klasse-200-amg-pan-11/" aria-label="Mercedes-Benz A-klasse 200 AMG| Pano| Multibeam| Burmester|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a1da0d1-db57-470a-a4d1-49be192839ff?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz A-klasse 200 AMG| Pano| Multibeam| Burmester|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-a-klasse-200-amg-pan-11" aria-pressed="false" aria-label="Bewaar Mercedes-Benz A-klasse 200 AMG| Pano| Multibeam| Burmester|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-a-klasse-200-amg-pan-11/">Mercedes-Benz A-klasse 200 AMG| Pano| Multibeam| Burmester|</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-a-klasse-200-amg-pan-11/">Mercedes-Benz A-klasse 200 AMG</a></h3>
     <p class="st-spec">2018 · 172.988 km</p>
     <div class="st-foot">
       <span class="st-price">€ 19.995</span>
@@ -627,7 +694,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/43/43bcef84-6390-4b4a-b28c-5e84d25c8f03?rule=ecg_mp_eps$_85.jpg" alt="MD Auto-centrum" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>11</b><span>voertuigen staan klaar</span></div><div><b>€ 19.995</b><span>de goedkoopste van dit moment</span></div><div><b>2020</b><span>mediaan bouwjaar</span></div><div><b>10</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Oss.</p>
+  <ul class="sec-belofte-lijst"><li><b>11</b> voertuigen staan klaar</li><li>vanaf <b>€ 19.995</b></li><li>gemiddeld bouwjaar <b>2020</b></li></ul>
+</div></section>
 <section class="sec-flow">
   <div class="wrap">
     <div class="head rv"><h2>Zo gaat het</h2></div>

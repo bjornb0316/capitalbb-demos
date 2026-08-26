@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #dadde0}
+section:nth-of-type(even){background:#e5e7e9}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#575c62;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#1a1c1f;color:#ffffff;padding:9px 15px;border-radius:0px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);letter-spacing:0;color:#1a1c1f;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#575c62;font-size:15px}
 .sec-trust a{color:#111315}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #dadde0;color:#575c62;font-size:15.5px}
+.sec-vestiging strong{color:#111315;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;letter-spacing:0;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #dadde0;color:#575c62;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:1.35em;color:#1a1c1f;letter-spacing:0;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#575c62;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #dadde0;border-radius:0px;background:#e5e7e9;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:0px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#575c62;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #dadde0;border-radius:0px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#1a1c1f66}
+.ug-shot{aspect-ratio:4/3;background:#e5e7e9;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#575c62;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Anton', 'Arial Narrow', sans-serif;font-weight:400;font-size:clamp(22px,2.2vw,28px);letter-spacing:0;color:#1a1c1f;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #dadde0;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -437,7 +477,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Total drive motorcycles (motoren, mediaanprijs EUR 9740, 17 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet chroom, 'Anton' als display op 'Chivo', hoeken 0px, accent #1a1c1f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar proefrit geleid.
-FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "grid", secties about > stock > process > contact.
+FIRST VIEWPORT: hero-variant "panorama", voorraadweergave "grid", secties about > uitgelicht > stock > process > contact.
 FORM: motoren-chroom-panorama-grid-anton-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -462,6 +502,33 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <p>Total Drive is een jong en innovatief motorbedrijf dat zich richt op onderhoud, reparatie en handel van alle merken motoren.</p>
     </div>
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/d3/d36f87d7-8c86-4aae-90a7-00ca0cde440d?rule=ecg_mp_eps$_85.jpg" alt="Total drive motorcycles" loading="lazy"></div>
+  </div>
+</section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/motoren-ducati-verkocht-ducati-panigale-v4-s-bj--1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0df2c8a7-fead-4ba7-abff-ef622ad3b468?rule=ecg_mp_eps$_86.jpg" alt="*VERKOCHT* DUCATI PANIGALE V4 S (bj 2022)" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>*VERKOCHT* DUCATI PANIGALE V4 S (bj 2022)</h3>
+    <p class="ug-spec">2022 · 11.242 km</p>
+    <p class="ug-prijs">€ 27.750</p>
+  </div>
+</a><a class="ug-kaart" href="v/motoren-triumph-triumph-speed-triple-1200-rs-1e--2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2ba1cd46-1d17-4662-970a-56bdc37ddeb9?rule=ecg_mp_eps$_86.jpg" alt="TRIUMPH SPEED TRIPLE 1200 RS" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>TRIUMPH SPEED TRIPLE 1200 RS</h3>
+    <p class="ug-spec">15.541 km</p>
+    <p class="ug-prijs">€ 14.950</p>
+  </div>
+</a><a class="ug-kaart" href="v/motoren-triumph-triumph-street-triple-765-rs-mot-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8bc8f0fd-15c7-4184-a9c8-e07a760cd827?rule=ecg_mp_eps$_86.jpg" alt="TRIUMPH STREET TRIPLE 765 RS MOTO2 Edition 175/765 (bj 2023)" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>TRIUMPH STREET TRIPLE 765 RS MOTO2 Edition 175/765 (bj 2023)</h3>
+    <p class="ug-spec">2023 · 21.196 km</p>
+    <p class="ug-prijs">€ 14.740</p>
+  </div>
+</a></div>
   </div>
 </section>
 <section id="voorraad">
@@ -529,7 +596,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-triumph-triumph-speed-triple-1200-rs-1e--2" data-rang="1" data-merk="Triumph" data-prijs="14950" data-jaar="0" data-zoek="triumph speed triple 1200 rs | 1e eigenaar (bj 2021) triumph">
   <div class="st-shot"><a class="st-link" href="v/motoren-triumph-triumph-speed-triple-1200-rs-1e--2/" aria-label="TRIUMPH SPEED TRIPLE 1200 RS | 1e eigenaar (bj 2021)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2ba1cd46-1d17-4662-970a-56bdc37ddeb9?rule=ecg_mp_eps$_85.jpg" alt="TRIUMPH SPEED TRIPLE 1200 RS | 1e eigenaar (bj 2021)" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-speed-triple-1200-rs-1e--2" aria-pressed="false" aria-label="Bewaar TRIUMPH SPEED TRIPLE 1200 RS | 1e eigenaar (bj 2021)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-triumph-triumph-speed-triple-1200-rs-1e--2/">TRIUMPH SPEED TRIPLE 1200 RS | 1e eigenaar (bj 2021)</a></h3>
+    <h3><a href="v/motoren-triumph-triumph-speed-triple-1200-rs-1e--2/">TRIUMPH SPEED TRIPLE 1200 RS</a></h3>
     <p class="st-spec">15.541 km</p>
     <div class="st-foot">
       <span class="st-price">€ 14.950</span>
@@ -559,7 +626,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-bmw-bmw-s1000r-akrapovic-hp-forged-wheel-5" data-rang="4" data-merk="BMW" data-prijs="12950" data-jaar="2017" data-kenmerk="Sportuitlaat" data-zoek="bmw s1000r | akrapovic | hp forged wheels | gilles (bj 2017) bmw sportuitlaat">
   <div class="st-shot"><a class="st-link" href="v/motoren-bmw-bmw-s1000r-akrapovic-hp-forged-wheel-5/" aria-label="BMW S1000R | AKRAPOVIC | HP Forged wheels | Gilles (bj 2017)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7da2be2b-76c3-4001-b955-e8034af929ff?rule=ecg_mp_eps$_85.jpg" alt="BMW S1000R | AKRAPOVIC | HP Forged wheels | Gilles (bj 2017)" loading="lazy" decoding="async"></a><span class="st-year">2017</span><button class="st-bewaar" type="button" data-bewaar="motoren-bmw-bmw-s1000r-akrapovic-hp-forged-wheel-5" aria-pressed="false" aria-label="Bewaar BMW S1000R | AKRAPOVIC | HP Forged wheels | Gilles (bj 2017)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-bmw-bmw-s1000r-akrapovic-hp-forged-wheel-5/">BMW S1000R | AKRAPOVIC | HP Forged wheels | Gilles (bj 2017)</a></h3>
+    <h3><a href="v/motoren-bmw-bmw-s1000r-akrapovic-hp-forged-wheel-5/">BMW S1000R</a></h3>
     <p class="st-spec">17.324 km</p>
     <div class="st-foot">
       <span class="st-price">€ 12.950</span>
@@ -569,7 +636,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-bmw-bmw-r-nine-t-nieuwstaat-garantie-bj--6" data-rang="5" data-merk="BMW" data-prijs="12740" data-jaar="2019" data-kenmerk="Garantie" data-zoek="bmw r nine t | nieuwstaat | garantie (bj 2019) bmw garantie">
   <div class="st-shot"><a class="st-link" href="v/motoren-bmw-bmw-r-nine-t-nieuwstaat-garantie-bj--6/" aria-label="BMW R NINE T | Nieuwstaat | Garantie (bj 2019)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0bd51d7e-8213-434c-8dcc-b781e35a4de7?rule=ecg_mp_eps$_85.jpg" alt="BMW R NINE T | Nieuwstaat | Garantie (bj 2019)" loading="lazy" decoding="async"></a><span class="st-year">2019</span><button class="st-bewaar" type="button" data-bewaar="motoren-bmw-bmw-r-nine-t-nieuwstaat-garantie-bj--6" aria-pressed="false" aria-label="Bewaar BMW R NINE T | Nieuwstaat | Garantie (bj 2019)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-bmw-bmw-r-nine-t-nieuwstaat-garantie-bj--6/">BMW R NINE T | Nieuwstaat | Garantie (bj 2019)</a></h3>
+    <h3><a href="v/motoren-bmw-bmw-r-nine-t-nieuwstaat-garantie-bj--6/">BMW R NINE T</a></h3>
     <p class="st-spec">26.231 km</p>
     <div class="st-foot">
       <span class="st-price">€ 12.740</span>
@@ -579,7 +646,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-aprilia-aprilia-rs-660-a2-35-kw-nieuwsta-7" data-rang="6" data-merk="Aprilia" data-prijs="11440" data-jaar="2021" data-zoek="aprilia rs 660 a2 35 kw | nieuwstaat | (bj 2021) aprilia">
   <div class="st-shot"><a class="st-link" href="v/motoren-aprilia-aprilia-rs-660-a2-35-kw-nieuwsta-7/" aria-label="APRILIA RS 660 A2 35 KW | Nieuwstaat | (bj 2021)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ce17f041-d129-425c-8bad-26cebb3bf78b?rule=ecg_mp_eps$_85.jpg" alt="APRILIA RS 660 A2 35 KW | Nieuwstaat | (bj 2021)" loading="lazy" decoding="async"></a><span class="st-year">2021</span><button class="st-bewaar" type="button" data-bewaar="motoren-aprilia-aprilia-rs-660-a2-35-kw-nieuwsta-7" aria-pressed="false" aria-label="Bewaar APRILIA RS 660 A2 35 KW | Nieuwstaat | (bj 2021)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-aprilia-aprilia-rs-660-a2-35-kw-nieuwsta-7/">APRILIA RS 660 A2 35 KW | Nieuwstaat | (bj 2021)</a></h3>
+    <h3><a href="v/motoren-aprilia-aprilia-rs-660-a2-35-kw-nieuwsta-7/">APRILIA RS 660 A2 35 KW</a></h3>
     <p class="st-spec">12.807 km</p>
     <div class="st-foot">
       <span class="st-price">€ 11.440</span>
@@ -629,7 +696,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-suzuki-suzuki-gsxr-1300-hayabusa-garanti-12" data-rang="11" data-merk="Suzuki" data-prijs="7840" data-jaar="2003" data-kenmerk="Garantie" data-zoek="suzuki gsxr 1300 hayabusa | garantie | 1e eigenaar (bj 2003) suzuki garantie">
   <div class="st-shot"><a class="st-link" href="v/motoren-suzuki-suzuki-gsxr-1300-hayabusa-garanti-12/" aria-label="SUZUKI GSXR 1300 HAYABUSA | Garantie | 1e eigenaar (bj 2003)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d1be76eb-0ad3-4110-9b8d-0abe4bc78e95?rule=ecg_mp_eps$_85.jpg" alt="SUZUKI GSXR 1300 HAYABUSA | Garantie | 1e eigenaar (bj 2003)" loading="lazy" decoding="async"></a><span class="st-year">2003</span><button class="st-bewaar" type="button" data-bewaar="motoren-suzuki-suzuki-gsxr-1300-hayabusa-garanti-12" aria-pressed="false" aria-label="Bewaar SUZUKI GSXR 1300 HAYABUSA | Garantie | 1e eigenaar (bj 2003)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-suzuki-suzuki-gsxr-1300-hayabusa-garanti-12/">SUZUKI GSXR 1300 HAYABUSA | Garantie | 1e eigenaar (bj 2003)</a></h3>
+    <h3><a href="v/motoren-suzuki-suzuki-gsxr-1300-hayabusa-garanti-12/">SUZUKI GSXR 1300 HAYABUSA</a></h3>
     <p class="st-spec">21.636 km</p>
     <div class="st-foot">
       <span class="st-price">€ 7.840</span>
@@ -649,7 +716,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-yamaha-yamaha-xv-950-r-1e-eigenaar-garan-14" data-rang="13" data-merk="Yamaha" data-prijs="7240" data-jaar="2016" data-kenmerk="Garantie" data-zoek="yamaha xv 950 r | 1e eigenaar | garantie (bj 2016) yamaha garantie">
   <div class="st-shot"><a class="st-link" href="v/motoren-yamaha-yamaha-xv-950-r-1e-eigenaar-garan-14/" aria-label="YAMAHA XV 950 R | 1e eigenaar | Garantie (bj 2016)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/59d4a466-0613-410a-9f3c-559d5f2aaa37?rule=ecg_mp_eps$_85.jpg" alt="YAMAHA XV 950 R | 1e eigenaar | Garantie (bj 2016)" loading="lazy" decoding="async"></a><span class="st-year">2016</span><button class="st-bewaar" type="button" data-bewaar="motoren-yamaha-yamaha-xv-950-r-1e-eigenaar-garan-14" aria-pressed="false" aria-label="Bewaar YAMAHA XV 950 R | 1e eigenaar | Garantie (bj 2016)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-yamaha-yamaha-xv-950-r-1e-eigenaar-garan-14/">YAMAHA XV 950 R | 1e eigenaar | Garantie (bj 2016)</a></h3>
+    <h3><a href="v/motoren-yamaha-yamaha-xv-950-r-1e-eigenaar-garan-14/">YAMAHA XV 950 R</a></h3>
     <p class="st-spec">18.117 km</p>
     <div class="st-foot">
       <span class="st-price">€ 7.240</span>
@@ -659,7 +726,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="motoren-honda-honda-vfr-800-f-vtec-abs-fi-vtec-n-15" data-rang="14" data-merk="Honda" data-prijs="4940" data-jaar="2005" data-kenmerk="ABS|Garantie" data-zoek="honda vfr 800 f vtec abs fi vtec | nieuwstaat| garantie  (bj honda abs garantie">
   <div class="st-shot"><a class="st-link" href="v/motoren-honda-honda-vfr-800-f-vtec-abs-fi-vtec-n-15/" aria-label="HONDA VFR 800 F VTEC ABS FI VTEC | Nieuwstaat| Garantie  (bj"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e9e15f6b-28d8-4aa9-816a-961ab1d92084?rule=ecg_mp_eps$_85.jpg" alt="HONDA VFR 800 F VTEC ABS FI VTEC | Nieuwstaat| Garantie  (bj" loading="lazy" decoding="async"></a><span class="st-year">2005</span><button class="st-bewaar" type="button" data-bewaar="motoren-honda-honda-vfr-800-f-vtec-abs-fi-vtec-n-15" aria-pressed="false" aria-label="Bewaar HONDA VFR 800 F VTEC ABS FI VTEC | Nieuwstaat| Garantie  (bj"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/motoren-honda-honda-vfr-800-f-vtec-abs-fi-vtec-n-15/">HONDA VFR 800 F VTEC ABS FI VTEC | Nieuwstaat| Garantie  (bj</a></h3>
+    <h3><a href="v/motoren-honda-honda-vfr-800-f-vtec-abs-fi-vtec-n-15/">HONDA VFR 800 F VTEC ABS FI VTEC</a></h3>
     <p class="st-spec">28.981 km</p>
     <div class="st-foot">
       <span class="st-price">€ 4.940</span>

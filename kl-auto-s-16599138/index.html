@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e4e4df}
+section:nth-of-type(even){background:#eef1ee}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#5f646c;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#1f5f4f;color:#ffffff;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#1f5f4f;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#5f646c;font-size:15px}
 .sec-trust a{color:#16181c}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e4e4df;color:#5f646c;font-size:15.5px}
+.sec-vestiging strong{color:#16181c;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e4e4df;color:#5f646c;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:1.35em;color:#1f5f4f;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#5f646c;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e4e4df;border-radius:14px;background:#eef1ee;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:14px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#5f646c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e4e4df;border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#1f5f4f66}
+.ug-shot{aspect-ratio:4/3;background:#eef1ee;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#5f646c;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#1f5f4f;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e4e4df;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -432,7 +472,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van KL auto’s (familie, mediaanprijs EUR 17950, 240 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet daglicht, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #1f5f4f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > stock > brands > about > promise > process > hours > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > uitgelicht > stock > brands > about > promise > process > hours > contact.
 FORM: familie-daglicht-cinematic-mosaic-gabarito-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -448,7 +488,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0df4b61d-5648-4f35-83ef-4b8ed02f0acb?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0df4b61d-5648-4f35-83ef-4b8ed02f0acb?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0df4b61d-5648-4f35-83ef-4b8ed02f0acb?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0df4b61d-5648-4f35-83ef-4b8ed02f0acb?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0df4b61d-5648-4f35-83ef-4b8ed02f0acb?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="GEELY Starray EM-i 1.5 Pro |Plug in Hybrid|83km Elektrisch|" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">GEELY Starray EM-i 1.5 Pro |Plug in Hybrid|83km Elektrisch|</span><span class="h-plate-p">€ 30.999</span></figcaption></figure>
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>240 occasions op voorraad · Oosterhout</p><div class="h-facts"><span>4.5 uit 12 beoordelingen</span><span>15 jaar op Marktplaats</span><span>8 merken in huis</span><span>Kom langs in Oosterhout</span></div><h1>Kom kijken wanneer het u schikt <em>in Oosterhout</em></h1><p class="h-lede">K&amp;L auto's biedt u een breed assortiment van tientallen topoccasions.</p><div class="h-cta"><a class="h-btn is-primary" href="https://wa.me/31611500958?text=Hallo%20KL%20auto%E2%80%99s%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a><a class="h-btn" href="tel:+31611500958">Bel 06-1150 0958</a></div></div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.5</b><span>gemiddeld uit 12 beoordelingen</span></div><div><b>15</b><span>jaar op Marktplaats</span></div><div><b>Oosterhout</b><span><a href="https://maps.google.com/?q=Havenweg%2037c%2C%204905AA%20Oosterhout" target="_blank" rel="noreferrer">Havenweg 37c, 4905AA Oosterhout</a></span></div><div><b>KvK</b><span>52480488</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.5</b><span>gemiddeld uit 12 beoordelingen</span></div><div><b>15</b><span>jaar op Marktplaats</span></div><div><b>8</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Oosterhout</strong> · <a href="https://maps.google.com/?q=Havenweg%2037c%2C%204905AA%20Oosterhout" target="_blank" rel="noreferrer">Havenweg 37c, 4905AA Oosterhout</a> · KvK 52480488</p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/overige-auto-s-geely-starray-em-i-1-5-pro-plug-i-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0df4b61d-5648-4f35-83ef-4b8ed02f0acb?rule=ecg_mp_eps$_86.jpg" alt="GEELY Starray EM-i 1.5 Pro" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>GEELY Starray EM-i 1.5 Pro</h3>
+    <p class="ug-spec">2026 · 6 km</p>
+    <p class="ug-prijs">€ 30.999</p>
+  </div>
+</a><a class="ug-kaart" href="v/peugeot-peugeot-2008-1-2-puretech-gt-gereserveer-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/058e470e-423a-403f-a6a1-79d6254d6c74?rule=ecg_mp_eps$_86.jpg" alt="Peugeot 2008 1.2 PureTech GT GERESERVEERD! (bj 2024)" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Peugeot 2008 1.2 PureTech GT GERESERVEERD! (bj 2024)</h3>
+    <p class="ug-spec">2024 · 32.002 km</p>
+    <p class="ug-prijs">€ 23.999</p>
+  </div>
+</a><a class="ug-kaart" href="v/mg-zs-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5ac4e9ab-a64e-41c4-a964-d349e31c41a6?rule=ecg_mp_eps$_86.jpg" alt="MG MG ZS Hybrid+ 1.5 Hybrid+ Comfort (bj 2025, automaat)" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>MG MG ZS Hybrid+ 1.5 Hybrid+ Comfort (bj 2025, automaat)</h3>
+    <p class="ug-spec">2025 · 14.788 km</p>
+    <p class="ug-prijs">€ 23.750</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>Onze voorraad</h2>
@@ -504,7 +571,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="overige-auto-s-geely-starray-em-i-1-5-pro-plug-i-1" data-rang="0" data-merk="Overige Auto S" data-prijs="30999" data-jaar="2026" data-zoek="geely starray em-i 1.5 pro |plug in hybrid|83km elektrisch| overige auto s">
   <div class="st-shot"><a class="st-link" href="v/overige-auto-s-geely-starray-em-i-1-5-pro-plug-i-1/" aria-label="GEELY Starray EM-i 1.5 Pro |Plug in Hybrid|83km Elektrisch|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0df4b61d-5648-4f35-83ef-4b8ed02f0acb?rule=ecg_mp_eps$_86.jpg" alt="GEELY Starray EM-i 1.5 Pro |Plug in Hybrid|83km Elektrisch|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="overige-auto-s-geely-starray-em-i-1-5-pro-plug-i-1" aria-pressed="false" aria-label="Bewaar GEELY Starray EM-i 1.5 Pro |Plug in Hybrid|83km Elektrisch|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/overige-auto-s-geely-starray-em-i-1-5-pro-plug-i-1/">GEELY Starray EM-i 1.5 Pro |Plug in Hybrid|83km Elektrisch|</a></h3>
+    <h3><a href="v/overige-auto-s-geely-starray-em-i-1-5-pro-plug-i-1/">GEELY Starray EM-i 1.5 Pro</a></h3>
     <p class="st-spec">2026 · 6 km</p>
     <div class="st-foot">
       <span class="st-price">€ 30.999</span>
@@ -554,7 +621,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="jeep-jeep-wrangler-unlimited-2-8-crd-rubicon-cam-6" data-rang="5" data-merk="Jeep" data-prijs="19500" data-jaar="2011" data-kenmerk="Navigatie" data-zoek="jeep wrangler unlimited 2.8 crd rubicon |camera|navi|trekhaa jeep navigatie">
   <div class="st-shot"><a class="st-link" href="v/jeep-jeep-wrangler-unlimited-2-8-crd-rubicon-cam-6/" aria-label="Jeep Wrangler Unlimited 2.8 CRD Rubicon |Camera|Navi|Trekhaa"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8b125db0-aaa5-4b6b-9406-ea17e81bca60?rule=ecg_mp_eps$_85.jpg" alt="Jeep Wrangler Unlimited 2.8 CRD Rubicon |Camera|Navi|Trekhaa" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="jeep-jeep-wrangler-unlimited-2-8-crd-rubicon-cam-6" aria-pressed="false" aria-label="Bewaar Jeep Wrangler Unlimited 2.8 CRD Rubicon |Camera|Navi|Trekhaa"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/jeep-jeep-wrangler-unlimited-2-8-crd-rubicon-cam-6/">Jeep Wrangler Unlimited 2.8 CRD Rubicon |Camera|Navi|Trekhaa</a></h3>
+    <h3><a href="v/jeep-jeep-wrangler-unlimited-2-8-crd-rubicon-cam-6/">Jeep Wrangler Unlimited 2.8 CRD Rubicon</a></h3>
     <p class="st-spec">2011 · 284.677 km</p>
     <div class="st-foot">
       <span class="st-price">€ 19.500</span>
@@ -574,7 +641,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card is-wide" data-slug="peugeot-peugeot-5008-1-2-puretech-active-pack-bu-8" data-rang="7" data-merk="Peugeot" data-prijs="18999" data-jaar="2023" data-kenmerk="Navigatie" data-zoek="peugeot 5008 1.2 puretech active pack business |camera|navi| peugeot navigatie">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-5008-1-2-puretech-active-pack-bu-8/" aria-label="Peugeot 5008 1.2 PureTech Active Pack Business |Camera|Navi|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/70679a2a-2905-4f00-92e1-2824e583b077?rule=ecg_mp_eps$_86.jpg" alt="Peugeot 5008 1.2 PureTech Active Pack Business |Camera|Navi|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-5008-1-2-puretech-active-pack-bu-8" aria-pressed="false" aria-label="Bewaar Peugeot 5008 1.2 PureTech Active Pack Business |Camera|Navi|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-5008-1-2-puretech-active-pack-bu-8/">Peugeot 5008 1.2 PureTech Active Pack Business |Camera|Navi|</a></h3>
+    <h3><a href="v/peugeot-peugeot-5008-1-2-puretech-active-pack-bu-8/">Peugeot 5008 1.2 PureTech Active Pack Business</a></h3>
     <p class="st-spec">2023 · 126.524 km</p>
     <div class="st-foot">
       <span class="st-price">€ 18.999</span>
@@ -594,7 +661,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-2008-1-2-puretech-gt-pack-stoelv-10" data-rang="9" data-merk="Peugeot" data-prijs="17450" data-jaar="2021" data-kenmerk="Navigatie" data-zoek="peugeot 2008 1.2 puretech gt pack |stoelverw.|navi| peugeot navigatie">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-2008-1-2-puretech-gt-pack-stoelv-10/" aria-label="Peugeot 2008 1.2 PureTech GT Pack |Stoelverw.|Navi|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3d333332-1b50-4f85-86d2-f3176c72f754?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 2008 1.2 PureTech GT Pack |Stoelverw.|Navi|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-2008-1-2-puretech-gt-pack-stoelv-10" aria-pressed="false" aria-label="Bewaar Peugeot 2008 1.2 PureTech GT Pack |Stoelverw.|Navi|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-2008-1-2-puretech-gt-pack-stoelv-10/">Peugeot 2008 1.2 PureTech GT Pack |Stoelverw.|Navi|</a></h3>
+    <h3><a href="v/peugeot-peugeot-2008-1-2-puretech-gt-pack-stoelv-10/">Peugeot 2008 1.2 PureTech GT Pack</a></h3>
     <p class="st-spec">2021 · 85.748 km</p>
     <div class="st-foot">
       <span class="st-price">€ 17.450</span>
@@ -644,7 +711,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-208-1-2-puretech-active-pack-nav-15" data-rang="14" data-merk="Peugeot" data-prijs="14999" data-jaar="2022" data-kenmerk="Navigatie" data-zoek="peugeot 208 1.2 puretech active pack |navi| (bj 2022) peugeot navigatie">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-208-1-2-puretech-active-pack-nav-15/" aria-label="Peugeot 208 1.2 PureTech Active Pack |Navi| (bj 2022)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4df6fb0e-211d-47d4-842c-f91dec382818?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 208 1.2 PureTech Active Pack |Navi| (bj 2022)" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-208-1-2-puretech-active-pack-nav-15" aria-pressed="false" aria-label="Bewaar Peugeot 208 1.2 PureTech Active Pack |Navi| (bj 2022)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-208-1-2-puretech-active-pack-nav-15/">Peugeot 208 1.2 PureTech Active Pack |Navi| (bj 2022)</a></h3>
+    <h3><a href="v/peugeot-peugeot-208-1-2-puretech-active-pack-nav-15/">Peugeot 208 1.2 PureTech Active Pack</a></h3>
     <p class="st-spec">2022 · 71.251 km</p>
     <div class="st-foot">
       <span class="st-price">€ 14.999</span>
@@ -654,7 +721,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-2008-1-2-puretech-100-allure-nav-16" data-rang="15" data-merk="Peugeot" data-prijs="14999" data-jaar="2024" data-kenmerk="Navigatie" data-zoek="peugeot 2008 1.2 puretech 100 allure |navi|camera| peugeot navigatie">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-2008-1-2-puretech-100-allure-nav-16/" aria-label="Peugeot 2008 1.2 PureTech 100 Allure |Navi|Camera|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6032bf96-dc9f-44bd-b8ce-0127200ea779?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 2008 1.2 PureTech 100 Allure |Navi|Camera|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-2008-1-2-puretech-100-allure-nav-16" aria-pressed="false" aria-label="Bewaar Peugeot 2008 1.2 PureTech 100 Allure |Navi|Camera|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-2008-1-2-puretech-100-allure-nav-16/">Peugeot 2008 1.2 PureTech 100 Allure |Navi|Camera|</a></h3>
+    <h3><a href="v/peugeot-peugeot-2008-1-2-puretech-100-allure-nav-16/">Peugeot 2008 1.2 PureTech 100 Allure</a></h3>
     <p class="st-spec">2024 · 150.321 km</p>
     <div class="st-foot">
       <span class="st-price">€ 14.999</span>
@@ -664,7 +731,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="audi-audi-a3-sportback-30-tfsi-edition-one-stoel-17" data-rang="16" data-merk="Audi" data-prijs="13999" data-jaar="2022" data-kenmerk="Navigatie" data-zoek="audi a3 sportback 30 tfsi edition one |stoelverw.|acc|navi| audi navigatie">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-a3-sportback-30-tfsi-edition-one-stoel-17/" aria-label="Audi A3 Sportback 30 TFSI edition one |Stoelverw.|ACC|Navi|"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8a8e9b3b-6cf5-491d-80ed-2d1d7aac00ac?rule=ecg_mp_eps$_85.jpg" alt="Audi A3 Sportback 30 TFSI edition one |Stoelverw.|ACC|Navi|" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="audi-audi-a3-sportback-30-tfsi-edition-one-stoel-17" aria-pressed="false" aria-label="Bewaar Audi A3 Sportback 30 TFSI edition one |Stoelverw.|ACC|Navi|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-a3-sportback-30-tfsi-edition-one-stoel-17/">Audi A3 Sportback 30 TFSI edition one |Stoelverw.|ACC|Navi|</a></h3>
+    <h3><a href="v/audi-audi-a3-sportback-30-tfsi-edition-one-stoel-17/">Audi A3 Sportback 30 TFSI edition one</a></h3>
     <p class="st-spec">2022 · 206.053 km</p>
     <div class="st-foot">
       <span class="st-price">€ 13.999</span>
@@ -698,7 +765,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/13/1373d389-b348-45a1-8a65-e1f68e14c320?rule=ecg_mp_eps$_85.jpg" alt="KL auto’s" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>240</b><span>voertuigen staan klaar</span></div><div><b>€ 13.999</b><span>de goedkoopste van dit moment</span></div><div><b>2023</b><span>mediaan bouwjaar</span></div><div><b>15</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Oosterhout.</p>
+  <ul class="sec-belofte-lijst"><li><b>240</b> voertuigen staan klaar</li><li>vanaf <b>€ 13.999</b></li><li>gemiddeld bouwjaar <b>2023</b></li></ul>
+</div></section>
 <section class="sec-flow">
   <div class="wrap">
     <div class="head rv"><h2>Zo gaat het</h2></div>

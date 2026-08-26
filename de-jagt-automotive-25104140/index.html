@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #282d33}
+section:nth-of-type(even){background:#1e2328}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#9ba1a8;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#4fb372;color:#0d1013;padding:9px 15px;border-radius:0px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#4fb372;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#9ba1a8;font-size:15px}
 .sec-trust a{color:#f4f5f6}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #282d33;color:#9ba1a8;font-size:15.5px}
+.sec-vestiging strong{color:#f4f5f6;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #282d33;color:#9ba1a8;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:1.35em;color:#4fb372;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#9ba1a8;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #282d33;border-radius:0px;background:#1e2328;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:0px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#9ba1a8;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#191d21;border:1px solid #282d33;border-radius:0px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#4fb37266}
+.ug-shot{aspect-ratio:4/3;background:#1e2328;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#9ba1a8;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#4fb372;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #282d33;background:#191d21}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -439,7 +479,7 @@ footer{border-top:2px solid #f4f5f6}
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van De Jagt Automotive (buurtgarage, mediaanprijs EUR 1999, 19 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet olie, 'Archivo Black' als display op 'Barlow', hoeken 0px, accent #4fb372.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "list", secties trust > stock > process > about > promise > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "list", secties trust > uitgelicht > stock > process > about > promise > contact.
 FORM: buurtgarage-olie-cinematic-list-archivoblack-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -455,7 +495,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c7ed9934-bc90-4a04-af0b-9be564c59ae6?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c7ed9934-bc90-4a04-af0b-9be564c59ae6?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c7ed9934-bc90-4a04-af0b-9be564c59ae6?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c7ed9934-bc90-4a04-af0b-9be564c59ae6?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c7ed9934-bc90-4a04-af0b-9be564c59ae6?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Mercedes-Benz C-klasse Cabrio 180 Edition 1 | AMG Line Night" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Mercedes-Benz C-klasse Cabrio 180 Edition 1 | AMG Line Night</span><span class="h-plate-p">€ 22.500</span></figcaption></figure>
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>19 auto's op voorraad · vanaf € 1.450 · Hellevoetsluis</p><h1><a href="tel:+31643650159">06-4365 0159</a></h1><div class="h-cta"><a class="h-btn is-primary" href="https://wa.me/31643650159?text=Hallo%20De%20Jagt%20Automotive%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a><a class="h-btn" href="tel:+31643650159">Bel 06-4365 0159</a></div><div class="h-facts"><span>4.5 uit 12 beoordelingen</span><span>9 jaar op Marktplaats</span><span>12 merken in huis</span><span>Kom langs in Hellevoetsluis</span></div></div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.5</b><span>gemiddeld uit 12 beoordelingen</span></div><div><b>9</b><span>jaar op Marktplaats</span></div><div><b>Hellevoetsluis</b><span><a href="https://maps.google.com/?q=Ravenseweg%209%2C%203323LM%20Hellevoetsluis" target="_blank" rel="noreferrer">Ravenseweg 9, 3323LM Hellevoetsluis</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.5</b><span>gemiddeld uit 12 beoordelingen</span></div><div><b>9</b><span>jaar op Marktplaats</span></div><div><b>12</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Hellevoetsluis</strong> · <a href="https://maps.google.com/?q=Ravenseweg%209%2C%203323LM%20Hellevoetsluis" target="_blank" rel="noreferrer">Ravenseweg 9, 3323LM Hellevoetsluis</a></p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/mercedes-benz-mercedes-benz-c-klasse-cabrio-180--1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c7ed9934-bc90-4a04-af0b-9be564c59ae6?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz C-klasse Cabrio 180 Edition 1" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mercedes-Benz C-klasse Cabrio 180 Edition 1</h3>
+    <p class="ug-spec">2017 · 161.068 km</p>
+    <p class="ug-prijs">€ 22.500</p>
+  </div>
+</a><a class="ug-kaart" href="v/porsche-cayenne-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9df32dab-6d50-4215-85ac-73bf460d750b?rule=ecg_mp_eps$_86.jpg" alt="Porsche Cayenne 4.5 Turbo" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Porsche Cayenne 4.5 Turbo</h3>
+    <p class="ug-spec">2004 · 223.030 km</p>
+    <p class="ug-prijs">€ 6.950</p>
+  </div>
+</a><a class="ug-kaart" href="v/citroen-c1-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/74246b35-efa6-4cdc-a674-c04605ec8bf4?rule=ecg_mp_eps$_86.jpg" alt="Citroen C1 1.0-12V Ambiance" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Citroen C1 1.0-12V Ambiance</h3>
+    <p class="ug-spec">2008 · 198.171 km</p>
+    <p class="ug-prijs">€ 2.650</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
@@ -515,92 +582,92 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   </div>
 </div><div class="st-list" data-voorraad><div class="st-row" data-slug="mercedes-benz-mercedes-benz-c-klasse-cabrio-180--1" data-rang="0" data-merk="Mercedes-Benz" data-prijs="22500" data-jaar="2017" data-zoek="mercedes-benz c-klasse cabrio 180 edition 1 | amg line night mercedes-benz">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c7ed9934-bc90-4a04-af0b-9be564c59ae6?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz C-klasse Cabrio 180 Edition 1 | AMG Line Night" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-cabrio-180--1/">Mercedes-Benz C-klasse Cabrio 180 Edition 1 | AMG Line Night</a></h3><p class="st-spec">2017 · 161.068 km</p></div>
+  <div class="st-what"><h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-cabrio-180--1/">Mercedes-Benz C-klasse Cabrio 180 Edition 1</a></h3><p class="st-spec">2017 · 161.068 km</p></div>
   <span class="st-price">€ 22.500</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="porsche-cayenne-2" data-rang="1" data-merk="Porsche" data-prijs="6950" data-jaar="2004" data-zoek="porsche cayenne 4.5 turbo | v 8 | 450 pk | lederen bekleding porsche cayenne">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9df32dab-6d50-4215-85ac-73bf460d750b?rule=ecg_mp_eps$_84.jpg" alt="Porsche Cayenne 4.5 Turbo | V 8 | 450 PK | Lederen bekleding" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/porsche-cayenne-2/">Porsche Cayenne 4.5 Turbo | V 8 | 450 PK | Lederen bekleding</a></h3><p class="st-spec">2004 · 223.030 km</p></div>
+  <div class="st-what"><h3><a href="v/porsche-cayenne-2/">Porsche Cayenne 4.5 Turbo</a></h3><p class="st-spec">2004 · 223.030 km</p></div>
   <span class="st-price">€ 6.950</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="citroen-c1-3" data-rang="2" data-merk="Citroen" data-prijs="2650" data-jaar="2008" data-kenmerk="Airco|APK" data-zoek="citroen c1 1.0-12v ambiance | nieuwe apk | airco | el. ramen citroen c1 airco apk">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/74246b35-efa6-4cdc-a674-c04605ec8bf4?rule=ecg_mp_eps$_84.jpg" alt="Citroen C1 1.0-12V Ambiance | Nieuwe APK | Airco | El. Ramen" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/citroen-c1-3/">Citroen C1 1.0-12V Ambiance | Nieuwe APK | Airco | El. Ramen</a></h3><p class="st-spec">2008 · 198.171 km</p></div>
+  <div class="st-what"><h3><a href="v/citroen-c1-3/">Citroen C1 1.0-12V Ambiance</a></h3><p class="st-spec">2008 · 198.171 km</p></div>
   <span class="st-price">€ 2.650</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="alfa-romeo-alfa-romeo-mito-1-4-el-ramen-airco-ni-4" data-rang="3" data-merk="Alfa Romeo" data-prijs="2499" data-jaar="2009" data-kenmerk="Airco" data-zoek="alfa romeo mito 1.4 | el. ramen | airco | nieuwe remmen | sp alfa romeo airco">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7cc0169a-8e92-4bff-b8d6-d36a6092dd6b?rule=ecg_mp_eps$_84.jpg" alt="Alfa Romeo MiTo 1.4 | El. Ramen | Airco | Nieuwe remmen | Sp" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/alfa-romeo-alfa-romeo-mito-1-4-el-ramen-airco-ni-4/">Alfa Romeo MiTo 1.4 | El. Ramen | Airco | Nieuwe remmen | Sp</a></h3><p class="st-spec">2009 · 102.615 km</p></div>
+  <div class="st-what"><h3><a href="v/alfa-romeo-alfa-romeo-mito-1-4-el-ramen-airco-ni-4/">Alfa Romeo MiTo 1.4</a></h3><p class="st-spec">2009 · 102.615 km</p></div>
   <span class="st-price">€ 2.499</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="daihatsu-daihatsu-sirion-2-1-0-12v-trend-1-eigen-5" data-rang="4" data-merk="Daihatsu" data-prijs="2450" data-jaar="2006" data-zoek="daihatsu sirion 2 1.0-12v trend | 1 eigenaar | volledig onde daihatsu">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6a1d9523-b9b9-4b82-b657-22e57c2b5fca?rule=ecg_mp_eps$_84.jpg" alt="Daihatsu Sirion 2 1.0-12V Trend | 1 eigenaar | Volledig onde" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/daihatsu-daihatsu-sirion-2-1-0-12v-trend-1-eigen-5/">Daihatsu Sirion 2 1.0-12V Trend | 1 eigenaar | Volledig onde</a></h3><p class="st-spec">2006 · 68.672 km</p></div>
+  <div class="st-what"><h3><a href="v/daihatsu-daihatsu-sirion-2-1-0-12v-trend-1-eigen-5/">Daihatsu Sirion 2 1.0-12V Trend</a></h3><p class="st-spec">2006 · 68.672 km</p></div>
   <span class="st-price">€ 2.450</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="citroen-c4-6" data-rang="5" data-merk="Citroen" data-prijs="1999" data-jaar="2005" data-brandstof="Benzine" data-kenmerk="Airco|Automaat" data-zoek="citroen c4 1.6-16v ligne prestige | automaat | airco | el. r citroen c4 benzine airco automaat">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aa4d9927-1728-4051-80f3-28f237b13c25?rule=ecg_mp_eps$_84.jpg" alt="Citroen C4 1.6-16V Ligne Prestige | Automaat | Airco | El. R" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/citroen-c4-6/">Citroen C4 1.6-16V Ligne Prestige | Automaat | Airco | El. R</a></h3><p class="st-spec">2005 · 174.960 km · Benzine</p></div>
+  <div class="st-what"><h3><a href="v/citroen-c4-6/">Citroen C4 1.6-16V Ligne Prestige</a></h3><p class="st-spec">2005 · 174.960 km · Benzine</p></div>
   <span class="st-price">€ 1.999</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="peugeot-peugeot-107-1-0-12v-xs-lage-km-nap-5-drs-7" data-rang="6" data-merk="Peugeot" data-prijs="1999" data-jaar="2007" data-kenmerk="NAP" data-zoek="peugeot 107 1.0-12v xs | lage km nap | 5-drs | recent koppel peugeot nap">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7afb467f-caab-44f7-b775-81d657c62b81?rule=ecg_mp_eps$_84.jpg" alt="Peugeot 107 1.0-12V XS | Lage KM NAP | 5-drs | Recent koppel" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/peugeot-peugeot-107-1-0-12v-xs-lage-km-nap-5-drs-7/">Peugeot 107 1.0-12V XS | Lage KM NAP | 5-drs | Recent koppel</a></h3><p class="st-spec">2007 · 84.824 km</p></div>
+  <div class="st-what"><h3><a href="v/peugeot-peugeot-107-1-0-12v-xs-lage-km-nap-5-drs-7/">Peugeot 107 1.0-12V XS</a></h3><p class="st-spec">2007 · 84.824 km</p></div>
   <span class="st-price">€ 1.999</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="peugeot-peugeot-107-1-0-12v-xs-airco-el-ramen-5--8" data-rang="7" data-merk="Peugeot" data-prijs="1999" data-jaar="2006" data-kenmerk="Airco" data-zoek="peugeot 107 1.0-12v xs| airco | el. ramen | 5-drs | rijklaar peugeot airco">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/afcf2ae5-6790-4a1b-a95e-49cc50791636?rule=ecg_mp_eps$_84.jpg" alt="Peugeot 107 1.0-12V XS| Airco | El. Ramen | 5-drs | Rijklaar" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/peugeot-peugeot-107-1-0-12v-xs-airco-el-ramen-5--8/">Peugeot 107 1.0-12V XS| Airco | El. Ramen | 5-drs | Rijklaar</a></h3><p class="st-spec">2006 · 153.012 km</p></div>
+  <div class="st-what"><h3><a href="v/peugeot-peugeot-107-1-0-12v-xs-airco-el-ramen-5--8/">Peugeot 107 1.0-12V XS</a></h3><p class="st-spec">2006 · 153.012 km</p></div>
   <span class="st-price">€ 1.999</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="seat-seat-ibiza-1-2-club-nieuwe-apk-el-ramen-nap-9" data-rang="8" data-merk="SEAT" data-prijs="1999" data-jaar="2010" data-kenmerk="APK|NAP" data-zoek="seat ibiza 1.2 club | nieuwe apk | el. ramen | nap | 5-drs | seat apk nap">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b1799bba-beff-453c-9a92-177f49ce7e0c?rule=ecg_mp_eps$_84.jpg" alt="Seat Ibiza 1.2 Club | Nieuwe APK | El. Ramen | NAP | 5-drs |" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/seat-seat-ibiza-1-2-club-nieuwe-apk-el-ramen-nap-9/">Seat Ibiza 1.2 Club | Nieuwe APK | El. Ramen | NAP | 5-drs |</a></h3><p class="st-spec">2010 · 184.512 km</p></div>
+  <div class="st-what"><h3><a href="v/seat-seat-ibiza-1-2-club-nieuwe-apk-el-ramen-nap-9/">Seat Ibiza 1.2 Club</a></h3><p class="st-spec">2010 · 184.512 km</p></div>
   <span class="st-price">€ 1.999</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="renault-twingo-10" data-rang="9" data-merk="Renault" data-prijs="1999" data-jaar="2008" data-kenmerk="Airco|APK" data-zoek="renault twingo 1.2 authentique | nieuwe apk | airco | el. ra renault twingo airco apk">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4efe6b24-fdd4-4487-b403-2e29ce2ad0a7?rule=ecg_mp_eps$_84.jpg" alt="Renault Twingo 1.2 Authentique | Nieuwe APK | Airco | El. Ra" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/renault-twingo-10/">Renault Twingo 1.2 Authentique | Nieuwe APK | Airco | El. Ra</a></h3><p class="st-spec">2008 · 102.636 km</p></div>
+  <div class="st-what"><h3><a href="v/renault-twingo-10/">Renault Twingo 1.2 Authentique</a></h3><p class="st-spec">2008 · 102.636 km</p></div>
   <span class="st-price">€ 1.999</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="daihatsu-daihatsu-sirion-2-1-3-16v-comfort-nieuw-11" data-rang="10" data-merk="Daihatsu" data-prijs="1799" data-jaar="2006" data-kenmerk="Airco|APK" data-zoek="daihatsu sirion 2 1.3-16v comfort | nieuwe apk | airco | el. daihatsu airco apk">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2e706d9a-ca0d-4c48-bf2a-a8658c1fec73?rule=ecg_mp_eps$_84.jpg" alt="Daihatsu Sirion 2 1.3-16V Comfort | Nieuwe APK | Airco | El." loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/daihatsu-daihatsu-sirion-2-1-3-16v-comfort-nieuw-11/">Daihatsu Sirion 2 1.3-16V Comfort | Nieuwe APK | Airco | El.</a></h3><p class="st-spec">2006 · 101.371 km</p></div>
+  <div class="st-what"><h3><a href="v/daihatsu-daihatsu-sirion-2-1-3-16v-comfort-nieuw-11/">Daihatsu Sirion 2 1.3-16V Comfort</a></h3><p class="st-spec">2006 · 101.371 km</p></div>
   <span class="st-price">€ 1.799</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="renault-renault-scenic-2-0-16v-sport-way-nieuwe--12" data-rang="11" data-merk="Renault" data-prijs="1650" data-jaar="2002" data-kenmerk="Automaat|APK" data-zoek="renault scénic 2.0-16v sport way | nieuwe apk | automaat | renault automaat apk">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/97e64ca0-6d00-4ecb-9fec-84049c2df17c?rule=ecg_mp_eps$_84.jpg" alt="Renault Scénic 2.0-16V Sport Way | Nieuwe APK | Automaat |" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/renault-renault-scenic-2-0-16v-sport-way-nieuwe--12/">Renault Scénic 2.0-16V Sport Way | Nieuwe APK | Automaat |</a></h3><p class="st-spec">2002 · 164.454 km</p></div>
+  <div class="st-what"><h3><a href="v/renault-renault-scenic-2-0-16v-sport-way-nieuwe--12/">Renault Scénic 2.0-16V Sport Way</a></h3><p class="st-spec">2002 · 164.454 km</p></div>
   <span class="st-price">€ 1.650</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="suzuki-suzuki-alto-1-0-comfort-nieuwe-apk-el-ram-13" data-rang="12" data-merk="Suzuki" data-prijs="1650" data-jaar="2010" data-kenmerk="APK" data-zoek="suzuki alto 1.0 comfort | nieuwe apk | el. ramen | carplay | suzuki apk">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7b137061-d23f-4d2a-9510-5c6b4d4e0697?rule=ecg_mp_eps$_84.jpg" alt="Suzuki Alto 1.0 Comfort | Nieuwe APK | El. Ramen | Carplay |" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/suzuki-suzuki-alto-1-0-comfort-nieuwe-apk-el-ram-13/">Suzuki Alto 1.0 Comfort | Nieuwe APK | El. Ramen | Carplay |</a></h3><p class="st-spec">2010 · 174.980 km</p></div>
+  <div class="st-what"><h3><a href="v/suzuki-suzuki-alto-1-0-comfort-nieuwe-apk-el-ram-13/">Suzuki Alto 1.0 Comfort</a></h3><p class="st-spec">2010 · 174.980 km</p></div>
   <span class="st-price">€ 1.650</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="mercedes-benz-mercedes-benz-b-klasse-180-cdi-bus-14" data-rang="13" data-merk="Mercedes-Benz" data-prijs="1499" data-jaar="2010" data-kenmerk="APK" data-zoek="mercedes-benz b-klasse 180 cdi business class | nieuwe apk | mercedes-benz apk">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9c68755b-aaee-4c1d-b5c7-6a6e854353d2?rule=ecg_mp_eps$_84.jpg" alt="Mercedes-Benz B-klasse 180 CDI Business Class | Nieuwe APK |" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/mercedes-benz-mercedes-benz-b-klasse-180-cdi-bus-14/">Mercedes-Benz B-klasse 180 CDI Business Class | Nieuwe APK |</a></h3><p class="st-spec">2010 · 270.928 km</p></div>
+  <div class="st-what"><h3><a href="v/mercedes-benz-mercedes-benz-b-klasse-180-cdi-bus-14/">Mercedes-Benz B-klasse 180 CDI Business Class</a></h3><p class="st-spec">2010 · 270.928 km</p></div>
   <span class="st-price">€ 1.499</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="mini-mini-3-deurs-1-6-one-salt-nieuwe-apk-airco--15" data-rang="14" data-merk="MINI" data-prijs="1499" data-jaar="2002" data-kenmerk="Airco|APK" data-zoek="mini 3-deurs 1.6 one salt | nieuwe apk | airco | el. ramen | mini airco apk">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ed6f9dc8-333a-4ff6-8582-7ca93307bf4c?rule=ecg_mp_eps$_84.jpg" alt="Mini 3-Deurs 1.6 One Salt | Nieuwe APK | Airco | El. Ramen |" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/mini-mini-3-deurs-1-6-one-salt-nieuwe-apk-airco--15/">Mini 3-Deurs 1.6 One Salt | Nieuwe APK | Airco | El. Ramen |</a></h3><p class="st-spec">2002 · 158.315 km</p></div>
+  <div class="st-what"><h3><a href="v/mini-mini-3-deurs-1-6-one-salt-nieuwe-apk-airco--15/">Mini 3-Deurs 1.6 One Salt</a></h3><p class="st-spec">2002 · 158.315 km</p></div>
   <span class="st-price">€ 1.499</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="suzuki-suzuki-alto-1-0-comfort-el-ramen-airco-na-16" data-rang="15" data-merk="Suzuki" data-prijs="1499" data-jaar="2009" data-kenmerk="Airco|NAP" data-zoek="suzuki alto 1.0 comfort | el. ramen | airco | nap | inruilau suzuki airco nap">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/97e57c4a-c950-461e-92f2-cc254d06ab94?rule=ecg_mp_eps$_84.jpg" alt="Suzuki Alto 1.0 Comfort | El. Ramen | Airco | NAP | Inruilau" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/suzuki-suzuki-alto-1-0-comfort-el-ramen-airco-na-16/">Suzuki Alto 1.0 Comfort | El. Ramen | Airco | NAP | Inruilau</a></h3><p class="st-spec">2009 · 157.416 km</p></div>
+  <div class="st-what"><h3><a href="v/suzuki-suzuki-alto-1-0-comfort-el-ramen-airco-na-16/">Suzuki Alto 1.0 Comfort</a></h3><p class="st-spec">2009 · 157.416 km</p></div>
   <span class="st-price">€ 1.499</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="toyota-toyota-aygo-1-0-12v-nieuwe-apk-airco-el-r-17" data-rang="16" data-merk="Toyota" data-prijs="1499" data-jaar="2009" data-kenmerk="Airco|APK|NAP" data-zoek="toyota aygo 1.0-12v | nieuwe apk | airco |el. ramen | nap | toyota airco apk nap">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/98d8b7cf-ef6e-43e2-9b84-310c7eea76b4?rule=ecg_mp_eps$_84.jpg" alt="Toyota Aygo 1.0-12V | Nieuwe APK | Airco |El. Ramen | NAP |" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/toyota-toyota-aygo-1-0-12v-nieuwe-apk-airco-el-r-17/">Toyota Aygo 1.0-12V | Nieuwe APK | Airco |El. Ramen | NAP |</a></h3><p class="st-spec">2009 · 194.005 km</p></div>
+  <div class="st-what"><h3><a href="v/toyota-toyota-aygo-1-0-12v-nieuwe-apk-airco-el-r-17/">Toyota Aygo 1.0-12V</a></h3><p class="st-spec">2009 · 194.005 km</p></div>
   <span class="st-price">€ 1.499</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div><div class="st-row" data-slug="fiat-fiat-panda-1-2-navigator-nieuwe-apk-el-rame-18" data-rang="17" data-merk="Fiat" data-prijs="1450" data-jaar="2006" data-kenmerk="APK" data-zoek="fiat panda 1.2 navigator | nieuwe apk | el. ramen | hoge ins fiat apk">
   <div class="st-thumb"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/337c16d0-00ab-46ad-a9b3-3539a2689f59?rule=ecg_mp_eps$_84.jpg" alt="Fiat Panda 1.2 Navigator | Nieuwe APK | El. Ramen | Hoge ins" loading="lazy" decoding="async"></div>
-  <div class="st-what"><h3><a href="v/fiat-fiat-panda-1-2-navigator-nieuwe-apk-el-rame-18/">Fiat Panda 1.2 Navigator | Nieuwe APK | El. Ramen | Hoge ins</a></h3><p class="st-spec">2006 · 153.544 km</p></div>
+  <div class="st-what"><h3><a href="v/fiat-fiat-panda-1-2-navigator-nieuwe-apk-el-rame-18/">Fiat Panda 1.2 Navigator</a></h3><p class="st-spec">2006 · 153.544 km</p></div>
   <span class="st-price">€ 1.450</span>
   <a class="st-act" href="tel:+31643650159">Bel hierover</a>
 </div></div><div class="sa-leeg" id="sa-leeg" hidden>
@@ -627,7 +694,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/07/07f469b2-c7b1-4c50-a645-acc3f9cd8e9c?rule=ecg_mp_eps$_85.jpg" alt="De Jagt Automotive" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>19</b><span>voertuigen staan klaar</span></div><div><b>€ 1.450</b><span>de goedkoopste van dit moment</span></div><div><b>2008</b><span>mediaan bouwjaar</span></div><div><b>9</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Hellevoetsluis.</p>
+  <ul class="sec-belofte-lijst"><li><b>19</b> voertuigen staan klaar</li><li>vanaf <b>€ 1.450</b></li><li>gemiddeld bouwjaar <b>2008</b></li></ul>
+</div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

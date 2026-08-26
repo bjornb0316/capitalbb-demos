@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e2e5ea}
+section:nth-of-type(even){background:#eaeef7}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#5c626c;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#22439b;color:#ffffff;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#22439b;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#5c626c;font-size:15px}
 .sec-trust a{color:#14171d}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e2e5ea;color:#5c626c;font-size:15.5px}
+.sec-vestiging strong{color:#14171d;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e2e5ea;color:#5c626c;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:1.35em;color:#22439b;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#5c626c;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e2e5ea;border-radius:14px;background:#eaeef7;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:14px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#5c626c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e2e5ea;border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#22439b66}
+.ug-shot{aspect-ratio:4/3;background:#eaeef7;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#5c626c;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Gabarito', 'Trebuchet MS', system-ui, sans-serif;font-weight:700;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#22439b;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e2e5ea;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -432,7 +472,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Louwman (familie, mediaanprijs EUR 35423, 2444 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet kobalt, 'Gabarito' als display op 'Figtree', hoeken 14px, accent #22439b.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > stock > process > about > promise > contact.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > uitgelicht > stock > process > about > promise > contact.
 FORM: familie-kobalt-cinematic-grid-gabarito-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -448,7 +488,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Lexus RZ 550e DIRECT-4 AWD F-SPORT (77 kWh) | Steer-By-Wire" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Lexus RZ 550e DIRECT-4 AWD F-SPORT (77 kWh) | Steer-By-Wire</span><span class="h-plate-p">€ 74.950</span></figcaption></figure>
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>2444 occasions op voorraad · 's-Gravenhage</p><div class="h-facts"><span>4.2 uit 690 beoordelingen</span><span>16 jaar op Marktplaats</span><span>4 merken in huis</span><span>Kom langs in 's-Gravenhage</span></div><h1>Kom kijken wanneer het u schikt <em>in 's-Gravenhage</em></h1><p class="h-lede">100 jaar geleden zijn we begonnen met een passie om mensen te bewegen. Wij zijn een familiebedrijf dat zich niet laat leiden door de waan van de dag en altijd kiest voor lange termijn r</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31705690502">Bel 070-5690502</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div></div>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.2</b><span>gemiddeld uit 690 beoordelingen</span></div><div><b>16</b><span>jaar op Marktplaats</span></div><div><b>'s-Gravenhage</b><span><a href="https://maps.google.com/?q='s-Gravenhage" target="_blank" rel="noreferrer">'s-Gravenhage</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.2</b><span>gemiddeld uit 690 beoordelingen</span></div><div><b>16</b><span>jaar op Marktplaats</span></div><div><b>4</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>'s-Gravenhage</strong> · <a href="https://maps.google.com/?q='s-Gravenhage" target="_blank" rel="noreferrer">'s-Gravenhage</a></p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/lexus-rz-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_86.jpg" alt="Lexus RZ 550e DIRECT-4 AWD F-SPORT (77 kWh)" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Lexus RZ 550e DIRECT-4 AWD F-SPORT (77 kWh)</h3>
+    <p class="ug-spec">2026 · 11.000 km</p>
+    <p class="ug-prijs">€ 74.950</p>
+  </div>
+</a><a class="ug-kaart" href="v/lexus-lexus-nx-450h-awd-president-line-mark-levi-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a9b92917-2cf1-4165-bca7-72a49508f957?rule=ecg_mp_eps$_86.jpg" alt="Lexus NX 450h+ AWD President Line" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Lexus NX 450h+ AWD President Line</h3>
+    <p class="ug-spec">2025 · 19.608 km</p>
+    <p class="ug-prijs">€ 66.950</p>
+  </div>
+</a><a class="ug-kaart" href="v/toyota-toyota-bz4x-touring-dynamic-awd-75-kwh-aw-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/52a88bdf-aee4-490a-917a-0482ed0af7e4?rule=ecg_mp_eps$_86.jpg" alt="Toyota bZ4X Touring Dynamic AWD 75 kWh" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Toyota bZ4X Touring Dynamic AWD 75 kWh</h3>
+    <p class="ug-spec">2026 · 10 km</p>
+    <p class="ug-prijs">€ 49.445</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>Onze voorraad</h2>
@@ -509,7 +576,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-grid" data-voorraad><article class="st-card " data-slug="lexus-rz-1" data-rang="0" data-merk="Lexus" data-prijs="74950" data-jaar="2026" data-brandstof="Elektrisch" data-zoek="lexus rz 550e direct-4 awd f-sport (77 kwh) | steer-by-wire lexus rz elektrisch">
   <div class="st-shot"><a class="st-link" href="v/lexus-rz-1/" aria-label="Lexus RZ 550e DIRECT-4 AWD F-SPORT (77 kWh) | Steer-By-Wire"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3ffb4a4f-c4b6-4c8c-93c1-ea5e5c7374c3?rule=ecg_mp_eps$_85.jpg" alt="Lexus RZ 550e DIRECT-4 AWD F-SPORT (77 kWh) | Steer-By-Wire" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="lexus-rz-1" aria-pressed="false" aria-label="Bewaar Lexus RZ 550e DIRECT-4 AWD F-SPORT (77 kWh) | Steer-By-Wire"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/lexus-rz-1/">Lexus RZ 550e DIRECT-4 AWD F-SPORT (77 kWh) | Steer-By-Wire</a></h3>
+    <h3><a href="v/lexus-rz-1/">Lexus RZ 550e DIRECT-4 AWD F-SPORT (77 kWh)</a></h3>
     <p class="st-spec">2026 · 11.000 km · Elektrisch</p>
     <div class="st-foot">
       <span class="st-price">€ 74.950</span>
@@ -519,7 +586,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="lexus-lexus-nx-450h-awd-president-line-mark-levi-2" data-rang="1" data-merk="Lexus" data-prijs="66950" data-jaar="2025" data-zoek="lexus nx 450h+ awd president line | mark levinson | panorama lexus">
   <div class="st-shot"><a class="st-link" href="v/lexus-lexus-nx-450h-awd-president-line-mark-levi-2/" aria-label="Lexus NX 450h+ AWD President Line | Mark Levinson | Panorama"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a9b92917-2cf1-4165-bca7-72a49508f957?rule=ecg_mp_eps$_85.jpg" alt="Lexus NX 450h+ AWD President Line | Mark Levinson | Panorama" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="lexus-lexus-nx-450h-awd-president-line-mark-levi-2" aria-pressed="false" aria-label="Bewaar Lexus NX 450h+ AWD President Line | Mark Levinson | Panorama"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/lexus-lexus-nx-450h-awd-president-line-mark-levi-2/">Lexus NX 450h+ AWD President Line | Mark Levinson | Panorama</a></h3>
+    <h3><a href="v/lexus-lexus-nx-450h-awd-president-line-mark-levi-2/">Lexus NX 450h+ AWD President Line</a></h3>
     <p class="st-spec">2025 · 19.608 km</p>
     <div class="st-foot">
       <span class="st-price">€ 66.950</span>
@@ -529,7 +596,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="toyota-toyota-bz4x-touring-dynamic-awd-75-kwh-aw-3" data-rang="2" data-merk="Toyota" data-prijs="49445" data-jaar="2026" data-kenmerk="Navigatie" data-zoek="toyota bz4x touring dynamic awd 75 kwh | awd | navi | carpla toyota navigatie">
   <div class="st-shot"><a class="st-link" href="v/toyota-toyota-bz4x-touring-dynamic-awd-75-kwh-aw-3/" aria-label="Toyota bZ4X Touring Dynamic AWD 75 kWh | AWD | Navi | Carpla"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/52a88bdf-aee4-490a-917a-0482ed0af7e4?rule=ecg_mp_eps$_85.jpg" alt="Toyota bZ4X Touring Dynamic AWD 75 kWh | AWD | Navi | Carpla" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-bz4x-touring-dynamic-awd-75-kwh-aw-3" aria-pressed="false" aria-label="Bewaar Toyota bZ4X Touring Dynamic AWD 75 kWh | AWD | Navi | Carpla"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/toyota-toyota-bz4x-touring-dynamic-awd-75-kwh-aw-3/">Toyota bZ4X Touring Dynamic AWD 75 kWh | AWD | Navi | Carpla</a></h3>
+    <h3><a href="v/toyota-toyota-bz4x-touring-dynamic-awd-75-kwh-aw-3/">Toyota bZ4X Touring Dynamic AWD 75 kWh</a></h3>
     <p class="st-spec">2026 · 10 km</p>
     <div class="st-foot">
       <span class="st-price">€ 49.445</span>
@@ -539,7 +606,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="toyota-toyota-yaris-cross-1-5-hybrid-130-executi-4" data-rang="3" data-merk="Toyota" data-prijs="41950" data-jaar="2026" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="toyota yaris cross 1.5 hybrid 130 executive | carplay/androi toyota hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/toyota-toyota-yaris-cross-1-5-hybrid-130-executi-4/" aria-label="Toyota Yaris Cross 1.5 Hybrid 130 Executive | Carplay/Androi"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/75203ed6-76a9-476c-86e0-f54d8e371525?rule=ecg_mp_eps$_85.jpg" alt="Toyota Yaris Cross 1.5 Hybrid 130 Executive | Carplay/Androi" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-yaris-cross-1-5-hybrid-130-executi-4" aria-pressed="false" aria-label="Bewaar Toyota Yaris Cross 1.5 Hybrid 130 Executive | Carplay/Androi"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/toyota-toyota-yaris-cross-1-5-hybrid-130-executi-4/">Toyota Yaris Cross 1.5 Hybrid 130 Executive | Carplay/Androi</a></h3>
+    <h3><a href="v/toyota-toyota-yaris-cross-1-5-hybrid-130-executi-4/">Toyota Yaris Cross 1.5 Hybrid 130 Executive</a></h3>
     <p class="st-spec">2026 · 1.000 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 41.950</span>
@@ -549,7 +616,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="toyota-toyota-rav4-2-5-plug-in-hybrid-awd-dynami-5" data-rang="4" data-merk="Toyota" data-prijs="41950" data-jaar="2022" data-zoek="toyota rav4 2.5 plug-in hybrid awd dynamic | dealer onderhou toyota">
   <div class="st-shot"><a class="st-link" href="v/toyota-toyota-rav4-2-5-plug-in-hybrid-awd-dynami-5/" aria-label="Toyota RAV4 2.5 Plug-in Hybrid AWD Dynamic | Dealer onderhou"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4fd44974-4f20-49df-a1bf-af1fd37a29fc?rule=ecg_mp_eps$_85.jpg" alt="Toyota RAV4 2.5 Plug-in Hybrid AWD Dynamic | Dealer onderhou" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-rav4-2-5-plug-in-hybrid-awd-dynami-5" aria-pressed="false" aria-label="Bewaar Toyota RAV4 2.5 Plug-in Hybrid AWD Dynamic | Dealer onderhou"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/toyota-toyota-rav4-2-5-plug-in-hybrid-awd-dynami-5/">Toyota RAV4 2.5 Plug-in Hybrid AWD Dynamic | Dealer onderhou</a></h3>
+    <h3><a href="v/toyota-toyota-rav4-2-5-plug-in-hybrid-awd-dynami-5/">Toyota RAV4 2.5 Plug-in Hybrid AWD Dynamic</a></h3>
     <p class="st-spec">2022 · 21.900 km</p>
     <div class="st-foot">
       <span class="st-price">€ 41.950</span>
@@ -559,7 +626,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="lexus-lexus-lbx-relax-advanced-pakket-mark-levin-6" data-rang="5" data-merk="Lexus" data-prijs="40950" data-jaar="2024" data-zoek="lexus lbx relax + advanced pakket | mark levinson | bruin le lexus">
   <div class="st-shot"><a class="st-link" href="v/lexus-lexus-lbx-relax-advanced-pakket-mark-levin-6/" aria-label="Lexus LBX Relax + Advanced Pakket | Mark Levinson | Bruin Le"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a96faf45-2240-4095-ab74-acb23acdeb1d?rule=ecg_mp_eps$_85.jpg" alt="Lexus LBX Relax + Advanced Pakket | Mark Levinson | Bruin Le" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="lexus-lexus-lbx-relax-advanced-pakket-mark-levin-6" aria-pressed="false" aria-label="Bewaar Lexus LBX Relax + Advanced Pakket | Mark Levinson | Bruin Le"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/lexus-lexus-lbx-relax-advanced-pakket-mark-levin-6/">Lexus LBX Relax + Advanced Pakket | Mark Levinson | Bruin Le</a></h3>
+    <h3><a href="v/lexus-lexus-lbx-relax-advanced-pakket-mark-levin-6/">Lexus LBX Relax + Advanced Pakket</a></h3>
     <p class="st-spec">2024 · 14.825 km</p>
     <div class="st-foot">
       <span class="st-price">€ 40.950</span>
@@ -569,7 +636,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="suzuki-suzuki-e-vitara-style-allgrip-e-61-kwh-ap-7" data-rang="6" data-merk="Suzuki" data-prijs="37745" data-jaar="2026" data-zoek="suzuki e vitara style allgrip-e 61 kwh | apple carplay / and suzuki">
   <div class="st-shot"><a class="st-link" href="v/suzuki-suzuki-e-vitara-style-allgrip-e-61-kwh-ap-7/" aria-label="Suzuki e Vitara Style Allgrip-e 61 kWh | Apple Carplay / And"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c4416499-34f4-4353-adc1-f21cbe41231c?rule=ecg_mp_eps$_85.jpg" alt="Suzuki e Vitara Style Allgrip-e 61 kWh | Apple Carplay / And" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="suzuki-suzuki-e-vitara-style-allgrip-e-61-kwh-ap-7" aria-pressed="false" aria-label="Bewaar Suzuki e Vitara Style Allgrip-e 61 kWh | Apple Carplay / And"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/suzuki-suzuki-e-vitara-style-allgrip-e-61-kwh-ap-7/">Suzuki e Vitara Style Allgrip-e 61 kWh | Apple Carplay / And</a></h3>
+    <h3><a href="v/suzuki-suzuki-e-vitara-style-allgrip-e-61-kwh-ap-7/">Suzuki e Vitara Style Allgrip-e 61 kWh</a></h3>
     <p class="st-spec">2026 · 5.000 km</p>
     <div class="st-foot">
       <span class="st-price">€ 37.745</span>
@@ -579,7 +646,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="toyota-toyota-yaris-cross-1-5-hybrid-115-dynamic-8" data-rang="7" data-merk="Toyota" data-prijs="35445" data-jaar="2026" data-zoek="toyota yaris cross 1.5 hybrid 115 dynamic | comfort pack | toyota">
   <div class="st-shot"><a class="st-link" href="v/toyota-toyota-yaris-cross-1-5-hybrid-115-dynamic-8/" aria-label="Toyota Yaris Cross 1.5 Hybrid 115 Dynamic | Comfort Pack |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a0f0f709-9923-4304-97d6-d0fedf7cea56?rule=ecg_mp_eps$_85.jpg" alt="Toyota Yaris Cross 1.5 Hybrid 115 Dynamic | Comfort Pack |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-yaris-cross-1-5-hybrid-115-dynamic-8" aria-pressed="false" aria-label="Bewaar Toyota Yaris Cross 1.5 Hybrid 115 Dynamic | Comfort Pack |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/toyota-toyota-yaris-cross-1-5-hybrid-115-dynamic-8/">Toyota Yaris Cross 1.5 Hybrid 115 Dynamic | Comfort Pack |</a></h3>
+    <h3><a href="v/toyota-toyota-yaris-cross-1-5-hybrid-115-dynamic-8/">Toyota Yaris Cross 1.5 Hybrid 115 Dynamic</a></h3>
     <p class="st-spec">2026 · 3.000 km</p>
     <div class="st-foot">
       <span class="st-price">€ 35.445</span>
@@ -589,7 +656,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="suzuki-suzuki-vitara-1-4-boosterjet-smart-hybrid-9" data-rang="8" data-merk="Suzuki" data-prijs="35445" data-jaar="2026" data-kenmerk="Automaat" data-zoek="suzuki vitara 1.4 boosterjet smart hybrid select | automaat suzuki automaat">
   <div class="st-shot"><a class="st-link" href="v/suzuki-suzuki-vitara-1-4-boosterjet-smart-hybrid-9/" aria-label="Suzuki Vitara 1.4 Boosterjet Smart Hybrid Select | Automaat"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/22ab5e0e-7246-472b-b3c3-83bcfece94e9?rule=ecg_mp_eps$_85.jpg" alt="Suzuki Vitara 1.4 Boosterjet Smart Hybrid Select | Automaat" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="suzuki-suzuki-vitara-1-4-boosterjet-smart-hybrid-9" aria-pressed="false" aria-label="Bewaar Suzuki Vitara 1.4 Boosterjet Smart Hybrid Select | Automaat"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/suzuki-suzuki-vitara-1-4-boosterjet-smart-hybrid-9/">Suzuki Vitara 1.4 Boosterjet Smart Hybrid Select | Automaat</a></h3>
+    <h3><a href="v/suzuki-suzuki-vitara-1-4-boosterjet-smart-hybrid-9/">Suzuki Vitara 1.4 Boosterjet Smart Hybrid Select</a></h3>
     <p class="st-spec">2026 · 5.000 km</p>
     <div class="st-foot">
       <span class="st-price">€ 35.445</span>
@@ -599,7 +666,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="lexus-lbx-10" data-rang="9" data-merk="Lexus" data-prijs="35400" data-jaar="2024" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="lexus lbx elegant 2wd | btw voertuig | beige leder | blindsp lexus lbx hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/lexus-lbx-10/" aria-label="Lexus LBX Elegant 2WD | BTW Voertuig | Beige Leder | BlindSp"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6ad2ee88-d57c-4b72-bb54-386b37d9054b?rule=ecg_mp_eps$_85.jpg" alt="Lexus LBX Elegant 2WD | BTW Voertuig | Beige Leder | BlindSp" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="lexus-lbx-10" aria-pressed="false" aria-label="Bewaar Lexus LBX Elegant 2WD | BTW Voertuig | Beige Leder | BlindSp"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/lexus-lbx-10/">Lexus LBX Elegant 2WD | BTW Voertuig | Beige Leder | BlindSp</a></h3>
+    <h3><a href="v/lexus-lbx-10/">Lexus LBX Elegant 2WD</a></h3>
     <p class="st-spec">2024 · 15.814 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 35.400</span>
@@ -609,7 +676,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="byd-byd-atto-2-comfort-65-kwh-430-km-range-bj-20-11" data-rang="10" data-merk="BYD" data-prijs="32945" data-jaar="2026" data-zoek="byd atto 2 comfort 65 kwh | 430 km range | (bj 2026) byd">
   <div class="st-shot"><a class="st-link" href="v/byd-byd-atto-2-comfort-65-kwh-430-km-range-bj-20-11/" aria-label="BYD ATTO 2 Comfort 65 kWh | 430 KM Range | (bj 2026)"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6feddd34-1443-4335-8060-8ef2baebbaee?rule=ecg_mp_eps$_85.jpg" alt="BYD ATTO 2 Comfort 65 kWh | 430 KM Range | (bj 2026)" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="byd-byd-atto-2-comfort-65-kwh-430-km-range-bj-20-11" aria-pressed="false" aria-label="Bewaar BYD ATTO 2 Comfort 65 kWh | 430 KM Range | (bj 2026)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/byd-byd-atto-2-comfort-65-kwh-430-km-range-bj-20-11/">BYD ATTO 2 Comfort 65 kWh | 430 KM Range | (bj 2026)</a></h3>
+    <h3><a href="v/byd-byd-atto-2-comfort-65-kwh-430-km-range-bj-20-11/">BYD ATTO 2 Comfort 65 kWh</a></h3>
     <p class="st-spec">2026 · 7.114 km</p>
     <div class="st-foot">
       <span class="st-price">€ 32.945</span>
@@ -619,7 +686,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="toyota-toyota-yaris-cross-1-5-hybrid-executive-b-12" data-rang="11" data-merk="Toyota" data-prijs="29950" data-jaar="2024" data-zoek="toyota yaris cross 1.5 hybrid executive | bear-lock | trekha toyota">
   <div class="st-shot"><a class="st-link" href="v/toyota-toyota-yaris-cross-1-5-hybrid-executive-b-12/" aria-label="Toyota Yaris Cross 1.5 Hybrid Executive | Bear-Lock | Trekha"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/df82ac69-f435-45ce-8dd2-0f1cfc242df2?rule=ecg_mp_eps$_85.jpg" alt="Toyota Yaris Cross 1.5 Hybrid Executive | Bear-Lock | Trekha" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-yaris-cross-1-5-hybrid-executive-b-12" aria-pressed="false" aria-label="Bewaar Toyota Yaris Cross 1.5 Hybrid Executive | Bear-Lock | Trekha"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/toyota-toyota-yaris-cross-1-5-hybrid-executive-b-12/">Toyota Yaris Cross 1.5 Hybrid Executive | Bear-Lock | Trekha</a></h3>
+    <h3><a href="v/toyota-toyota-yaris-cross-1-5-hybrid-executive-b-12/">Toyota Yaris Cross 1.5 Hybrid Executive</a></h3>
     <p class="st-spec">2024 · 39.678 km</p>
     <div class="st-foot">
       <span class="st-price">€ 29.950</span>
@@ -629,7 +696,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="toyota-corolla-13" data-rang="12" data-merk="Toyota" data-prijs="29245" data-jaar="2025" data-kenmerk="Navigatie" data-zoek="toyota corolla touring sports hybrid 140 dynamic | navigatie toyota corolla navigatie">
   <div class="st-shot"><a class="st-link" href="v/toyota-corolla-13/" aria-label="Toyota Corolla Touring Sports Hybrid 140 Dynamic | Navigatie"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/81a9908c-feb5-4acb-9027-d5df1716d3c9?rule=ecg_mp_eps$_85.jpg" alt="Toyota Corolla Touring Sports Hybrid 140 Dynamic | Navigatie" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="toyota-corolla-13" aria-pressed="false" aria-label="Bewaar Toyota Corolla Touring Sports Hybrid 140 Dynamic | Navigatie"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/toyota-corolla-13/">Toyota Corolla Touring Sports Hybrid 140 Dynamic | Navigatie</a></h3>
+    <h3><a href="v/toyota-corolla-13/">Toyota Corolla Touring Sports Hybrid 140 Dynamic</a></h3>
     <p class="st-spec">2025 · 23.126 km</p>
     <div class="st-foot">
       <span class="st-price">€ 29.245</span>
@@ -639,7 +706,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="toyota-c-hr-14" data-rang="13" data-merk="Toyota" data-prijs="27950" data-jaar="2024" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="toyota c-hr 2.0 hybrid dynamic | btw voertuig | dodehoek det toyota c-hr hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/toyota-c-hr-14/" aria-label="Toyota C-HR 2.0 Hybrid Dynamic | BTW voertuig | Dodehoek det"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5d24dd0c-154e-4910-b4c3-ffb33970b5d7?rule=ecg_mp_eps$_85.jpg" alt="Toyota C-HR 2.0 Hybrid Dynamic | BTW voertuig | Dodehoek det" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="toyota-c-hr-14" aria-pressed="false" aria-label="Bewaar Toyota C-HR 2.0 Hybrid Dynamic | BTW voertuig | Dodehoek det"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/toyota-c-hr-14/">Toyota C-HR 2.0 Hybrid Dynamic | BTW voertuig | Dodehoek det</a></h3>
+    <h3><a href="v/toyota-c-hr-14/">Toyota C-HR 2.0 Hybrid Dynamic</a></h3>
     <p class="st-spec">2024 · 67.925 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 27.950</span>
@@ -649,7 +716,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="toyota-toyota-yaris-1-5-hybrid-115-dynamic-comfo-15" data-rang="14" data-merk="Toyota" data-prijs="26950" data-jaar="2025" data-zoek="toyota yaris 1.5 hybrid 115 dynamic comfort pack | stoel+stu toyota">
   <div class="st-shot"><a class="st-link" href="v/toyota-toyota-yaris-1-5-hybrid-115-dynamic-comfo-15/" aria-label="Toyota Yaris 1.5 Hybrid 115 Dynamic Comfort Pack | Stoel+stu"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1d347f30-e2b1-4174-93a3-a9b33775c96c?rule=ecg_mp_eps$_85.jpg" alt="Toyota Yaris 1.5 Hybrid 115 Dynamic Comfort Pack | Stoel+stu" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-yaris-1-5-hybrid-115-dynamic-comfo-15" aria-pressed="false" aria-label="Bewaar Toyota Yaris 1.5 Hybrid 115 Dynamic Comfort Pack | Stoel+stu"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/toyota-toyota-yaris-1-5-hybrid-115-dynamic-comfo-15/">Toyota Yaris 1.5 Hybrid 115 Dynamic Comfort Pack | Stoel+stu</a></h3>
+    <h3><a href="v/toyota-toyota-yaris-1-5-hybrid-115-dynamic-comfo-15/">Toyota Yaris 1.5 Hybrid 115 Dynamic Comfort Pack</a></h3>
     <p class="st-spec">2025 · 3.955 km</p>
     <div class="st-foot">
       <span class="st-price">€ 26.950</span>
@@ -659,7 +726,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="lexus-lexus-ux-250h-business-line-stoelverwarmin-16" data-rang="15" data-merk="Lexus" data-prijs="26950" data-jaar="2020" data-zoek="lexus ux 250h business line | stoelverwarming | stuurverwarm lexus">
   <div class="st-shot"><a class="st-link" href="v/lexus-lexus-ux-250h-business-line-stoelverwarmin-16/" aria-label="Lexus UX 250h Business Line | Stoelverwarming | Stuurverwarm"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/56fbb19a-5e90-4bf2-b634-04fe9ddbdd3a?rule=ecg_mp_eps$_85.jpg" alt="Lexus UX 250h Business Line | Stoelverwarming | Stuurverwarm" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="lexus-lexus-ux-250h-business-line-stoelverwarmin-16" aria-pressed="false" aria-label="Bewaar Lexus UX 250h Business Line | Stoelverwarming | Stuurverwarm"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/lexus-lexus-ux-250h-business-line-stoelverwarmin-16/">Lexus UX 250h Business Line | Stoelverwarming | Stuurverwarm</a></h3>
+    <h3><a href="v/lexus-lexus-ux-250h-business-line-stoelverwarmin-16/">Lexus UX 250h Business Line</a></h3>
     <p class="st-spec">2020 · 75.365 km</p>
     <div class="st-foot">
       <span class="st-price">€ 26.950</span>
@@ -669,7 +736,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="toyota-toyota-yaris-hybrid-115-dynamic-navigatie-17" data-rang="16" data-merk="Toyota" data-prijs="24945" data-jaar="2025" data-brandstof="Hybride Elektrisch/Benzine" data-kenmerk="Navigatie" data-zoek="toyota yaris hybrid 115 dynamic | navigatie | 16&quot; lichtmetal toyota hybride elektrisch/benzine navigatie">
   <div class="st-shot"><a class="st-link" href="v/toyota-toyota-yaris-hybrid-115-dynamic-navigatie-17/" aria-label="Toyota Yaris Hybrid 115 Dynamic | Navigatie | 16&quot; Lichtmetal"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/879948e2-6079-44a5-b35a-663c03e05c9c?rule=ecg_mp_eps$_85.jpg" alt="Toyota Yaris Hybrid 115 Dynamic | Navigatie | 16&quot; Lichtmetal" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-yaris-hybrid-115-dynamic-navigatie-17" aria-pressed="false" aria-label="Bewaar Toyota Yaris Hybrid 115 Dynamic | Navigatie | 16&quot; Lichtmetal"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/toyota-toyota-yaris-hybrid-115-dynamic-navigatie-17/">Toyota Yaris Hybrid 115 Dynamic | Navigatie | 16&quot; Lichtmetal</a></h3>
+    <h3><a href="v/toyota-toyota-yaris-hybrid-115-dynamic-navigatie-17/">Toyota Yaris Hybrid 115 Dynamic</a></h3>
     <p class="st-spec">2025 · 16.665 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 24.945</span>
@@ -679,7 +746,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="toyota-yaris-18" data-rang="17" data-merk="Toyota" data-prijs="22495" data-jaar="2020" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="toyota yaris 1.5 hybrid launch edition limited | head-up dis toyota yaris hybride elektrisch/benzine">
   <div class="st-shot"><a class="st-link" href="v/toyota-yaris-18/" aria-label="Toyota Yaris 1.5 Hybrid Launch Edition Limited | Head-Up Dis"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9ea89a96-12d6-4281-a07b-e2fe85db375d?rule=ecg_mp_eps$_85.jpg" alt="Toyota Yaris 1.5 Hybrid Launch Edition Limited | Head-Up Dis" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="toyota-yaris-18" aria-pressed="false" aria-label="Bewaar Toyota Yaris 1.5 Hybrid Launch Edition Limited | Head-Up Dis"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/toyota-yaris-18/">Toyota Yaris 1.5 Hybrid Launch Edition Limited | Head-Up Dis</a></h3>
+    <h3><a href="v/toyota-yaris-18/">Toyota Yaris 1.5 Hybrid Launch Edition Limited</a></h3>
     <p class="st-spec">2020 · 43.947 km · Hybride Elektrisch/Benzine</p>
     <div class="st-foot">
       <span class="st-price">€ 22.495</span>
@@ -710,7 +777,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/43/4342a01e-b8d8-4197-a833-f20bb53586ad?rule=ecg_mp_eps$_85.jpg" alt="Louwman" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>2444</b><span>voertuigen staan klaar</span></div><div><b>€ 22.495</b><span>de goedkoopste van dit moment</span></div><div><b>2025</b><span>mediaan bouwjaar</span></div><div><b>16</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in 's-Gravenhage.</p>
+  <ul class="sec-belofte-lijst"><li><b>2444</b> voertuigen staan klaar</li><li>vanaf <b>€ 22.495</b></li><li>gemiddeld bouwjaar <b>2025</b></li></ul>
+</div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">

@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #e8e1da}
+section:nth-of-type(even){background:#f2e9e2}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#6b625a;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#a4482a;color:#fffaf7;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.035em;color:#a4482a;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#6b625a;font-size:15px}
 .sec-trust a{color:#1c1815}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #e8e1da;color:#6b625a;font-size:15.5px}
+.sec-vestiging strong{color:#1c1815;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;letter-spacing:-0.035em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #e8e1da;color:#6b625a;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:1.35em;color:#a4482a;letter-spacing:-0.035em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#6b625a;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #e8e1da;border-radius:14px;background:#f2e9e2;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:14px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#6b625a;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#ffffff;border:1px solid #e8e1da;border-radius:14px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#a4482a66}
+.ug-shot{aspect-ratio:4/3;background:#f2e9e2;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#6b625a;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.035em;color:#a4482a;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #e8e1da;background:#ffffff}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -432,7 +472,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autobedrijf Hans Drouen (familie, mediaanprijs EUR 8950, 28 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet terra, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #a4482a.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties about > stock > trust > process > hours > contact.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties about > uitgelicht > stock > trust > process > hours > contact.
 FORM: familie-terra-split-grid-schibstedgrotesk-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -457,6 +497,33 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <p>Bij Autobedrijf Hans Drouen koop je een auto zoals het hoort: rijklaar afgeleverd, eerlijk geprijsd en zonder verborgen kosten. What you see is what you get!</p>
     </div>
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/5e125586-073b-4c61-b1bf-058cd7e13091?rule=ecg_mp_eps$_85.jpg" alt="Autobedrijf Hans Drouen" loading="lazy"></div>
+  </div>
+</section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/land-rover-land-rover-defender-2-5-td5-90-sw-bla-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2519191d-06b9-4ace-b02d-5be71581d361?rule=ecg_mp_eps$_86.jpg" alt="Land Rover Defender 2.5 TD5 90 SW Black Limited Edition" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Land Rover Defender 2.5 TD5 90 SW Black Limited Edition</h3>
+    <p class="ug-spec">2003 · 57.501 km</p>
+    <p class="ug-prijs">€ 54.500</p>
+  </div>
+</a><a class="ug-kaart" href="v/mercedes-benz-mercedes-benz-b-klasse-220-4matic--2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/560a0394-38b7-4215-a44f-f6fa791cde61?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz B-klasse 220 4Matic Prestige" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mercedes-Benz B-klasse 220 4Matic Prestige</h3>
+    <p class="ug-spec">2017 · 94.982 km</p>
+    <p class="ug-prijs">€ 19.250</p>
+  </div>
+</a><a class="ug-kaart" href="v/mercedes-benz-mercedes-benz-c-klasse-180-prestig-3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b87eb198-4d68-4040-a8e8-f474612dd5ab?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz C-klasse 180 Prestige" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Mercedes-Benz C-klasse 180 Prestige</h3>
+    <p class="ug-spec">2014 · 114.220 km</p>
+    <p class="ug-prijs">€ 16.750</p>
+  </div>
+</a></div>
   </div>
 </section>
 <section id="voorraad">
@@ -519,7 +586,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div><div class="st-grid" data-voorraad><article class="st-card " data-slug="land-rover-land-rover-defender-2-5-td5-90-sw-bla-1" data-rang="0" data-merk="Land Rover" data-prijs="54500" data-jaar="2003" data-zoek="land rover defender 2.5 td5 90 sw black limited edition | un land rover">
   <div class="st-shot"><a class="st-link" href="v/land-rover-land-rover-defender-2-5-td5-90-sw-bla-1/" aria-label="Land Rover Defender 2.5 TD5 90 SW Black Limited Edition | UN"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2519191d-06b9-4ace-b02d-5be71581d361?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Defender 2.5 TD5 90 SW Black Limited Edition | UN" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="land-rover-land-rover-defender-2-5-td5-90-sw-bla-1" aria-pressed="false" aria-label="Bewaar Land Rover Defender 2.5 TD5 90 SW Black Limited Edition | UN"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/land-rover-land-rover-defender-2-5-td5-90-sw-bla-1/">Land Rover Defender 2.5 TD5 90 SW Black Limited Edition | UN</a></h3>
+    <h3><a href="v/land-rover-land-rover-defender-2-5-td5-90-sw-bla-1/">Land Rover Defender 2.5 TD5 90 SW Black Limited Edition</a></h3>
     <p class="st-spec">2003 · 57.501 km</p>
     <div class="st-foot">
       <span class="st-price">€ 54.500</span>
@@ -529,7 +596,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-b-klasse-220-4matic--2" data-rang="1" data-merk="Mercedes-Benz" data-prijs="19250" data-jaar="2017" data-kenmerk="Automaat" data-zoek="mercedes-benz b-klasse 220 4matic prestige | automaat | trek mercedes-benz automaat">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-b-klasse-220-4matic--2/" aria-label="Mercedes-Benz B-klasse 220 4Matic Prestige | AUTOMAAT | TREK"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/560a0394-38b7-4215-a44f-f6fa791cde61?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz B-klasse 220 4Matic Prestige | AUTOMAAT | TREK" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-b-klasse-220-4matic--2" aria-pressed="false" aria-label="Bewaar Mercedes-Benz B-klasse 220 4Matic Prestige | AUTOMAAT | TREK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-b-klasse-220-4matic--2/">Mercedes-Benz B-klasse 220 4Matic Prestige | AUTOMAAT | TREK</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-b-klasse-220-4matic--2/">Mercedes-Benz B-klasse 220 4Matic Prestige</a></h3>
     <p class="st-spec">2017 · 94.982 km</p>
     <div class="st-foot">
       <span class="st-price">€ 19.250</span>
@@ -539,7 +606,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-c-klasse-180-prestig-3" data-rang="2" data-merk="Mercedes-Benz" data-prijs="16750" data-jaar="2014" data-kenmerk="Navigatie" data-zoek="mercedes-benz c-klasse 180 prestige | panorama | navi | blue mercedes-benz navigatie">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-c-klasse-180-prestig-3/" aria-label="Mercedes-Benz C-klasse 180 Prestige | PANORAMA | NAVI | BLUE"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b87eb198-4d68-4040-a8e8-f474612dd5ab?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-klasse 180 Prestige | PANORAMA | NAVI | BLUE" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-c-klasse-180-prestig-3" aria-pressed="false" aria-label="Bewaar Mercedes-Benz C-klasse 180 Prestige | PANORAMA | NAVI | BLUE"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-180-prestig-3/">Mercedes-Benz C-klasse 180 Prestige | PANORAMA | NAVI | BLUE</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-180-prestig-3/">Mercedes-Benz C-klasse 180 Prestige</a></h3>
     <p class="st-spec">2014 · 114.220 km</p>
     <div class="st-foot">
       <span class="st-price">€ 16.750</span>
@@ -549,7 +616,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="opel-opel-cascada-1-6-turbo-innovation-automaat--4" data-rang="3" data-merk="Opel" data-prijs="14250" data-jaar="2016" data-kenmerk="Automaat" data-zoek="opel cascada 1.6 turbo innovation | automaat | carplay | a.c opel automaat">
   <div class="st-shot"><a class="st-link" href="v/opel-opel-cascada-1-6-turbo-innovation-automaat--4/" aria-label="Opel CASCADA 1.6 Turbo Innovation | AUTOMAAT | CARPLAY | A.C"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9485aef0-b33c-4027-a39f-4defc7a5403b?rule=ecg_mp_eps$_85.jpg" alt="Opel CASCADA 1.6 Turbo Innovation | AUTOMAAT | CARPLAY | A.C" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="opel-opel-cascada-1-6-turbo-innovation-automaat--4" aria-pressed="false" aria-label="Bewaar Opel CASCADA 1.6 Turbo Innovation | AUTOMAAT | CARPLAY | A.C"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/opel-opel-cascada-1-6-turbo-innovation-automaat--4/">Opel CASCADA 1.6 Turbo Innovation | AUTOMAAT | CARPLAY | A.C</a></h3>
+    <h3><a href="v/opel-opel-cascada-1-6-turbo-innovation-automaat--4/">Opel CASCADA 1.6 Turbo Innovation</a></h3>
     <p class="st-spec">2016 · 135.808 km</p>
     <div class="st-foot">
       <span class="st-price">€ 14.250</span>
@@ -559,7 +626,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="kia-kia-picanto-1-2-cvvt-gt-line-automaat-carpla-5" data-rang="4" data-merk="Kia" data-prijs="13950" data-jaar="2017" data-kenmerk="Automaat" data-zoek="kia picanto 1.2 cvvt gt-line | automaat | carplay | a.camera kia automaat">
   <div class="st-shot"><a class="st-link" href="v/kia-kia-picanto-1-2-cvvt-gt-line-automaat-carpla-5/" aria-label="Kia PICANTO 1.2 CVVT GT-Line | AUTOMAAT | CARPLAY | A.CAMERA"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1eb956e9-8d66-4259-9a97-9cf8e853ee29?rule=ecg_mp_eps$_85.jpg" alt="Kia PICANTO 1.2 CVVT GT-Line | AUTOMAAT | CARPLAY | A.CAMERA" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="kia-kia-picanto-1-2-cvvt-gt-line-automaat-carpla-5" aria-pressed="false" aria-label="Bewaar Kia PICANTO 1.2 CVVT GT-Line | AUTOMAAT | CARPLAY | A.CAMERA"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/kia-kia-picanto-1-2-cvvt-gt-line-automaat-carpla-5/">Kia PICANTO 1.2 CVVT GT-Line | AUTOMAAT | CARPLAY | A.CAMERA</a></h3>
+    <h3><a href="v/kia-kia-picanto-1-2-cvvt-gt-line-automaat-carpla-5/">Kia PICANTO 1.2 CVVT GT-Line</a></h3>
     <p class="st-spec">2017 · 89.917 km</p>
     <div class="st-foot">
       <span class="st-price">€ 13.950</span>
@@ -569,7 +636,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-a-klasse-180-ambitio-6" data-rang="5" data-merk="Mercedes-Benz" data-prijs="11450" data-jaar="2013" data-kenmerk="Automaat" data-zoek="mercedes-benz a-klasse 180 ambition | topstaat | automaat | mercedes-benz automaat">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-a-klasse-180-ambitio-6/" aria-label="Mercedes-Benz A-klasse 180 Ambition | TOPSTAAT | AUTOMAAT |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/95c5a544-c0a9-4ad0-af20-80c6ccd10edb?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz A-klasse 180 Ambition | TOPSTAAT | AUTOMAAT |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-a-klasse-180-ambitio-6" aria-pressed="false" aria-label="Bewaar Mercedes-Benz A-klasse 180 Ambition | TOPSTAAT | AUTOMAAT |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-a-klasse-180-ambitio-6/">Mercedes-Benz A-klasse 180 Ambition | TOPSTAAT | AUTOMAAT |</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-a-klasse-180-ambitio-6/">Mercedes-Benz A-klasse 180 Ambition</a></h3>
     <p class="st-spec">2013 · 137.251 km</p>
     <div class="st-foot">
       <span class="st-price">€ 11.450</span>
@@ -579,7 +646,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="opel-opel-mokka-1-4-t-edition-4x4-trekhaak-leder-7" data-rang="6" data-merk="Opel" data-prijs="9750" data-jaar="2016" data-kenmerk="Navigatie|Trekhaak" data-zoek="opel mokka 1.4 t edition 4x4 | trekhaak | leder | navi | aux opel navigatie trekhaak">
   <div class="st-shot"><a class="st-link" href="v/opel-opel-mokka-1-4-t-edition-4x4-trekhaak-leder-7/" aria-label="Opel Mokka 1.4 T Edition 4x4 | TREKHAAK | LEDER | NAVI | AUX"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a9ec0db4-5862-4b3e-addf-93166e9ff1db?rule=ecg_mp_eps$_85.jpg" alt="Opel Mokka 1.4 T Edition 4x4 | TREKHAAK | LEDER | NAVI | AUX" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="opel-opel-mokka-1-4-t-edition-4x4-trekhaak-leder-7" aria-pressed="false" aria-label="Bewaar Opel Mokka 1.4 T Edition 4x4 | TREKHAAK | LEDER | NAVI | AUX"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/opel-opel-mokka-1-4-t-edition-4x4-trekhaak-leder-7/">Opel Mokka 1.4 T Edition 4x4 | TREKHAAK | LEDER | NAVI | AUX</a></h3>
+    <h3><a href="v/opel-opel-mokka-1-4-t-edition-4x4-trekhaak-leder-7/">Opel Mokka 1.4 T Edition 4x4</a></h3>
     <p class="st-spec">2016 · 102.331 km</p>
     <div class="st-foot">
       <span class="st-price">€ 9.750</span>
@@ -589,7 +656,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="ford-ecosport-8" data-rang="7" data-merk="Ford" data-prijs="9700" data-jaar="2018" data-zoek="ford ecosport 1.0 ecoboost st-line black | carplay | a.camer ford ecosport">
   <div class="st-shot"><a class="st-link" href="v/ford-ecosport-8/" aria-label="Ford ECOSPORT 1.0 EcoBoost ST-Line Black | CARPLAY | A.CAMER"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b49733da-373e-447c-9bb3-506a7b06c30f?rule=ecg_mp_eps$_85.jpg" alt="Ford ECOSPORT 1.0 EcoBoost ST-Line Black | CARPLAY | A.CAMER" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="ford-ecosport-8" aria-pressed="false" aria-label="Bewaar Ford ECOSPORT 1.0 EcoBoost ST-Line Black | CARPLAY | A.CAMER"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/ford-ecosport-8/">Ford ECOSPORT 1.0 EcoBoost ST-Line Black | CARPLAY | A.CAMER</a></h3>
+    <h3><a href="v/ford-ecosport-8/">Ford ECOSPORT 1.0 EcoBoost ST-Line Black</a></h3>
     <p class="st-spec">2018 · 130.641 km</p>
     <div class="st-foot">
       <span class="st-price">€ 9.700</span>
@@ -599,7 +666,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="opel-opel-karl-1-0-ecoflex-innovation-automaat-c-9" data-rang="8" data-merk="Opel" data-prijs="9650" data-jaar="2016" data-kenmerk="Automaat" data-zoek="opel karl 1.0 ecoflex innovation | automaat | carplay | blue opel automaat">
   <div class="st-shot"><a class="st-link" href="v/opel-opel-karl-1-0-ecoflex-innovation-automaat-c-9/" aria-label="Opel KARL 1.0 ecoFLEX Innovation | AUTOMAAT | CARPLAY | BLUE"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/03091a59-2cdb-4bb8-8c17-473cc5b322d2?rule=ecg_mp_eps$_85.jpg" alt="Opel KARL 1.0 ecoFLEX Innovation | AUTOMAAT | CARPLAY | BLUE" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="opel-opel-karl-1-0-ecoflex-innovation-automaat-c-9" aria-pressed="false" aria-label="Bewaar Opel KARL 1.0 ecoFLEX Innovation | AUTOMAAT | CARPLAY | BLUE"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/opel-opel-karl-1-0-ecoflex-innovation-automaat-c-9/">Opel KARL 1.0 ecoFLEX Innovation | AUTOMAAT | CARPLAY | BLUE</a></h3>
+    <h3><a href="v/opel-opel-karl-1-0-ecoflex-innovation-automaat-c-9/">Opel KARL 1.0 ecoFLEX Innovation</a></h3>
     <p class="st-spec">2016 · 105.860 km</p>
     <div class="st-foot">
       <span class="st-price">€ 9.650</span>
@@ -609,7 +676,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="ford-ford-focus-1-0-lease-edition-trekhaak-navi--10" data-rang="9" data-merk="Ford" data-prijs="8250" data-jaar="2018" data-kenmerk="Navigatie|Trekhaak" data-zoek="ford focus 1.0 lease edition | trekhaak | navi | bluetooth | ford navigatie trekhaak">
   <div class="st-shot"><a class="st-link" href="v/ford-ford-focus-1-0-lease-edition-trekhaak-navi--10/" aria-label="Ford Focus 1.0 Lease Edition | TREKHAAK | NAVI | BLUETOOTH |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/edb29934-91c9-479c-b7ab-07ca7e4c60d8?rule=ecg_mp_eps$_85.jpg" alt="Ford Focus 1.0 Lease Edition | TREKHAAK | NAVI | BLUETOOTH |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="ford-ford-focus-1-0-lease-edition-trekhaak-navi--10" aria-pressed="false" aria-label="Bewaar Ford Focus 1.0 Lease Edition | TREKHAAK | NAVI | BLUETOOTH |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/ford-ford-focus-1-0-lease-edition-trekhaak-navi--10/">Ford Focus 1.0 Lease Edition | TREKHAAK | NAVI | BLUETOOTH |</a></h3>
+    <h3><a href="v/ford-ford-focus-1-0-lease-edition-trekhaak-navi--10/">Ford Focus 1.0 Lease Edition</a></h3>
     <p class="st-spec">2018 · 117.154 km</p>
     <div class="st-foot">
       <span class="st-price">€ 8.250</span>
@@ -619,7 +686,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="renault-renault-captur-0-9-tce-dynamique-navi-bl-11" data-rang="10" data-merk="Renault" data-prijs="6995" data-jaar="2017" data-kenmerk="Navigatie" data-zoek="renault captur 0.9 tce dynamique | navi | bluetooth | stoelv renault navigatie">
   <div class="st-shot"><a class="st-link" href="v/renault-renault-captur-0-9-tce-dynamique-navi-bl-11/" aria-label="Renault Captur 0.9 TCe Dynamique | NAVI | BLUETOOTH | STOELV"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3988f0e8-0ef6-42d1-9e30-49c4473e9e64?rule=ecg_mp_eps$_85.jpg" alt="Renault Captur 0.9 TCe Dynamique | NAVI | BLUETOOTH | STOELV" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="renault-renault-captur-0-9-tce-dynamique-navi-bl-11" aria-pressed="false" aria-label="Bewaar Renault Captur 0.9 TCe Dynamique | NAVI | BLUETOOTH | STOELV"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/renault-renault-captur-0-9-tce-dynamique-navi-bl-11/">Renault Captur 0.9 TCe Dynamique | NAVI | BLUETOOTH | STOELV</a></h3>
+    <h3><a href="v/renault-renault-captur-0-9-tce-dynamique-navi-bl-11/">Renault Captur 0.9 TCe Dynamique</a></h3>
     <p class="st-spec">2017 · 182.501 km</p>
     <div class="st-foot">
       <span class="st-price">€ 6.995</span>
@@ -629,7 +696,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-308-sw-1-2-puretech-blue-lease-e-12" data-rang="11" data-merk="Peugeot" data-prijs="6995" data-jaar="2016" data-zoek="peugeot 308 sw 1.2 puretech blue lease executive | pano | na peugeot">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-308-sw-1-2-puretech-blue-lease-e-12/" aria-label="Peugeot 308 SW 1.2 PureTech Blue Lease Executive | PANO | NA"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c0879daa-2176-4e1c-9471-25989c8b490a?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 308 SW 1.2 PureTech Blue Lease Executive | PANO | NA" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-308-sw-1-2-puretech-blue-lease-e-12" aria-pressed="false" aria-label="Bewaar Peugeot 308 SW 1.2 PureTech Blue Lease Executive | PANO | NA"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-308-sw-1-2-puretech-blue-lease-e-12/">Peugeot 308 SW 1.2 PureTech Blue Lease Executive | PANO | NA</a></h3>
+    <h3><a href="v/peugeot-peugeot-308-sw-1-2-puretech-blue-lease-e-12/">Peugeot 308 SW 1.2 PureTech Blue Lease Executive</a></h3>
     <p class="st-spec">2016 · 109.227 km</p>
     <div class="st-foot">
       <span class="st-price">€ 6.995</span>
@@ -639,7 +706,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="opel-adam-13" data-rang="12" data-merk="Opel" data-prijs="5995" data-jaar="2013" data-zoek="opel adam 1.4 glam | duplex sportuitlaat | sterrenhemel | au opel adam">
   <div class="st-shot"><a class="st-link" href="v/opel-adam-13/" aria-label="Opel ADAM 1.4 Glam | DUPLEX SPORTUITLAAT | STERRENHEMEL | AU"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6e3276dd-6d5d-4304-9cf2-2e07a798ea0e?rule=ecg_mp_eps$_85.jpg" alt="Opel ADAM 1.4 Glam | DUPLEX SPORTUITLAAT | STERRENHEMEL | AU" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="opel-adam-13" aria-pressed="false" aria-label="Bewaar Opel ADAM 1.4 Glam | DUPLEX SPORTUITLAAT | STERRENHEMEL | AU"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/opel-adam-13/">Opel ADAM 1.4 Glam | DUPLEX SPORTUITLAAT | STERRENHEMEL | AU</a></h3>
+    <h3><a href="v/opel-adam-13/">Opel ADAM 1.4 Glam</a></h3>
     <p class="st-spec">2013 · 132.137 km</p>
     <div class="st-foot">
       <span class="st-price">€ 5.995</span>
@@ -649,7 +716,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="kia-kia-picanto-1-0-cvvt-isg-comfort-pack-airco--14" data-rang="13" data-merk="Kia" data-prijs="5750" data-jaar="2013" data-kenmerk="Airco" data-zoek="kia picanto 1.0 cvvt isg comfort pack | airco | aux/usb | el kia airco">
   <div class="st-shot"><a class="st-link" href="v/kia-kia-picanto-1-0-cvvt-isg-comfort-pack-airco--14/" aria-label="Kia Picanto 1.0 CVVT ISG Comfort Pack | AIRCO | AUX/USB | EL"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7efe86ab-73ed-4dbb-9409-fc198b132fb1?rule=ecg_mp_eps$_85.jpg" alt="Kia Picanto 1.0 CVVT ISG Comfort Pack | AIRCO | AUX/USB | EL" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="kia-kia-picanto-1-0-cvvt-isg-comfort-pack-airco--14" aria-pressed="false" aria-label="Bewaar Kia Picanto 1.0 CVVT ISG Comfort Pack | AIRCO | AUX/USB | EL"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/kia-kia-picanto-1-0-cvvt-isg-comfort-pack-airco--14/">Kia Picanto 1.0 CVVT ISG Comfort Pack | AIRCO | AUX/USB | EL</a></h3>
+    <h3><a href="v/kia-kia-picanto-1-0-cvvt-isg-comfort-pack-airco--14/">Kia Picanto 1.0 CVVT ISG Comfort Pack</a></h3>
     <p class="st-spec">2013 · 95.703 km</p>
     <div class="st-foot">
       <span class="st-price">€ 5.750</span>
@@ -659,7 +726,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="volkswagen-volkswagen-polo-1-2-easyline-airco-bl-15" data-rang="14" data-merk="Volkswagen" data-prijs="4950" data-jaar="2010" data-kenmerk="Airco" data-zoek="volkswagen polo 1.2 easyline | airco | bluetooth | spotify | volkswagen airco">
   <div class="st-shot"><a class="st-link" href="v/volkswagen-volkswagen-polo-1-2-easyline-airco-bl-15/" aria-label="Volkswagen Polo 1.2 Easyline | AIRCO | BLUETOOTH | SPOTIFY |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c7e739c3-71c7-4d4d-9768-347d2165f589?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Polo 1.2 Easyline | AIRCO | BLUETOOTH | SPOTIFY |" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-polo-1-2-easyline-airco-bl-15" aria-pressed="false" aria-label="Bewaar Volkswagen Polo 1.2 Easyline | AIRCO | BLUETOOTH | SPOTIFY |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/volkswagen-volkswagen-polo-1-2-easyline-airco-bl-15/">Volkswagen Polo 1.2 Easyline | AIRCO | BLUETOOTH | SPOTIFY |</a></h3>
+    <h3><a href="v/volkswagen-volkswagen-polo-1-2-easyline-airco-bl-15/">Volkswagen Polo 1.2 Easyline</a></h3>
     <p class="st-spec">2010 · 181.554 km</p>
     <div class="st-foot">
       <span class="st-price">€ 4.950</span>
@@ -669,7 +736,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="toyota-toyota-urban-cruiser-1-3-vvt-i-dynamic-to-16" data-rang="15" data-merk="Toyota" data-prijs="4950" data-jaar="2009" data-kenmerk="Trekhaak" data-zoek="toyota urban cruiser 1.3 vvt-i dynamic | topstaat | trekhaak toyota trekhaak">
   <div class="st-shot"><a class="st-link" href="v/toyota-toyota-urban-cruiser-1-3-vvt-i-dynamic-to-16/" aria-label="Toyota Urban Cruiser 1.3 VVT-i Dynamic | TOPSTAAT | TREKHAAK"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/82ba546e-ffa2-4549-bfac-e5754d36cbdf?rule=ecg_mp_eps$_85.jpg" alt="Toyota Urban Cruiser 1.3 VVT-i Dynamic | TOPSTAAT | TREKHAAK" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-urban-cruiser-1-3-vvt-i-dynamic-to-16" aria-pressed="false" aria-label="Bewaar Toyota Urban Cruiser 1.3 VVT-i Dynamic | TOPSTAAT | TREKHAAK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/toyota-toyota-urban-cruiser-1-3-vvt-i-dynamic-to-16/">Toyota Urban Cruiser 1.3 VVT-i Dynamic | TOPSTAAT | TREKHAAK</a></h3>
+    <h3><a href="v/toyota-toyota-urban-cruiser-1-3-vvt-i-dynamic-to-16/">Toyota Urban Cruiser 1.3 VVT-i Dynamic</a></h3>
     <p class="st-spec">2009 · 205.169 km</p>
     <div class="st-foot">
       <span class="st-price">€ 4.950</span>
@@ -679,7 +746,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="peugeot-peugeot-308-cc-1-6-thp-feline-trekhaak-n-17" data-rang="16" data-merk="Peugeot" data-prijs="4750" data-jaar="2011" data-kenmerk="Navigatie|Trekhaak" data-zoek="peugeot 308 cc 1.6 thp féline | trekhaak | navi | leder | c peugeot navigatie trekhaak">
   <div class="st-shot"><a class="st-link" href="v/peugeot-peugeot-308-cc-1-6-thp-feline-trekhaak-n-17/" aria-label="Peugeot 308 CC 1.6 THP Féline | TREKHAAK | NAVI | LEDER | C"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d2ad0e42-d4d2-4fcd-86d5-72421bfcf6b4?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 308 CC 1.6 THP Féline | TREKHAAK | NAVI | LEDER | C" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-308-cc-1-6-thp-feline-trekhaak-n-17" aria-pressed="false" aria-label="Bewaar Peugeot 308 CC 1.6 THP Féline | TREKHAAK | NAVI | LEDER | C"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/peugeot-peugeot-308-cc-1-6-thp-feline-trekhaak-n-17/">Peugeot 308 CC 1.6 THP Féline | TREKHAAK | NAVI | LEDER | C</a></h3>
+    <h3><a href="v/peugeot-peugeot-308-cc-1-6-thp-feline-trekhaak-n-17/">Peugeot 308 CC 1.6 THP Féline</a></h3>
     <p class="st-spec">2011 · 182.383 km</p>
     <div class="st-foot">
       <span class="st-price">€ 4.750</span>
@@ -689,7 +756,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card " data-slug="opel-opel-corsa-1-3-cdti-ecoflex-s-s-111-edition-18" data-rang="17" data-merk="Opel" data-prijs="4450" data-jaar="2010" data-zoek="opel corsa 1.3 cdti ecoflex s/s '111' edition | uniek: 53.00 opel">
   <div class="st-shot"><a class="st-link" href="v/opel-opel-corsa-1-3-cdti-ecoflex-s-s-111-edition-18/" aria-label="Opel Corsa 1.3 CDTi EcoFlex S/S '111' Edition | UNIEK: 53.00"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/991e6d95-199a-46cb-b009-69c2316d1bb0?rule=ecg_mp_eps$_85.jpg" alt="Opel Corsa 1.3 CDTi EcoFlex S/S '111' Edition | UNIEK: 53.00" loading="lazy" decoding="async"></a><button class="st-bewaar" type="button" data-bewaar="opel-opel-corsa-1-3-cdti-ecoflex-s-s-111-edition-18" aria-pressed="false" aria-label="Bewaar Opel Corsa 1.3 CDTi EcoFlex S/S '111' Edition | UNIEK: 53.00"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
-    <h3><a href="v/opel-opel-corsa-1-3-cdti-ecoflex-s-s-111-edition-18/">Opel Corsa 1.3 CDTi EcoFlex S/S '111' Edition | UNIEK: 53.00</a></h3>
+    <h3><a href="v/opel-opel-corsa-1-3-cdti-ecoflex-s-s-111-edition-18/">Opel Corsa 1.3 CDTi EcoFlex S/S '111' Edition</a></h3>
     <p class="st-spec">2010 · 53.277 km</p>
     <div class="st-foot">
       <span class="st-price">€ 4.450</span>
@@ -703,7 +770,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </div>
 <div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 10 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31620446936?text=Hallo%20Autobedrijf%20Hans%20Drouen%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.7</b><span>gemiddeld uit 131 beoordelingen</span></div><div><b>14</b><span>jaar op Marktplaats</span></div><div><b>Helmond</b><span><a href="https://maps.google.com/?q=Thorbeckestraat%203%2C%205707JL%20Helmond" target="_blank" rel="noreferrer">Thorbeckestraat 3, 5707JL Helmond</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.7</b><span>gemiddeld uit 131 beoordelingen</span></div><div><b>14</b><span>jaar op Marktplaats</span></div><div><b>9</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Helmond</strong> · <a href="https://maps.google.com/?q=Thorbeckestraat%203%2C%205707JL%20Helmond" target="_blank" rel="noreferrer">Thorbeckestraat 3, 5707JL Helmond</a></p></div></section>
 <section class="sec-flow">
   <div class="wrap">
     <div class="head rv"><h2>Zo gaat het</h2></div>

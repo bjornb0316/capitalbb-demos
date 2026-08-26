@@ -62,7 +62,16 @@ html,body{overflow-x:clip}
   .callbtn{flex:none;padding:11px 15px}
 }
 
-section{padding:clamp(54px,7vw,108px) 0}
+/* Ritme.
+ *
+ * Alle secties hadden dezelfde achtergrond en dezelfde royale ruimte erboven en
+ * eronder. Tussen twee blokken zat daardoor ruim 250 pixels van precies dezelfde
+ * kleur, en dat leest niet als lucht maar als leegte - alsof de pagina niet af
+ * is. Nu wisselt de ondergrond per sectie, zodat je ziet waar het ene blok
+ * ophoudt en het volgende begint. */
+section{padding:clamp(44px,5.5vw,84px) 0;position:relative}
+section + section{border-top:1px solid #2c2427}
+section:nth-of-type(even){background:#1d1618}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
 .head .meta{color:#a2999b;font-size:15px}
@@ -302,10 +311,25 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-table .st-act-cell a{display:inline-block;background:#b2453c;color:#fff8f6;padding:9px 15px;border-radius:2px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
-.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+/* De wrap is hier gewoon een blok: de cijfers zitten in hun eigen raster en de
+   vestigingsregel staat daaronder over de volle breedte. Stond deze regel er
+   nog wel, dan viel dat adres als vierde kolom naast de cijfers. */
+.sec-trust .wrap{display:block}
 .sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#b2453c;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#a2999b;font-size:15px}
 .sec-trust a{color:#f3f0f0}
+.sec-cijfers{display:flex;flex-wrap:wrap;gap:clamp(30px,5vw,72px)}
+.sec-vestiging{margin-top:clamp(26px,3vw,38px);padding-top:clamp(18px,2vw,24px);border-top:1px solid #2c2427;color:#a2999b;font-size:15.5px}
+.sec-vestiging strong{color:#f3f0f0;font-weight:600}
+
+/* De belofte is een uitspraak met cijfers ernaast, geen tweede cijferbalk. */
+.sec-belofte .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,60px);align-items:center}
+.sec-belofte-kop{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:-0.03em;font-size:clamp(24px,2.9vw,38px);line-height:1.15;max-width:18ch}
+.sec-belofte-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec-belofte-lijst li{padding-bottom:12px;border-bottom:1px solid #2c2427;color:#a2999b;font-size:16px}
+.sec-belofte-lijst li:last-child{border-bottom:0}
+.sec-belofte-lijst b{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:1.35em;color:#b2453c;letter-spacing:-0.03em;font-variant-numeric:tabular-nums}
+@media(max-width:820px){.sec-belofte .wrap{grid-template-columns:1fr}}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
@@ -313,7 +337,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
 .sec-about p{color:#a2999b;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #2c2427;border-radius:2px;background:#1d1618;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+/* Hun logo staat vrijwel altijd op wit. Op een donkere pagina werd dat een
+   wit gat; nu is het een bewuste lichte plaat, zoals een visitekaartje. */
+.sec-about .portrait{border-radius:2px;background:#fff;padding:clamp(26px,3vw,40px);display:flex;align-items:center;justify-content:center;min-height:170px;box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
@@ -323,6 +349,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
 .flow li p{color:#a2999b;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+/* Uitgelicht: drie kaarten die veel groter zijn dan die in de voorraad, zodat
+   het gewicht klopt met wat ze zijn - de auto's waarmee je binnenkomt. */
+.ug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.2vw,30px)}
+.ug-kaart{display:block;text-decoration:none;background:#171315;border:1px solid #2c2427;border-radius:2px;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s}
+.ug-kaart:hover{transform:translateY(-5px);border-color:#b2453c66}
+.ug-shot{aspect-ratio:4/3;background:#1d1618;overflow:hidden}
+.ug-shot img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.ug-kaart:hover .ug-shot img{transform:scale(1.05)}
+.ug-body{padding:clamp(18px,2vw,26px)}
+.ug-body h3{font-size:clamp(17px,1.5vw,20px);line-height:1.25}
+.ug-spec{margin-top:8px;color:#a2999b;font-size:14.5px;font-variant-numeric:tabular-nums}
+.ug-prijs{margin-top:14px;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(22px,2.2vw,28px);letter-spacing:-0.03em;color:#b2453c;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.ug-grid{grid-template-columns:1fr}}
 
 .sec-brands{border-block:1px solid #2c2427;background:#171315}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
@@ -355,7 +395,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Linkerbaan B.V. (prestige, mediaanprijs EUR 45920, 59 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet oxblood, 'Archivo Expanded' als display op 'Archivo', hoeken 2px, accent #b2453c.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties trust > stock > process > about > promise > hours > contact.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties trust > uitgelicht > stock > process > about > promise > hours > contact.
 FORM: prestige-oxblood-stack-rail-archivoexpanded-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
@@ -371,7 +411,34 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>Porsche 911 Cabrio 992 3.0 Carrera S | Sport · € 135.945</p><h1>Linkerbaan B.V.</h1><p class="h-lede">Welkom bij de Linkerbaan. Niet alleen onze geliefde plaats op de snelweg, maar bovenal een plek waar verhalen en persoonlijke ervaringen samenkomen. Een plek waar meer benzine dan bloed door</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31384580956">Bel 038-4580956</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div><div class="h-facts"><span>4.9 uit 293 beoordelingen</span><span>9 jaar op Marktplaats</span><span>5 merken in huis</span><span>Kom langs in Harderwijk</span></div></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d4908697-da79-4d81-afd1-13d98b38ccc2?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d4908697-da79-4d81-afd1-13d98b38ccc2?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d4908697-da79-4d81-afd1-13d98b38ccc2?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d4908697-da79-4d81-afd1-13d98b38ccc2?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d4908697-da79-4d81-afd1-13d98b38ccc2?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Porsche 911 Cabrio 992 3.0 Carrera S | Sport Chrono | BOSE |" fetchpriority="high"></figure>
 </header>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.9</b><span>gemiddeld uit 293 beoordelingen</span></div><div><b>9</b><span>jaar op Marktplaats</span></div><div><b>Harderwijk</b><span><a href="https://maps.google.com/?q=Westeinde%20106%2C%203844DR%20Harderwijk" target="_blank" rel="noreferrer">Westeinde 106, 3844DR Harderwijk</a></span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div class="sec-cijfers"><div><b>4.9</b><span>gemiddeld uit 293 beoordelingen</span></div><div><b>9</b><span>jaar op Marktplaats</span></div><div><b>5</b><span>merken in huis</span></div></div><p class="sec-vestiging"><strong>Harderwijk</strong> · <a href="https://maps.google.com/?q=Westeinde%20106%2C%203844DR%20Harderwijk" target="_blank" rel="noreferrer">Westeinde 106, 3844DR Harderwijk</a></p></div></section>
+<section class="sec-uitgelicht">
+  <div class="wrap">
+    <div class="head rv"><h2>Uitgelicht</h2><span class="meta">De drie waar we het meest trots op zijn</span></div>
+    <div class="ug-grid rv"><a class="ug-kaart" href="v/porsche-porsche-911-cabrio-992-3-0-carrera-s-spo-1/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d4908697-da79-4d81-afd1-13d98b38ccc2?rule=ecg_mp_eps$_86.jpg" alt="Porsche 911 Cabrio 992 3.0 Carrera S" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Porsche 911 Cabrio 992 3.0 Carrera S</h3>
+    <p class="ug-spec">2019 · 42.621 km</p>
+    <p class="ug-prijs">€ 135.945</p>
+  </div>
+</a><a class="ug-kaart" href="v/land-rover-land-rover-defender-110-hybrid-x-dyna-2/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3c36cdf7-27e2-4676-a56f-8d0599bd00e9?rule=ecg_mp_eps$_86.jpg" alt="Land Rover Defender 110 Hybrid X-Dynamic P400e SE" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Land Rover Defender 110 Hybrid X-Dynamic P400e SE</h3>
+    <p class="ug-spec">2024 · 72.995 km</p>
+    <p class="ug-prijs">€ 82.895</p>
+  </div>
+</a><a class="ug-kaart" href="v/porsche-porsche-macan-4-100kwh-pano-luchtvering--3/">
+  <div class="ug-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e2e09680-19c6-40ca-a317-e7206c4e8658?rule=ecg_mp_eps$_86.jpg" alt="Porsche Macan 4 100kWh" loading="lazy"></div>
+  <div class="ug-body">
+    <h3>Porsche Macan 4 100kWh</h3>
+    <p class="ug-spec">2024 · 38.000 km</p>
+    <p class="ug-prijs">€ 79.895</p>
+  </div>
+</a></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
@@ -381,7 +448,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
   <div class="st-rail"><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/porsche-porsche-911-cabrio-992-3-0-carrera-s-spo-1/" aria-label="Porsche 911 Cabrio 992 3.0 Carrera S | Sport Chrono | BOSE |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d4908697-da79-4d81-afd1-13d98b38ccc2?rule=ecg_mp_eps$_85.jpg" alt="Porsche 911 Cabrio 992 3.0 Carrera S | Sport Chrono | BOSE |" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/porsche-porsche-911-cabrio-992-3-0-carrera-s-spo-1/">Porsche 911 Cabrio 992 3.0 Carrera S | Sport Chrono | BOSE |</a></h3>
+    <h3><a href="v/porsche-porsche-911-cabrio-992-3-0-carrera-s-spo-1/">Porsche 911 Cabrio 992 3.0 Carrera S</a></h3>
     <p class="st-spec">2019 · 42.621 km</p>
     <div class="st-foot">
       <span class="st-price">€ 135.945</span>
@@ -391,7 +458,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/land-rover-land-rover-defender-110-hybrid-x-dyna-1/" aria-label="Land Rover Defender 110 Hybrid X-Dynamic P400e SE | Pano | T"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3c36cdf7-27e2-4676-a56f-8d0599bd00e9?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Defender 110 Hybrid X-Dynamic P400e SE | Pano | T" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/land-rover-land-rover-defender-110-hybrid-x-dyna-1/">Land Rover Defender 110 Hybrid X-Dynamic P400e SE | Pano | T</a></h3>
+    <h3><a href="v/land-rover-land-rover-defender-110-hybrid-x-dyna-1/">Land Rover Defender 110 Hybrid X-Dynamic P400e SE</a></h3>
     <p class="st-spec">2024 · 72.995 km</p>
     <div class="st-foot">
       <span class="st-price">€ 82.895</span>
@@ -401,7 +468,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/porsche-porsche-macan-4-100kwh-pano-luchtvering--1/" aria-label="Porsche Macan 4 100kWh | Pano | Luchtvering | PDLS | Sport C"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e2e09680-19c6-40ca-a317-e7206c4e8658?rule=ecg_mp_eps$_85.jpg" alt="Porsche Macan 4 100kWh | Pano | Luchtvering | PDLS | Sport C" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/porsche-porsche-macan-4-100kwh-pano-luchtvering--1/">Porsche Macan 4 100kWh | Pano | Luchtvering | PDLS | Sport C</a></h3>
+    <h3><a href="v/porsche-porsche-macan-4-100kwh-pano-luchtvering--1/">Porsche Macan 4 100kWh</a></h3>
     <p class="st-spec">2024 · 38.000 km</p>
     <div class="st-foot">
       <span class="st-price">€ 79.895</span>
@@ -411,7 +478,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-glc-glc-400-e-4matic-1/" aria-label="Mercedes-Benz GLC GLC 400 e 4Matic AMG | Luchtvering | Burme"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/861ec8ed-19b9-4f2a-9f9f-4aa867bbf4ff?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLC GLC 400 e 4Matic AMG | Luchtvering | Burme" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-glc-glc-400-e-4matic-1/">Mercedes-Benz GLC GLC 400 e 4Matic AMG | Luchtvering | Burme</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-glc-glc-400-e-4matic-1/">Mercedes-Benz GLC GLC 400 e 4Matic AMG</a></h3>
     <p class="st-spec">2025 · 5.190 km</p>
     <div class="st-foot">
       <span class="st-price">€ 78.895</span>
@@ -421,7 +488,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-amg-gt-4-door-coupe--1/" aria-label="Mercedes-Benz AMG GT 4-Door Coupe AMG 43 Premium Plus | Pano"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/def8a03c-f359-404e-91d9-d28bf2f587b4?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz AMG GT 4-Door Coupe AMG 43 Premium Plus | Pano" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-amg-gt-4-door-coupe--1/">Mercedes-Benz AMG GT 4-Door Coupe AMG 43 Premium Plus | Pano</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-amg-gt-4-door-coupe--1/">Mercedes-Benz AMG GT 4-Door Coupe AMG 43 Premium Plus</a></h3>
     <p class="st-spec">2020 · 99.452 km</p>
     <div class="st-foot">
       <span class="st-price">€ 73.885</span>
@@ -431,7 +498,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-rs3-1/" aria-label="Audi RS3 2.5 TFSI Limousine Quattro 400pk | Dealer onderhoud"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e49787f8-d488-4697-803b-79dd58f08d8f?rule=ecg_mp_eps$_85.jpg" alt="Audi RS3 2.5 TFSI Limousine Quattro 400pk | Dealer onderhoud" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-rs3-1/">Audi RS3 2.5 TFSI Limousine Quattro 400pk | Dealer onderhoud</a></h3>
+    <h3><a href="v/audi-rs3-1/">Audi RS3 2.5 TFSI Limousine Quattro 400pk</a></h3>
     <p class="st-spec">2022 · 87.914 km</p>
     <div class="st-foot">
       <span class="st-price">€ 57.945</span>
@@ -441,7 +508,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/land-rover-land-rover-range-rover-sport-hse-dyna-1/" aria-label="Land Rover Range Rover Sport HSE Dynamic | Panorama | ACC |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/38db17f2-daa0-4069-bc71-a52ffb12c173?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Range Rover Sport HSE Dynamic | Panorama | ACC |" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/land-rover-land-rover-range-rover-sport-hse-dyna-1/">Land Rover Range Rover Sport HSE Dynamic | Panorama | ACC |</a></h3>
+    <h3><a href="v/land-rover-land-rover-range-rover-sport-hse-dyna-1/">Land Rover Range Rover Sport HSE Dynamic</a></h3>
     <p class="st-spec">2020 · 82.677 km</p>
     <div class="st-foot">
       <span class="st-price">€ 57.495</span>
@@ -461,7 +528,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-c-klasse-estate-amg--1/" aria-label="Mercedes-Benz C-Klasse Estate AMG C63 V8 Biturbo | Panodak |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c79ff8e1-2359-4f49-bae9-8677127066d1?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-Klasse Estate AMG C63 V8 Biturbo | Panodak |" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-estate-amg--1/">Mercedes-Benz C-Klasse Estate AMG C63 V8 Biturbo | Panodak |</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-estate-amg--1/">Mercedes-Benz C-Klasse Estate AMG C63 V8 Biturbo</a></h3>
     <p class="st-spec">2017 · 75.377 km</p>
     <div class="st-foot">
       <span class="st-price">€ 45.945</span>
@@ -471,7 +538,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-m2-lci-facelift-schuifdak-m-performance--1/" aria-label="BMW M2 LCI Facelift | Schuifdak | M Performance | Harman &amp; K"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3e63e74f-d50a-443b-8bef-01250a2e54cd?rule=ecg_mp_eps$_85.jpg" alt="BMW M2 LCI Facelift | Schuifdak | M Performance | Harman &amp; K" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-m2-lci-facelift-schuifdak-m-performance--1/">BMW M2 LCI Facelift | Schuifdak | M Performance | Harman &amp; K</a></h3>
+    <h3><a href="v/bmw-bmw-m2-lci-facelift-schuifdak-m-performance--1/">BMW M2 LCI Facelift</a></h3>
     <p class="st-spec">2017 · 82.500 km</p>
     <div class="st-foot">
       <span class="st-price">€ 45.895</span>
@@ -481,7 +548,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-x4-m40i-high-executive-panodak-h-k-trekh-1/" aria-label="BMW X4 M40i High Executive | Panodak | H&amp;K | Trekhaak | Driv"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/36d9db27-403a-4b1b-8d0e-89b280b8f14c?rule=ecg_mp_eps$_85.jpg" alt="BMW X4 M40i High Executive | Panodak | H&amp;K | Trekhaak | Driv" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-x4-m40i-high-executive-panodak-h-k-trekh-1/">BMW X4 M40i High Executive | Panodak | H&amp;K | Trekhaak | Driv</a></h3>
+    <h3><a href="v/bmw-bmw-x4-m40i-high-executive-panodak-h-k-trekh-1/">BMW X4 M40i High Executive</a></h3>
     <p class="st-spec">2019 · 93.434 km</p>
     <div class="st-foot">
       <span class="st-price">€ 44.895</span>
@@ -491,7 +558,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-s5-cabriolet-3-0-tfsi-354pk-quattro-pr-1/" aria-label="Audi S5 Cabriolet 3.0 TFSI 354pk quattro Pro Line Plus | B&amp;O"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2fab6bb5-00bb-41f3-9a0c-2631d2544ad0?rule=ecg_mp_eps$_85.jpg" alt="Audi S5 Cabriolet 3.0 TFSI 354pk quattro Pro Line Plus | B&amp;O" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-s5-cabriolet-3-0-tfsi-354pk-quattro-pr-1/">Audi S5 Cabriolet 3.0 TFSI 354pk quattro Pro Line Plus | B&amp;O</a></h3>
+    <h3><a href="v/audi-audi-s5-cabriolet-3-0-tfsi-354pk-quattro-pr-1/">Audi S5 Cabriolet 3.0 TFSI 354pk quattro Pro Line Plus</a></h3>
     <p class="st-spec">2018 · 85.724 km</p>
     <div class="st-foot">
       <span class="st-price">€ 41.445</span>
@@ -501,7 +568,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/audi-audi-q3-35-tfsi-s-edition-s-line-sonos-led--1/" aria-label="Audi Q3 35 TFSI S edition | S-Line | Sonos | LED | Carplay |"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d574e7e-5a33-43de-956f-763310798adf?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 35 TFSI S edition | S-Line | Sonos | LED | Carplay |" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/audi-audi-q3-35-tfsi-s-edition-s-line-sonos-led--1/">Audi Q3 35 TFSI S edition | S-Line | Sonos | LED | Carplay |</a></h3>
+    <h3><a href="v/audi-audi-q3-35-tfsi-s-edition-s-line-sonos-led--1/">Audi Q3 35 TFSI S edition</a></h3>
     <p class="st-spec">2023 · 25.251 km</p>
     <div class="st-foot">
       <span class="st-price">€ 39.945</span>
@@ -511,7 +578,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/porsche-cayenne-1/" aria-label="Porsche Cayenne 3.0 S E-Hybrid | Panodak | Luchtvering | Tre"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aea8ecb9-8a27-4095-be53-fc6fc7805d52?rule=ecg_mp_eps$_85.jpg" alt="Porsche Cayenne 3.0 S E-Hybrid | Panodak | Luchtvering | Tre" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/porsche-cayenne-1/">Porsche Cayenne 3.0 S E-Hybrid | Panodak | Luchtvering | Tre</a></h3>
+    <h3><a href="v/porsche-cayenne-1/">Porsche Cayenne 3.0 S E-Hybrid</a></h3>
     <p class="st-spec">2017 · 129.564 km</p>
     <div class="st-foot">
       <span class="st-price">€ 39.895</span>
@@ -521,7 +588,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-a-klasse-limousine-a-1/" aria-label="Mercedes-Benz A-Klasse Limousine A 250 e AMG | Panorama | Bu"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6d2ca060-d823-4996-836c-52efb4b74d55?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz A-Klasse Limousine A 250 e AMG | Panorama | Bu" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-a-klasse-limousine-a-1/">Mercedes-Benz A-Klasse Limousine A 250 e AMG | Panorama | Bu</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-a-klasse-limousine-a-1/">Mercedes-Benz A-Klasse Limousine A 250 e AMG</a></h3>
     <p class="st-spec">2023 · 50.977 km</p>
     <div class="st-foot">
       <span class="st-price">€ 35.895</span>
@@ -531,7 +598,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/bmw-bmw-3-serie-touring-330e-xdrive-hybride-soh--1/" aria-label="BMW 3 Serie Touring 330e xDrive Hybride | SOH 95% | Facelift"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f62549ac-2634-487c-9a96-ede161dfebb2?rule=ecg_mp_eps$_85.jpg" alt="BMW 3 Serie Touring 330e xDrive Hybride | SOH 95% | Facelift" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/bmw-bmw-3-serie-touring-330e-xdrive-hybride-soh--1/">BMW 3 Serie Touring 330e xDrive Hybride | SOH 95% | Facelift</a></h3>
+    <h3><a href="v/bmw-bmw-3-serie-touring-330e-xdrive-hybride-soh--1/">BMW 3 Serie Touring 330e xDrive Hybride</a></h3>
     <p class="st-spec">2022 · 74.964 km</p>
     <div class="st-foot">
       <span class="st-price">€ 35.895</span>
@@ -541,7 +608,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/land-rover-discovery-sport-1/" aria-label="Land Rover Discovery Sport Hybrid R-Dynamic S AWD | SOH 89%"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1480c4c8-8912-4623-9728-ce2cbd5bd880?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Discovery Sport Hybrid R-Dynamic S AWD | SOH 89%" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/land-rover-discovery-sport-1/">Land Rover Discovery Sport Hybrid R-Dynamic S AWD | SOH 89%</a></h3>
+    <h3><a href="v/land-rover-discovery-sport-1/">Land Rover Discovery Sport Hybrid R-Dynamic S AWD</a></h3>
     <p class="st-spec">2022 · 62.169 km</p>
     <div class="st-foot">
       <span class="st-price">€ 35.495</span>
@@ -551,7 +618,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
 </article><article class="st-card ">
   <div class="st-shot"><a class="st-link" href="v/mercedes-benz-mercedes-benz-c-klasse-estate-c-30-1/" aria-label="Mercedes-Benz C-Klasse Estate C 300e | Avantgarde | Panorama"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5f47fb6a-0c81-437c-b066-5608f5f1a39e?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-Klasse Estate C 300e | Avantgarde | Panorama" loading="lazy" decoding="async"></a></div>
   <div class="st-body">
-    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-estate-c-30-1/">Mercedes-Benz C-Klasse Estate C 300e | Avantgarde | Panorama</a></h3>
+    <h3><a href="v/mercedes-benz-mercedes-benz-c-klasse-estate-c-30-1/">Mercedes-Benz C-Klasse Estate C 300e</a></h3>
     <p class="st-spec">2022 · 114.393 km</p>
     <div class="st-foot">
       <span class="st-price">€ 30.945</span>
@@ -577,7 +644,10 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/4e/4e5cd646-9528-44ec-a93d-dc403a521e0a?rule=ecg_mp_eps$_85.jpg" alt="Linkerbaan B.V." loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>59</b><span>voertuigen staan klaar</span></div><div><b>€ 30.945</b><span>de goedkoopste van dit moment</span></div><div><b>2021</b><span>mediaan bouwjaar</span></div><div><b>9</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-belofte"><div class="wrap rv">
+  <p class="sec-belofte-kop">Alles wat hier staat, staat er ook echt in Harderwijk.</p>
+  <ul class="sec-belofte-lijst"><li><b>59</b> voertuigen staan klaar</li><li>vanaf <b>€ 30.945</b></li><li>gemiddeld bouwjaar <b>2021</b></li></ul>
+</div></section>
 <section class="sec-contact" id="contact">
   <div class="wrap">
     <div class="rv">
