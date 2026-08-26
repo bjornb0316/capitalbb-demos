@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auto Dynamic · Reeuwijk</title>
+<meta name="description" content="Voorbeeldwebsite voor Auto Dynamic.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#faf7f4;color:#1c1815;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;letter-spacing:-0.035em;line-height:1.05;text-wrap:balance}
+p{margin:0}
+button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid #a4482a;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+
+
+html,body{overflow-x:clip}
+.wrap{width:min(var(--w,1220px),100% - 48px);margin-inline:auto}
+@media(max-width:720px){.wrap{width:min(var(--w,1220px),100% - 32px)}}
+
+.top{position:sticky;top:0;z-index:50;background:#faf7f4;border-bottom:1px solid #e8e1da}
+.top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
+.top.is-fixed.solid{background:#faf7f4e6;backdrop-filter:blur(14px);border-bottom-color:#e8e1da}
+.top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
+.mark{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.035em;margin-right:auto;text-decoration:none}
+.top nav{display:flex;gap:24px;font-size:15px}
+.top nav a{color:#6b625a;text-decoration:none}
+.top nav a:hover{color:#1c1815}
+.callbtn{display:inline-flex;align-items:center;background:#a4482a;color:#fffaf7;padding:11px 20px;border-radius:14px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+.callbtn:hover{filter:brightness(1.07)}
+/* merk met ondertitel: ruit, naam, plaats eronder */
+.mark.has-sub{display:inline-flex;align-items:center;gap:11px;line-height:1.1}
+.mark .mark-i{width:19px;height:19px;flex:none;fill:#a4482a}
+.mark.has-sub b{display:block;font-weight:inherit;font-size:20px;letter-spacing:-0.035em}
+.mark.has-sub em{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-style:normal;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6b625a;margin-top:2px}
+
+/* WhatsApp als eigen knop, naast het nummer */
+.wabtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;border:1px solid #e8e1da;background:#ffffff;color:#1c1815;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
+.wabtn svg{width:17px;height:17px;flex:none}
+.wabtn:hover{border-color:#a4482a}
+@media(max-width:900px){.wabtn span{display:none}.wabtn{padding:10px 12px}}
+
+@media(max-width:900px){.top nav{display:none}}
+/* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
+@media(max-width:720px){
+  .top .wrap{gap:14px}
+  .mark{font-size:16px;line-height:1.18;overflow-wrap:break-word}
+  .mark.is-long{font-size:13.5px}
+  .mark.is-xlong{font-size:12px;letter-spacing:0}
+  .callbtn{flex:none;padding:11px 15px}
+}
+
+section{padding:clamp(54px,7vw,108px) 0}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
+.head h2{font-size:clamp(28px,3.9vw,50px)}
+.head .meta{color:#6b625a;font-size:15px}
+.head p{margin-top:12px;color:#6b625a;max-width:60ch;flex-basis:100%}
+.more{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.more span{color:#6b625a;font-size:15px}
+
+.hours{width:100%;border-collapse:collapse;font-size:16px}
+.hours th{text-align:left;font-weight:400;color:#6b625a;padding:10px 0;border-bottom:1px solid #e8e1da}
+.hours td{text-align:right;padding:10px 0;border-bottom:1px solid #e8e1da;font-variant-numeric:tabular-nums}
+.hours td.closed{color:#6b625a}
+.hours tr:last-child th,.hours tr:last-child td{border-bottom:0}
+.hours tr.today th{color:#1c1815;font-weight:600}
+.hours tr.today td{font-weight:600}
+.hours .tag{margin-left:10px;color:#a4482a;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+
+.field{display:block;margin-bottom:13px}
+.field span{display:block;font-size:13.5px;color:#6b625a;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:13px 15px;border:1px solid #e8e1da;border-radius:14px;background:#faf7f4;color:#1c1815;font:inherit;font-size:16px}
+.field input:focus,.field textarea:focus{outline:none;border-color:#a4482a}
+form .h-btn{width:100%;justify-content:center;border:0;cursor:pointer;margin-top:4px}
+.note{margin-top:12px;color:#6b625a;font-size:13.5px}
+
+footer{padding:32px 0 calc(32px + var(--bar,0px));color:#6b625a;font-size:14px;border-top:1px solid #e8e1da}
+footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+
+.bar{position:fixed;inset:auto 0 0;z-index:60;display:none;gap:1px;background:#e8e1da;border-top:1px solid #e8e1da}
+.bar a{flex:1;padding:15px;text-align:center;background:#ffffff;color:#1c1815;text-decoration:none;font-weight:600;font-size:15.5px}
+.bar a.acc{background:#a4482a;color:#fffaf7}
+@media(max-width:720px){.bar{display:flex}body{--bar:58px}}
+
+.js .rv{opacity:0;transform:translateY(14px)}
+.js .rv.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+
+
+.hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
+.hero h1 em{font-style:normal;color:#a4482a}
+.hero h1 a{text-decoration:none}
+.h-kick{display:flex;align-items:center;gap:10px;color:#6b625a;font-size:13.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.h-dot{width:8px;height:8px;border-radius:999px;background:#3fb96b;box-shadow:0 0 0 4px #3fb96b2e;flex:none}
+.h-lede{margin-top:20px;max-width:50ch;color:#6b625a;font-size:clamp(16px,1.6vw,19px)}
+.h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:14px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #e8e1da;background:#ffffff;color:#1c1815;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
+.h-btn:hover{transform:translateY(-2px)}
+.h-btn.is-primary{background:#a4482a;color:#fffaf7;border-color:transparent}
+.h-facts{display:flex;flex-wrap:wrap;gap:0 34px;margin-top:38px;padding-top:20px;border-top:1px solid #e8e1da;color:#6b625a;font-size:14.5px}
+.h-facts span{padding:6px 0}
+/* Waar de wereld het bewijs of de cijfers vóór de kop zet, draait de scheiding mee. */
+.h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #e8e1da}
+.h-words>.h-cta:first-child{margin-top:0}
+.h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(88svh,800px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(32px,5vw,64px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#bf7f6a;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffd6}
+.h-eigen .h-dot{background:#4ade80;box-shadow:0 0 0 4px #4ade8033}
+.h-pijl{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
+.h-eigen .h-btn{border-radius:999px;padding:16px 28px;font-size:15.5px}
+.h-eigen .h-btn.is-primary{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.h-eigen h1{font-size:clamp(42px,6.6vw,88px);line-height:1.02;max-width:14ch}
+.h-eigen .h-lede{max-width:46ch;font-size:clamp(16px,1.45vw,18.5px)}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#a4482a;color:#fffaf7;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
+
+/* cinematic: beeld vult het scherm, woorden liggen erin */
+.h-cinematic{position:relative;min-height:min(90svh,880px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+@keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
+.h-cinematic::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#faf7f4a6 0%,#faf7f41a 24%,#faf7f48c 52%,#faf7f4e8 80%,#faf7f4 100%)}
+.h-cinematic .h-words{padding-bottom:clamp(40px,7vw,84px)}
+.h-cinematic h1{text-shadow:0 2px 30px #faf7f4b3}
+.h-cinematic .h-lede{color:#1c1815cc;text-shadow:0 1px 18px #faf7f4cc}
+
+/* panorama: liggend beeld in een kader, woorden erin */
+.h-panorama{padding:clamp(22px,3vw,44px) 0 0}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#f2e9e2;aspect-ratio:2/1;min-height:min(76svh,760px)}
+.h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
+@keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
+.h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
+/* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
+.h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
+.h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
+.h-panorama h1{color:#fff;font-size:clamp(34px,5vw,68px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+/* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
+.h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
+.h-panorama .h-lede{color:#ffffffdb}
+.h-panorama .h-btn{border-color:#ffffff4d;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-panorama .h-btn.is-primary{background:#a4482a;color:#fffaf7;border-color:transparent}
+.h-panorama .h-facts{border-top:0;padding-top:0;margin-top:clamp(26px,3.4vw,44px);gap:0 clamp(20px,3vw,44px)}
+@media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
+
+/* split: woorden naast echte auto's */
+/* split: woorden links, echte voertuigen rechts. Het geheel vult nu een scherm,
+   want een opening van 400px hoog leest als een kop met een plaatje - niet als
+   een entree. */
+.h-split{padding:clamp(48px,6vw,88px) 0 clamp(40px,5vw,72px);min-height:min(84svh,820px);display:flex;align-items:center}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1.15fr;gap:clamp(32px,5vw,68px);align-items:center;width:min(var(--w,1220px),100% - 48px)}
+.h-split h1{font-size:clamp(40px,5.4vw,74px)}
+@media(max-width:900px){.h-split{min-height:0;display:block}.h-split .wrap{grid-template-columns:1fr}}
+
+/* stack: woorden boven, beeld als band eronder */
+/* stack: woorden boven, beeld als band eronder. De band moet in het eerste
+   scherm beginnen - anders open je met letters op een egale kleur, en dat is
+   precies wat we niet willen. */
+.h-stack{padding:clamp(30px,3.6vw,56px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(24px,2.8vw,40px)}
+/* Twee regels, geen drie: bij drie regels zakt de beeldband onder de vouw en
+   open je alsnog met alleen letters. */
+.h-stack h1{font-size:clamp(38px,5.2vw,70px);max-width:13ch}
+.h-stack .h-lede{margin-top:16px;max-width:44ch}
+.h-stack .h-facts{margin-top:24px;padding-top:16px}
+.h-stack .h-cta{margin-top:24px}
+.h-band{margin:0;aspect-ratio:21/7;min-height:min(46svh,460px);background:#f2e9e2;overflow:hidden}
+.h-band img{width:100%;height:100%;object-fit:cover}
+@media(max-width:720px){.h-band{aspect-ratio:16/10}}
+
+/* poster: de letters doen het werk, foto's als strook */
+.h-poster{padding:clamp(36px,5vw,68px) 0 0}
+.h-poster h1{font-size:clamp(40px,7.6vw,100px);line-height:.95;max-width:16ch}
+.h-poster .h-facts{margin-bottom:clamp(28px,4vw,44px)}
+
+/* index: geen groot beeld, de cijfers staan naast de tekst */
+.h-index{padding:clamp(34px,4.4vw,60px) 0 clamp(24px,3vw,38px);border-bottom:1px solid #e8e1da}
+.h-index .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(26px,4vw,56px);align-items:center}
+.h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
+.h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#e8e1da;border:1px solid #e8e1da;border-radius:14px;overflow:hidden;margin:0}
+.h-panel div{background:#ffffff;padding:17px 19px}
+.h-panel dd{margin:0;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.035em;line-height:1.25}
+@media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
+
+/* fotostrook, gedeeld door split en poster */
+.h-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.h-strip figure{margin:0;position:relative;border-radius:14px;overflow:hidden;background:#f2e9e2}
+.h-strip figure:first-child{grid-column:1 / -1}
+.h-strip img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+.h-strip figure:first-child img{aspect-ratio:16/9}
+.h-strip .st-noimg{aspect-ratio:16/10;height:auto}
+.h-strip figure:first-child .st-noimg{aspect-ratio:16/9}
+.h-poster .h-strip .st-noimg{aspect-ratio:4/3}
+.h-strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:13px 15px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74));color:#fff;font-size:13.5px;font-weight:600;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.h-strip figcaption span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h-strip figcaption span:last-child{white-space:nowrap}
+.h-poster .h-strip{display:flex;grid-template-columns:none;gap:0}
+.h-poster .h-strip figure{flex:1;border-radius:0}
+.h-poster .h-strip figure:first-child{grid-column:auto}
+.h-poster .h-strip img{aspect-ratio:4/3}
+.h-poster .h-strip figcaption{display:none}
+@media(max-width:720px){.h-poster .h-strip figure:nth-child(n+4){display:none}}
+
+/* bijschrift bij de hoofdfoto */
+.h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#faf7f4d9;backdrop-filter:blur(8px);border:1px solid #e8e1da;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
+.h-plate-k{color:#6b625a;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
+.h-plate-t{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-size:19px;line-height:1.15}
+.h-plate-p{color:#a4482a;font-weight:600;font-size:17px;margin-top:4px}
+.h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #e8e1da;border-radius:14px}
+@media(max-width:900px){.h-plate{display:none}}
+
+
+.st-card{background:#ffffff;display:flex;flex-direction:column;overflow:hidden}
+.st-shot{position:relative;aspect-ratio:4/3;background:#f2e9e2;overflow:hidden}
+.st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.st-card:hover .st-shot img{transform:scale(1.04)}
+.st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#6b625a;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #e8e1da;border-radius:50%;background:#ffffff;color:#6b625a;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#a4482a;border-color:#a4482a}
+.st-bewaar[aria-pressed="true"]{color:#a4482a;border-color:#a4482a}
+.st-bewaar[aria-pressed="true"] svg{fill:#a4482a}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
+.st-year{position:absolute;left:0;top:0;background:#a4482a;color:#fffaf7;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
+.st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
+.st-card h3{font-size:17.5px;line-height:1.3}
+.st-spec{color:#6b625a;font-size:14.5px;font-variant-numeric:tabular-nums}
+.st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.st-price{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:23px;letter-spacing:-0.035em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#a4482a;text-decoration:none;white-space:nowrap}
+.st-ask:hover{text-decoration:underline}
+
+.st-rail{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:max(24px,calc(50vw - 620px));padding:0 max(24px,calc(50vw - 620px)) 24px;scrollbar-width:thin;scrollbar-color:#e8e1da transparent}
+.st-rail::-webkit-scrollbar{height:6px}
+.st-rail::-webkit-scrollbar-thumb{background:#e8e1da;border-radius:99px}
+.st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
+
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
+
+.st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.st-mosaic .st-card{grid-column:span 2}
+.st-mosaic .is-wide{grid-column:span 3}
+.st-mosaic .is-lead{grid-column:span 6}
+.st-mosaic .is-lead .st-shot{aspect-ratio:21/8}
+@media(max-width:980px){.st-mosaic{grid-template-columns:repeat(4,1fr)}.st-mosaic .is-lead{grid-column:span 4}.st-mosaic .is-wide{grid-column:span 2}}
+@media(max-width:660px){.st-mosaic{grid-template-columns:1fr;gap:16px}.st-mosaic .st-card,.st-mosaic .is-wide,.st-mosaic .is-lead{grid-column:span 1}.st-mosaic .is-lead .st-shot{aspect-ratio:16/10}}
+
+.st-list{border-top:1px solid #e8e1da}
+.st-row{display:grid;grid-template-columns:132px 1fr auto auto;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid #e8e1da;transition:background .18s ease}
+.st-row:hover{background:#ffffff}
+.st-row .st-thumb{aspect-ratio:4/3;background:#f2e9e2;overflow:hidden;border-radius:14px}
+.st-row .st-thumb img{width:100%;height:100%;object-fit:cover}
+.st-row h3{font-size:17.5px;line-height:1.3;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:600;letter-spacing:0;text-transform:none}
+.st-row .st-spec{margin-top:5px}
+.st-act{background:#a4482a;color:#fffaf7;text-decoration:none;font-weight:700;font-size:15px;padding:11px 18px;border-radius:14px;white-space:nowrap}
+.st-act:hover{filter:brightness(1.07)}
+@media(max-width:820px){
+  .st-row{grid-template-columns:96px 1fr;gap:14px}
+  .st-row .st-price{grid-column:2}
+  .st-row .st-act{grid-column:2;justify-self:start}
+}
+
+.st-tablewrap{border:1px solid #e8e1da;border-radius:14px;overflow-x:auto;background:#ffffff}
+.st-table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:720px}
+.st-table th{text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#6b625a;font-weight:600;padding:13px 16px;border-bottom:1px solid #e8e1da;background:#f2e9e2}
+.st-table td{padding:12px 16px;border-bottom:1px solid #e8e1da;vertical-align:middle}
+.st-table tr:last-child td{border-bottom:0}
+.st-table tbody tr:hover{background:#f2e9e2}
+.st-table .st-thumb{width:92px}
+.st-table .st-thumb img{width:92px;height:66px;object-fit:cover;border-radius:calc(14px - 1px);background:#f2e9e2}
+.st-table .st-name{font-weight:600;line-height:1.3}
+.st-table .st-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-table .st-price{font-size:19px;text-align:right;display:block}
+.st-table .st-act-cell a{display:inline-block;background:#a4482a;color:#fffaf7;padding:9px 15px;border-radius:14px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+
+
+.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+.sec-trust b{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.035em;color:#a4482a;line-height:1}
+.sec-trust span{display:block;margin-top:9px;color:#6b625a;font-size:15px}
+.sec-trust a{color:#1c1815}
+
+.sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
+/* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
+.sec-about .wrap>*{min-width:0}
+.sec-about p{overflow-wrap:anywhere}
+.sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
+.sec-about p{color:#6b625a;font-size:17.5px;max-width:66ch}
+.sec-about .portrait{border:1px solid #e8e1da;border-radius:14px;background:#f2e9e2;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+.sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
+@media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
+
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;list-style:none;padding:0;margin:0;counter-reset:s}
+.flow li{background:#ffffff;border:1px solid #e8e1da;border-radius:14px;padding:clamp(22px,2.6vw,30px);position:relative}
+.flow li::before{counter-increment:s;content:counter(s);display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:#a4482a;color:#fffaf7;font-weight:700;font-size:14px;margin-bottom:14px}
+.flow li b{display:block;font-size:18.5px;margin-bottom:8px}
+.flow li p{color:#6b625a;font-size:15.5px}
+@media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+.sec-brands{border-block:1px solid #e8e1da;background:#ffffff}
+.sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
+.sec-brands span{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.035em;color:#6b625a;padding:6px 0}
+.sec-brands span:first-child{color:#a4482a}
+
+.wrap{--w:1180px}
+.sec-contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,68px)}
+.sec-contact h2{font-size:clamp(26px,3.4vw,44px)}
+.sec-contact .lede{margin-top:16px;color:#6b625a;max-width:46ch}
+.sec-contact .callrow{margin-top:24px}
+.sec-contact .addr{margin-top:18px;color:#6b625a}
+.sec-contact .hours{margin-top:26px}
+@media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
+
+.sa-balk{position:sticky;top:0;z-index:40;background:#faf7f4;border-block:1px solid #e8e1da;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#6b625a;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:14px;background:#ffffff;border:1px solid #e8e1da;color:#1c1815;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#6b625a}
+.sa-zoek input:focus{outline:none;border-color:#a4482a}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#6b625a;cursor:pointer}
+.sa-wis:hover{color:#1c1815}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#6b625a;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:14px;letter-spacing:0;text-transform:none;color:#a4482a;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:14px;background:#ffffff;border:1px solid #e8e1da;color:#1c1815;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#a4482a}
+.sa-meer{padding:11px 17px;border-radius:14px;background:transparent;border:1px solid #e8e1da;color:#6b625a;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#1c1815;border-color:#a4482a}
+.sa-meer[aria-expanded="true"]{border-color:#a4482a;color:#a4482a}
+
+.sa-paneel{border-top:1px solid #e8e1da}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:14px;background:transparent;border:1px solid #e8e1da;color:#6b625a;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#1c1815;border-color:#a4482a}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#a4482a;border-color:#a4482a;color:#fffaf7}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#6b625a;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#e8e1da}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#a4482a;border:3px solid #faf7f4}
+input[type=range]::-moz-range-track{height:2px;background:#e8e1da}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#a4482a;border:3px solid #faf7f4}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#6b625a;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:19px;color:#1c1815;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:14px;background:transparent;border:1px solid #e8e1da;color:#6b625a;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#1c1815;border-color:#a4482a}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#a4482a;border-color:#a4482a;color:#fffaf7}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #e8e1da;border-radius:14px}
+.sa-leeg-t{font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-weight:800;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#6b625a;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #e8e1da;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
+/* Familie: overdag-licht, zacht, vertrouwen voorop. */
+.st-card{border:1px solid #e8e1da;border-radius:14px;transition:transform .25s ease,box-shadow .25s ease}
+.st-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(15,20,30,.10)}
+/* Neutrale hoogte, geen gekleurde gloed: die leest als een sjabloon. */
+.callbtn{box-shadow:0 1px 2px rgba(15,20,30,.10),0 3px 8px rgba(15,20,30,.08)}
+.h-btn.is-primary{box-shadow:0 1px 2px rgba(15,20,30,.12),0 4px 12px rgba(15,20,30,.10)}
+.h-btn.is-primary:hover{box-shadow:0 2px 4px rgba(15,20,30,.14),0 10px 24px rgba(15,20,30,.14)}
+.sec-trust{background:#f2e9e2}
+.sec-contact{background:#f2e9e2;border-top:1px solid #e8e1da}
+.sec-contact .panel{background:transparent}
+.hours{background:#ffffff;border-radius:14px;overflow:hidden}
+.hours th,.hours td{padding-inline:16px;border-bottom:0}
+.hours tr:nth-child(odd){background:#faf7f4}
+/* Het bewijs staat boven de kop en leest als een regel losse feiten. */
+.h-words>.h-facts:first-child{gap:0 26px;color:#1c1815;font-weight:600;font-size:15px;border-bottom-color:#e8e1da}
+.h-words>.h-facts:first-child span:first-child{color:#a4482a}
+</style>
+</head>
+<body data-site="2623285">
+<!--
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van Auto Dynamic (familie, mediaanprijs EUR 26950, 17 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+OWN-WORLD: palet terra, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #a4482a.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties trust > stock > process > about > promise > contact.
+FORM: familie-terra-split-mosaic-schibstedgrotesk-k2
+FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
+-->
+<div class="top" id="top">
+  <div class="wrap">
+    <a class="mark has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>Auto Dynamic</b><em>Reeuwijk</em></span></a>
+    <nav><a href="#voorraad">Voorraad</a><a href="#over-ons">Over ons</a><a href="#contact">Contact</a></nav>
+    <a class="wabtn" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad."><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.04 2A9.9 9.9 0 0 0 2.1 11.9c0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.9 9.9 0 0 0 4.74 1.2h.01a9.9 9.9 0 0 0 9.94-9.9A9.9 9.9 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.98.24-3.3-.69-2.78-1.1-4.54-3.95-4.68-4.13-.13-.18-1.11-1.48-1.11-2.82 0-1.34.7-2 .95-2.28.25-.27.54-.34.72-.34l.52.01c.17 0 .39-.06.61.47.23.55.78 1.9.85 2.04.07.14.11.3.02.48-.09.18-.13.29-.26.45l-.39.45c-.13.13-.26.28-.11.54.15.27.66 1.09 1.42 1.76.97.87 1.79 1.14 2.05 1.27.26.13.41.11.56-.07.15-.18.65-.76.82-1.02.18-.27.35-.22.59-.13.24.09 1.55.73 1.81.86.27.13.44.2.51.31.06.11.06.64-.18 1.32Z"/></svg><span>WhatsApp</span></a>
+    <a class="callbtn" href="tel:+31653845907">06-5384 5907</a>
+  </div>
+</div>
+<header class="hero h-split">
+  <div class="wrap">
+    <div class="h-words"><p class="h-kick"><span class="h-dot"></span>17 occasions op voorraad · Reeuwijk</p><div class="h-facts"><span>4.9 uit 33 beoordelingen</span><span>20 jaar op Marktplaats</span><span>10 merken in huis</span><span>Kom langs in Reeuwijk</span></div><h1>Kom kijken wanneer het u schikt <em>in Reeuwijk</em></h1><p class="h-lede">Bij Auto Dynamic hebben wij vooral liefde en passie voor auto's. Vandaar ons gemelleerd aanbod auto's, van jong gebruikte dealer auto's tot young- en oldtimers. Onze andere specialteit </p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31653845907">Bel 06-5384 5907</a><a class="h-btn" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div></div>
+    <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a09956b5-6575-4452-8044-bd41da250f0f?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz SL-Klasse AMG 63 V8 Biturbo | Panodak | Nieuws" decoding="async" fetchpriority="high"><figcaption><span>Mercedes-Benz SL-Klasse AMG 63 V8 Biturb</span><span>€ 74.863</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8bd6d6d8-42b1-416c-a6e1-3d1488df6a31?rule=ecg_mp_eps$_85.jpg" alt="Porsche 911 Cabrio 964 3.6 Carrera 2 Cabrio handgesch" decoding="async"><figcaption><span>Porsche 911 Cabrio 964 3.6 Carrera 2 Cab</span><span>€ 72.964</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e0861fdf-c2ba-4a0e-8164-d8fbee83c867?rule=ecg_mp_eps$_85.jpg" alt="Bentley Flying Spur 4.0 V8 Leder | Zeer compeet (bj 2014)" decoding="async"><figcaption><span>Bentley Flying Spur 4.0 V8 Leder | Zeer </span><span>€ 69.408</span></figcaption></figure></div></div>
+  </div>
+</header>
+<section class="sec-trust"><div class="wrap rv"><div><b>4.9</b><span>gemiddeld uit 33 beoordelingen</span></div><div><b>20</b><span>jaar op Marktplaats</span></div><div><b>Reeuwijk</b><span><a href="https://maps.google.com/?q=Van%20Leeuwenhoekstraat%2010%2C%202811DW%20Reeuwijk" target="_blank" rel="noreferrer">Van Leeuwenhoekstraat 10, 2811DW Reeuwijk</a></span></div><div><b>KvK</b><span>23080279</span></div></div></section>
+<section id="voorraad">
+  <div class="wrap head">
+    <h2>Onze voorraad</h2>
+    <span class="meta">17 getoond van 17 · vanaf € 6.750</span>
+    <p>Ziet u iets? Bel of app gerust, dan zetten we hem voor u apart.</p>
+  </div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 17 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 9 merken</option>
+    <option value="Mercedes-Benz">Mercedes-Benz (5)</option><option value="BMW">BMW (2)</option><option value="Audi">Audi (1)</option><option value="Bentley">Bentley (1)</option><option value="Fiat">Fiat (1)</option><option value="Ford Usa">Ford Usa (1)</option><option value="Harley-Davidson">Harley-Davidson (1)</option><option value="Vis En Consoleboten">Vis En Consoleboten (1)</option><option value="Volkswagen">Volkswagen (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 75.750</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="6750" max="75750" step="1150" value="75750">
+  <span class="sa-schaal"><i>€ 6.750</i><i>€ 75.750</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">1987</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="1987" max="2021" step="1" value="1987">
+  <span class="sa-schaal"><i>1987</i><i>2021</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="mercedes-benz-mercedes-benz-sl-klasse-amg-63-v8--1" data-rang="0" data-merk="Mercedes-Benz" data-prijs="74863" data-jaar="2012" data-zoek="mercedes-benz sl-klasse amg 63 v8 biturbo | panodak | nieuws mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a09956b5-6575-4452-8044-bd41da250f0f?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz SL-Klasse AMG 63 V8 Biturbo | Panodak | Nieuws" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-sl-klasse-amg-63-v8--1" aria-pressed="false" aria-label="Bewaar Mercedes-Benz SL-Klasse AMG 63 V8 Biturbo | Panodak | Nieuws"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Mercedes-Benz SL-Klasse AMG 63 V8 Biturbo | Panodak | Nieuws</h3>
+    <p class="st-spec">2012 · 78.253 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 74.863</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Mercedes-Benz%20SL-Klasse%20AMG%2063%20V8%20Biturbo%20%7C%20Panodak%20%7C%20Nieuws%20(%E2%82%AC%2074.863)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="oldtimers-porsche-911-cabrio-964-3-6-carrera-2-c-2" data-rang="1" data-prijs="72964" data-jaar="1991" data-zoek="porsche 911 cabrio 964 3.6 carrera 2 cabrio handgesch">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8bd6d6d8-42b1-416c-a6e1-3d1488df6a31?rule=ecg_mp_eps$_85.jpg" alt="Porsche 911 Cabrio 964 3.6 Carrera 2 Cabrio handgesch" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="oldtimers-porsche-911-cabrio-964-3-6-carrera-2-c-2" aria-pressed="false" aria-label="Bewaar Porsche 911 Cabrio 964 3.6 Carrera 2 Cabrio handgesch"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Porsche 911 Cabrio 964 3.6 Carrera 2 Cabrio handgesch</h3>
+    <p class="st-spec">1991 · 228.612 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 72.964</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Porsche%20911%20Cabrio%20964%203.6%20Carrera%202%20Cabrio%20handgesch%20(%E2%82%AC%2072.964)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card is-wide" data-slug="bentley-bentley-flying-spur-4-0-v8-leder-zeer-co-3" data-rang="2" data-merk="Bentley" data-prijs="69408" data-jaar="2014" data-zoek="bentley flying spur 4.0 v8 leder | zeer compeet (bj 2014) bentley">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e0861fdf-c2ba-4a0e-8164-d8fbee83c867?rule=ecg_mp_eps$_86.jpg" alt="Bentley Flying Spur 4.0 V8 Leder | Zeer compeet (bj 2014)" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bentley-bentley-flying-spur-4-0-v8-leder-zeer-co-3" aria-pressed="false" aria-label="Bewaar Bentley Flying Spur 4.0 V8 Leder | Zeer compeet (bj 2014)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Bentley Flying Spur 4.0 V8 Leder | Zeer compeet (bj 2014)</h3>
+    <p class="st-spec">2014 · 105.625 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 69.408</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Bentley%20Flying%20Spur%204.0%20V8%20Leder%20%7C%20Zeer%20compeet%20(bj%202014)%20(%E2%82%AC%2069.408)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="mercedes-benz-g-klasse-4" data-rang="3" data-merk="Mercedes-Benz" data-prijs="52955" data-jaar="2011" data-zoek="mercedes-benz g-klasse amg 55 kompressor lang special editio mercedes-benz g-klasse">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d2ec29ba-8079-41c9-b738-b82becfad1a9?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz G-Klasse AMG 55 Kompressor Lang Special Editio" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-g-klasse-4" aria-pressed="false" aria-label="Bewaar Mercedes-Benz G-Klasse AMG 55 Kompressor Lang Special Editio"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Mercedes-Benz G-Klasse AMG 55 Kompressor Lang Special Editio</h3>
+    <p class="st-spec">2011 · 136.915 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 52.955</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Mercedes-Benz%20G-Klasse%20AMG%2055%20Kompressor%20Lang%20Special%20Editio%20(%E2%82%AC%2052.955)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-c-klasse-estate-c-63-5" data-rang="4" data-merk="Mercedes-Benz" data-prijs="36950" data-jaar="2011" data-zoek="mercedes-benz c-klasse estate c 63 amg | pano | spec stoelen mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/28aa7c99-319e-4acc-af16-d50df60f0af4?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-Klasse Estate C 63 AMG | Pano | Spec Stoelen" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-c-klasse-estate-c-63-5" aria-pressed="false" aria-label="Bewaar Mercedes-Benz C-Klasse Estate C 63 AMG | Pano | Spec Stoelen"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Mercedes-Benz C-Klasse Estate C 63 AMG | Pano | Spec Stoelen</h3>
+    <p class="st-spec">2011 · 121.525 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 36.950</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Mercedes-Benz%20C-Klasse%20Estate%20C%2063%20AMG%20%7C%20Pano%20%7C%20Spec%20Stoelen%20(%E2%82%AC%2036.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="bmw-bmw-6-serie-cabrio-650i-high-executive-bj-20-6" data-rang="5" data-merk="BMW" data-prijs="33650" data-jaar="2012" data-kenmerk="Automaat" data-zoek="bmw 6 serie cabrio 650i high executive (bj 2012, automaat) bmw automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/75f1f6ef-b49b-4fcd-b1b0-6f13a15e5d52?rule=ecg_mp_eps$_85.jpg" alt="BMW 6 Serie Cabrio 650i High Executive (bj 2012, automaat)" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-6-serie-cabrio-650i-high-executive-bj-20-6" aria-pressed="false" aria-label="Bewaar BMW 6 Serie Cabrio 650i High Executive (bj 2012, automaat)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>BMW 6 Serie Cabrio 650i High Executive (bj 2012, automaat)</h3>
+    <p class="st-spec">2012 · 44.450 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 33.650</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20BMW%206%20Serie%20Cabrio%20650i%20High%20Executive%20(bj%202012%2C%20automaat)%20(%E2%82%AC%2033.650)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="oldtimers-bmw-8-serie-850-ci-bj-1992-automaat-7" data-rang="6" data-prijs="29950" data-jaar="1992" data-kenmerk="Automaat" data-zoek="bmw 8 serie 850 ci (bj 1992, automaat) automaat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a4a38c64-9601-4cd1-b9cf-1cd8e30c4e37?rule=ecg_mp_eps$_85.jpg" alt="BMW 8 Serie 850 Ci (bj 1992, automaat)" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="oldtimers-bmw-8-serie-850-ci-bj-1992-automaat-7" aria-pressed="false" aria-label="Bewaar BMW 8 Serie 850 Ci (bj 1992, automaat)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>BMW 8 Serie 850 Ci (bj 1992, automaat)</h3>
+    <p class="st-spec">1992 · 151.199 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 29.950</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20BMW%208%20Serie%20850%20Ci%20(bj%201992%2C%20automaat)%20(%E2%82%AC%2029.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card is-wide" data-slug="volkswagen-volkswagen-tiguan-1-5-tsi-r-line-busi-8" data-rang="7" data-merk="Volkswagen" data-prijs="27950" data-jaar="2021" data-zoek="volkswagen tiguan 1.5 tsi r-line business+ dsg panoramadak | volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/af643282-77ad-4511-bbc1-cff4729a9b75?rule=ecg_mp_eps$_86.jpg" alt="Volkswagen Tiguan 1.5 TSI R-Line Business+ DSG Panoramadak |" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-tiguan-1-5-tsi-r-line-busi-8" aria-pressed="false" aria-label="Bewaar Volkswagen Tiguan 1.5 TSI R-Line Business+ DSG Panoramadak |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Volkswagen Tiguan 1.5 TSI R-Line Business+ DSG Panoramadak |</h3>
+    <p class="st-spec">2021 · 93.674 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 27.950</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Volkswagen%20Tiguan%201.5%20TSI%20R-Line%20Business%2B%20DSG%20Panoramadak%20%7C%20(%E2%82%AC%2027.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="ford-usa-f-150-9" data-rang="8" data-merk="Ford Usa" data-prijs="26950" data-jaar="2009" data-zoek="ford usa f-150 pick up youngtimer van/grijs kenteken dubbele ford usa f-150">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a6021375-8631-4e08-8c29-9f83900a3b3e?rule=ecg_mp_eps$_85.jpg" alt="Ford USA F-150 Pick Up Youngtimer Van/Grijs kenteken Dubbele" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="ford-usa-f-150-9" aria-pressed="false" aria-label="Bewaar Ford USA F-150 Pick Up Youngtimer Van/Grijs kenteken Dubbele"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Ford USA F-150 Pick Up Youngtimer Van/Grijs kenteken Dubbele</h3>
+    <p class="st-spec">2009 · 186.231 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 26.950</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Ford%20USA%20F-150%20Pick%20Up%20Youngtimer%20Van%2FGrijs%20kenteken%20Dubbele%20(%E2%82%AC%2026.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-eqc-400-4matic-amg-b-10" data-rang="9" data-merk="Mercedes-Benz" data-prijs="26950" data-jaar="2020" data-zoek="mercedes-benz eqc 400 4matic amg bus.solution 80 kwh | soh 9 mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9b689ec1-538d-4c7c-8c23-d64ac46079c1?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz EQC 400 4MATIC AMG Bus.Solution 80 kWh | SOH 9" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-eqc-400-4matic-amg-b-10" aria-pressed="false" aria-label="Bewaar Mercedes-Benz EQC 400 4MATIC AMG Bus.Solution 80 kWh | SOH 9"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Mercedes-Benz EQC 400 4MATIC AMG Bus.Solution 80 kWh | SOH 9</h3>
+    <p class="st-spec">2020 · 163.266 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 26.950</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Mercedes-Benz%20EQC%20400%204MATIC%20AMG%20Bus.Solution%2080%20kWh%20%7C%20SOH%209%20(%E2%82%AC%2026.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="audi-audi-a8-3-0-tdi-quattro-pro-line-org-nl-gel-11" data-rang="10" data-merk="Audi" data-prijs="23950" data-jaar="2014" data-zoek="audi a8 3.0 tdi quattro pro line+ org nl geleverd, zeer vol audi">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/39a0f5f8-27ab-4145-9269-14ad5184859e?rule=ecg_mp_eps$_85.jpg" alt="Audi A8 3.0 TDI quattro Pro Line+ Org NL geleverd, zeer vol" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-a8-3-0-tdi-quattro-pro-line-org-nl-gel-11" aria-pressed="false" aria-label="Bewaar Audi A8 3.0 TDI quattro Pro Line+ Org NL geleverd, zeer vol"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Audi A8 3.0 TDI quattro Pro Line+ Org NL geleverd, zeer vol</h3>
+    <p class="st-spec">2014 · 165.987 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 23.950</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Audi%20A8%203.0%20TDI%20quattro%20Pro%20Line%2B%20Org%20NL%20geleverd%2C%20zeer%20vol%20(%E2%82%AC%2023.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="oldtimers-jeep-wrangler-2-5i-softtop-hardtop-cus-12" data-rang="11" data-prijs="22888" data-jaar="1987" data-zoek="jeep wrangler 2.5i softtop | hardtop | custom build belastin">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/31a6d906-ec6f-4974-9199-505e09d49045?rule=ecg_mp_eps$_85.jpg" alt="Jeep Wrangler 2.5i Softtop | Hardtop | Custom Build Belastin" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="oldtimers-jeep-wrangler-2-5i-softtop-hardtop-cus-12" aria-pressed="false" aria-label="Bewaar Jeep Wrangler 2.5i Softtop | Hardtop | Custom Build Belastin"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Jeep Wrangler 2.5i Softtop | Hardtop | Custom Build Belastin</h3>
+    <p class="st-spec">1987 · 121.785 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 22.888</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Jeep%20Wrangler%202.5i%20Softtop%20%7C%20Hardtop%20%7C%20Custom%20Build%20Belastin%20(%E2%82%AC%2022.888)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card is-wide" data-slug="bmw-bmw-x5-xdrive40e-iperformance-high-executive-13" data-rang="12" data-merk="BMW" data-prijs="22850" data-jaar="2017" data-zoek="bmw x5 xdrive40e iperformance high executive m pakket leer | bmw">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/86c82c90-9d07-4343-a596-08e50ae9f78d?rule=ecg_mp_eps$_86.jpg" alt="BMW X5 xDrive40e iPerformance High Executive M pakket Leer |" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x5-xdrive40e-iperformance-high-executive-13" aria-pressed="false" aria-label="Bewaar BMW X5 xDrive40e iPerformance High Executive M pakket Leer |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>BMW X5 xDrive40e iPerformance High Executive M pakket Leer |</h3>
+    <p class="st-spec">2017 · 181.430 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 22.850</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20BMW%20X5%20xDrive40e%20iPerformance%20High%20Executive%20M%20pakket%20Leer%20%7C%20(%E2%82%AC%2022.850)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-c-klasse-200-edition-14" data-rang="13" data-merk="Mercedes-Benz" data-prijs="19750" data-jaar="2016" data-zoek="mercedes-benz c-klasse 200 edition 1 panodak | leer | aut | mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/abad69d1-a835-4a27-958b-8a43bb56cad1?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-Klasse 200 Edition 1 Panodak | Leer | Aut |" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-c-klasse-200-edition-14" aria-pressed="false" aria-label="Bewaar Mercedes-Benz C-Klasse 200 Edition 1 Panodak | Leer | Aut |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Mercedes-Benz C-Klasse 200 Edition 1 Panodak | Leer | Aut |</h3>
+    <p class="st-spec">2016 · 104.777 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 19.750</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Mercedes-Benz%20C-Klasse%20200%20Edition%201%20Panodak%20%7C%20Leer%20%7C%20Aut%20%7C%20(%E2%82%AC%2019.750)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="fiat-fiat-500c-1-4-t-jet-abarth-elaborable-bj-20-15" data-rang="14" data-merk="Fiat" data-prijs="16595" data-jaar="2016" data-zoek="fiat 500c 1.4 t-jet abarth elaborable (bj 2016) fiat">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/979997d8-cb34-45a2-a72a-61bf8befb6f7?rule=ecg_mp_eps$_85.jpg" alt="Fiat 500C 1.4 T-Jet Abarth Elaborable (bj 2016)" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="fiat-fiat-500c-1-4-t-jet-abarth-elaborable-bj-20-15" aria-pressed="false" aria-label="Bewaar Fiat 500C 1.4 T-Jet Abarth Elaborable (bj 2016)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Fiat 500C 1.4 T-Jet Abarth Elaborable (bj 2016)</h3>
+    <p class="st-spec">2016 · 45.345 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 16.595</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Fiat%20500C%201.4%20T-Jet%20Abarth%20Elaborable%20(bj%202016)%20(%E2%82%AC%2016.595)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-harley-davidson-harley-davidson-88-flhrc-16" data-rang="15" data-merk="Harley-Davidson" data-prijs="9950" data-jaar="2002" data-zoek="harley-davidson 88 flhrci road king classic anniversary 2003 harley-davidson">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f7c7bbe5-a0aa-487c-9c89-9e50a9f7190b?rule=ecg_mp_eps$_85.jpg" alt="Harley-Davidson 88 FLHRCI Road King Classic Anniversary 2003" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="motoren-harley-davidson-harley-davidson-88-flhrc-16" aria-pressed="false" aria-label="Bewaar Harley-Davidson 88 FLHRCI Road King Classic Anniversary 2003"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Harley-Davidson 88 FLHRCI Road King Classic Anniversary 2003</h3>
+    <p class="st-spec">2002 · 21.246 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 9.950</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Harley-Davidson%2088%20FLHRCI%20Road%20King%20Classic%20Anniversary%202003%20(%E2%82%AC%209.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="vis-en-consoleboten-pegazus-380-met-bb-15pk-en-p-17" data-rang="16" data-merk="Vis En Consoleboten" data-prijs="6750" data-jaar="0" data-zoek="pegazus 380 met bb 15pk en pega trailer vis en consoleboten">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4313761c-67f1-4cd7-a348-e1c842c766be?rule=ecg_mp_eps$_85.jpg" alt="Pegazus 380 met BB 15PK en Pega Trailer" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="vis-en-consoleboten-pegazus-380-met-bb-15pk-en-p-17" aria-pressed="false" aria-label="Bewaar Pegazus 380 met BB 15PK en Pega Trailer"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Pegazus 380 met BB 15PK en Pega Trailer</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 6.750</span>
+      <a class="st-ask" href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20zag%20de%20Pegazus%20380%20met%20BB%2015PK%20en%20Pega%20Trailer%20(%E2%82%AC%206.750)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Vraag info</a>
+    </div>
+  </div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Probeer het met minder filters, of vraag het ons even.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div></div>
+</section>
+<section class="sec-flow">
+  <div class="wrap">
+    <div class="head rv"><h2>Zo gaat het</h2></div>
+    <ol class="flow rv">
+      <li><b>Neem contact op</b><p>Bel of app ons over het voertuig dat u op het oog heeft.</p></li><li><b>Kom langs</b><p>Kom langs voor een bezichtiging en een proefrit.</p></li><li><b>Regel het samen</b><p>We bespreken prijs, inruil en aflevering. Geen verrassingen.</p></li>
+    </ol>
+  </div>
+</section>
+<section class="sec-about" id="over-ons">
+  <div class="wrap rv">
+    <div>
+      <h2>Over Auto Dynamic</h2>
+      <p>Bij Auto Dynamic hebben wij vooral liefde en passie voor auto's. Vandaar ons gemelleerd aanbod auto's, van jong gebruikte dealer auto's tot young- en oldtimers. Onze andere specialteit die wij met passie invlullen, zijn de zoekopdrachten. Bijna alle wensen kunnen wij voor U invullen. U bent van harte welkom!! Graag van te voren even bellen om teleurstelling te voorkomen. Tot snel</p>
+    </div>
+    <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/1c/1cf0f05c-f4ab-4d8d-83e7-7f201e8e7b82?rule=ecg_mp_eps$_85.jpg" alt="Auto Dynamic" loading="lazy"></div>
+  </div>
+</section>
+<section class="sec-trust"><div class="wrap rv"><div><b>17</b><span>voertuigen staan klaar</span></div><div><b>€ 6.750</b><span>de goedkoopste van dit moment</span></div><div><b>2012</b><span>mediaan bouwjaar</span></div><div><b>20</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-contact" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <h2>Even langskomen?</h2>
+      <p class="lede">Bel gerust voordat u komt, dan staat de auto klaar en heeft u niet voor niets gereden.</p>
+      <p class="callrow"><a class="h-btn is-primary" href="tel:+31653845907">Bel 06-5384 5907</a></p>
+      <p class="addr"><a href="https://maps.google.com/?q=Van%20Leeuwenhoekstraat%2010%2C%202811DW%20Reeuwijk" target="_blank" rel="noreferrer">Van Leeuwenhoekstraat 10, 2811DW Reeuwijk</a></p>
+      
+    </div>
+    <div class="panel rv"><form onsubmit="event.preventDefault();var f=this;location.href='mailto:info@autodynamic.nl?subject='+encodeURIComponent('Aanvraag via de website')+'&body='+encodeURIComponent('Naam: '+f.naam.value+'\nTelefoon: '+f.tel.value+'\n\n'+f.bericht.value)"><label class="field"><span>Uw naam</span><input name="naam" type="text" autocomplete="name" required></label><label class="field"><span>Telefoonnummer</span><input name="tel" type="tel" autocomplete="tel" required></label><label class="field"><span>Waar kunnen we u mee helpen?</span><textarea name="bericht" rows="4" required></textarea></label><button class="h-btn is-primary" type="submit">Verstuur aanvraag</button><p class="note">Uw bericht opent in uw eigen mailprogramma.</p></form></div>
+  </div>
+</section>
+<footer>
+  <div class="wrap rowf">
+    <span>Auto Dynamic · Van Leeuwenhoekstraat 10, 2811DW Reeuwijk · KvK 23080279</span>
+    <span>Voorbeeldwebsite, gemaakt door Capital BB</span>
+  </div>
+</footer>
+<div class="bar">
+  <a class="acc" href="tel:+31653845907">Bellen</a>
+  <a href="https://wa.me/31653845907?text=Hallo%20Auto%20Dynamic%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">WhatsApp</a>
+</div>
+<script>
+document.documentElement.className+=' js';
+(function(){
+  var today=document.querySelector('.hours tr[data-d="'+new Date().getDay()+'"]');
+  if(today){today.className='today';var v=today.lastElementChild;if(v){v.insertAdjacentHTML('beforeend','<span class="tag">vandaag</span>')}}
+  var top=document.getElementById('top');
+  if(top){var s=function(){top.classList.toggle('solid',window.scrollY>40)};s();addEventListener('scroll',s,{passive:true})}
+  var items=[].slice.call(document.querySelectorAll('.rv'));
+  var show=function(el){el.classList.add('in')};
+  if(!('IntersectionObserver' in window)){items.forEach(show);return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
+  items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
+  setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
+})();
+</script>
+
+</body>
+</html>

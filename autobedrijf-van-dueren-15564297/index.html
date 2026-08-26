@@ -6,14 +6,14 @@
 <title>Autobedrijf van Dueren · Willemstad</title>
 <meta name="description" content="Voorbeeldwebsite voor Autobedrijf van Dueren.">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,400;100,500;125,600;125,700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=Archivo:wght@400;500;600;700&display=swap">
 <style>
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:#101113;color:#f4f4f5;font-family:'Archivo', 'Helvetica Neue', Arial, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img{max-width:100%;display:block}
 a{color:inherit}
-h1,h2,h3{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:-0.03em;line-height:1.05;text-wrap:balance}
+h1,h2,h3{margin:0;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;letter-spacing:-0.02em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
 /* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
@@ -34,12 +34,24 @@ html,body{overflow-x:clip}
 .top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
 .top.is-fixed.solid{background:#101113e6;backdrop-filter:blur(14px);border-bottom-color:#2b2e34}
 .top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
-.mark{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.03em;margin-right:auto;text-decoration:none}
+.mark{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:20px;letter-spacing:-0.02em;margin-right:auto;text-decoration:none}
 .top nav{display:flex;gap:24px;font-size:15px}
 .top nav a{color:#9b9ea4;text-decoration:none}
 .top nav a:hover{color:#f4f4f5}
 .callbtn{display:inline-flex;align-items:center;background:#7fb2d9;color:#0a0b0d;padding:11px 20px;border-radius:2px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
 .callbtn:hover{filter:brightness(1.07)}
+/* merk met ondertitel: ruit, naam, plaats eronder */
+.mark.has-sub{display:inline-flex;align-items:center;gap:11px;line-height:1.1}
+.mark .mark-i{width:19px;height:19px;flex:none;fill:#7fb2d9}
+.mark.has-sub b{display:block;font-weight:inherit;font-size:20px;letter-spacing:-0.02em}
+.mark.has-sub em{display:block;font-family:'Archivo', 'Helvetica Neue', Arial, sans-serif;font-style:normal;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9b9ea4;margin-top:2px}
+
+/* WhatsApp als eigen knop, naast het nummer */
+.wabtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;border:1px solid #2b2e34;background:#191b1f;color:#f4f4f5;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
+.wabtn svg{width:17px;height:17px;flex:none}
+.wabtn:hover{border-color:#7fb2d9}
+@media(max-width:900px){.wabtn span{display:none}.wabtn{padding:10px 12px}}
+
 @media(max-width:900px){.top nav{display:none}}
 /* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
 @media(max-width:720px){
@@ -89,7 +101,8 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
 .hero h1 em{font-style:normal;color:#7fb2d9}
 .hero h1 a{text-decoration:none}
-.h-kick{color:#9b9ea4;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
+.h-kick{display:flex;align-items:center;gap:10px;color:#9b9ea4;font-size:13.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.h-dot{width:8px;height:8px;border-radius:999px;background:#3fb96b;box-shadow:0 0 0 4px #3fb96b2e;flex:none}
 .h-lede{margin-top:20px;max-width:50ch;color:#9b9ea4;font-size:clamp(16px,1.6vw,19px)}
 .h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:2px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #2b2e34;background:#191b1f;color:#f4f4f5;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
@@ -106,14 +119,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
    Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
    met een echte sluier eronder - niet het palet van de wereld volgen, want een
    licht palet levert zwarte letters op een avondfoto op. */
-.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen{position:relative;min-height:min(88svh,800px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
 .h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 .h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
-.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen .h-words{padding-block:clamp(32px,5vw,64px);color:#fff}
 .h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
-.h-eigen h1 em{color:#a5c9e4;text-shadow:0 2px 20px rgba(0,0,0,.75)}
-.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen h1 em{color:#7fb2d9;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffd6}
+.h-eigen .h-dot{background:#4ade80;box-shadow:0 0 0 4px #4ade8033}
+.h-pijl{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
+.h-eigen .h-btn{border-radius:999px;padding:16px 28px;font-size:15.5px}
+.h-eigen .h-btn.is-primary{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.h-eigen h1{font-size:clamp(42px,6.6vw,88px);line-height:1.02;max-width:14ch}
+.h-eigen .h-lede{max-width:46ch;font-size:clamp(16px,1.45vw,18.5px)}
 .h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
 .h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
 .h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
@@ -121,7 +140,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
-.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic{position:relative;min-height:min(90svh,880px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
 .h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 @keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
@@ -132,14 +151,14 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 /* panorama: liggend beeld in een kader, woorden erin */
 .h-panorama{padding:clamp(22px,3vw,44px) 0 0}
-.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#15171b;aspect-ratio:21/9;min-height:320px}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#15171b;aspect-ratio:2/1;min-height:min(76svh,760px)}
 .h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
 @keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
 .h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
 /* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
 .h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
 .h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
-.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+.h-panorama h1{color:#fff;font-size:clamp(34px,5vw,68px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
 /* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
 .h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
 .h-panorama .h-lede{color:#ffffffdb}
@@ -149,16 +168,27 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
 
 /* split: woorden naast echte auto's */
-.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
-.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
-.h-split h1{font-size:clamp(36px,4.9vw,64px)}
-@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+/* split: woorden links, echte voertuigen rechts. Het geheel vult nu een scherm,
+   want een opening van 400px hoog leest als een kop met een plaatje - niet als
+   een entree. */
+.h-split{padding:clamp(48px,6vw,88px) 0 clamp(40px,5vw,72px);min-height:min(84svh,820px);display:flex;align-items:center}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1.15fr;gap:clamp(32px,5vw,68px);align-items:center;width:min(var(--w,1220px),100% - 48px)}
+.h-split h1{font-size:clamp(40px,5.4vw,74px)}
+@media(max-width:900px){.h-split{min-height:0;display:block}.h-split .wrap{grid-template-columns:1fr}}
 
 /* stack: woorden boven, beeld als band eronder */
-.h-stack{padding:clamp(44px,6vw,92px) 0 0}
-.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
-.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
-.h-band{margin:0;aspect-ratio:21/8;background:#15171b;overflow:hidden}
+/* stack: woorden boven, beeld als band eronder. De band moet in het eerste
+   scherm beginnen - anders open je met letters op een egale kleur, en dat is
+   precies wat we niet willen. */
+.h-stack{padding:clamp(30px,3.6vw,56px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(24px,2.8vw,40px)}
+/* Twee regels, geen drie: bij drie regels zakt de beeldband onder de vouw en
+   open je alsnog met alleen letters. */
+.h-stack h1{font-size:clamp(38px,5.2vw,70px);max-width:13ch}
+.h-stack .h-lede{margin-top:16px;max-width:44ch}
+.h-stack .h-facts{margin-top:24px;padding-top:16px}
+.h-stack .h-cta{margin-top:24px}
+.h-band{margin:0;aspect-ratio:21/7;min-height:min(46svh,460px);background:#15171b;overflow:hidden}
 .h-band img{width:100%;height:100%;object-fit:cover}
 @media(max-width:720px){.h-band{aspect-ratio:16/10}}
 
@@ -173,7 +203,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
 .h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#2b2e34;border:1px solid #2b2e34;border-radius:2px;overflow:hidden;margin:0}
 .h-panel div{background:#191b1f;padding:17px 19px}
-.h-panel dd{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.03em;line-height:1.25}
+.h-panel dd{margin:0;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.02em;line-height:1.25}
 @media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
 
 /* fotostrook, gedeeld door split en poster */
@@ -198,7 +228,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 /* bijschrift bij de hoofdfoto */
 .h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#101113d9;backdrop-filter:blur(8px);border:1px solid #2b2e34;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
 .h-plate-k{color:#9b9ea4;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
-.h-plate-t{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-size:19px;line-height:1.15}
+.h-plate-t{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-size:19px;line-height:1.15}
 .h-plate-p{color:#7fb2d9;font-weight:600;font-size:17px;margin-top:4px}
 .h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #2b2e34;border-radius:2px}
 @media(max-width:900px){.h-plate{display:none}}
@@ -219,7 +249,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-card h3{font-size:17.5px;line-height:1.3}
 .st-spec{color:#9b9ea4;font-size:14.5px;font-variant-numeric:tabular-nums}
 .st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.st-price{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:23px;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-price{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:23px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
 .st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#7fb2d9;text-decoration:none;white-space:nowrap}
 .st-ask:hover{text-decoration:underline}
 
@@ -270,7 +300,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 
 .sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
-.sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#7fb2d9;line-height:1}
+.sec-trust b{display:block;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.02em;color:#7fb2d9;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#9b9ea4;font-size:15px}
 .sec-trust a{color:#f4f4f5}
 
@@ -293,7 +323,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 .sec-brands{border-block:1px solid #2b2e34;background:#191b1f}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
-.sec-brands span{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.03em;color:#9b9ea4;padding:6px 0}
+.sec-brands span{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.02em;color:#9b9ea4;padding:6px 0}
 .sec-brands span:first-child{color:#7fb2d9}
 
 .wrap{--w:1240px}
@@ -309,7 +339,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 /* Prestige: showroom na sluitingstijd. Alles rustig, het beeld doet het werk. */
 .st-card{border:1px solid #2b2e34}
 .st-card:hover{border-color:#7fb2d966;transform:translateY(-4px);transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s}
-.st-card h3{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:-0.03em}
+.st-card h3{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;letter-spacing:-0.02em}
 .sec-trust{background:#191b1f;border-block:1px solid #2b2e34}
 .flow li{background:#101113}
 .sec-contact{background:#191b1f;border-top:1px solid #2b2e34}
@@ -320,23 +350,33 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 <body data-site="15564297">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autobedrijf van Dueren (prestige, mediaanprijs EUR 33575, 49 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
-OWN-WORLD: palet graphite, 'Archivo Expanded' als display op 'Archivo', hoeken 2px, accent #7fb2d9.
+OWN-WORLD: palet graphite, 'Bodoni Moda' als display op 'Archivo', hoeken 2px, accent #7fb2d9.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties stock > about > trust > process > hours > contact.
-FORM: prestige-graphite-stack-rail-archivoexpanded-k2
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties about > stock > trust > process > hours > contact.
+FORM: prestige-graphite-stack-rail-bodonimoda-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
 <div class="top is-fixed" id="top">
   <div class="wrap">
-    <a class="mark" href="#top">Autobedrijf van Dueren</a>
+    <a class="mark has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>Autobedrijf van Dueren</b><em>Willemstad</em></span></a>
     <nav><a href="#voorraad">Voorraad</a><a href="#over-ons">Over ons</a><a href="#contact">Contact</a></nav>
+    
     <a class="callbtn" href="tel:+31168473435">016-8473435</a>
   </div>
 </div>
 <header class="hero h-stack">
-  <div class="wrap h-words"><p class="h-kick">Nu in de showroom · Hymer T680 S 170 PK Hefbed, XXL koelkast TV, 3-Pits kookstel · € 104.900</p><h1>Nu in de showroom <em>in Willemstad</em></h1><p class="h-lede">49 voertuigen op voorraad · Willemstad · vanaf € 22.950</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging</a><a class="h-btn" href="tel:+31168473435">Bel 016-8473435</a></div><div class="h-facts"><span>49 voertuigen op voorraad</span><span>4.6 uit 143 beoordelingen</span><span>15 jaar op Marktplaats</span><span>10 merken in huis</span><span>Kom langs in Willemstad</span></div></div>
+  <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>Hymer T680 S 170 PK Hefbed, XXL koelkast · € 104.900</p><h1>Nu in de showroom <em>in Willemstad</em></h1><p class="h-lede">Autobedrijf van Dueren den Hollander is een echt familiebedrijf. Het bedrijf dat sinds 1987 bestaat, wordt geleid door drie broers en bestaat uit een team van 17 medewerkers. Naast het autob</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-btn" href="tel:+31168473435">Bel 016-8473435</a></div><div class="h-facts"><span>4.6 uit 143 beoordelingen</span><span>15 jaar op Marktplaats</span><span>10 merken in huis</span><span>Kom langs in Willemstad</span></div></div>
   <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/97c2d994-4835-4a6b-ace2-be4a86277c22?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/97c2d994-4835-4a6b-ace2-be4a86277c22?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/97c2d994-4835-4a6b-ace2-be4a86277c22?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/97c2d994-4835-4a6b-ace2-be4a86277c22?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/97c2d994-4835-4a6b-ace2-be4a86277c22?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Hymer T680 S 170 PK Hefbed, XXL koelkast TV, 3-Pits kookstel" fetchpriority="high"></figure>
 </header>
+<section class="sec-about" id="over-ons">
+  <div class="wrap rv">
+    <div>
+      <h2>Over Autobedrijf van Dueren</h2>
+      <p>Autobedrijf van Dueren verkoopt occasions in Willemstad. Bekijk hieronder de actuele voorraad en neem gerust contact op als u een voertuig wilt bekijken.</p>
+    </div>
+    <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/1b/1ba7219e-cf30-40ce-8625-3dfa9f7bba58?rule=ecg_mp_eps$_85.jpg" alt="Autobedrijf van Dueren" loading="lazy"></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
@@ -524,15 +564,6 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     </div>
   </div>
 </article></div><div class="wrap"><div class="more"><span>Er staan er nog 31 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="tel:+31168473435">Bel 016-8473435</a></div></div>
-</section>
-<section class="sec-about" id="over-ons">
-  <div class="wrap rv">
-    <div>
-      <h2>Over Autobedrijf van Dueren</h2>
-      <p>Autobedrijf van Dueren verkoopt occasions in Willemstad. Bekijk hieronder de actuele voorraad en neem gerust contact op als u een voertuig wilt bekijken.</p>
-    </div>
-    <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/1b/1ba7219e-cf30-40ce-8625-3dfa9f7bba58?rule=ecg_mp_eps$_85.jpg" alt="Autobedrijf van Dueren" loading="lazy"></div>
-  </div>
 </section>
 <section class="sec-trust"><div class="wrap rv"><div><b>4.6</b><span>gemiddeld uit 143 beoordelingen</span></div><div><b>15</b><span>jaar op Marktplaats</span></div><div><b>Willemstad</b><span><a href="https://maps.google.com/?q=Steenpad%209%2C%204797SG%20Willemstad" target="_blank" rel="noreferrer">Steenpad 9, 4797SG Willemstad</a></span></div></div></section>
 <section class="sec-flow">

@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motorcentrumbruurs · Noord-Scharwoude</title>
+<meta name="description" content="Voorbeeldwebsite voor Motorcentrumbruurs.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Chivo:wght@400;500;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#0e0f11;color:#f5f6f7;font-family:'Chivo', 'Helvetica Neue', Arial, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;letter-spacing:0.01em;line-height:1.05;text-transform:uppercase;text-wrap:balance}
+p{margin:0}
+button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid #ff5b19;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+
+
+html,body{overflow-x:clip}
+.wrap{width:min(var(--w,1220px),100% - 48px);margin-inline:auto}
+@media(max-width:720px){.wrap{width:min(var(--w,1220px),100% - 32px)}}
+
+.top{position:sticky;top:0;z-index:50;background:#0e0f11;border-bottom:1px solid #25282d}
+.top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
+.top.is-fixed.solid{background:#0e0f11e6;backdrop-filter:blur(14px);border-bottom-color:#25282d}
+.top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
+.mark{font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:20px;letter-spacing:0.01em;margin-right:auto;text-decoration:none}
+.top nav{display:flex;gap:24px;font-size:15px}
+.top nav a{color:#989da4;text-decoration:none}
+.top nav a:hover{color:#f5f6f7}
+.callbtn{display:inline-flex;align-items:center;background:#ff5b19;color:#0e0f11;padding:11px 20px;border-radius:0px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+.callbtn:hover{filter:brightness(1.07)}
+/* merk met ondertitel: ruit, naam, plaats eronder */
+.mark.has-sub{display:inline-flex;align-items:center;gap:11px;line-height:1.1}
+.mark .mark-i{width:19px;height:19px;flex:none;fill:#ff5b19}
+.mark.has-sub b{display:block;font-weight:inherit;font-size:20px;letter-spacing:0.01em}
+.mark.has-sub em{display:block;font-family:'Chivo', 'Helvetica Neue', Arial, sans-serif;font-style:normal;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#989da4;margin-top:2px}
+
+/* WhatsApp als eigen knop, naast het nummer */
+.wabtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;border:1px solid #25282d;background:#17191c;color:#f5f6f7;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
+.wabtn svg{width:17px;height:17px;flex:none}
+.wabtn:hover{border-color:#ff5b19}
+@media(max-width:900px){.wabtn span{display:none}.wabtn{padding:10px 12px}}
+
+@media(max-width:900px){.top nav{display:none}}
+/* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
+@media(max-width:720px){
+  .top .wrap{gap:14px}
+  .mark{font-size:16px;line-height:1.18;overflow-wrap:break-word}
+  .mark.is-long{font-size:13.5px}
+  .mark.is-xlong{font-size:12px;letter-spacing:0}
+  .callbtn{flex:none;padding:11px 15px}
+}
+
+section{padding:clamp(54px,7vw,108px) 0}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
+.head h2{font-size:clamp(28px,3.9vw,50px)}
+.head .meta{color:#989da4;font-size:15px}
+.head p{margin-top:12px;color:#989da4;max-width:60ch;flex-basis:100%}
+.more{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.more span{color:#989da4;font-size:15px}
+
+.hours{width:100%;border-collapse:collapse;font-size:16px}
+.hours th{text-align:left;font-weight:400;color:#989da4;padding:10px 0;border-bottom:1px solid #25282d}
+.hours td{text-align:right;padding:10px 0;border-bottom:1px solid #25282d;font-variant-numeric:tabular-nums}
+.hours td.closed{color:#989da4}
+.hours tr:last-child th,.hours tr:last-child td{border-bottom:0}
+.hours tr.today th{color:#f5f6f7;font-weight:600}
+.hours tr.today td{font-weight:600}
+.hours .tag{margin-left:10px;color:#ff5b19;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+
+.field{display:block;margin-bottom:13px}
+.field span{display:block;font-size:13.5px;color:#989da4;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:13px 15px;border:1px solid #25282d;border-radius:0px;background:#0e0f11;color:#f5f6f7;font:inherit;font-size:16px}
+.field input:focus,.field textarea:focus{outline:none;border-color:#ff5b19}
+form .h-btn{width:100%;justify-content:center;border:0;cursor:pointer;margin-top:4px}
+.note{margin-top:12px;color:#989da4;font-size:13.5px}
+
+footer{padding:32px 0 calc(32px + var(--bar,0px));color:#989da4;font-size:14px;border-top:1px solid #25282d}
+footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+
+.bar{position:fixed;inset:auto 0 0;z-index:60;display:none;gap:1px;background:#25282d;border-top:1px solid #25282d}
+.bar a{flex:1;padding:15px;text-align:center;background:#17191c;color:#f5f6f7;text-decoration:none;font-weight:600;font-size:15.5px}
+.bar a.acc{background:#ff5b19;color:#0e0f11}
+@media(max-width:720px){.bar{display:flex}body{--bar:58px}}
+
+.js .rv{opacity:0;transform:translateY(14px)}
+.js .rv.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+
+
+.hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
+.hero h1 em{font-style:normal;color:#ff5b19}
+.hero h1 a{text-decoration:none}
+.h-kick{display:flex;align-items:center;gap:10px;color:#989da4;font-size:13.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.h-dot{width:8px;height:8px;border-radius:999px;background:#3fb96b;box-shadow:0 0 0 4px #3fb96b2e;flex:none}
+.h-lede{margin-top:20px;max-width:50ch;color:#989da4;font-size:clamp(16px,1.6vw,19px)}
+.h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:0px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #25282d;background:#17191c;color:#f5f6f7;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
+.h-btn:hover{transform:translateY(-2px)}
+.h-btn.is-primary{background:#ff5b19;color:#0e0f11;border-color:transparent}
+.h-facts{display:flex;flex-wrap:wrap;gap:0 34px;margin-top:38px;padding-top:20px;border-top:1px solid #25282d;color:#989da4;font-size:14.5px}
+.h-facts span{padding:6px 0}
+/* Waar de wereld het bewijs of de cijfers vóór de kop zet, draait de scheiding mee. */
+.h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #25282d}
+.h-words>.h-cta:first-child{margin-top:0}
+.h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(88svh,800px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(32px,5vw,64px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#ff8c5e;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffd6}
+.h-eigen .h-dot{background:#4ade80;box-shadow:0 0 0 4px #4ade8033}
+.h-pijl{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
+.h-eigen .h-btn{border-radius:999px;padding:16px 28px;font-size:15.5px}
+.h-eigen .h-btn.is-primary{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.h-eigen h1{font-size:clamp(42px,6.6vw,88px);line-height:1.02;max-width:14ch}
+.h-eigen .h-lede{max-width:46ch;font-size:clamp(16px,1.45vw,18.5px)}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#ff5b19;color:#0e0f11;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
+
+/* cinematic: beeld vult het scherm, woorden liggen erin */
+.h-cinematic{position:relative;min-height:min(90svh,880px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+@keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
+.h-cinematic::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#0e0f11a6 0%,#0e0f111a 24%,#0e0f118c 52%,#0e0f11e8 80%,#0e0f11 100%)}
+.h-cinematic .h-words{padding-bottom:clamp(40px,7vw,84px)}
+.h-cinematic h1{text-shadow:0 2px 30px #0e0f11b3}
+.h-cinematic .h-lede{color:#f5f6f7cc;text-shadow:0 1px 18px #0e0f11cc}
+
+/* panorama: liggend beeld in een kader, woorden erin */
+.h-panorama{padding:clamp(22px,3vw,44px) 0 0}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#1c1f23;aspect-ratio:2/1;min-height:min(76svh,760px)}
+.h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
+@keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
+.h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
+/* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
+.h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
+.h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
+.h-panorama h1{color:#fff;font-size:clamp(34px,5vw,68px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+/* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
+.h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
+.h-panorama .h-lede{color:#ffffffdb}
+.h-panorama .h-btn{border-color:#ffffff4d;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-panorama .h-btn.is-primary{background:#ff5b19;color:#0e0f11;border-color:transparent}
+.h-panorama .h-facts{border-top:0;padding-top:0;margin-top:clamp(26px,3.4vw,44px);gap:0 clamp(20px,3vw,44px)}
+@media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
+
+/* split: woorden naast echte auto's */
+/* split: woorden links, echte voertuigen rechts. Het geheel vult nu een scherm,
+   want een opening van 400px hoog leest als een kop met een plaatje - niet als
+   een entree. */
+.h-split{padding:clamp(48px,6vw,88px) 0 clamp(40px,5vw,72px);min-height:min(84svh,820px);display:flex;align-items:center}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1.15fr;gap:clamp(32px,5vw,68px);align-items:center;width:min(var(--w,1220px),100% - 48px)}
+.h-split h1{font-size:clamp(40px,5.4vw,74px)}
+@media(max-width:900px){.h-split{min-height:0;display:block}.h-split .wrap{grid-template-columns:1fr}}
+
+/* stack: woorden boven, beeld als band eronder */
+/* stack: woorden boven, beeld als band eronder. De band moet in het eerste
+   scherm beginnen - anders open je met letters op een egale kleur, en dat is
+   precies wat we niet willen. */
+.h-stack{padding:clamp(30px,3.6vw,56px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(24px,2.8vw,40px)}
+/* Twee regels, geen drie: bij drie regels zakt de beeldband onder de vouw en
+   open je alsnog met alleen letters. */
+.h-stack h1{font-size:clamp(38px,5.2vw,70px);max-width:13ch}
+.h-stack .h-lede{margin-top:16px;max-width:44ch}
+.h-stack .h-facts{margin-top:24px;padding-top:16px}
+.h-stack .h-cta{margin-top:24px}
+.h-band{margin:0;aspect-ratio:21/7;min-height:min(46svh,460px);background:#1c1f23;overflow:hidden}
+.h-band img{width:100%;height:100%;object-fit:cover}
+@media(max-width:720px){.h-band{aspect-ratio:16/10}}
+
+/* poster: de letters doen het werk, foto's als strook */
+.h-poster{padding:clamp(36px,5vw,68px) 0 0}
+.h-poster h1{font-size:clamp(40px,7.6vw,100px);line-height:.95;max-width:16ch}
+.h-poster .h-facts{margin-bottom:clamp(28px,4vw,44px)}
+
+/* index: geen groot beeld, de cijfers staan naast de tekst */
+.h-index{padding:clamp(34px,4.4vw,60px) 0 clamp(24px,3vw,38px);border-bottom:1px solid #25282d}
+.h-index .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(26px,4vw,56px);align-items:center}
+.h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
+.h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#25282d;border:1px solid #25282d;border-radius:0px;overflow:hidden;margin:0}
+.h-panel div{background:#17191c;padding:17px 19px}
+.h-panel dd{margin:0;font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:clamp(15px,1.7vw,19px);letter-spacing:0.01em;line-height:1.25}
+@media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
+
+/* fotostrook, gedeeld door split en poster */
+.h-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.h-strip figure{margin:0;position:relative;border-radius:0px;overflow:hidden;background:#1c1f23}
+.h-strip figure:first-child{grid-column:1 / -1}
+.h-strip img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+.h-strip figure:first-child img{aspect-ratio:16/9}
+.h-strip .st-noimg{aspect-ratio:16/10;height:auto}
+.h-strip figure:first-child .st-noimg{aspect-ratio:16/9}
+.h-poster .h-strip .st-noimg{aspect-ratio:4/3}
+.h-strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:13px 15px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74));color:#fff;font-size:13.5px;font-weight:600;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.h-strip figcaption span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h-strip figcaption span:last-child{white-space:nowrap}
+.h-poster .h-strip{display:flex;grid-template-columns:none;gap:0}
+.h-poster .h-strip figure{flex:1;border-radius:0}
+.h-poster .h-strip figure:first-child{grid-column:auto}
+.h-poster .h-strip img{aspect-ratio:4/3}
+.h-poster .h-strip figcaption{display:none}
+@media(max-width:720px){.h-poster .h-strip figure:nth-child(n+4){display:none}}
+
+/* bijschrift bij de hoofdfoto */
+.h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#0e0f11d9;backdrop-filter:blur(8px);border:1px solid #25282d;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
+.h-plate-k{color:#989da4;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
+.h-plate-t{font-family:'Oswald', 'Arial Narrow', sans-serif;font-size:19px;line-height:1.15}
+.h-plate-p{color:#ff5b19;font-weight:600;font-size:17px;margin-top:4px}
+.h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #25282d;border-radius:0px}
+@media(max-width:900px){.h-plate{display:none}}
+
+
+.st-card{background:#17191c;display:flex;flex-direction:column;overflow:hidden}
+.st-shot{position:relative;aspect-ratio:4/3;background:#1c1f23;overflow:hidden}
+.st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.st-card:hover .st-shot img{transform:scale(1.04)}
+.st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#989da4;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #25282d;border-radius:50%;background:#17191c;color:#989da4;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#ff5b19;border-color:#ff5b19}
+.st-bewaar[aria-pressed="true"]{color:#ff5b19;border-color:#ff5b19}
+.st-bewaar[aria-pressed="true"] svg{fill:#ff5b19}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
+.st-year{position:absolute;left:0;top:0;background:#ff5b19;color:#0e0f11;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
+.st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
+.st-card h3{font-size:17.5px;line-height:1.3}
+.st-spec{color:#989da4;font-size:14.5px;font-variant-numeric:tabular-nums}
+.st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.st-price{font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:23px;letter-spacing:0.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#ff5b19;text-decoration:none;white-space:nowrap}
+.st-ask:hover{text-decoration:underline}
+
+.st-rail{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:max(24px,calc(50vw - 620px));padding:0 max(24px,calc(50vw - 620px)) 24px;scrollbar-width:thin;scrollbar-color:#25282d transparent}
+.st-rail::-webkit-scrollbar{height:6px}
+.st-rail::-webkit-scrollbar-thumb{background:#25282d;border-radius:99px}
+.st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
+
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
+
+.st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.st-mosaic .st-card{grid-column:span 2}
+.st-mosaic .is-wide{grid-column:span 3}
+.st-mosaic .is-lead{grid-column:span 6}
+.st-mosaic .is-lead .st-shot{aspect-ratio:21/8}
+@media(max-width:980px){.st-mosaic{grid-template-columns:repeat(4,1fr)}.st-mosaic .is-lead{grid-column:span 4}.st-mosaic .is-wide{grid-column:span 2}}
+@media(max-width:660px){.st-mosaic{grid-template-columns:1fr;gap:16px}.st-mosaic .st-card,.st-mosaic .is-wide,.st-mosaic .is-lead{grid-column:span 1}.st-mosaic .is-lead .st-shot{aspect-ratio:16/10}}
+
+.st-list{border-top:1px solid #25282d}
+.st-row{display:grid;grid-template-columns:132px 1fr auto auto;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid #25282d;transition:background .18s ease}
+.st-row:hover{background:#17191c}
+.st-row .st-thumb{aspect-ratio:4/3;background:#1c1f23;overflow:hidden;border-radius:0px}
+.st-row .st-thumb img{width:100%;height:100%;object-fit:cover}
+.st-row h3{font-size:17.5px;line-height:1.3;font-family:'Chivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:0;text-transform:none}
+.st-row .st-spec{margin-top:5px}
+.st-act{background:#ff5b19;color:#0e0f11;text-decoration:none;font-weight:700;font-size:15px;padding:11px 18px;border-radius:0px;white-space:nowrap}
+.st-act:hover{filter:brightness(1.07)}
+@media(max-width:820px){
+  .st-row{grid-template-columns:96px 1fr;gap:14px}
+  .st-row .st-price{grid-column:2}
+  .st-row .st-act{grid-column:2;justify-self:start}
+}
+
+.st-tablewrap{border:1px solid #25282d;border-radius:0px;overflow-x:auto;background:#17191c}
+.st-table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:720px}
+.st-table th{text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#989da4;font-weight:600;padding:13px 16px;border-bottom:1px solid #25282d;background:#1c1f23}
+.st-table td{padding:12px 16px;border-bottom:1px solid #25282d;vertical-align:middle}
+.st-table tr:last-child td{border-bottom:0}
+.st-table tbody tr:hover{background:#1c1f23}
+.st-table .st-thumb{width:92px}
+.st-table .st-thumb img{width:92px;height:66px;object-fit:cover;border-radius:calc(0px - 1px);background:#1c1f23}
+.st-table .st-name{font-weight:600;line-height:1.3}
+.st-table .st-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-table .st-price{font-size:19px;text-align:right;display:block}
+.st-table .st-act-cell a{display:inline-block;background:#ff5b19;color:#0e0f11;padding:9px 15px;border-radius:0px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+
+
+.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+.sec-trust b{display:block;font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:0.01em;color:#ff5b19;line-height:1}
+.sec-trust span{display:block;margin-top:9px;color:#989da4;font-size:15px}
+.sec-trust a{color:#f5f6f7}
+
+.sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
+/* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
+.sec-about .wrap>*{min-width:0}
+.sec-about p{overflow-wrap:anywhere}
+.sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
+.sec-about p{color:#989da4;font-size:17.5px;max-width:66ch}
+.sec-about .portrait{border:1px solid #25282d;border-radius:0px;background:#1c1f23;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+.sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
+@media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
+
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;list-style:none;padding:0;margin:0;counter-reset:s}
+.flow li{background:#17191c;border:1px solid #25282d;border-radius:0px;padding:clamp(22px,2.6vw,30px);position:relative}
+.flow li::before{counter-increment:s;content:counter(s);display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:#ff5b19;color:#0e0f11;font-weight:700;font-size:14px;margin-bottom:14px}
+.flow li b{display:block;font-size:18.5px;margin-bottom:8px}
+.flow li p{color:#989da4;font-size:15.5px}
+@media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+.sec-brands{border-block:1px solid #25282d;background:#17191c}
+.sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
+.sec-brands span{font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:clamp(15px,1.6vw,19px);letter-spacing:0.01em;text-transform:uppercase;color:#989da4;padding:6px 0}
+.sec-brands span:first-child{color:#ff5b19}
+
+.wrap{--w:1220px}
+.sec-contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,68px)}
+.sec-contact h2{font-size:clamp(26px,3.4vw,44px)}
+.sec-contact .lede{margin-top:16px;color:#989da4;max-width:46ch}
+.sec-contact .callrow{margin-top:24px}
+.sec-contact .addr{margin-top:18px;color:#989da4}
+.sec-contact .hours{margin-top:26px}
+@media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
+
+.sa-balk{position:sticky;top:0;z-index:40;background:#0e0f11;border-block:1px solid #25282d;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#989da4;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:0px;background:#17191c;border:1px solid #25282d;color:#f5f6f7;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#989da4}
+.sa-zoek input:focus{outline:none;border-color:#ff5b19}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#989da4;cursor:pointer}
+.sa-wis:hover{color:#f5f6f7}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#989da4;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:14px;letter-spacing:0;text-transform:none;color:#ff5b19;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:0px;background:#17191c;border:1px solid #25282d;color:#f5f6f7;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#ff5b19}
+.sa-meer{padding:11px 17px;border-radius:0px;background:transparent;border:1px solid #25282d;color:#989da4;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#f5f6f7;border-color:#ff5b19}
+.sa-meer[aria-expanded="true"]{border-color:#ff5b19;color:#ff5b19}
+
+.sa-paneel{border-top:1px solid #25282d}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:0px;background:transparent;border:1px solid #25282d;color:#989da4;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#f5f6f7;border-color:#ff5b19}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#ff5b19;border-color:#ff5b19;color:#0e0f11}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#989da4;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#25282d}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#ff5b19;border:3px solid #0e0f11}
+input[type=range]::-moz-range-track{height:2px;background:#25282d}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#ff5b19;border:3px solid #0e0f11}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#989da4;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:19px;color:#f5f6f7;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:0px;background:transparent;border:1px solid #25282d;color:#989da4;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#f5f6f7;border-color:#ff5b19}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#ff5b19;border-color:#ff5b19;color:#0e0f11}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #25282d;border-radius:0px}
+.sa-leeg-t{font-family:'Oswald', 'Arial Narrow', sans-serif;font-weight:600;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#989da4;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #25282d;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
+/* Motoren: hard contrast, schuine sneden, alles in kapitalen. */
+.hero h1 em{display:block}
+.top nav a{text-transform:uppercase;font-weight:500;letter-spacing:.02em}
+.top nav a:hover{color:#ff5b19}
+.mark{text-transform:uppercase;font-size:22px}
+.callbtn{clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);font-weight:700}
+.h-btn{clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);text-transform:uppercase;font-weight:700;letter-spacing:.02em;font-size:15.5px;border-radius:0}
+.h-cinematic::after{background:linear-gradient(105deg,#0e0f11 0%,#0e0f11d9 32%,#0e0f112e 64%,transparent 100%)}
+@media(max-width:820px){.h-cinematic::after{background:linear-gradient(180deg,#0e0f1140,#0e0f11 78%)}}
+.head span.meta{text-transform:uppercase;letter-spacing:.04em;font-size:14px}
+.st-grid,.st-rail{gap:2px}
+.st-grid{background:#25282d;border:1px solid #25282d}
+.st-card{background:#0e0f11;transition:background .2s ease}
+.st-card:hover{background:#17191c}
+.st-card h3{font-family:'Chivo', 'Helvetica Neue', Arial, sans-serif;font-weight:700;letter-spacing:0;text-transform:none;font-size:17px}
+.st-ask{text-transform:uppercase;letter-spacing:.04em;font-size:13.5px;font-weight:700}
+.sec-trust{background:#17191c;border-block:1px solid #25282d}
+.flow li{border-radius:0}
+.sec-contact{background:#17191c;border-top:1px solid #25282d}
+.field span{text-transform:uppercase;letter-spacing:.05em;font-size:12.5px}
+.bar a{text-transform:uppercase;font-weight:700}
+</style>
+</head>
+<body data-site="19237723">
+<!--
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van Motorcentrumbruurs (motoren, mediaanprijs EUR 14745, 26 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+OWN-WORLD: palet asfalt, 'Oswald' als display op 'Chivo', hoeken 0px, accent #ff5b19.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties about > stock > brands > process > hours > contact.
+FORM: motoren-asfalt-stack-grid-oswald-k0
+FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
+-->
+<div class="top" id="top">
+  <div class="wrap">
+    <a class="mark has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>Motorcentrumbruurs</b><em>Noord-Scharwoude</em></span></a>
+    <nav><a href="#voorraad">Voorraad</a><a href="#contact">Contact</a></nav>
+    
+    <a class="callbtn" href="tel:+31226312162">022-6312162</a>
+  </div>
+</div>
+<header class="hero h-stack">
+  <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>26 machines op voorraad · Noord-Scharwoude</p><h1>Rij hem zelf <em>in Noord-Scharwoude</em></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31226312162">Bel 022-6312162</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div><p class="h-lede">Bekijk de voorraad, kom langs en rij hem zelf. Bellen mag altijd, ook als u nog twijfelt.</p><div class="h-facts"><span>8 jaar op Marktplaats</span><span>Kom langs in Noord-Scharwoude</span></div></div>
+  <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/67a2858e-b84c-4490-9d44-fc06733526dd?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/67a2858e-b84c-4490-9d44-fc06733526dd?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/67a2858e-b84c-4490-9d44-fc06733526dd?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/67a2858e-b84c-4490-9d44-fc06733526dd?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/67a2858e-b84c-4490-9d44-fc06733526dd?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Triumph Tiger 1200 Desert Edition Nu met &amp;#8364; 1800,- grat" fetchpriority="high"></figure>
+</header>
+<section class="sec-about" id="over-ons">
+  <div class="wrap rv">
+    <div>
+      <h2>Over Motorcentrumbruurs</h2>
+      <p>Motorcentrum Bruurs is uw specialist in Triumph en BMW motoren en bestaat sinds 1977.</p>
+    </div>
+    <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/f6/f6c484a5-00e1-46be-8d3c-4ea0fb64cdde?rule=ecg_mp_eps$_85.jpg" alt="Motorcentrumbruurs" loading="lazy"></div>
+  </div>
+</section>
+<section id="voorraad">
+  <div class="wrap head">
+    <h2>Op voorraad</h2>
+    <span class="meta">18 getoond van 26 · vanaf € 9.990</span>
+    
+  </div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 25.240</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="9990" max="25240" step="250" value="25240">
+  <span class="sa-schaal"><i>€ 9.990</i><i>€ 25.240</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="motoren-triumph-triumph-tiger-1200-desert-editio-1" data-rang="0" data-merk="Triumph" data-prijs="24995" data-jaar="2026" data-zoek="triumph tiger 1200 desert edition nu met &amp;#8364; 1800,- grat triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/67a2858e-b84c-4490-9d44-fc06733526dd?rule=ecg_mp_eps$_85.jpg" alt="Triumph Tiger 1200 Desert Edition Nu met &amp;#8364; 1800,- grat" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-tiger-1200-desert-editio-1" aria-pressed="false" aria-label="Bewaar Triumph Tiger 1200 Desert Edition Nu met &amp;#8364; 1800,- grat"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Tiger 1200 Desert Edition Nu met &amp;#8364; 1800,- grat</h3>
+    <p class="st-spec">1 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 24.995</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-speed-triple-1200-rs-new-2" data-rang="1" data-merk="Triumph" data-prijs="23345" data-jaar="2026" data-zoek="triumph speed triple 1200 rs new speed triple 1200 rs triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/5818640d-3bd7-45f9-a61b-0d02a511adf8?rule=ecg_mp_eps$_85.jpg" alt="Triumph Speed Triple 1200 RS NEW Speed Triple 1200 RS" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-speed-triple-1200-rs-new-2" aria-pressed="false" aria-label="Bewaar Triumph Speed Triple 1200 RS NEW Speed Triple 1200 RS"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Speed Triple 1200 RS NEW Speed Triple 1200 RS</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 23.345</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-bonneville-bobber-new-bo-3" data-rang="2" data-merk="Triumph" data-prijs="19995" data-jaar="2026" data-zoek="triumph bonneville bobber new bobber two tone (bj 2026) triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/29732e2f-a5fc-418d-a20e-817d91a00159?rule=ecg_mp_eps$_85.jpg" alt="Triumph Bonneville Bobber NEW Bobber Two Tone (bj 2026)" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-bonneville-bobber-new-bo-3" aria-pressed="false" aria-label="Bewaar Triumph Bonneville Bobber NEW Bobber Two Tone (bj 2026)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Bonneville Bobber NEW Bobber Two Tone (bj 2026)</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 19.995</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-scrambler-1200-xe-new-sc-4" data-rang="3" data-merk="Triumph" data-prijs="19895" data-jaar="2026" data-zoek="triumph scrambler 1200 xe new scrambler 1200 xe (bj 2026) triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2fc2aa84-42cb-4569-9e2a-2424384946a8?rule=ecg_mp_eps$_85.jpg" alt="Triumph Scrambler 1200 XE NEW Scrambler 1200 XE (bj 2026)" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-scrambler-1200-xe-new-sc-4" aria-pressed="false" aria-label="Bewaar Triumph Scrambler 1200 XE NEW Scrambler 1200 XE (bj 2026)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Scrambler 1200 XE NEW Scrambler 1200 XE (bj 2026)</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 19.895</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-tiger-900-alpine-edition-5" data-rang="4" data-merk="Triumph" data-prijs="19095" data-jaar="2026" data-zoek="triumph tiger 900 alpine edition &amp;#8364; 1.000,- gratis acce triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d6b3335e-6ba3-40f4-b56d-81775c9a614b?rule=ecg_mp_eps$_85.jpg" alt="Triumph Tiger 900 Alpine Edition &amp;#8364; 1.000,- gratis acce" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-tiger-900-alpine-edition-5" aria-pressed="false" aria-label="Bewaar Triumph Tiger 900 Alpine Edition &amp;#8364; 1.000,- gratis acce"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Tiger 900 Alpine Edition &amp;#8364; 1.000,- gratis acce</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 19.095</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-speed-twin-1200-bj-2026-6" data-rang="5" data-merk="Triumph" data-prijs="17345" data-jaar="2026" data-zoek="triumph speed twin 1200 (bj 2026) triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/26e3d144-92c9-47e0-9e0e-3c2e78aeca71?rule=ecg_mp_eps$_85.jpg" alt="Triumph Speed Twin 1200 (bj 2026)" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-speed-twin-1200-bj-2026-6" aria-pressed="false" aria-label="Bewaar Triumph Speed Twin 1200 (bj 2026)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Speed Twin 1200 (bj 2026)</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 17.345</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-bonneville-t120-new-bonn-7" data-rang="6" data-merk="Triumph" data-prijs="16895" data-jaar="2026" data-zoek="triumph bonneville t120 new bonneville t 120 in de kleur sto triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/918863da-1c3d-4afc-803e-f903a1b3685f?rule=ecg_mp_eps$_85.jpg" alt="Triumph Bonneville T120 NEW Bonneville T 120 in de kleur Sto" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-bonneville-t120-new-bonn-7" aria-pressed="false" aria-label="Bewaar Triumph Bonneville T120 NEW Bonneville T 120 in de kleur Sto"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Bonneville T120 NEW Bonneville T 120 in de kleur Sto</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 16.895</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-scrambler-1200-x-eindeja-8" data-rang="7" data-merk="Triumph" data-prijs="15990" data-jaar="2026" data-zoek="triumph scrambler 1200 x eindejaars demo-sale (bj 2026) triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/cac74b98-1399-4825-93c7-90146e2b6a09?rule=ecg_mp_eps$_85.jpg" alt="Triumph Scrambler 1200 X Eindejaars Demo-Sale (bj 2026)" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-scrambler-1200-x-eindeja-8" aria-pressed="false" aria-label="Bewaar Triumph Scrambler 1200 X Eindejaars Demo-Sale (bj 2026)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Scrambler 1200 X Eindejaars Demo-Sale (bj 2026)</h3>
+    <p class="st-spec">123 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 15.990</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-street-triple-765-rs-500-9" data-rang="8" data-merk="Triumph" data-prijs="15495" data-jaar="2026" data-zoek="triumph street triple 765 rs 500,- gratis accessoires! triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/95a5d2c9-820a-477c-a742-29bd9dcafbe4?rule=ecg_mp_eps$_85.jpg" alt="Triumph Street Triple 765 RS 500,- gratis accessoires!" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-street-triple-765-rs-500-9" aria-pressed="false" aria-label="Bewaar Triumph Street Triple 765 RS 500,- gratis accessoires!"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Street Triple 765 RS 500,- gratis accessoires!</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 15.495</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-scrambler-900-new-scramb-10" data-rang="9" data-merk="Triumph" data-prijs="13995" data-jaar="2026" data-zoek="triumph scrambler 900 new scrambler 900 (bj 2026) triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/460ab297-d4bf-4b1f-b770-44bd30b3e00a?rule=ecg_mp_eps$_85.jpg" alt="Triumph Scrambler 900 NEW Scrambler 900 (bj 2026)" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-scrambler-900-new-scramb-10" aria-pressed="false" aria-label="Bewaar Triumph Scrambler 900 NEW Scrambler 900 (bj 2026)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Scrambler 900 NEW Scrambler 900 (bj 2026)</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 13.995</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-tiger-sport-800-new-tige-11" data-rang="10" data-merk="Triumph" data-prijs="13945" data-jaar="2026" data-zoek="triumph tiger sport 800 new tiger sport 800 (bj 2026) triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/13639414-bde6-4da3-ad9b-4b3d600a393e?rule=ecg_mp_eps$_85.jpg" alt="Triumph Tiger Sport 800 NEW Tiger Sport 800 (bj 2026)" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-tiger-sport-800-new-tige-11" aria-pressed="false" aria-label="Bewaar Triumph Tiger Sport 800 NEW Tiger Sport 800 (bj 2026)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Tiger Sport 800 NEW Tiger Sport 800 (bj 2026)</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 13.945</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-bonneville-t100-new-bonn-12" data-rang="11" data-merk="Triumph" data-prijs="13595" data-jaar="2026" data-zoek="triumph bonneville t100 new bonneville t100 (bj 2026) triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b9da05e7-9568-4b1d-aa95-5ea68d36bf38?rule=ecg_mp_eps$_85.jpg" alt="Triumph Bonneville T100 NEW Bonneville T100 (bj 2026)" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-bonneville-t100-new-bonn-12" aria-pressed="false" aria-label="Bewaar Triumph Bonneville T100 NEW Bonneville T100 (bj 2026)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Bonneville T100 NEW Bonneville T100 (bj 2026)</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 13.595</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-street-triple-765-rs-hel-13" data-rang="12" data-merk="Triumph" data-prijs="11990" data-jaar="2025" data-zoek="triumph street triple 765 rs hele mooie street triple rs van triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/240b1fcf-da1a-4848-bdbd-8c0ecb695e4e?rule=ecg_mp_eps$_85.jpg" alt="Triumph Street Triple 765 RS Hele mooie Street Triple RS van" loading="lazy" decoding="async"><span class="st-year">2025</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-street-triple-765-rs-hel-13" aria-pressed="false" aria-label="Bewaar Triumph Street Triple 765 RS Hele mooie Street Triple RS van"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Street Triple 765 RS Hele mooie Street Triple RS van</h3>
+    <p class="st-spec">13.563 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 11.990</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-tiger-sport-660-new-tige-14" data-rang="13" data-merk="Triumph" data-prijs="11545" data-jaar="2026" data-zoek="triumph tiger sport 660 new tiger sport 660 (bj 2026) triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/16d161f3-d08c-478b-950b-bcb3819a21c9?rule=ecg_mp_eps$_85.jpg" alt="Triumph Tiger Sport 660 NEW Tiger Sport 660 (bj 2026)" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-tiger-sport-660-new-tige-14" aria-pressed="false" aria-label="Bewaar Triumph Tiger Sport 660 NEW Tiger Sport 660 (bj 2026)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Tiger Sport 660 NEW Tiger Sport 660 (bj 2026)</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 11.545</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-tiger-sport-660-new-tige-15" data-rang="14" data-merk="Triumph" data-prijs="11545" data-jaar="2026" data-zoek="triumph tiger sport 660 new tiger sport 660 in de kleur inte triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/afbca48a-e3d5-4cfc-a455-507a2ca7933a?rule=ecg_mp_eps$_85.jpg" alt="Triumph Tiger Sport 660 NEW Tiger Sport 660 in de kleur Inte" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-tiger-sport-660-new-tige-15" aria-pressed="false" aria-label="Bewaar Triumph Tiger Sport 660 NEW Tiger Sport 660 in de kleur Inte"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Tiger Sport 660 NEW Tiger Sport 660 in de kleur Inte</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 11.545</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-trident-660-new-trident--16" data-rang="15" data-merk="Triumph" data-prijs="10145" data-jaar="2026" data-zoek="triumph trident 660 new trident 660 (bj 2026) triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ed21c512-eed7-4c7a-86b4-814658083614?rule=ecg_mp_eps$_85.jpg" alt="Triumph Trident 660 NEW Trident 660 (bj 2026)" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-trident-660-new-trident--16" aria-pressed="false" aria-label="Bewaar Triumph Trident 660 NEW Trident 660 (bj 2026)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Trident 660 NEW Trident 660 (bj 2026)</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 10.145</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-trident-660-new-trident--17" data-rang="16" data-merk="Triumph" data-prijs="9995" data-jaar="2026" data-zoek="triumph trident 660 new trident 660 (bj 2026) triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bb94c602-cd43-4374-bc7b-901003180df0?rule=ecg_mp_eps$_85.jpg" alt="Triumph Trident 660 NEW Trident 660 (bj 2026)" loading="lazy" decoding="async"><span class="st-year">2026</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-trident-660-new-trident--17" aria-pressed="false" aria-label="Bewaar Triumph Trident 660 NEW Trident 660 (bj 2026)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Trident 660 NEW Trident 660 (bj 2026)</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 9.995</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="motoren-triumph-triumph-daytona-660-demo-sale-bj-18" data-rang="17" data-merk="Triumph" data-prijs="9990" data-jaar="2024" data-zoek="triumph daytona 660 demo sale (bj 2024) triumph">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7e2c0dca-a5bb-4098-a4b6-37a11d5b5957?rule=ecg_mp_eps$_85.jpg" alt="Triumph Daytona 660 Demo Sale (bj 2024)" loading="lazy" decoding="async"><span class="st-year">2024</span><button class="st-bewaar" type="button" data-bewaar="motoren-triumph-triumph-daytona-660-demo-sale-bj-18" aria-pressed="false" aria-label="Bewaar Triumph Daytona 660 Demo Sale (bj 2024)"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Triumph Daytona 660 Demo Sale (bj 2024)</h3>
+    <p class="st-spec">400 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 9.990</span>
+      <a class="st-ask" href="tel:+31226312162">Proefrit</a>
+    </div>
+  </div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 8 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 8 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="tel:+31226312162">Bel 022-6312162</a></div></div>
+</section>
+<section class="sec-flow">
+  <div class="wrap">
+    <div class="head rv"><h2>Zo gaat het</h2></div>
+    <ol class="flow rv">
+      <li><b>Neem contact op</b><p>Bel ons over het voertuig dat u op het oog heeft.</p></li><li><b>Kom langs</b><p>Kom langs, bekijk de motor van dichtbij en stel al uw vragen.</p></li><li><b>Regel het samen</b><p>We bespreken prijs, inruil en aflevering. Geen verrassingen.</p></li>
+    </ol>
+  </div>
+</section>
+<section class="sec-contact" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <h2>Zelf rijden zegt meer</h2>
+      <p class="lede">Zeg welke machine u wilt rijden, dan zetten we hem klaar.</p>
+      <p class="callrow"><a class="h-btn is-primary" href="tel:+31226312162">Bel 022-6312162</a></p>
+      <p class="addr"><a href="https://maps.google.com/?q=De%20mossel%2067%2C%201723HX%20Noord-Scharwoude" target="_blank" rel="noreferrer">De mossel 67, 1723HX Noord-Scharwoude</a></p>
+      <table class="hours"><tr data-d="1"><th>Maandag</th><td class="closed">Gesloten</td></tr><tr data-d="2"><th>Dinsdag</th><td>09:00 – 18:00</td></tr><tr data-d="3"><th>Woensdag</th><td>09:00 – 18:00</td></tr><tr data-d="4"><th>Donderdag</th><td>09:00 – 18:00</td></tr><tr data-d="5"><th>Vrijdag</th><td>09:00 – 18:00</td></tr><tr data-d="6"><th>Zaterdag</th><td>09:00 – 16:00</td></tr><tr data-d="0"><th>Zondag</th><td class="closed">Gesloten</td></tr></table>
+    </div>
+    <div class="panel rv"><form onsubmit="event.preventDefault();var f=this;location.href='mailto:info@motorcentrumbruurs.nl?subject='+encodeURIComponent('Proefrit aanvragen')+'&body='+encodeURIComponent('Naam: '+f.naam.value+'\nTelefoon: '+f.tel.value+'\n\n'+f.bericht.value)"><label class="field"><span>Uw naam</span><input name="naam" type="text" autocomplete="name" required></label><label class="field"><span>Telefoonnummer</span><input name="tel" type="tel" autocomplete="tel" required></label><label class="field"><span>Welke machine wilt u rijden?</span><textarea name="bericht" rows="4" required></textarea></label><button class="h-btn is-primary" type="submit">Proefrit aanvragen</button><p class="note">Uw bericht opent in uw eigen mailprogramma.</p></form></div>
+  </div>
+</section>
+<footer>
+  <div class="wrap rowf">
+    <span>Motorcentrumbruurs · De mossel 67, 1723HX Noord-Scharwoude</span>
+    <span>Voorbeeldwebsite, gemaakt door Capital BB</span>
+  </div>
+</footer>
+<div class="bar">
+  <a class="acc" href="tel:+31226312162">Bellen</a>
+  <a href="#contact">Proefrit</a>
+</div>
+<script>
+document.documentElement.className+=' js';
+(function(){
+  var today=document.querySelector('.hours tr[data-d="'+new Date().getDay()+'"]');
+  if(today){today.className='today';var v=today.lastElementChild;if(v){v.insertAdjacentHTML('beforeend','<span class="tag">vandaag</span>')}}
+  var top=document.getElementById('top');
+  if(top){var s=function(){top.classList.toggle('solid',window.scrollY>40)};s();addEventListener('scroll',s,{passive:true})}
+  var items=[].slice.call(document.querySelectorAll('.rv'));
+  var show=function(el){el.classList.add('in')};
+  if(!('IntersectionObserver' in window)){items.forEach(show);return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
+  items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
+  setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
+})();
+</script>
+
+</body>
+</html>

@@ -6,14 +6,14 @@
 <title>z&amp;m automotive · Rotterdam</title>
 <meta name="description" content="Voorbeeldwebsite voor z&amp;m automotive.">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=Archivo:wght@400;500;600;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,400;100,500;125,600;125,700&display=swap">
 <style>
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:#101113;color:#f4f4f5;font-family:'Archivo', 'Helvetica Neue', Arial, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img{max-width:100%;display:block}
 a{color:inherit}
-h1,h2,h3{margin:0;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;letter-spacing:-0.02em;line-height:1.05;text-wrap:balance}
+h1,h2,h3{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:-0.03em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
 /* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
@@ -34,12 +34,24 @@ html,body{overflow-x:clip}
 .top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
 .top.is-fixed.solid{background:#101113e6;backdrop-filter:blur(14px);border-bottom-color:#2b2e34}
 .top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
-.mark{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:20px;letter-spacing:-0.02em;margin-right:auto;text-decoration:none}
+.mark{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.03em;margin-right:auto;text-decoration:none}
 .top nav{display:flex;gap:24px;font-size:15px}
 .top nav a{color:#9b9ea4;text-decoration:none}
 .top nav a:hover{color:#f4f4f5}
 .callbtn{display:inline-flex;align-items:center;background:#7fb2d9;color:#0a0b0d;padding:11px 20px;border-radius:2px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
 .callbtn:hover{filter:brightness(1.07)}
+/* merk met ondertitel: ruit, naam, plaats eronder */
+.mark.has-sub{display:inline-flex;align-items:center;gap:11px;line-height:1.1}
+.mark .mark-i{width:19px;height:19px;flex:none;fill:#7fb2d9}
+.mark.has-sub b{display:block;font-weight:inherit;font-size:20px;letter-spacing:-0.03em}
+.mark.has-sub em{display:block;font-family:'Archivo', 'Helvetica Neue', Arial, sans-serif;font-style:normal;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9b9ea4;margin-top:2px}
+
+/* WhatsApp als eigen knop, naast het nummer */
+.wabtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;border:1px solid #2b2e34;background:#191b1f;color:#f4f4f5;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
+.wabtn svg{width:17px;height:17px;flex:none}
+.wabtn:hover{border-color:#7fb2d9}
+@media(max-width:900px){.wabtn span{display:none}.wabtn{padding:10px 12px}}
+
 @media(max-width:900px){.top nav{display:none}}
 /* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
 @media(max-width:720px){
@@ -89,7 +101,8 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
 .hero h1 em{font-style:normal;color:#7fb2d9}
 .hero h1 a{text-decoration:none}
-.h-kick{color:#9b9ea4;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
+.h-kick{display:flex;align-items:center;gap:10px;color:#9b9ea4;font-size:13.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.h-dot{width:8px;height:8px;border-radius:999px;background:#3fb96b;box-shadow:0 0 0 4px #3fb96b2e;flex:none}
 .h-lede{margin-top:20px;max-width:50ch;color:#9b9ea4;font-size:clamp(16px,1.6vw,19px)}
 .h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:2px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #2b2e34;background:#191b1f;color:#f4f4f5;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
@@ -106,14 +119,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
    Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
    met een echte sluier eronder - niet het palet van de wereld volgen, want een
    licht palet levert zwarte letters op een avondfoto op. */
-.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen{position:relative;min-height:min(88svh,800px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
 .h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 .h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
-.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen .h-words{padding-block:clamp(32px,5vw,64px);color:#fff}
 .h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
-.h-eigen h1 em{color:#a5c9e4;text-shadow:0 2px 20px rgba(0,0,0,.75)}
-.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen h1 em{color:#7fb2d9;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffd6}
+.h-eigen .h-dot{background:#4ade80;box-shadow:0 0 0 4px #4ade8033}
+.h-pijl{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
+.h-eigen .h-btn{border-radius:999px;padding:16px 28px;font-size:15.5px}
+.h-eigen .h-btn.is-primary{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.h-eigen h1{font-size:clamp(42px,6.6vw,88px);line-height:1.02;max-width:14ch}
+.h-eigen .h-lede{max-width:46ch;font-size:clamp(16px,1.45vw,18.5px)}
 .h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
 .h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
 .h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
@@ -121,7 +140,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
-.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic{position:relative;min-height:min(90svh,880px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
 .h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 @keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
@@ -132,14 +151,14 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 /* panorama: liggend beeld in een kader, woorden erin */
 .h-panorama{padding:clamp(22px,3vw,44px) 0 0}
-.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#15171b;aspect-ratio:21/9;min-height:320px}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#15171b;aspect-ratio:2/1;min-height:min(76svh,760px)}
 .h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
 @keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
 .h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
 /* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
 .h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
 .h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
-.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+.h-panorama h1{color:#fff;font-size:clamp(34px,5vw,68px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
 /* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
 .h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
 .h-panorama .h-lede{color:#ffffffdb}
@@ -149,16 +168,27 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
 
 /* split: woorden naast echte auto's */
-.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
-.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
-.h-split h1{font-size:clamp(36px,4.9vw,64px)}
-@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+/* split: woorden links, echte voertuigen rechts. Het geheel vult nu een scherm,
+   want een opening van 400px hoog leest als een kop met een plaatje - niet als
+   een entree. */
+.h-split{padding:clamp(48px,6vw,88px) 0 clamp(40px,5vw,72px);min-height:min(84svh,820px);display:flex;align-items:center}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1.15fr;gap:clamp(32px,5vw,68px);align-items:center;width:min(var(--w,1220px),100% - 48px)}
+.h-split h1{font-size:clamp(40px,5.4vw,74px)}
+@media(max-width:900px){.h-split{min-height:0;display:block}.h-split .wrap{grid-template-columns:1fr}}
 
 /* stack: woorden boven, beeld als band eronder */
-.h-stack{padding:clamp(44px,6vw,92px) 0 0}
-.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
-.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
-.h-band{margin:0;aspect-ratio:21/8;background:#15171b;overflow:hidden}
+/* stack: woorden boven, beeld als band eronder. De band moet in het eerste
+   scherm beginnen - anders open je met letters op een egale kleur, en dat is
+   precies wat we niet willen. */
+.h-stack{padding:clamp(30px,3.6vw,56px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(24px,2.8vw,40px)}
+/* Twee regels, geen drie: bij drie regels zakt de beeldband onder de vouw en
+   open je alsnog met alleen letters. */
+.h-stack h1{font-size:clamp(38px,5.2vw,70px);max-width:13ch}
+.h-stack .h-lede{margin-top:16px;max-width:44ch}
+.h-stack .h-facts{margin-top:24px;padding-top:16px}
+.h-stack .h-cta{margin-top:24px}
+.h-band{margin:0;aspect-ratio:21/7;min-height:min(46svh,460px);background:#15171b;overflow:hidden}
 .h-band img{width:100%;height:100%;object-fit:cover}
 @media(max-width:720px){.h-band{aspect-ratio:16/10}}
 
@@ -173,7 +203,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
 .h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#2b2e34;border:1px solid #2b2e34;border-radius:2px;overflow:hidden;margin:0}
 .h-panel div{background:#191b1f;padding:17px 19px}
-.h-panel dd{margin:0;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.02em;line-height:1.25}
+.h-panel dd{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.03em;line-height:1.25}
 @media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
 
 /* fotostrook, gedeeld door split en poster */
@@ -198,7 +228,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 /* bijschrift bij de hoofdfoto */
 .h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#101113d9;backdrop-filter:blur(8px);border:1px solid #2b2e34;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
 .h-plate-k{color:#9b9ea4;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
-.h-plate-t{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-size:19px;line-height:1.15}
+.h-plate-t{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-size:19px;line-height:1.15}
 .h-plate-p{color:#7fb2d9;font-weight:600;font-size:17px;margin-top:4px}
 .h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #2b2e34;border-radius:2px}
 @media(max-width:900px){.h-plate{display:none}}
@@ -219,7 +249,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-card h3{font-size:17.5px;line-height:1.3}
 .st-spec{color:#9b9ea4;font-size:14.5px;font-variant-numeric:tabular-nums}
 .st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.st-price{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:23px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-price{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:23px;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
 .st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#7fb2d9;text-decoration:none;white-space:nowrap}
 .st-ask:hover{text-decoration:underline}
 
@@ -270,7 +300,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 
 .sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
-.sec-trust b{display:block;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.02em;color:#7fb2d9;line-height:1}
+.sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#7fb2d9;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#9b9ea4;font-size:15px}
 .sec-trust a{color:#f4f4f5}
 
@@ -293,7 +323,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 .sec-brands{border-block:1px solid #2b2e34;background:#191b1f}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
-.sec-brands span{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.02em;color:#9b9ea4;padding:6px 0}
+.sec-brands span{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.03em;color:#9b9ea4;padding:6px 0}
 .sec-brands span:first-child{color:#7fb2d9}
 
 .wrap{--w:1240px}
@@ -305,81 +335,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
-.sa-balk{position:sticky;top:0;z-index:40;background:#101113;border-block:1px solid #2b2e34;margin-bottom:22px}
-.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
-.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
-.sa-zoek svg{position:absolute;left:15px;color:#9b9ea4;pointer-events:none}
-.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:2px;background:#191b1f;border:1px solid #2b2e34;color:#f4f4f5;font:inherit;font-size:15px}
-.sa-zoek input::placeholder{color:#9b9ea4}
-.sa-zoek input:focus{outline:none;border-color:#7fb2d9}
-.sa-zoek input::-webkit-search-cancel-button{display:none}
-.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#9b9ea4;cursor:pointer}
-.sa-wis:hover{color:#f4f4f5}
-
-/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
-   een lange modelnaam de hele balk uit het scherm op een telefoon. */
-.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
-.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9b9ea4;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
-.sa-veld output{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:14px;letter-spacing:0;text-transform:none;color:#7fb2d9;font-variant-numeric:tabular-nums}
-.sa-rij .sa-veld{flex-direction:row;align-items:center}
-.sa-rij .sa-veld label{display:none}
-.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:2px;background:#191b1f;border:1px solid #2b2e34;color:#f4f4f5;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 13px center}
-.sa-balk select:focus{outline:none;border-color:#7fb2d9}
-.sa-meer{padding:11px 17px;border-radius:2px;background:transparent;border:1px solid #2b2e34;color:#9b9ea4;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
-.sa-meer:hover{color:#f4f4f5;border-color:#7fb2d9}
-.sa-meer[aria-expanded="true"]{border-color:#7fb2d9;color:#7fb2d9}
-
-.sa-paneel{border-top:1px solid #2b2e34}
-.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
-.sa-breed{grid-column:1/-1}
-.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
-.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:2px;background:transparent;border:1px solid #2b2e34;color:#9b9ea4;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
-.sa-chip:hover{color:#f4f4f5;border-color:#7fb2d9}
-.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
-.sa-chip[aria-pressed="true"]{background:#7fb2d9;border-color:#7fb2d9;color:#0a0b0d}
-.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#9b9ea4;font-variant-numeric:tabular-nums}
-.sa-schaal i{font-style:normal}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
-input[type=range]::-webkit-slider-runnable-track{height:2px;background:#2b2e34}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#7fb2d9;border:3px solid #101113}
-input[type=range]::-moz-range-track{height:2px;background:#2b2e34}
-input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#7fb2d9;border:3px solid #101113}
-
-.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
-.sa-tel{font-size:14.5px;color:#9b9ea4;font-variant-numeric:tabular-nums}
-.sa-tel b{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:19px;color:#f4f4f5;margin-right:4px}
-.sa-acties{display:flex;gap:9px}
-.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:2px;background:transparent;border:1px solid #2b2e34;color:#9b9ea4;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
-.sa-knopje:hover{color:#f4f4f5;border-color:#7fb2d9}
-.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
-.sa-knopje[aria-pressed="true"]{background:#7fb2d9;border-color:#7fb2d9;color:#0a0b0d}
-
-.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #2b2e34;border-radius:2px}
-.sa-leeg-t{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(20px,2.6vw,27px)}
-.sa-leeg-s{margin-top:10px;color:#9b9ea4;max-width:46ch;margin-inline:auto}
-.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
-
-.sa-meer-wrap{display:none}
-.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #2b2e34;cursor:pointer}
-.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
-
-@media(max-width:760px){
-  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
-     pixels scrollen; alles wat daarna komt ziet niemand meer. */
-  .sa-meer-wrap{display:block;margin-top:16px}
-  .sa-rij{gap:9px}
-  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
-  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
-  .sa-chip{padding:11px 16px}
-}
-
 
 /* Prestige: showroom na sluitingstijd. Alles rustig, het beeld doet het werk. */
 .st-card{border:1px solid #2b2e34}
 .st-card:hover{border-color:#7fb2d966;transform:translateY(-4px);transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s}
-.st-card h3{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;letter-spacing:-0.02em}
+.st-card h3{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:-0.03em}
 .sec-trust{background:#191b1f;border-block:1px solid #2b2e34}
 .flow li{background:#101113}
 .sec-contact{background:#191b1f;border-top:1px solid #2b2e34}
@@ -390,77 +350,33 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 <body data-site="8636968">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van z&amp;m automotive (prestige, mediaanprijs EUR 32950, 37 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
-OWN-WORLD: palet graphite, 'Bodoni Moda' als display op 'Archivo', hoeken 2px, accent #7fb2d9.
+OWN-WORLD: palet graphite, 'Archivo Expanded' als display op 'Archivo', hoeken 2px, accent #7fb2d9.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "mosaic", secties stock > process > trust > about > promise > contact.
-FORM: prestige-graphite-stack-mosaic-bodonimoda-k0
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "rail", secties trust > stock > process > about > promise > contact.
+FORM: prestige-graphite-cinematic-rail-archivoexpanded-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
 <div class="top is-fixed" id="top">
   <div class="wrap">
-    <a class="mark" href="#top">z&amp;m automotive</a>
+    <a class="mark has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>z&amp;m automotive</b><em>Rotterdam</em></span></a>
     <nav><a href="#voorraad">Voorraad</a><a href="#over-ons">Over ons</a><a href="#contact">Contact</a></nav>
+    <a class="wabtn" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad."><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.04 2A9.9 9.9 0 0 0 2.1 11.9c0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.9 9.9 0 0 0 4.74 1.2h.01a9.9 9.9 0 0 0 9.94-9.9A9.9 9.9 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.98.24-3.3-.69-2.78-1.1-4.54-3.95-4.68-4.13-.13-.18-1.11-1.48-1.11-2.82 0-1.34.7-2 .95-2.28.25-.27.54-.34.72-.34l.52.01c.17 0 .39-.06.61.47.23.55.78 1.9.85 2.04.07.14.11.3.02.48-.09.18-.13.29-.26.45l-.39.45c-.13.13-.26.28-.11.54.15.27.66 1.09 1.42 1.76.97.87 1.79 1.14 2.05 1.27.26.13.41.11.56-.07.15-.18.65-.76.82-1.02.18-.27.35-.22.59-.13.24.09 1.55.73 1.81.86.27.13.44.2.51.31.06.11.06.64-.18 1.32Z"/></svg><span>WhatsApp</span></a>
     <a class="callbtn" href="tel:+31641414633">06-4141 4633</a>
   </div>
 </div>
-<header class="hero h-stack">
-  <div class="wrap h-words"><p class="h-kick">Nu in de showroom · Audi RS6 Quattro Headup*Soft*Aut*Navi*Matrix*Pano*InclBTW* · € 86.999</p><h1>z&amp;m automotive</h1><p class="h-lede">37 voertuigen op voorraad · Rotterdam · vanaf € 23.950</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging</a><a class="h-btn" href="tel:+31641414633">Bel 06-4141 4633</a></div><div class="h-facts"><span>37 voertuigen op voorraad</span><span>4.7 uit 61 beoordelingen</span><span>18 jaar op Marktplaats</span><span>9 merken in huis</span><span>Kom langs in Rotterdam</span></div></div>
-  <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Audi RS6 Quattro Headup*Soft*Aut*Navi*Matrix*Pano*InclBTW*" fetchpriority="high"></figure>
+<header class="hero h-cinematic">
+  <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Audi RS6 Quattro Headup*Soft*Aut*Navi*Matrix*Pano*InclBTW*" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Audi RS6 Quattro Headup*Soft*Aut*Navi*Matrix*Pano*InclBTW*</span><span class="h-plate-p">€ 86.999</span></figcaption></figure>
+  <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>Audi RS6 Quattro · € 86.999</p><h1>z&amp;m automotive</h1><p class="h-lede">Z&amp;M AUTOMOTIVE heeft jarenlange ervaring in de autobranche, gericht op auto's uit het luxere segment.</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-btn" href="tel:+31641414633">Bel 06-4141 4633</a></div><div class="h-facts"><span>4.7 uit 61 beoordelingen</span><span>18 jaar op Marktplaats</span><span>9 merken in huis</span><span>Kom langs in Rotterdam</span></div></div>
 </header>
+<section class="sec-trust"><div class="wrap rv"><div><b>4.7</b><span>gemiddeld uit 61 beoordelingen</span></div><div><b>18</b><span>jaar op Marktplaats</span></div><div><b>Rotterdam</b><span><a href="https://maps.google.com/?q=Schuttevaerweg%2C%20108%2C%203044BB%20Rotterdam" target="_blank" rel="noreferrer">Schuttevaerweg, 108, 3044BB Rotterdam</a></span></div></div></section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
     <span class="meta">18 getoond van 37 · vanaf € 23.950</span>
     
   </div>
-  <div class="wrap"><div class="sa-balk" id="sa-balk">
-  <div class="sa-rij">
-    <div class="sa-zoek">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
-      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
-      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
-        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
-      </button>
-    </div>
-    <div class="sa-veld">
-  <label for="sa-merk">Merk</label>
-  <select id="sa-merk" data-select="merk">
-    <option value="">Alle 9 merken</option>
-    <option value="Audi">Audi (6)</option><option value="Mercedes-Benz">Mercedes-Benz (3)</option><option value="Peugeot">Peugeot (3)</option><option value="BMW">BMW (1)</option><option value="Cupra">Cupra (1)</option><option value="MINI">MINI (1)</option><option value="Nissan">Nissan (1)</option><option value="Skoda">Skoda (1)</option><option value="Volkswagen">Volkswagen (1)</option>
-  </select>
-</div>
-    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
-    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
-      <select id="sa-sorteer">
-        <option value="standaard">Aanbevolen</option>
-        <option value="prijs-op">Prijs: laag naar hoog</option>
-        <option value="prijs-af">Prijs: hoog naar laag</option>
-        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
-      </select>
-    </label>
-  </div>
-  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
-        <div class="sa-veld">
-  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 88.000</output></label>
-  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
-    min="23950" max="88000" step="1050" value="88000">
-  <span class="sa-schaal"><i>€ 23.950</i><i>€ 88.000</i></span>
-</div><div class="sa-veld">
-  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2020</output></label>
-  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
-    min="2020" max="2025" step="1" value="2020">
-  <span class="sa-schaal"><i>2020</i><i>2025</i></span>
-</div>
-      </div></div>
-</div>
-<div class="sa-uitslag">
-  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
-  <div class="sa-acties">
-    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
-    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
-  </div>
-</div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="audi-rs6-1" data-rang="0" data-merk="Audi" data-prijs="86999" data-jaar="2020" data-kenmerk="Navigatie" data-zoek="audi rs6 quattro headup*soft*aut*navi*matrix*pano*inclbtw* audi rs6 navigatie">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_86.jpg" alt="Audi RS6 Quattro Headup*Soft*Aut*Navi*Matrix*Pano*InclBTW*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-rs6-1" aria-pressed="false" aria-label="Bewaar Audi RS6 Quattro Headup*Soft*Aut*Navi*Matrix*Pano*InclBTW*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-rail"><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/445db81e-bfcd-4691-a333-4a4a27d885fb?rule=ecg_mp_eps$_85.jpg" alt="Audi RS6 Quattro Headup*Soft*Aut*Navi*Matrix*Pano*InclBTW*" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Audi RS6 Quattro Headup*Soft*Aut*Navi*Matrix*Pano*InclBTW*</h3>
     <p class="st-spec">2020 · 105.588 km</p>
@@ -469,8 +385,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Audi%20RS6%20Quattro%20Headup*Soft*Aut*Navi*Matrix*Pano*InclBTW*%20(%E2%82%AC%2086.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="audi-q7-2" data-rang="1" data-merk="Audi" data-prijs="56999" data-jaar="2021" data-brandstof="Hybride Elektrisch/Benzine" data-kenmerk="Navigatie" data-zoek="audi q7 s line 55 tfsi e quattro black optik aut*navi*matrix audi q7 hybride elektrisch/benzine navigatie">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b9031535-533a-46e7-abea-785e4045d34f?rule=ecg_mp_eps$_85.jpg" alt="Audi Q7 S line 55 TFSI e Quattro Black Optik Aut*Navi*Matrix" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-q7-2" aria-pressed="false" aria-label="Bewaar Audi Q7 S line 55 TFSI e Quattro Black Optik Aut*Navi*Matrix"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b9031535-533a-46e7-abea-785e4045d34f?rule=ecg_mp_eps$_85.jpg" alt="Audi Q7 S line 55 TFSI e Quattro Black Optik Aut*Navi*Matrix" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Audi Q7 S line 55 TFSI e Quattro Black Optik Aut*Navi*Matrix</h3>
     <p class="st-spec">2021 · 55.263 km · Hybride Elektrisch/Benzine</p>
@@ -479,8 +395,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Audi%20Q7%20S%20line%2055%20TFSI%20e%20Quattro%20Black%20Optik%20Aut*Navi*Matrix%20(%E2%82%AC%2056.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card is-wide" data-slug="mercedes-benz-mercedes-glc-klasse-300e-4matic-am-3" data-rang="2" data-merk="Mercedes-Benz" data-prijs="43950" data-jaar="2022" data-zoek="mercedes glc-klasse 300e 4matic amg 320pk aut*pano*led* mercedes-benz">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/43410058-f847-4b81-adbe-7fdbc493250d?rule=ecg_mp_eps$_86.jpg" alt="Mercedes GLC-klasse 300e 4MATIC AMG 320PK Aut*Pano*Led*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-glc-klasse-300e-4matic-am-3" aria-pressed="false" aria-label="Bewaar Mercedes GLC-klasse 300e 4MATIC AMG 320PK Aut*Pano*Led*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/43410058-f847-4b81-adbe-7fdbc493250d?rule=ecg_mp_eps$_85.jpg" alt="Mercedes GLC-klasse 300e 4MATIC AMG 320PK Aut*Pano*Led*" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Mercedes GLC-klasse 300e 4MATIC AMG 320PK Aut*Pano*Led*</h3>
     <p class="st-spec">2022 · 61.537 km</p>
@@ -489,8 +405,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Mercedes%20GLC-klasse%20300e%204MATIC%20AMG%20320PK%20Aut*Pano*Led*%20(%E2%82%AC%2043.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="bmw-x3-4" data-rang="3" data-merk="BMW" data-prijs="43900" data-jaar="2022" data-brandstof="Hybride Elektrisch/Benzine" data-kenmerk="Navigatie" data-zoek="bmw x3 xdrive30e m sport pano*led*carplay*360*navi*inc btw* bmw x3 hybride elektrisch/benzine navigatie">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0d0d6f20-6cb5-4961-ad18-5c31369a0484?rule=ecg_mp_eps$_85.jpg" alt="BMW X3 xDrive30e M Sport Pano*Led*Carplay*360*Navi*Inc Btw*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-x3-4" aria-pressed="false" aria-label="Bewaar BMW X3 xDrive30e M Sport Pano*Led*Carplay*360*Navi*Inc Btw*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0d0d6f20-6cb5-4961-ad18-5c31369a0484?rule=ecg_mp_eps$_85.jpg" alt="BMW X3 xDrive30e M Sport Pano*Led*Carplay*360*Navi*Inc Btw*" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>BMW X3 xDrive30e M Sport Pano*Led*Carplay*360*Navi*Inc Btw*</h3>
     <p class="st-spec">2022 · 71.971 km · Hybride Elektrisch/Benzine</p>
@@ -499,8 +415,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20BMW%20X3%20xDrive30e%20M%20Sport%20Pano*Led*Carplay*360*Navi*Inc%20Btw*%20(%E2%82%AC%2043.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="audi-audi-q3-sportback-45-tfsi-e-s-line-edition--5" data-rang="4" data-merk="Audi" data-prijs="42950" data-jaar="2024" data-zoek="audi q3 sportback 45 tfsi e s-line edition*aut*pano*matrix*s audi">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1357f546-4024-41aa-a3a6-48443a3a56df?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 Sportback 45 TFSI e S-Line Edition*Aut*Pano*Matrix*s" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-q3-sportback-45-tfsi-e-s-line-edition--5" aria-pressed="false" aria-label="Bewaar Audi Q3 Sportback 45 TFSI e S-Line Edition*Aut*Pano*Matrix*s"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/1357f546-4024-41aa-a3a6-48443a3a56df?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 Sportback 45 TFSI e S-Line Edition*Aut*Pano*Matrix*s" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Audi Q3 Sportback 45 TFSI e S-Line Edition*Aut*Pano*Matrix*s</h3>
     <p class="st-spec">2024 · 54.153 km</p>
@@ -509,8 +425,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Audi%20Q3%20Sportback%2045%20TFSI%20e%20S-Line%20Edition*Aut*Pano*Matrix*s%20(%E2%82%AC%2042.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="audi-audi-q3-sportback-35-tfsi-s-line-aut-navi-p-6" data-rang="5" data-merk="Audi" data-prijs="38950" data-jaar="2022" data-kenmerk="Navigatie" data-zoek="audi q3 sportback 35 tfsi *s-line *aut*navi*pano*btw* audi navigatie">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f6c27dde-66b0-4922-9b09-f7e22be019d2?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 Sportback 35 TFSI *S-Line *Aut*Navi*Pano*Btw*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-q3-sportback-35-tfsi-s-line-aut-navi-p-6" aria-pressed="false" aria-label="Bewaar Audi Q3 Sportback 35 TFSI *S-Line *Aut*Navi*Pano*Btw*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f6c27dde-66b0-4922-9b09-f7e22be019d2?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 Sportback 35 TFSI *S-Line *Aut*Navi*Pano*Btw*" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Audi Q3 Sportback 35 TFSI *S-Line *Aut*Navi*Pano*Btw*</h3>
     <p class="st-spec">2022 · 63.078 km</p>
@@ -519,8 +435,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Audi%20Q3%20Sportback%2035%20TFSI%20*S-Line%20*Aut*Navi*Pano*Btw*%20(%E2%82%AC%2038.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="cupra-formentor-7" data-rang="6" data-merk="Cupra" data-prijs="34950" data-jaar="2025" data-zoek="cupra formentor 1.5 tsi e-hybrid aut*matrix*360 camera*acc cupra formentor">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f1959141-c572-44b7-bae8-7c28d2d28108?rule=ecg_mp_eps$_85.jpg" alt="CUPRA Formentor 1.5 TSI e-Hybrid Aut*Matrix*360 Camera*Acc" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="cupra-formentor-7" aria-pressed="false" aria-label="Bewaar CUPRA Formentor 1.5 TSI e-Hybrid Aut*Matrix*360 Camera*Acc"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f1959141-c572-44b7-bae8-7c28d2d28108?rule=ecg_mp_eps$_85.jpg" alt="CUPRA Formentor 1.5 TSI e-Hybrid Aut*Matrix*360 Camera*Acc" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>CUPRA Formentor 1.5 TSI e-Hybrid Aut*Matrix*360 Camera*Acc</h3>
     <p class="st-spec">2025 · 20.725 km</p>
@@ -529,8 +445,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20CUPRA%20Formentor%201.5%20TSI%20e-Hybrid%20Aut*Matrix*360%20Camera*Acc%20(%E2%82%AC%2034.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card is-wide" data-slug="peugeot-peugeot-5008-hybrid-145pk-gt-e-aut-led-c-8" data-rang="7" data-merk="Peugeot" data-prijs="34950" data-jaar="2024" data-zoek="peugeot 5008 hybrid 145pk gt e aut*led*car-play*360incbtw* peugeot">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a69856a-086e-4956-ad3c-ef89095ebc7b?rule=ecg_mp_eps$_86.jpg" alt="Peugeot 5008 hybrid 145PK GT e Aut*Led*Car-Play*360incBTW*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-5008-hybrid-145pk-gt-e-aut-led-c-8" aria-pressed="false" aria-label="Bewaar Peugeot 5008 hybrid 145PK GT e Aut*Led*Car-Play*360incBTW*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a69856a-086e-4956-ad3c-ef89095ebc7b?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 5008 hybrid 145PK GT e Aut*Led*Car-Play*360incBTW*" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Peugeot 5008 hybrid 145PK GT e Aut*Led*Car-Play*360incBTW*</h3>
     <p class="st-spec">2024 · 27.452 km</p>
@@ -539,8 +455,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Peugeot%205008%20hybrid%20145PK%20GT%20e%20Aut*Led*Car-Play*360incBTW*%20(%E2%82%AC%2034.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="skoda-skoda-kodiaq-1-5-tsi-7-pers-aut-pano-matri-9" data-rang="8" data-merk="Skoda" data-prijs="33950" data-jaar="2022" data-kenmerk="Navigatie" data-zoek="skoda kodiaq 1.5 tsi 7 pers aut*pano*matrix*keyless*navi skoda navigatie">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/622d1dd7-a65d-4360-9c0e-5ee96cbbc8ec?rule=ecg_mp_eps$_85.jpg" alt="Skoda Kodiaq 1.5 TSI 7 Pers Aut*Pano*Matrix*Keyless*Navi" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="skoda-skoda-kodiaq-1-5-tsi-7-pers-aut-pano-matri-9" aria-pressed="false" aria-label="Bewaar Skoda Kodiaq 1.5 TSI 7 Pers Aut*Pano*Matrix*Keyless*Navi"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/622d1dd7-a65d-4360-9c0e-5ee96cbbc8ec?rule=ecg_mp_eps$_85.jpg" alt="Skoda Kodiaq 1.5 TSI 7 Pers Aut*Pano*Matrix*Keyless*Navi" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Skoda Kodiaq 1.5 TSI 7 Pers Aut*Pano*Matrix*Keyless*Navi</h3>
     <p class="st-spec">2022 · 98.983 km</p>
@@ -549,8 +465,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Skoda%20Kodiaq%201.5%20TSI%207%20Pers%20Aut*Pano*Matrix*Keyless*Navi%20(%E2%82%AC%2033.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="mercedes-benz-mercedes-cla-klasse-250-e-amg-aut--10" data-rang="9" data-merk="Mercedes-Benz" data-prijs="31950" data-jaar="2023" data-kenmerk="Navigatie" data-zoek="mercedes cla-klasse 250 e amg aut*pano*navi*ambient*led mercedes-benz navigatie">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/763755d2-ed67-4f1e-b700-1ae1c36ae85d?rule=ecg_mp_eps$_85.jpg" alt="Mercedes CLA-klasse 250 e AMG Aut*Pano*Navi*Ambient*Led" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-cla-klasse-250-e-amg-aut--10" aria-pressed="false" aria-label="Bewaar Mercedes CLA-klasse 250 e AMG Aut*Pano*Navi*Ambient*Led"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/763755d2-ed67-4f1e-b700-1ae1c36ae85d?rule=ecg_mp_eps$_85.jpg" alt="Mercedes CLA-klasse 250 e AMG Aut*Pano*Navi*Ambient*Led" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Mercedes CLA-klasse 250 e AMG Aut*Pano*Navi*Ambient*Led</h3>
     <p class="st-spec">2023 · 75.128 km</p>
@@ -559,8 +475,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Mercedes%20CLA-klasse%20250%20e%20AMG%20Aut*Pano*Navi*Ambient*Led%20(%E2%82%AC%2031.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="audi-audi-a3-sportback-40-tfsi-e-3x-s-line-aut-p-11" data-rang="10" data-merk="Audi" data-prijs="31950" data-jaar="2021" data-zoek="audi a3 sportback 40 tfsi e 3x s-line aut*pano*hud*matrix*ac audi">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ab14329b-a599-409d-a839-4c405aa4c96d?rule=ecg_mp_eps$_85.jpg" alt="Audi A3 Sportback 40 TFSI e 3X S-Line Aut*Pano*Hud*Matrix*Ac" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-a3-sportback-40-tfsi-e-3x-s-line-aut-p-11" aria-pressed="false" aria-label="Bewaar Audi A3 Sportback 40 TFSI e 3X S-Line Aut*Pano*Hud*Matrix*Ac"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ab14329b-a599-409d-a839-4c405aa4c96d?rule=ecg_mp_eps$_85.jpg" alt="Audi A3 Sportback 40 TFSI e 3X S-Line Aut*Pano*Hud*Matrix*Ac" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Audi A3 Sportback 40 TFSI e 3X S-Line Aut*Pano*Hud*Matrix*Ac</h3>
     <p class="st-spec">2021 · 70.233 km</p>
@@ -569,8 +485,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Audi%20A3%20Sportback%2040%20TFSI%20e%203X%20S-Line%20Aut*Pano*Hud*Matrix*Ac%20(%E2%82%AC%2031.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="audi-q2-12" data-rang="11" data-merk="Audi" data-prijs="28950" data-jaar="2022" data-kenmerk="Navigatie" data-zoek="audi q2 35 tfsi s-line *aut*navi*car-play* audi q2 navigatie">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4f43434b-145f-44ad-8e54-1590db120512?rule=ecg_mp_eps$_85.jpg" alt="Audi Q2 35 TFSI S-Line *Aut*Navi*Car-Play*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-q2-12" aria-pressed="false" aria-label="Bewaar Audi Q2 35 TFSI S-Line *Aut*Navi*Car-Play*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4f43434b-145f-44ad-8e54-1590db120512?rule=ecg_mp_eps$_85.jpg" alt="Audi Q2 35 TFSI S-Line *Aut*Navi*Car-Play*" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Audi Q2 35 TFSI S-Line *Aut*Navi*Car-Play*</h3>
     <p class="st-spec">2022 · 30.811 km</p>
@@ -579,8 +495,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Audi%20Q2%2035%20TFSI%20S-Line%20*Aut*Navi*Car-Play*%20(%E2%82%AC%2028.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card is-wide" data-slug="peugeot-peugeot-3008-1-2-hybrid-136-gt-aut-navi--13" data-rang="12" data-merk="Peugeot" data-prijs="27999" data-jaar="2024" data-kenmerk="Navigatie" data-zoek="peugeot 3008 1.2 hybrid 136 gt aut*navi*matrix*acc*360* peugeot navigatie">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/30fb2a65-4220-4fb8-aac0-a817dd06cf0c?rule=ecg_mp_eps$_86.jpg" alt="Peugeot 3008 1.2 Hybrid 136 GT Aut*Navi*Matrix*Acc*360*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-3008-1-2-hybrid-136-gt-aut-navi--13" aria-pressed="false" aria-label="Bewaar Peugeot 3008 1.2 Hybrid 136 GT Aut*Navi*Matrix*Acc*360*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/30fb2a65-4220-4fb8-aac0-a817dd06cf0c?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 3008 1.2 Hybrid 136 GT Aut*Navi*Matrix*Acc*360*" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Peugeot 3008 1.2 Hybrid 136 GT Aut*Navi*Matrix*Acc*360*</h3>
     <p class="st-spec">2024 · 84.546 km</p>
@@ -589,8 +505,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Peugeot%203008%201.2%20Hybrid%20136%20GT%20Aut*Navi*Matrix*Acc*360*%20(%E2%82%AC%2027.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="mercedes-benz-mercedes-a-klasse-180-amg-line-aut-14" data-rang="13" data-merk="Mercedes-Benz" data-prijs="26950" data-jaar="2022" data-kenmerk="Navigatie" data-zoek="mercedes a-klasse 180 amg line aut*pano*navi*ambient*led*360 mercedes-benz navigatie">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/16d43499-6488-4f46-ad51-e8c1e34a8198?rule=ecg_mp_eps$_85.jpg" alt="Mercedes A-klasse 180 Amg Line Aut*Pano*Navi*Ambient*Led*360" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-a-klasse-180-amg-line-aut-14" aria-pressed="false" aria-label="Bewaar Mercedes A-klasse 180 Amg Line Aut*Pano*Navi*Ambient*Led*360"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/16d43499-6488-4f46-ad51-e8c1e34a8198?rule=ecg_mp_eps$_85.jpg" alt="Mercedes A-klasse 180 Amg Line Aut*Pano*Navi*Ambient*Led*360" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Mercedes A-klasse 180 Amg Line Aut*Pano*Navi*Ambient*Led*360</h3>
     <p class="st-spec">2022 · 90.775 km</p>
@@ -599,8 +515,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Mercedes%20A-klasse%20180%20Amg%20Line%20Aut*Pano*Navi*Ambient*Led*360%20(%E2%82%AC%2026.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="mini-mini-5-deurs-1-5-cooper-mini-yours-pano-led-15" data-rang="14" data-merk="MINI" data-prijs="25999" data-jaar="2022" data-zoek="mini 5-deurs 1.5 cooper mini yours pano*led*virtuel*headup* mini">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/43203f3d-d145-46ce-8606-964cb93620b1?rule=ecg_mp_eps$_85.jpg" alt="Mini 5-Deurs 1.5 Cooper MINI Yours Pano*Led*Virtuel*HeadUp*" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mini-mini-5-deurs-1-5-cooper-mini-yours-pano-led-15" aria-pressed="false" aria-label="Bewaar Mini 5-Deurs 1.5 Cooper MINI Yours Pano*Led*Virtuel*HeadUp*"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/43203f3d-d145-46ce-8606-964cb93620b1?rule=ecg_mp_eps$_85.jpg" alt="Mini 5-Deurs 1.5 Cooper MINI Yours Pano*Led*Virtuel*HeadUp*" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Mini 5-Deurs 1.5 Cooper MINI Yours Pano*Led*Virtuel*HeadUp*</h3>
     <p class="st-spec">2022 · 40.507 km</p>
@@ -609,8 +525,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Mini%205-Deurs%201.5%20Cooper%20MINI%20Yours%20Pano*Led*Virtuel*HeadUp*%20(%E2%82%AC%2025.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="peugeot-peugeot-2008-1-2-gt-aut-led-car-play-360-16" data-rang="15" data-merk="Peugeot" data-prijs="24999" data-jaar="2023" data-zoek="peugeot 2008 1.2 gt aut*led*car-play*360*pano peugeot">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/faf9ad36-dfd5-41b4-a70d-d9d87f1fd3cf?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 2008 1.2 GT Aut*Led*Car-Play*360*Pano" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-2008-1-2-gt-aut-led-car-play-360-16" aria-pressed="false" aria-label="Bewaar Peugeot 2008 1.2 GT Aut*Led*Car-Play*360*Pano"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/faf9ad36-dfd5-41b4-a70d-d9d87f1fd3cf?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 2008 1.2 GT Aut*Led*Car-Play*360*Pano" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Peugeot 2008 1.2 GT Aut*Led*Car-Play*360*Pano</h3>
     <p class="st-spec">2023 · 12.800 km</p>
@@ -619,8 +535,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Peugeot%202008%201.2%20GT%20Aut*Led*Car-Play*360*Pano%20(%E2%82%AC%2024.999)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="nissan-nissan-qashqai-1-5-e-power-aut-led-pano-n-17" data-rang="16" data-merk="Nissan" data-prijs="23950" data-jaar="2023" data-kenmerk="Navigatie" data-zoek="nissan qashqai 1.5 e-power aut*led*pano*navi*acc*360 camer nissan navigatie">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a7a8602e-2fd8-48df-bfcc-ce03ef7b7d7a?rule=ecg_mp_eps$_85.jpg" alt="Nissan Qashqai 1.5 e-Power Aut*Led*Pano*Navi*Acc*360 camer" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="nissan-nissan-qashqai-1-5-e-power-aut-led-pano-n-17" aria-pressed="false" aria-label="Bewaar Nissan Qashqai 1.5 e-Power Aut*Led*Pano*Navi*Acc*360 camer"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a7a8602e-2fd8-48df-bfcc-ce03ef7b7d7a?rule=ecg_mp_eps$_85.jpg" alt="Nissan Qashqai 1.5 e-Power Aut*Led*Pano*Navi*Acc*360 camer" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Nissan Qashqai 1.5 e-Power Aut*Led*Pano*Navi*Acc*360 camer</h3>
     <p class="st-spec">2023 · 88.351 km</p>
@@ -629,8 +545,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Nissan%20Qashqai%201.5%20e-Power%20Aut*Led*Pano*Navi*Acc*360%20camer%20(%E2%82%AC%2023.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card is-wide" data-slug="volkswagen-volkswagen-taigo-1-5-tsi-r-line-auto--18" data-rang="17" data-merk="Volkswagen" data-prijs="23950" data-jaar="2023" data-kenmerk="Navigatie" data-zoek="volkswagen taigo 1.5 tsi r-line auto*pano*navi*led*acc*cam volkswagen navigatie">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b9b2ad73-15e2-4d5e-bcca-dadeeb97c335?rule=ecg_mp_eps$_86.jpg" alt="Volkswagen Taigo 1.5 TSI R-Line Auto*Pano*Navi*Led*Acc*Cam" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-taigo-1-5-tsi-r-line-auto--18" aria-pressed="false" aria-label="Bewaar Volkswagen Taigo 1.5 TSI R-Line Auto*Pano*Navi*Led*Acc*Cam"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b9b2ad73-15e2-4d5e-bcca-dadeeb97c335?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Taigo 1.5 TSI R-Line Auto*Pano*Navi*Led*Acc*Cam" loading="lazy" decoding="async"></div>
   <div class="st-body">
     <h3>Volkswagen Taigo 1.5 TSI R-Line Auto*Pano*Navi*Led*Acc*Cam</h3>
     <p class="st-spec">2023 · 84.794 km</p>
@@ -639,12 +555,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20zag%20de%20Volkswagen%20Taigo%201.5%20TSI%20R-Line%20Auto*Pano*Navi*Led*Acc*Cam%20(%E2%82%AC%2023.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article></div><div class="sa-leeg" id="sa-leeg" hidden>
-  <p class="sa-leeg-t">Hier staat niets tussen.</p>
-  <p class="sa-leeg-s">Er staan er nog 19 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
-  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
-</div>
-<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 19 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
+</article></div><div class="wrap"><div class="more"><span>Er staan er nog 19 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31641414633?text=Hallo%20z%26m%20automotive%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
 </section>
 <section class="sec-flow">
   <div class="wrap">
@@ -654,7 +565,6 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     </ol>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.7</b><span>gemiddeld uit 61 beoordelingen</span></div><div><b>18</b><span>jaar op Marktplaats</span></div><div><b>Rotterdam</b><span><a href="https://maps.google.com/?q=Schuttevaerweg%2C%20108%2C%203044BB%20Rotterdam" target="_blank" rel="noreferrer">Schuttevaerweg, 108, 3044BB Rotterdam</a></span></div></div></section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>
@@ -700,221 +610,6 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
-})();
-
-(function () {
-  var balk = document.getElementById('sa-balk');
-  var rooster = document.querySelector('[data-voorraad]');
-  if (!balk || !rooster) return;
-
-  var $ = function (s, w) { return (w || document).querySelector(s); };
-  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
-  var kaarten = $$('[data-slug]', rooster);
-  if (!kaarten.length) return;
-
-  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
-  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
-  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
-  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
-  var meerTonen = $('#sa-meer-tonen');
-
-  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
-  var bewaard = [];
-  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
-
-  var smal = matchMedia('(max-width:760px)');
-  var LIMIET = 9, allesTonen = false;
-
-  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
-
-  function past(kaart) {
-    var d = kaart.dataset;
-    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
-    for (var s in staat.selects) {
-      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
-    }
-    for (var c in staat.chips) {
-      var gekozen = staat.chips[c];
-      if (!gekozen.length) continue;
-      var eigen = (d[c] || '').split('|');
-      var raak = false;
-      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
-      if (!raak) return false;
-    }
-    for (var r in staat.ranges) {
-      var grens = staat.ranges[r];
-      var waarde = +d[r];
-      if (!waarde) continue;                       // onbekend filteren we niet weg
-      if (grens.richting === 'max' && waarde > grens.waarde) return false;
-      if (grens.richting === 'min' && waarde < grens.waarde) return false;
-    }
-    if (staat.zoek) {
-      var woorden = staat.zoek.split(/\s+/);
-      for (var w = 0; w < woorden.length; w++) {
-        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
-      }
-    }
-    return true;
-  }
-
-  function sorteerWaarde(kaart) {
-    var d = kaart.dataset;
-    switch (staat.sorteer) {
-      case 'prijs-op': return +d.prijs || 9e9;
-      case 'prijs-af': return -(+d.prijs || -1);
-      case 'jaar-af':  return -(+d.jaar || -1);
-      default:         return +d.rang || 0;
-    }
-  }
-
-  function draaien() {
-    var zichtbaar = [];
-    kaarten.forEach(function (k) {
-      var ja = past(k);
-      k.hidden = !ja;
-      if (ja) zichtbaar.push(k);
-    });
-
-    var op = zichtbaar.slice().sort(function (a, b) {
-      var x = sorteerWaarde(a), y = sorteerWaarde(b);
-      return x < y ? -1 : x > y ? 1 : 0;
-    });
-    op.forEach(function (k, i) { k.style.order = i; });
-
-    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
-    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
-    if (meerTonen) {
-      meerTonen.hidden = !beperk;
-      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
-    }
-
-    if (telRegel) {
-      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
-      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
-      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
-        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
-    }
-    if (leeg) leeg.hidden = op.length > 0;
-
-    var actief = !!staat.zoek || staat.alleenBewaard;
-    for (var s in staat.selects) if (staat.selects[s]) actief = true;
-    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
-    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
-    if (wisAlles) wisAlles.hidden = !actief;
-  }
-
-  /* --- bewaren --- */
-  function tekenBewaard() {
-    $$('[data-bewaar]').forEach(function (b) {
-      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
-    });
-    if (bewaardKnop) {
-      $('i', bewaardKnop).textContent = bewaard.length;
-      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
-    }
-  }
-  document.addEventListener('click', function (e) {
-    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
-    if (!knop) return;
-    e.preventDefault();
-    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
-    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
-    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
-    tekenBewaard();
-    if (staat.alleenBewaard) draaien();
-  });
-
-  /* --- bediening: altijd BINNEN de balk selecteren --- */
-  var wacht;
-  if (zoekVeld) zoekVeld.addEventListener('input', function () {
-    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
-    clearTimeout(wacht);
-    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
-  });
-  if (zoekWis) zoekWis.addEventListener('click', function () {
-    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
-  });
-
-  $$('[data-select]', balk).forEach(function (sel) {
-    staat.selects[sel.getAttribute('data-select')] = '';
-    sel.addEventListener('change', function () {
-      staat.selects[sel.getAttribute('data-select')] = sel.value;
-      draaien();
-    });
-  });
-
-  $$('[data-facet]', balk).forEach(function (knop) {
-    var sleutel = knop.getAttribute('data-facet');
-    staat.chips[sleutel] = staat.chips[sleutel] || [];
-    knop.addEventListener('click', function () {
-      var waarde = knop.getAttribute('data-waarde');
-      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
-      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
-      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
-      draaien();
-    });
-  });
-
-  $$('[data-range]', balk).forEach(function (schuif) {
-    var sleutel = schuif.getAttribute('data-range');
-    var richting = schuif.getAttribute('data-richting');
-    var eenheid = schuif.getAttribute('data-eenheid');
-    var uit = $('#sa-' + sleutel + '-uit');
-    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
-    schuif.addEventListener('input', function () {
-      staat.ranges[sleutel].waarde = +schuif.value;
-      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
-      if (uit) uit.textContent = eenheid === 'euro'
-        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
-        : schuif.value;
-      draaien();
-    });
-  });
-
-  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
-
-  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
-    paneel.hidden = !paneel.hidden;
-    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
-  });
-
-  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
-    staat.alleenBewaard = !staat.alleenBewaard;
-    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
-    draaien();
-  });
-
-  function allesWissen() {
-    staat.zoek = ''; staat.alleenBewaard = false;
-    if (zoekVeld) zoekVeld.value = '';
-    if (zoekWis) zoekWis.hidden = true;
-    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
-    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
-    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
-    for (var c in staat.chips) staat.chips[c] = [];
-    $$('[data-range]', balk).forEach(function (s) {
-      var sleutel = s.getAttribute('data-range');
-      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
-      s.value = terug;
-      staat.ranges[sleutel].waarde = +terug;
-      staat.ranges[sleutel].aangeraakt = false;
-      var uit = $('#sa-' + sleutel + '-uit');
-      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
-        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
-    });
-    draaien();
-  }
-  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
-  var leegWis = $('#sa-leeg-wis');
-  if (leegWis) leegWis.addEventListener('click', allesWissen);
-
-  if (meerTonen) meerTonen.addEventListener('click', function () {
-    allesTonen = true; meerTonen.hidden = true; draaien();
-  });
-  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
-
-  tekenBewaard();
-  draaien();
 })();
 </script>
 

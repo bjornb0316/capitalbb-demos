@@ -16,6 +16,11 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;letter-spacing:-0.03em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
 :focus-visible{outline:2px solid #4fb372;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
@@ -35,6 +40,18 @@ html,body{overflow-x:clip}
 .top nav a:hover{color:#f4f5f6}
 .callbtn{display:inline-flex;align-items:center;background:#4fb372;color:#0d1013;padding:11px 20px;border-radius:0px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
 .callbtn:hover{filter:brightness(1.07)}
+/* merk met ondertitel: ruit, naam, plaats eronder */
+.mark.has-sub{display:inline-flex;align-items:center;gap:11px;line-height:1.1}
+.mark .mark-i{width:19px;height:19px;flex:none;fill:#4fb372}
+.mark.has-sub b{display:block;font-weight:inherit;font-size:20px;letter-spacing:-0.03em}
+.mark.has-sub em{display:block;font-family:'Barlow', 'Segoe UI', Tahoma, sans-serif;font-style:normal;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9ba1a8;margin-top:2px}
+
+/* WhatsApp als eigen knop, naast het nummer */
+.wabtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;border:1px solid #282d33;background:#191d21;color:#f4f5f6;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
+.wabtn svg{width:17px;height:17px;flex:none}
+.wabtn:hover{border-color:#4fb372}
+@media(max-width:900px){.wabtn span{display:none}.wabtn{padding:10px 12px}}
+
 @media(max-width:900px){.top nav{display:none}}
 /* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
 @media(max-width:720px){
@@ -84,7 +101,8 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
 .hero h1 em{font-style:normal;color:#4fb372}
 .hero h1 a{text-decoration:none}
-.h-kick{color:#9ba1a8;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
+.h-kick{display:flex;align-items:center;gap:10px;color:#9ba1a8;font-size:13.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.h-dot{width:8px;height:8px;border-radius:999px;background:#3fb96b;box-shadow:0 0 0 4px #3fb96b2e;flex:none}
 .h-lede{margin-top:20px;max-width:50ch;color:#9ba1a8;font-size:clamp(16px,1.6vw,19px)}
 .h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:0px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #282d33;background:#191d21;color:#f4f5f6;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
@@ -97,8 +115,32 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
 
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(88svh,800px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(32px,5vw,64px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#4fb372;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffd6}
+.h-eigen .h-dot{background:#4ade80;box-shadow:0 0 0 4px #4ade8033}
+.h-pijl{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
+.h-eigen .h-btn{border-radius:999px;padding:16px 28px;font-size:15.5px}
+.h-eigen .h-btn.is-primary{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.h-eigen h1{font-size:clamp(42px,6.6vw,88px);line-height:1.02;max-width:14ch}
+.h-eigen .h-lede{max-width:46ch;font-size:clamp(16px,1.45vw,18.5px)}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#4fb372;color:#0d1013;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
+
 /* cinematic: beeld vult het scherm, woorden liggen erin */
-.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic{position:relative;min-height:min(90svh,880px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
 .h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 @keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
@@ -109,14 +151,14 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 /* panorama: liggend beeld in een kader, woorden erin */
 .h-panorama{padding:clamp(22px,3vw,44px) 0 0}
-.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#1e2328;aspect-ratio:21/9;min-height:320px}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#1e2328;aspect-ratio:2/1;min-height:min(76svh,760px)}
 .h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
 @keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
 .h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
 /* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
 .h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
 .h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
-.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+.h-panorama h1{color:#fff;font-size:clamp(34px,5vw,68px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
 /* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
 .h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
 .h-panorama .h-lede{color:#ffffffdb}
@@ -126,16 +168,27 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
 
 /* split: woorden naast echte auto's */
-.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
-.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
-.h-split h1{font-size:clamp(36px,4.9vw,64px)}
-@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+/* split: woorden links, echte voertuigen rechts. Het geheel vult nu een scherm,
+   want een opening van 400px hoog leest als een kop met een plaatje - niet als
+   een entree. */
+.h-split{padding:clamp(48px,6vw,88px) 0 clamp(40px,5vw,72px);min-height:min(84svh,820px);display:flex;align-items:center}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1.15fr;gap:clamp(32px,5vw,68px);align-items:center;width:min(var(--w,1220px),100% - 48px)}
+.h-split h1{font-size:clamp(40px,5.4vw,74px)}
+@media(max-width:900px){.h-split{min-height:0;display:block}.h-split .wrap{grid-template-columns:1fr}}
 
 /* stack: woorden boven, beeld als band eronder */
-.h-stack{padding:clamp(44px,6vw,92px) 0 0}
-.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
-.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
-.h-band{margin:0;aspect-ratio:21/8;background:#1e2328;overflow:hidden}
+/* stack: woorden boven, beeld als band eronder. De band moet in het eerste
+   scherm beginnen - anders open je met letters op een egale kleur, en dat is
+   precies wat we niet willen. */
+.h-stack{padding:clamp(30px,3.6vw,56px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(24px,2.8vw,40px)}
+/* Twee regels, geen drie: bij drie regels zakt de beeldband onder de vouw en
+   open je alsnog met alleen letters. */
+.h-stack h1{font-size:clamp(38px,5.2vw,70px);max-width:13ch}
+.h-stack .h-lede{margin-top:16px;max-width:44ch}
+.h-stack .h-facts{margin-top:24px;padding-top:16px}
+.h-stack .h-cta{margin-top:24px}
+.h-band{margin:0;aspect-ratio:21/7;min-height:min(46svh,460px);background:#1e2328;overflow:hidden}
 .h-band img{width:100%;height:100%;object-fit:cover}
 @media(max-width:720px){.h-band{aspect-ratio:16/10}}
 
@@ -186,6 +239,11 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
 .st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#9ba1a8;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #282d33;border-radius:50%;background:#191d21;color:#9ba1a8;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#4fb372;border-color:#4fb372}
+.st-bewaar[aria-pressed="true"]{color:#4fb372;border-color:#4fb372}
+.st-bewaar[aria-pressed="true"] svg{fill:#4fb372}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
 .st-year{position:absolute;left:0;top:0;background:#4fb372;color:#0d1013;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
@@ -200,7 +258,9 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-rail::-webkit-scrollbar-thumb{background:#282d33;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -275,6 +335,77 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#111417;border-block:1px solid #282d33;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#9ba1a8;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:0px;background:#191d21;border:1px solid #282d33;color:#f4f5f6;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#9ba1a8}
+.sa-zoek input:focus{outline:none;border-color:#4fb372}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#9ba1a8;cursor:pointer}
+.sa-wis:hover{color:#f4f5f6}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9ba1a8;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:14px;letter-spacing:0;text-transform:none;color:#4fb372;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:0px;background:#191d21;border:1px solid #282d33;color:#f4f5f6;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#4fb372}
+.sa-meer{padding:11px 17px;border-radius:0px;background:transparent;border:1px solid #282d33;color:#9ba1a8;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#f4f5f6;border-color:#4fb372}
+.sa-meer[aria-expanded="true"]{border-color:#4fb372;color:#4fb372}
+
+.sa-paneel{border-top:1px solid #282d33}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:0px;background:transparent;border:1px solid #282d33;color:#9ba1a8;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#f4f5f6;border-color:#4fb372}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#4fb372;border-color:#4fb372;color:#0d1013}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#9ba1a8;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#282d33}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#4fb372;border:3px solid #111417}
+input[type=range]::-moz-range-track{height:2px;background:#282d33}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#4fb372;border:3px solid #111417}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#9ba1a8;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:19px;color:#f4f5f6;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:0px;background:transparent;border:1px solid #282d33;color:#9ba1a8;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#f4f5f6;border-color:#4fb372}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#4fb372;border-color:#4fb372;color:#0d1013}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #282d33;border-radius:0px}
+.sa-leeg-t{font-family:'Archivo Black', 'Archivo', system-ui, sans-serif;font-weight:400;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#9ba1a8;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #282d33;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
+
 /* Buurtgarage: prijslijst, harde randen, telefoonnummer als grootste element. */
 .top{border-bottom:2px solid #f4f5f6}
 .mark{font-size:21px}
@@ -300,34 +431,92 @@ footer{border-top:2px solid #f4f5f6}
 .bar a:not(.acc){background:#191d21;color:#f4f5f6}
 </style>
 </head>
-<body>
+<body data-site="50477540">
 <!--
-THESIS: Deze site is afgeleid uit de werkelijke voorraad van Pro Car Center (buurtgarage, mediaanprijs EUR 6874, 33 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van Pro Car Center (buurtgarage, mediaanprijs EUR 6999, 33 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet olie, 'Archivo Black' als display op 'Barlow', hoeken 0px, accent #4fb372.
-STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties stock > trust > about > promise > process > hours > contact.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "grid", secties trust > stock > about > promise > process > hours > contact.
 FORM: buurtgarage-olie-stack-grid-archivoblack-k0
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
 <div class="top" id="top">
   <div class="wrap">
-    <a class="mark" href="#top">Pro Car Center</a>
+    <a class="mark has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>Pro Car Center</b><em>Honselersdijk</em></span></a>
     <nav><a href="#voorraad">Voorraad</a><a href="#contact">Contact</a></nav>
+    <a class="wabtn" href="https://wa.me/31610694737?text=Hallo%20Pro%20Car%20Center%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad."><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.04 2A9.9 9.9 0 0 0 2.1 11.9c0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.9 9.9 0 0 0 4.74 1.2h.01a9.9 9.9 0 0 0 9.94-9.9A9.9 9.9 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.98.24-3.3-.69-2.78-1.1-4.54-3.95-4.68-4.13-.13-.18-1.11-1.48-1.11-2.82 0-1.34.7-2 .95-2.28.25-.27.54-.34.72-.34l.52.01c.17 0 .39-.06.61.47.23.55.78 1.9.85 2.04.07.14.11.3.02.48-.09.18-.13.29-.26.45l-.39.45c-.13.13-.26.28-.11.54.15.27.66 1.09 1.42 1.76.97.87 1.79 1.14 2.05 1.27.26.13.41.11.56-.07.15-.18.65-.76.82-1.02.18-.27.35-.22.59-.13.24.09 1.55.73 1.81.86.27.13.44.2.51.31.06.11.06.64-.18 1.32Z"/></svg><span>WhatsApp</span></a>
     <a class="callbtn" href="tel:+31610694737">06-1069 4737</a>
   </div>
 </div>
 <header class="hero h-stack">
-  <div class="wrap h-words"><p class="h-kick">33 auto's op voorraad · vanaf € 5.999 · Honselersdijk</p><h1><a href="tel:+31610694737">06-1069 4737</a></h1><div class="h-cta"><a class="h-btn is-primary" href="tel:+31610694737">Bel 06-1069 4737</a><a class="h-btn" href="https://wa.me/31610694737?text=Hallo%20Pro%20Car%20Center%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div><div class="h-facts"><span>33 voertuigen op voorraad</span><span>5.0 uit 160 beoordelingen</span><span>12 merken in huis</span><span>Kom langs in Honselersdijk</span></div></div>
-  <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/14d7e3b2-31de-4e82-9d9f-bc97d49f4183?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/14d7e3b2-31de-4e82-9d9f-bc97d49f4183?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/14d7e3b2-31de-4e82-9d9f-bc97d49f4183?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/14d7e3b2-31de-4e82-9d9f-bc97d49f4183?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/14d7e3b2-31de-4e82-9d9f-bc97d49f4183?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Dacia Duster 1.2 TCe 4x2 Prestige AIRCO|NAV|PDC|EL.RAMEN|LMV" fetchpriority="high"></figure>
+  <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>33 auto's op voorraad · vanaf € 6.499 · Honselersdijk</p><h1><a href="tel:+31610694737">06-1069 4737</a></h1><div class="h-cta"><a class="h-btn is-primary" href="https://wa.me/31610694737?text=Hallo%20Pro%20Car%20Center%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a><a class="h-btn" href="tel:+31610694737">Bel 06-1069 4737</a></div><div class="h-facts"><span>5.0 uit 160 beoordelingen</span><span>12 merken in huis</span><span>Kom langs in Honselersdijk</span></div></div>
+  <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/eecdfe6a-5ab7-4c2b-aa3b-8bbb27800f42?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/eecdfe6a-5ab7-4c2b-aa3b-8bbb27800f42?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/eecdfe6a-5ab7-4c2b-aa3b-8bbb27800f42?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/eecdfe6a-5ab7-4c2b-aa3b-8bbb27800f42?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/eecdfe6a-5ab7-4c2b-aa3b-8bbb27800f42?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Mercedes-Benz B-klasse 200 Ambition AUT|CRUISE|CLIMATE|STOEL" fetchpriority="high"></figure>
 </header>
+<section class="sec-trust"><div class="wrap rv"><div><b>5.0</b><span>gemiddeld uit 160 beoordelingen</span></div><div><b>2</b><span>jaar op Marktplaats</span></div><div><b>Honselersdijk</b><span><a href="https://maps.google.com/?q=Grote%20Waard%2025%2C%202675BX%20Honselersdijk" target="_blank" rel="noreferrer">Grote Waard 25, 2675BX Honselersdijk</a></span></div><div><b>KvK</b><span>91873266</span></div></div></section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
-    <span class="meta">18 getoond van 33 · vanaf € 5.999</span>
+    <span class="meta">18 getoond van 33 · vanaf € 6.499</span>
     
   </div>
-  <div class="wrap"><div class="st-grid"><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/14d7e3b2-31de-4e82-9d9f-bc97d49f4183?rule=ecg_mp_eps$_85.jpg" alt="Dacia Duster 1.2 TCe 4x2 Prestige AIRCO|NAV|PDC|EL.RAMEN|LMV" loading="lazy" decoding="async"></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 12 merken</option>
+    <option value="Renault">Renault (3)</option><option value="Ford">Ford (2)</option><option value="Skoda">Skoda (2)</option><option value="Toyota">Toyota (2)</option><option value="Volkswagen">Volkswagen (2)</option><option value="Dacia">Dacia (1)</option><option value="Fiat">Fiat (1)</option><option value="Kia">Kia (1)</option><option value="Mercedes-Benz">Mercedes-Benz (1)</option><option value="Opel">Opel (1)</option><option value="Peugeot">Peugeot (1)</option><option value="Volvo">Volvo (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 9.749</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="6499" max="9749" step="50" value="9749">
+  <span class="sa-schaal"><i>€ 6.499</i><i>€ 9.749</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2011</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2011" max="2019" step="1" value="2011">
+  <span class="sa-schaal"><i>2011</i><i>2019</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="mercedes-benz-b-klasse-1" data-rang="0" data-merk="Mercedes-Benz" data-prijs="9749" data-jaar="2012" data-brandstof="Benzine" data-kenmerk="Airco" data-zoek="mercedes-benz b-klasse 200 ambition aut|cruise|climate|stoel mercedes-benz b-klasse benzine airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/eecdfe6a-5ab7-4c2b-aa3b-8bbb27800f42?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz B-klasse 200 Ambition AUT|CRUISE|CLIMATE|STOEL" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-b-klasse-1" aria-pressed="false" aria-label="Bewaar Mercedes-Benz B-klasse 200 Ambition AUT|CRUISE|CLIMATE|STOEL"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Mercedes-Benz B-klasse 200 Ambition AUT|CRUISE|CLIMATE|STOEL</h3>
+    <p class="st-spec">2012 · 160.724 km · Benzine</p>
+    <div class="st-foot">
+      <span class="st-price">€ 9.749</span>
+      <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="dacia-duster-2" data-rang="1" data-merk="Dacia" data-prijs="8499" data-jaar="2014" data-brandstof="Benzine" data-kenmerk="Airco" data-zoek="dacia duster 1.2 tce 4x2 prestige airco|nav|pdc|el.ramen|lmv dacia duster benzine airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/14d7e3b2-31de-4e82-9d9f-bc97d49f4183?rule=ecg_mp_eps$_85.jpg" alt="Dacia Duster 1.2 TCe 4x2 Prestige AIRCO|NAV|PDC|EL.RAMEN|LMV" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="dacia-duster-2" aria-pressed="false" aria-label="Bewaar Dacia Duster 1.2 TCe 4x2 Prestige AIRCO|NAV|PDC|EL.RAMEN|LMV"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Dacia Duster 1.2 TCe 4x2 Prestige AIRCO|NAV|PDC|EL.RAMEN|LMV</h3>
     <p class="st-spec">2014 · 110.066 km · Benzine</p>
@@ -336,8 +525,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b3f9012b-777b-4aa2-af9c-89db395d39b1?rule=ecg_mp_eps$_85.jpg" alt="Volvo S60 1.6 T4 Kinetic AUT | CLIMATE | CRUISE | PDC | 2e E" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volvo-volvo-s60-1-6-t4-kinetic-aut-climate-cruis-3" data-rang="2" data-merk="Volvo" data-prijs="8499" data-jaar="2011" data-kenmerk="Airco" data-zoek="volvo s60 1.6 t4 kinetic aut | climate | cruise | pdc | 2e e volvo airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b3f9012b-777b-4aa2-af9c-89db395d39b1?rule=ecg_mp_eps$_85.jpg" alt="Volvo S60 1.6 T4 Kinetic AUT | CLIMATE | CRUISE | PDC | 2e E" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volvo-volvo-s60-1-6-t4-kinetic-aut-climate-cruis-3" aria-pressed="false" aria-label="Bewaar Volvo S60 1.6 T4 Kinetic AUT | CLIMATE | CRUISE | PDC | 2e E"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volvo S60 1.6 T4 Kinetic AUT | CLIMATE | CRUISE | PDC | 2e E</h3>
     <p class="st-spec">2011 · 180.189 km</p>
@@ -346,8 +535,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/473894a7-8341-4acb-949e-d435a9d33dbc?rule=ecg_mp_eps$_85.jpg" alt="Renault Clio Estate 0.9 TCe Limited AIRCO | CRUISE | CAM | P" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="renault-renault-clio-estate-0-9-tce-limited-airc-4" data-rang="3" data-merk="Renault" data-prijs="8499" data-jaar="2019" data-kenmerk="Airco" data-zoek="renault clio estate 0.9 tce limited airco | cruise | cam | p renault airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/473894a7-8341-4acb-949e-d435a9d33dbc?rule=ecg_mp_eps$_85.jpg" alt="Renault Clio Estate 0.9 TCe Limited AIRCO | CRUISE | CAM | P" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="renault-renault-clio-estate-0-9-tce-limited-airc-4" aria-pressed="false" aria-label="Bewaar Renault Clio Estate 0.9 TCe Limited AIRCO | CRUISE | CAM | P"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Renault Clio Estate 0.9 TCe Limited AIRCO | CRUISE | CAM | P</h3>
     <p class="st-spec">2019 · 133.039 km</p>
@@ -356,8 +545,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9d60f309-0439-4e83-98f9-9c55e1d42391?rule=ecg_mp_eps$_85.jpg" alt="Fiat Tipo 1.4 16V Lounge CLIMATE | CRUISE | CAM | PDC | CARP" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="fiat-fiat-tipo-1-4-16v-lounge-climate-cruise-cam-5" data-rang="4" data-merk="Fiat" data-prijs="7499" data-jaar="2016" data-kenmerk="Airco" data-zoek="fiat tipo 1.4 16v lounge climate | cruise | cam | pdc | carp fiat airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9d60f309-0439-4e83-98f9-9c55e1d42391?rule=ecg_mp_eps$_85.jpg" alt="Fiat Tipo 1.4 16V Lounge CLIMATE | CRUISE | CAM | PDC | CARP" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="fiat-fiat-tipo-1-4-16v-lounge-climate-cruise-cam-5" aria-pressed="false" aria-label="Bewaar Fiat Tipo 1.4 16V Lounge CLIMATE | CRUISE | CAM | PDC | CARP"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Fiat Tipo 1.4 16V Lounge CLIMATE | CRUISE | CAM | PDC | CARP</h3>
     <p class="st-spec">2016 · 128.175 km</p>
@@ -366,8 +555,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/325a64fb-9a5e-4fa8-9026-3b71c2b6f89f?rule=ecg_mp_eps$_85.jpg" alt="Skoda Rapid 1.2 TSI Greentech Elegance CLIMATE | CRUISE | 2d" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="skoda-skoda-rapid-1-2-tsi-greentech-elegance-cli-6" data-rang="5" data-merk="Skoda" data-prijs="7499" data-jaar="2014" data-kenmerk="Airco" data-zoek="skoda rapid 1.2 tsi greentech elegance climate | cruise | 2d skoda airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/325a64fb-9a5e-4fa8-9026-3b71c2b6f89f?rule=ecg_mp_eps$_85.jpg" alt="Skoda Rapid 1.2 TSI Greentech Elegance CLIMATE | CRUISE | 2d" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="skoda-skoda-rapid-1-2-tsi-greentech-elegance-cli-6" aria-pressed="false" aria-label="Bewaar Skoda Rapid 1.2 TSI Greentech Elegance CLIMATE | CRUISE | 2d"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Skoda Rapid 1.2 TSI Greentech Elegance CLIMATE | CRUISE | 2d</h3>
     <p class="st-spec">2014 · 136.993 km</p>
@@ -376,8 +565,18 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f4278b51-9fff-4340-b361-82e804de17fc?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 208 1.2 PureTech Blue Lease Active AIRCO | CRUISE |" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="skoda-rapid-7" data-rang="6" data-merk="Skoda" data-prijs="7499" data-jaar="2014" data-brandstof="Benzine" data-kenmerk="Airco" data-zoek="skoda rapid 1.2 tsi greentech elegance climate | cruise | 2d skoda rapid benzine airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/804114e9-8cbb-49ea-8352-1f492a7a0c24?rule=ecg_mp_eps$_85.jpg" alt="Skoda Rapid 1.2 TSI Greentech Elegance CLIMATE | CRUISE | 2d" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="skoda-rapid-7" aria-pressed="false" aria-label="Bewaar Skoda Rapid 1.2 TSI Greentech Elegance CLIMATE | CRUISE | 2d"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+  <div class="st-body">
+    <h3>Skoda Rapid 1.2 TSI Greentech Elegance CLIMATE | CRUISE | 2d</h3>
+    <p class="st-spec">2014 · 136.993 km · Benzine</p>
+    <div class="st-foot">
+      <span class="st-price">€ 7.499</span>
+      <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
+    </div>
+  </div>
+</article><article class="st-card " data-slug="peugeot-peugeot-208-1-2-puretech-blue-lease-acti-8" data-rang="7" data-merk="Peugeot" data-prijs="6999" data-jaar="2018" data-kenmerk="Airco" data-zoek="peugeot 208 1.2 puretech blue lease active airco | cruise | peugeot airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f4278b51-9fff-4340-b361-82e804de17fc?rule=ecg_mp_eps$_85.jpg" alt="Peugeot 208 1.2 PureTech Blue Lease Active AIRCO | CRUISE |" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="peugeot-peugeot-208-1-2-puretech-blue-lease-acti-8" aria-pressed="false" aria-label="Bewaar Peugeot 208 1.2 PureTech Blue Lease Active AIRCO | CRUISE |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Peugeot 208 1.2 PureTech Blue Lease Active AIRCO | CRUISE |</h3>
     <p class="st-spec">2018 · 131.659 km</p>
@@ -386,8 +585,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f814b445-5061-4f01-8bde-160f65a60bc7?rule=ecg_mp_eps$_85.jpg" alt="Ford Fiesta 1.1 Trend AIRCO | EL.RAMEN | APK" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="ford-ford-fiesta-1-1-trend-airco-el-ramen-apk-9" data-rang="8" data-merk="Ford" data-prijs="6999" data-jaar="2018" data-kenmerk="Airco|APK" data-zoek="ford fiesta 1.1 trend airco | el.ramen | apk ford airco apk">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f814b445-5061-4f01-8bde-160f65a60bc7?rule=ecg_mp_eps$_85.jpg" alt="Ford Fiesta 1.1 Trend AIRCO | EL.RAMEN | APK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="ford-ford-fiesta-1-1-trend-airco-el-ramen-apk-9" aria-pressed="false" aria-label="Bewaar Ford Fiesta 1.1 Trend AIRCO | EL.RAMEN | APK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Ford Fiesta 1.1 Trend AIRCO | EL.RAMEN | APK</h3>
     <p class="st-spec">2018 · 143.998 km</p>
@@ -396,8 +595,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/90e0711e-b191-4243-bf08-bf149a5258a4?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Polo 1.2 TSI BlueMotion Comfort Edition CRUISE |" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-polo-1-2-tsi-bluemotion-co-10" data-rang="9" data-merk="Volkswagen" data-prijs="6999" data-jaar="2012" data-zoek="volkswagen polo 1.2 tsi bluemotion comfort edition cruise | volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/90e0711e-b191-4243-bf08-bf149a5258a4?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Polo 1.2 TSI BlueMotion Comfort Edition CRUISE |" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-polo-1-2-tsi-bluemotion-co-10" aria-pressed="false" aria-label="Bewaar Volkswagen Polo 1.2 TSI BlueMotion Comfort Edition CRUISE |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Polo 1.2 TSI BlueMotion Comfort Edition CRUISE |</h3>
     <p class="st-spec">2012 · 137.232 km</p>
@@ -406,8 +605,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aaad72cc-585e-49a1-a1a6-7a97066f2363?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Polo 1.2 TSI Comfortline BlueMotion CRUISE | AIRC" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volkswagen-volkswagen-polo-1-2-tsi-comfortline-b-11" data-rang="10" data-merk="Volkswagen" data-prijs="6999" data-jaar="2012" data-zoek="volkswagen polo 1.2 tsi comfortline bluemotion cruise | airc volkswagen">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/aaad72cc-585e-49a1-a1a6-7a97066f2363?rule=ecg_mp_eps$_85.jpg" alt="Volkswagen Polo 1.2 TSI Comfortline BlueMotion CRUISE | AIRC" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volkswagen-volkswagen-polo-1-2-tsi-comfortline-b-11" aria-pressed="false" aria-label="Bewaar Volkswagen Polo 1.2 TSI Comfortline BlueMotion CRUISE | AIRC"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volkswagen Polo 1.2 TSI Comfortline BlueMotion CRUISE | AIRC</h3>
     <p class="st-spec">2012 · 145.967 km</p>
@@ -416,8 +615,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/93167b9a-cf81-4bc8-bba8-971d5cbc1ef8?rule=ecg_mp_eps$_85.jpg" alt="Opel Astra 1.4 Turbo Business + CLIMATE | CRUISE | CARPLAY |" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="opel-opel-astra-1-4-turbo-business-climate-cruis-12" data-rang="11" data-merk="Opel" data-prijs="6749" data-jaar="2015" data-kenmerk="Airco" data-zoek="opel astra 1.4 turbo business + climate | cruise | carplay | opel airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/93167b9a-cf81-4bc8-bba8-971d5cbc1ef8?rule=ecg_mp_eps$_85.jpg" alt="Opel Astra 1.4 Turbo Business + CLIMATE | CRUISE | CARPLAY |" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="opel-opel-astra-1-4-turbo-business-climate-cruis-12" aria-pressed="false" aria-label="Bewaar Opel Astra 1.4 Turbo Business + CLIMATE | CRUISE | CARPLAY |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Opel Astra 1.4 Turbo Business + CLIMATE | CRUISE | CARPLAY |</h3>
     <p class="st-spec">2015 · 156.420 km</p>
@@ -426,8 +625,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/22eb4059-1b7a-4728-b3ea-e7f3fc47b691?rule=ecg_mp_eps$_85.jpg" alt="Renault Clio Estate 0.9 TCe Limited AIRCO | CRUISE | PDC | 2" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="renault-renault-clio-estate-0-9-tce-limited-airc-13" data-rang="12" data-merk="Renault" data-prijs="6749" data-jaar="2017" data-kenmerk="Airco" data-zoek="renault clio estate 0.9 tce limited airco | cruise | pdc | 2 renault airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/22eb4059-1b7a-4728-b3ea-e7f3fc47b691?rule=ecg_mp_eps$_85.jpg" alt="Renault Clio Estate 0.9 TCe Limited AIRCO | CRUISE | PDC | 2" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="renault-renault-clio-estate-0-9-tce-limited-airc-13" aria-pressed="false" aria-label="Bewaar Renault Clio Estate 0.9 TCe Limited AIRCO | CRUISE | PDC | 2"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Renault Clio Estate 0.9 TCe Limited AIRCO | CRUISE | PDC | 2</h3>
     <p class="st-spec">2017 · 162.347 km</p>
@@ -436,8 +635,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c38cf168-eae1-41c3-829f-ed3bbc61cc11?rule=ecg_mp_eps$_85.jpg" alt="Kia Rio 1.2 CVVT BusinessLine AIRCO|CRUISE|PDC|NW.KOPPELING|" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="kia-kia-rio-1-2-cvvt-businessline-airco-cruise-p-14" data-rang="13" data-merk="Kia" data-prijs="6499" data-jaar="2014" data-kenmerk="Airco" data-zoek="kia rio 1.2 cvvt businessline airco|cruise|pdc|nw.koppeling| kia airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c38cf168-eae1-41c3-829f-ed3bbc61cc11?rule=ecg_mp_eps$_85.jpg" alt="Kia Rio 1.2 CVVT BusinessLine AIRCO|CRUISE|PDC|NW.KOPPELING|" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="kia-kia-rio-1-2-cvvt-businessline-airco-cruise-p-14" aria-pressed="false" aria-label="Bewaar Kia Rio 1.2 CVVT BusinessLine AIRCO|CRUISE|PDC|NW.KOPPELING|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Kia Rio 1.2 CVVT BusinessLine AIRCO|CRUISE|PDC|NW.KOPPELING|</h3>
     <p class="st-spec">2014 · 163.072 km</p>
@@ -446,8 +645,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a573307e-0e07-4807-8cbc-a8a8f295a666?rule=ecg_mp_eps$_85.jpg" alt="Renault Twingo 1.0 SCe Collection AIRCO|CRUISE|EL.RAMEN|NAP|" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="renault-renault-twingo-1-0-sce-collection-airco--15" data-rang="14" data-merk="Renault" data-prijs="6499" data-jaar="2018" data-kenmerk="Airco|NAP" data-zoek="renault twingo 1.0 sce collection airco|cruise|el.ramen|nap| renault airco nap">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a573307e-0e07-4807-8cbc-a8a8f295a666?rule=ecg_mp_eps$_85.jpg" alt="Renault Twingo 1.0 SCe Collection AIRCO|CRUISE|EL.RAMEN|NAP|" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="renault-renault-twingo-1-0-sce-collection-airco--15" aria-pressed="false" aria-label="Bewaar Renault Twingo 1.0 SCe Collection AIRCO|CRUISE|EL.RAMEN|NAP|"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Renault Twingo 1.0 SCe Collection AIRCO|CRUISE|EL.RAMEN|NAP|</h3>
     <p class="st-spec">2018 · 139.891 km</p>
@@ -456,8 +655,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7719529a-76d2-417e-a150-51dc6b688064?rule=ecg_mp_eps$_85.jpg" alt="Ford Focus Wagon 1.0 EcoBoost Edition Plus CIMATE | CRUISE |" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="ford-ford-focus-wagon-1-0-ecoboost-edition-plus--16" data-rang="15" data-merk="Ford" data-prijs="6499" data-jaar="2014" data-zoek="ford focus wagon 1.0 ecoboost edition plus cimate | cruise | ford">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/7719529a-76d2-417e-a150-51dc6b688064?rule=ecg_mp_eps$_85.jpg" alt="Ford Focus Wagon 1.0 EcoBoost Edition Plus CIMATE | CRUISE |" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="ford-ford-focus-wagon-1-0-ecoboost-edition-plus--16" aria-pressed="false" aria-label="Bewaar Ford Focus Wagon 1.0 EcoBoost Edition Plus CIMATE | CRUISE |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Ford Focus Wagon 1.0 EcoBoost Edition Plus CIMATE | CRUISE |</h3>
     <p class="st-spec">2014 · 146.009 km</p>
@@ -466,8 +665,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4ffb724f-a1e7-47ff-93a9-a289bfb80aac?rule=ecg_mp_eps$_85.jpg" alt="Toyota Aygo 1.0 VVT-i x-play AIRCO|CAM|SCHERM|EL.RAMEN|NAP|A" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="toyota-toyota-aygo-1-0-vvt-i-x-play-airco-cam-sc-17" data-rang="16" data-merk="Toyota" data-prijs="6499" data-jaar="2015" data-kenmerk="Airco|NAP" data-zoek="toyota aygo 1.0 vvt-i x-play airco|cam|scherm|el.ramen|nap|a toyota airco nap">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4ffb724f-a1e7-47ff-93a9-a289bfb80aac?rule=ecg_mp_eps$_85.jpg" alt="Toyota Aygo 1.0 VVT-i x-play AIRCO|CAM|SCHERM|EL.RAMEN|NAP|A" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-aygo-1-0-vvt-i-x-play-airco-cam-sc-17" aria-pressed="false" aria-label="Bewaar Toyota Aygo 1.0 VVT-i x-play AIRCO|CAM|SCHERM|EL.RAMEN|NAP|A"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Toyota Aygo 1.0 VVT-i x-play AIRCO|CAM|SCHERM|EL.RAMEN|NAP|A</h3>
     <p class="st-spec">2015 · 168.365 km</p>
@@ -476,8 +675,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bacf7561-5a6d-471a-808f-99229f22c49b?rule=ecg_mp_eps$_85.jpg" alt="Toyota Yaris 1.0 VVT-i Comfort AIRCO | 2de EIGENAAR | DEALER" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="toyota-toyota-yaris-1-0-vvt-i-comfort-airco-2de--18" data-rang="17" data-merk="Toyota" data-prijs="6499" data-jaar="2011" data-kenmerk="Airco" data-zoek="toyota yaris 1.0 vvt-i comfort airco | 2de eigenaar | dealer toyota airco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/bacf7561-5a6d-471a-808f-99229f22c49b?rule=ecg_mp_eps$_85.jpg" alt="Toyota Yaris 1.0 VVT-i Comfort AIRCO | 2de EIGENAAR | DEALER" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-yaris-1-0-vvt-i-comfort-airco-2de--18" aria-pressed="false" aria-label="Bewaar Toyota Yaris 1.0 VVT-i Comfort AIRCO | 2de EIGENAAR | DEALER"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Toyota Yaris 1.0 VVT-i Comfort AIRCO | 2de EIGENAAR | DEALER</h3>
     <p class="st-spec">2011 · 142.888 km</p>
@@ -486,29 +685,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0b171d80-7b21-47f5-ad41-85b5c542e3df?rule=ecg_mp_eps$_85.jpg" alt="Citroen C3 1.2 PureTech Feel Edition CLIMATE | CRUISE | 1e E" loading="lazy" decoding="async"></div>
-  <div class="st-body">
-    <h3>Citroen C3 1.2 PureTech Feel Edition CLIMATE | CRUISE | 1e E</h3>
-    <p class="st-spec">2016 · 101.680 km</p>
-    <div class="st-foot">
-      <span class="st-price">€ 6.499</span>
-      <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
-    </div>
-  </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2a7e7481-a7fa-4567-87fb-ce34f2bb24cb?rule=ecg_mp_eps$_85.jpg" alt="Renault Grand Scénic 1.2 TCe Bose CLIMATE | CRUISE | NAVI |" loading="lazy" decoding="async"></div>
-  <div class="st-body">
-    <h3>Renault Grand Scénic 1.2 TCe Bose CLIMATE | CRUISE | NAVI |</h3>
-    <p class="st-spec">2013 · 136.577 km</p>
-    <div class="st-foot">
-      <span class="st-price">€ 5.999</span>
-      <a class="st-ask" href="tel:+31610694737">Bel hierover</a>
-    </div>
-  </div>
-</article></div><div class="more"><span>Er staan er nog 15 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31610694737?text=Hallo%20Pro%20Car%20Center%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 15 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 15 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31610694737?text=Hallo%20Pro%20Car%20Center%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>5.0</b><span>gemiddeld uit 160 beoordelingen</span></div><div><b>2</b><span>jaar op Marktplaats</span></div><div><b>Honselersdijk</b><span><a href="https://maps.google.com/?q=Grote%20Waard%2025%2C%202675BX%20Honselersdijk" target="_blank" rel="noreferrer">Grote Waard 25, 2675BX Honselersdijk</a></span></div><div><b>KvK</b><span>91873266</span></div></div></section>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
     <div>
@@ -518,7 +701,7 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/92/92ee3ea9-ef56-44b3-8b49-e3352ddef65d?rule=ecg_mp_eps$_85.jpg" alt="Pro Car Center" loading="lazy"></div>
   </div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>33</b><span>voertuigen staan klaar</span></div><div><b>€ 5.999</b><span>de goedkoopste van dit moment</span></div><div><b>2015</b><span>mediaan bouwjaar</span></div><div><b>2</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-trust"><div class="wrap rv"><div><b>33</b><span>voertuigen staan klaar</span></div><div><b>€ 6.499</b><span>de goedkoopste van dit moment</span></div><div><b>2014</b><span>mediaan bouwjaar</span></div><div><b>2</b><span>jaar op Marktplaats</span></div></div></section>
 <section class="sec-flow">
   <div class="wrap">
     <div class="head rv"><h2>Zo gaat het</h2></div>
@@ -562,6 +745,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

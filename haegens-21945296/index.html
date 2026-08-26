@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haegens · Uden</title>
+<meta name="description" content="Voorbeeldwebsite voor Haegens.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500;125,600;125,700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#0d0f10;color:#f4f3f0;font-family:'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;letter-spacing:-0.02em;line-height:1.05;text-wrap:balance}
+p{margin:0}
+button{font:inherit}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid #e8b06a;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+
+
+html,body{overflow-x:clip}
+.wrap{width:min(var(--w,1220px),100% - 48px);margin-inline:auto}
+@media(max-width:720px){.wrap{width:min(var(--w,1220px),100% - 32px)}}
+
+.top{position:sticky;top:0;z-index:50;background:#0d0f10;border-bottom:1px solid #272b2d}
+.top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
+.top.is-fixed.solid{background:#0d0f10e6;backdrop-filter:blur(14px);border-bottom-color:#272b2d}
+.top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
+.mark{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.02em;margin-right:auto;text-decoration:none}
+.top nav{display:flex;gap:24px;font-size:15px}
+.top nav a{color:#a3a19c;text-decoration:none}
+.top nav a:hover{color:#f4f3f0}
+.callbtn{display:inline-flex;align-items:center;background:#e8b06a;color:#1a1207;padding:11px 20px;border-radius:20px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+.callbtn:hover{filter:brightness(1.07)}
+/* merk met ondertitel: ruit, naam, plaats eronder */
+.mark.has-sub{display:inline-flex;align-items:center;gap:11px;line-height:1.1}
+.mark .mark-i{width:19px;height:19px;flex:none;fill:#e8b06a}
+.mark.has-sub b{display:block;font-weight:inherit;font-size:20px;letter-spacing:-0.02em}
+.mark.has-sub em{display:block;font-family:'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-style:normal;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#a3a19c;margin-top:2px}
+
+/* WhatsApp als eigen knop, naast het nummer */
+.wabtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;border:1px solid #272b2d;background:#16191b;color:#f4f3f0;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
+.wabtn svg{width:17px;height:17px;flex:none}
+.wabtn:hover{border-color:#e8b06a}
+@media(max-width:900px){.wabtn span{display:none}.wabtn{padding:10px 12px}}
+
+@media(max-width:900px){.top nav{display:none}}
+/* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
+@media(max-width:720px){
+  .top .wrap{gap:14px}
+  .mark{font-size:16px;line-height:1.18;overflow-wrap:break-word}
+  .mark.is-long{font-size:13.5px}
+  .mark.is-xlong{font-size:12px;letter-spacing:0}
+  .callbtn{flex:none;padding:11px 15px}
+}
+
+section{padding:clamp(54px,7vw,108px) 0}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
+.head h2{font-size:clamp(28px,3.9vw,50px)}
+.head .meta{color:#a3a19c;font-size:15px}
+.head p{margin-top:12px;color:#a3a19c;max-width:60ch;flex-basis:100%}
+.more{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.more span{color:#a3a19c;font-size:15px}
+
+.hours{width:100%;border-collapse:collapse;font-size:16px}
+.hours th{text-align:left;font-weight:400;color:#a3a19c;padding:10px 0;border-bottom:1px solid #272b2d}
+.hours td{text-align:right;padding:10px 0;border-bottom:1px solid #272b2d;font-variant-numeric:tabular-nums}
+.hours td.closed{color:#a3a19c}
+.hours tr:last-child th,.hours tr:last-child td{border-bottom:0}
+.hours tr.today th{color:#f4f3f0;font-weight:600}
+.hours tr.today td{font-weight:600}
+.hours .tag{margin-left:10px;color:#e8b06a;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+
+.field{display:block;margin-bottom:13px}
+.field span{display:block;font-size:13.5px;color:#a3a19c;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:13px 15px;border:1px solid #272b2d;border-radius:20px;background:#0d0f10;color:#f4f3f0;font:inherit;font-size:16px}
+.field input:focus,.field textarea:focus{outline:none;border-color:#e8b06a}
+form .h-btn{width:100%;justify-content:center;border:0;cursor:pointer;margin-top:4px}
+.note{margin-top:12px;color:#a3a19c;font-size:13.5px}
+
+footer{padding:32px 0 calc(32px + var(--bar,0px));color:#a3a19c;font-size:14px;border-top:1px solid #272b2d}
+footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+
+.bar{position:fixed;inset:auto 0 0;z-index:60;display:none;gap:1px;background:#272b2d;border-top:1px solid #272b2d}
+.bar a{flex:1;padding:15px;text-align:center;background:#16191b;color:#f4f3f0;text-decoration:none;font-weight:600;font-size:15.5px}
+.bar a.acc{background:#e8b06a;color:#1a1207}
+@media(max-width:720px){.bar{display:flex}body{--bar:58px}}
+
+.js .rv{opacity:0;transform:translateY(14px)}
+.js .rv.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+
+
+.hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
+.hero h1 em{font-style:normal;color:#e8b06a}
+.hero h1 a{text-decoration:none}
+.h-kick{display:flex;align-items:center;gap:10px;color:#a3a19c;font-size:13.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.h-dot{width:8px;height:8px;border-radius:999px;background:#3fb96b;box-shadow:0 0 0 4px #3fb96b2e;flex:none}
+.h-lede{margin-top:20px;max-width:50ch;color:#a3a19c;font-size:clamp(16px,1.6vw,19px)}
+.h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:20px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #272b2d;background:#16191b;color:#f4f3f0;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
+.h-btn:hover{transform:translateY(-2px)}
+.h-btn.is-primary{background:#e8b06a;color:#1a1207;border-color:transparent}
+.h-facts{display:flex;flex-wrap:wrap;gap:0 34px;margin-top:38px;padding-top:20px;border-top:1px solid #272b2d;color:#a3a19c;font-size:14.5px}
+.h-facts span{padding:6px 0}
+/* Waar de wereld het bewijs of de cijfers vóór de kop zet, draait de scheiding mee. */
+.h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #272b2d}
+.h-words>.h-cta:first-child{margin-top:0}
+.h-words>.h-lede:first-child{margin-top:0}
+
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(88svh,800px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(32px,5vw,64px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#e8b06a;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffd6}
+.h-eigen .h-dot{background:#4ade80;box-shadow:0 0 0 4px #4ade8033}
+.h-pijl{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
+.h-eigen .h-btn{border-radius:999px;padding:16px 28px;font-size:15.5px}
+.h-eigen .h-btn.is-primary{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.h-eigen h1{font-size:clamp(42px,6.6vw,88px);line-height:1.02;max-width:14ch}
+.h-eigen .h-lede{max-width:46ch;font-size:clamp(16px,1.45vw,18.5px)}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#e8b06a;color:#1a1207;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
+
+/* cinematic: beeld vult het scherm, woorden liggen erin */
+.h-cinematic{position:relative;min-height:min(90svh,880px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+@keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
+.h-cinematic::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#0d0f10a6 0%,#0d0f101a 24%,#0d0f108c 52%,#0d0f10e8 80%,#0d0f10 100%)}
+.h-cinematic .h-words{padding-bottom:clamp(40px,7vw,84px)}
+.h-cinematic h1{text-shadow:0 2px 30px #0d0f10b3}
+.h-cinematic .h-lede{color:#f4f3f0cc;text-shadow:0 1px 18px #0d0f10cc}
+
+/* panorama: liggend beeld in een kader, woorden erin */
+.h-panorama{padding:clamp(22px,3vw,44px) 0 0}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#1b1f21;aspect-ratio:2/1;min-height:min(76svh,760px)}
+.h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
+@keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
+.h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
+/* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
+.h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
+.h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
+.h-panorama h1{color:#fff;font-size:clamp(34px,5vw,68px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+/* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
+.h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
+.h-panorama .h-lede{color:#ffffffdb}
+.h-panorama .h-btn{border-color:#ffffff4d;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-panorama .h-btn.is-primary{background:#e8b06a;color:#1a1207;border-color:transparent}
+.h-panorama .h-facts{border-top:0;padding-top:0;margin-top:clamp(26px,3.4vw,44px);gap:0 clamp(20px,3vw,44px)}
+@media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
+
+/* split: woorden naast echte auto's */
+/* split: woorden links, echte voertuigen rechts. Het geheel vult nu een scherm,
+   want een opening van 400px hoog leest als een kop met een plaatje - niet als
+   een entree. */
+.h-split{padding:clamp(48px,6vw,88px) 0 clamp(40px,5vw,72px);min-height:min(84svh,820px);display:flex;align-items:center}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1.15fr;gap:clamp(32px,5vw,68px);align-items:center;width:min(var(--w,1220px),100% - 48px)}
+.h-split h1{font-size:clamp(40px,5.4vw,74px)}
+@media(max-width:900px){.h-split{min-height:0;display:block}.h-split .wrap{grid-template-columns:1fr}}
+
+/* stack: woorden boven, beeld als band eronder */
+/* stack: woorden boven, beeld als band eronder. De band moet in het eerste
+   scherm beginnen - anders open je met letters op een egale kleur, en dat is
+   precies wat we niet willen. */
+.h-stack{padding:clamp(30px,3.6vw,56px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(24px,2.8vw,40px)}
+/* Twee regels, geen drie: bij drie regels zakt de beeldband onder de vouw en
+   open je alsnog met alleen letters. */
+.h-stack h1{font-size:clamp(38px,5.2vw,70px);max-width:13ch}
+.h-stack .h-lede{margin-top:16px;max-width:44ch}
+.h-stack .h-facts{margin-top:24px;padding-top:16px}
+.h-stack .h-cta{margin-top:24px}
+.h-band{margin:0;aspect-ratio:21/7;min-height:min(46svh,460px);background:#1b1f21;overflow:hidden}
+.h-band img{width:100%;height:100%;object-fit:cover}
+@media(max-width:720px){.h-band{aspect-ratio:16/10}}
+
+/* poster: de letters doen het werk, foto's als strook */
+.h-poster{padding:clamp(36px,5vw,68px) 0 0}
+.h-poster h1{font-size:clamp(40px,7.6vw,100px);line-height:.95;max-width:16ch}
+.h-poster .h-facts{margin-bottom:clamp(28px,4vw,44px)}
+
+/* index: geen groot beeld, de cijfers staan naast de tekst */
+.h-index{padding:clamp(34px,4.4vw,60px) 0 clamp(24px,3vw,38px);border-bottom:1px solid #272b2d}
+.h-index .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(26px,4vw,56px);align-items:center}
+.h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
+.h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#272b2d;border:1px solid #272b2d;border-radius:20px;overflow:hidden;margin:0}
+.h-panel div{background:#16191b;padding:17px 19px}
+.h-panel dd{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.02em;line-height:1.25}
+@media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
+
+/* fotostrook, gedeeld door split en poster */
+.h-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.h-strip figure{margin:0;position:relative;border-radius:20px;overflow:hidden;background:#1b1f21}
+.h-strip figure:first-child{grid-column:1 / -1}
+.h-strip img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+.h-strip figure:first-child img{aspect-ratio:16/9}
+.h-strip .st-noimg{aspect-ratio:16/10;height:auto}
+.h-strip figure:first-child .st-noimg{aspect-ratio:16/9}
+.h-poster .h-strip .st-noimg{aspect-ratio:4/3}
+.h-strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:13px 15px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.74));color:#fff;font-size:13.5px;font-weight:600;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.h-strip figcaption span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h-strip figcaption span:last-child{white-space:nowrap}
+.h-poster .h-strip{display:flex;grid-template-columns:none;gap:0}
+.h-poster .h-strip figure{flex:1;border-radius:0}
+.h-poster .h-strip figure:first-child{grid-column:auto}
+.h-poster .h-strip img{aspect-ratio:4/3}
+.h-poster .h-strip figcaption{display:none}
+@media(max-width:720px){.h-poster .h-strip figure:nth-child(n+4){display:none}}
+
+/* bijschrift bij de hoofdfoto */
+.h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#0d0f10d9;backdrop-filter:blur(8px);border:1px solid #272b2d;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
+.h-plate-k{color:#a3a19c;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
+.h-plate-t{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-size:19px;line-height:1.15}
+.h-plate-p{color:#e8b06a;font-weight:600;font-size:17px;margin-top:4px}
+.h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #272b2d;border-radius:20px}
+@media(max-width:900px){.h-plate{display:none}}
+
+
+.st-card{background:#16191b;display:flex;flex-direction:column;overflow:hidden}
+.st-shot{position:relative;aspect-ratio:4/3;background:#1b1f21;overflow:hidden}
+.st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.st-card:hover .st-shot img{transform:scale(1.04)}
+.st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#a3a19c;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #272b2d;border-radius:50%;background:#16191b;color:#a3a19c;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#e8b06a;border-color:#e8b06a}
+.st-bewaar[aria-pressed="true"]{color:#e8b06a;border-color:#e8b06a}
+.st-bewaar[aria-pressed="true"] svg{fill:#e8b06a}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
+.st-year{position:absolute;left:0;top:0;background:#e8b06a;color:#1a1207;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
+.st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
+.st-card h3{font-size:17.5px;line-height:1.3}
+.st-spec{color:#a3a19c;font-size:14.5px;font-variant-numeric:tabular-nums}
+.st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.st-price{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:23px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#e8b06a;text-decoration:none;white-space:nowrap}
+.st-ask:hover{text-decoration:underline}
+
+.st-rail{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:max(24px,calc(50vw - 620px));padding:0 max(24px,calc(50vw - 620px)) 24px;scrollbar-width:thin;scrollbar-color:#272b2d transparent}
+.st-rail::-webkit-scrollbar{height:6px}
+.st-rail::-webkit-scrollbar-thumb{background:#272b2d;border-radius:99px}
+.st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
+
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
+
+.st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+.st-mosaic .st-card{grid-column:span 2}
+.st-mosaic .is-wide{grid-column:span 3}
+.st-mosaic .is-lead{grid-column:span 6}
+.st-mosaic .is-lead .st-shot{aspect-ratio:21/8}
+@media(max-width:980px){.st-mosaic{grid-template-columns:repeat(4,1fr)}.st-mosaic .is-lead{grid-column:span 4}.st-mosaic .is-wide{grid-column:span 2}}
+@media(max-width:660px){.st-mosaic{grid-template-columns:1fr;gap:16px}.st-mosaic .st-card,.st-mosaic .is-wide,.st-mosaic .is-lead{grid-column:span 1}.st-mosaic .is-lead .st-shot{aspect-ratio:16/10}}
+
+.st-list{border-top:1px solid #272b2d}
+.st-row{display:grid;grid-template-columns:132px 1fr auto auto;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid #272b2d;transition:background .18s ease}
+.st-row:hover{background:#16191b}
+.st-row .st-thumb{aspect-ratio:4/3;background:#1b1f21;overflow:hidden;border-radius:20px}
+.st-row .st-thumb img{width:100%;height:100%;object-fit:cover}
+.st-row h3{font-size:17.5px;line-height:1.3;font-family:'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;letter-spacing:0;text-transform:none}
+.st-row .st-spec{margin-top:5px}
+.st-act{background:#e8b06a;color:#1a1207;text-decoration:none;font-weight:700;font-size:15px;padding:11px 18px;border-radius:20px;white-space:nowrap}
+.st-act:hover{filter:brightness(1.07)}
+@media(max-width:820px){
+  .st-row{grid-template-columns:96px 1fr;gap:14px}
+  .st-row .st-price{grid-column:2}
+  .st-row .st-act{grid-column:2;justify-self:start}
+}
+
+.st-tablewrap{border:1px solid #272b2d;border-radius:20px;overflow-x:auto;background:#16191b}
+.st-table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:720px}
+.st-table th{text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#a3a19c;font-weight:600;padding:13px 16px;border-bottom:1px solid #272b2d;background:#1b1f21}
+.st-table td{padding:12px 16px;border-bottom:1px solid #272b2d;vertical-align:middle}
+.st-table tr:last-child td{border-bottom:0}
+.st-table tbody tr:hover{background:#1b1f21}
+.st-table .st-thumb{width:92px}
+.st-table .st-thumb img{width:92px;height:66px;object-fit:cover;border-radius:calc(20px - 1px);background:#1b1f21}
+.st-table .st-name{font-weight:600;line-height:1.3}
+.st-table .st-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-table .st-price{font-size:19px;text-align:right;display:block}
+.st-table .st-act-cell a{display:inline-block;background:#e8b06a;color:#1a1207;padding:9px 15px;border-radius:20px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+
+
+.sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
+.sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.02em;color:#e8b06a;line-height:1}
+.sec-trust span{display:block;margin-top:9px;color:#a3a19c;font-size:15px}
+.sec-trust a{color:#f4f3f0}
+
+.sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
+/* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
+.sec-about .wrap>*{min-width:0}
+.sec-about p{overflow-wrap:anywhere}
+.sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
+.sec-about p{color:#a3a19c;font-size:17.5px;max-width:66ch}
+.sec-about .portrait{border:1px solid #272b2d;border-radius:20px;background:#1b1f21;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+.sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
+@media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
+
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;list-style:none;padding:0;margin:0;counter-reset:s}
+.flow li{background:#16191b;border:1px solid #272b2d;border-radius:20px;padding:clamp(22px,2.6vw,30px);position:relative}
+.flow li::before{counter-increment:s;content:counter(s);display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:#e8b06a;color:#1a1207;font-weight:700;font-size:14px;margin-bottom:14px}
+.flow li b{display:block;font-size:18.5px;margin-bottom:8px}
+.flow li p{color:#a3a19c;font-size:15.5px}
+@media(max-width:780px){.flow{grid-template-columns:1fr}}
+
+.sec-brands{border-block:1px solid #272b2d;background:#16191b}
+.sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
+.sec-brands span{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.02em;color:#a3a19c;padding:6px 0}
+.sec-brands span:first-child{color:#e8b06a}
+
+.wrap{--w:1280px}
+.sec-contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,68px)}
+.sec-contact h2{font-size:clamp(26px,3.4vw,44px)}
+.sec-contact .lede{margin-top:16px;color:#a3a19c;max-width:46ch}
+.sec-contact .callrow{margin-top:24px}
+.sec-contact .addr{margin-top:18px;color:#a3a19c}
+.sec-contact .hours{margin-top:26px}
+@media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
+
+
+/* Reizen: veel lucht, ronde hoeken, rust. Het bezoek is de conversie. */
+.callbtn{border-radius:999px}
+.h-btn{border-radius:999px}
+.st-card{border:1px solid #272b2d;border-radius:clamp(12px,1.4vw,20px);transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s}
+.st-card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(20,30,25,.12)}
+.top{background:#0d0f10f2;backdrop-filter:blur(12px)}
+.sec-trust{background:#1b1f21;border-block:1px solid #272b2d}
+.flow li{border-radius:clamp(12px,1.4vw,20px)}
+.sec-contact{background:#1b1f21;border-top:1px solid #272b2d}
+.sec-contact .panel{background:#16191b;border:1px solid #272b2d;border-radius:clamp(14px,1.6vw,22px);padding:clamp(22px,3vw,32px)}
+.field input,.field textarea{border-radius:12px}
+.h-words>h1+.h-facts{margin-top:26px;padding-top:0;border-top:0;gap:0 clamp(20px,3vw,40px)}
+</style>
+</head>
+<body data-site="21945296">
+<!--
+THESIS: Deze site is afgeleid uit de werkelijke voorraad van Haegens (reizen, mediaanprijs EUR 11225, 7 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
+OWN-WORLD: palet avondlicht, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #e8b06a.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties trust > stock > promise > process > contact.
+FORM: reizen-avondlicht-cinematic-grid-archivoexpanded-k1
+FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
+-->
+<div class="top" id="top">
+  <div class="wrap">
+    <a class="mark has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>Haegens</b><em>Uden</em></span></a>
+    <nav><a href="#voorraad">Voorraad</a><a href="#over-ons">Over ons</a><a href="#contact">Contact</a></nav>
+    <a class="wabtn" href="https://wa.me/31653800669?text=Hallo%20Haegens%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad."><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.04 2A9.9 9.9 0 0 0 2.1 11.9c0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.9 9.9 0 0 0 4.74 1.2h.01a9.9 9.9 0 0 0 9.94-9.9A9.9 9.9 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.98.24-3.3-.69-2.78-1.1-4.54-3.95-4.68-4.13-.13-.18-1.11-1.48-1.11-2.82 0-1.34.7-2 .95-2.28.25-.27.54-.34.72-.34l.52.01c.17 0 .39-.06.61.47.23.55.78 1.9.85 2.04.07.14.11.3.02.48-.09.18-.13.29-.26.45l-.39.45c-.13.13-.26.28-.11.54.15.27.66 1.09 1.42 1.76.97.87 1.79 1.14 2.05 1.27.26.13.41.11.56-.07.15-.18.65-.76.82-1.02.18-.27.35-.22.59-.13.24.09 1.55.73 1.81.86.27.13.44.2.51.31.06.11.06.64-.18 1.32Z"/></svg><span>WhatsApp</span></a>
+    <a class="callbtn" href="tel:+31653800669">06-5380 0669</a>
+  </div>
+</div>
+<header class="hero h-cinematic">
+  <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/59f8847a-fa14-487f-9ebc-e74975390350?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/59f8847a-fa14-487f-9ebc-e74975390350?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/59f8847a-fa14-487f-9ebc-e74975390350?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/59f8847a-fa14-487f-9ebc-e74975390350?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/59f8847a-fa14-487f-9ebc-e74975390350?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Arto Niesmann Bischoff camper uit 2005" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Arto Niesmann Bischoff camper uit 2005</span><span class="h-plate-p">€ 27.500</span></figcaption></figure>
+  <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>7 campers en caravans · Uden</p><h1>Caravans en campers <em>in Uden</em></h1><div class="h-facts"><span>5.0 uit 125 beoordelingen</span><span>11 jaar op Marktplaats</span><span>5 merken in huis</span><span>Kom langs in Uden</span></div><p class="h-lede">Kom rustig kijken en stap in. We nemen de tijd om alles met u door te lopen.</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-btn" href="tel:+31653800669">Bel 06-5380 0669</a></div></div>
+</header>
+<section class="sec-trust"><div class="wrap rv"><div><b>5.0</b><span>gemiddeld uit 125 beoordelingen</span></div><div><b>11</b><span>jaar op Marktplaats</span></div><div><b>Uden</b><span><a href="https://maps.google.com/?q=Uden" target="_blank" rel="noreferrer">Uden</a></span></div></div></section>
+<section id="voorraad">
+  <div class="wrap head">
+    <h2>De voorraad</h2>
+    <span class="meta">7 getoond van 7 · vanaf € 250</span>
+    
+  </div>
+  <div class="wrap"><div class="st-grid"><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/59f8847a-fa14-487f-9ebc-e74975390350?rule=ecg_mp_eps$_85.jpg" alt="Arto Niesmann Bischoff camper uit 2005" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Arto Niesmann Bischoff camper uit 2005</h3>
+    <p class="st-spec">2005 · 163.000 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 27.500</span>
+      <a class="st-ask" href="https://wa.me/31653800669?text=Hallo%20Haegens%2C%20ik%20zag%20de%20Arto%20Niesmann%20Bischoff%20camper%20uit%202005%20(%E2%82%AC%2027.500)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/36496170-8033-4f46-b08d-383f68081749?rule=ecg_mp_eps$_85.jpg" alt="Knaus Sun Liner met Airco 2003" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Knaus Sun Liner met Airco 2003</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 19.950</span>
+      <a class="st-ask" href="https://wa.me/31653800669?text=Hallo%20Haegens%2C%20ik%20zag%20de%20Knaus%20Sun%20Liner%20met%20Airco%202003%20(%E2%82%AC%2019.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3a12a39e-2d1f-4e1e-ad2f-da10d8343dcc?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Range Rover (sport) 3.0 Tdv6 AUT 2015 Grijs" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Land Rover Range Rover (sport) 3.0 Tdv6 AUT 2015 Grijs</h3>
+    <p class="st-spec">2015 · 205.000 km · Diesel</p>
+    <div class="st-foot">
+      <span class="st-price">€ 14.500</span>
+      <a class="st-ask" href="https://wa.me/31653800669?text=Hallo%20Haegens%2C%20ik%20zag%20de%20Land%20Rover%20Range%20Rover%20(sport)%203.0%20Tdv6%20AUT%202015%20Grijs%20(%E2%82%AC%2014.500)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ed25fcee-2a90-4690-bd42-c8f8ea389324?rule=ecg_mp_eps$_85.jpg" alt="Land Range Rover TDV8 2007 Blauw nw APK" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Land Range Rover TDV8 2007 Blauw nw APK</h3>
+    <p class="st-spec">2007 · 350.000 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 7.950</span>
+      <a class="st-ask" href="https://wa.me/31653800669?text=Hallo%20Haegens%2C%20ik%20zag%20de%20Land%20Range%20Rover%20TDV8%202007%20Blauw%20nw%20APK%20(%E2%82%AC%207.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ea350711-3664-493e-8b2a-c1df02ef745c?rule=ecg_mp_eps$_85.jpg" alt="Saab 2004 Zwart automaat" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Saab 2004 Zwart automaat</h3>
+    <p class="st-spec">2004 · 227.500 km</p>
+    <div class="st-foot">
+      <span class="st-price">€ 5.750</span>
+      <a class="st-ask" href="https://wa.me/31653800669?text=Hallo%20Haegens%2C%20ik%20zag%20de%20Saab%202004%20Zwart%20automaat%20(%E2%82%AC%205.750)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42e73951-229e-4222-9e4d-e4ac62726a61?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Velgen met All Season Banden 19 inch" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Land Rover Velgen met All Season Banden 19 inch</h3>
+    <p class="st-spec">Gegevens op aanvraag</p>
+    <div class="st-foot">
+      <span class="st-price">€ 250</span>
+      <a class="st-ask" href="https://wa.me/31653800669?text=Hallo%20Haegens%2C%20ik%20zag%20de%20Land%20Rover%20Velgen%20met%20All%20Season%20Banden%2019%20inch%20(%E2%82%AC%20250)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article><article class="st-card ">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/74ea259e-29af-4b4b-a25a-c89475547feb?rule=ecg_mp_eps$_85.jpg" alt="Peugeot Boxer Buscamper - Burow Mobil VIP540 2008" loading="lazy" decoding="async"></div>
+  <div class="st-body">
+    <h3>Peugeot Boxer Buscamper - Burow Mobil VIP540 2008</h3>
+    <p class="st-spec">2008 · 205.000 km</p>
+    <div class="st-foot">
+      <span class="st-price">Op aanvraag</span>
+      <a class="st-ask" href="https://wa.me/31653800669?text=Hallo%20Haegens%2C%20ik%20zag%20de%20Peugeot%20Boxer%20Buscamper%20-%20Burow%20Mobil%20VIP540%202008%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
+    </div>
+  </div>
+</article></div></div>
+</section>
+<section class="sec-trust"><div class="wrap rv"><div><b>7</b><span>voertuigen staan klaar</span></div><div><b>€ 250</b><span>de goedkoopste van dit moment</span></div><div><b>2007</b><span>mediaan bouwjaar</span></div><div><b>11</b><span>jaar op Marktplaats</span></div></div></section>
+<section class="sec-flow">
+  <div class="wrap">
+    <div class="head rv"><h2>Zo gaat het</h2></div>
+    <ol class="flow rv">
+      <li><b>Neem contact op</b><p>Bel of app ons over het voertuig dat u op het oog heeft.</p></li><li><b>Kom langs</b><p>Kom langs en loop er rustig doorheen. Neem de tijd, we lopen alles met u door.</p></li><li><b>Regel het samen</b><p>We bespreken prijs, inruil en aflevering. Geen verrassingen.</p></li>
+    </ol>
+  </div>
+</section>
+<section class="sec-contact" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <h2>Langskomen kan</h2>
+      <p class="lede">Een camper koopt u niet van een scherm. Kom kijken, stap in, en stel al uw vragen.</p>
+      <p class="callrow"><a class="h-btn is-primary" href="tel:+31653800669">Bel 06-5380 0669</a></p>
+      <p class="addr"><a href="https://maps.google.com/?q=Uden" target="_blank" rel="noreferrer">Uden</a></p>
+      
+    </div>
+    <div class="panel rv"><form onsubmit="event.preventDefault();var f=this;location.href='mailto:info@haegenskraanverhuur.nl?subject='+encodeURIComponent('Afspraak via de website')+'&body='+encodeURIComponent('Naam: '+f.naam.value+'\nTelefoon: '+f.tel.value+'\n\n'+f.bericht.value)"><label class="field"><span>Uw naam</span><input name="naam" type="text" autocomplete="name" required></label><label class="field"><span>Telefoonnummer</span><input name="tel" type="tel" autocomplete="tel" required></label><label class="field"><span>Waar wilt u naar kijken, en wanneer schikt het?</span><textarea name="bericht" rows="4" required></textarea></label><button class="h-btn is-primary" type="submit">Afspraak aanvragen</button><p class="note">Uw bericht opent in uw eigen mailprogramma.</p></form></div>
+  </div>
+</section>
+<footer>
+  <div class="wrap rowf">
+    <span>Haegens · Uden</span>
+    <span>Voorbeeldwebsite, gemaakt door Capital BB</span>
+  </div>
+</footer>
+<div class="bar">
+  <a class="acc" href="tel:+31653800669">Bellen</a>
+  <a href="https://wa.me/31653800669?text=Hallo%20Haegens%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">WhatsApp</a>
+</div>
+<script>
+document.documentElement.className+=' js';
+(function(){
+  var today=document.querySelector('.hours tr[data-d="'+new Date().getDay()+'"]');
+  if(today){today.className='today';var v=today.lastElementChild;if(v){v.insertAdjacentHTML('beforeend','<span class="tag">vandaag</span>')}}
+  var top=document.getElementById('top');
+  if(top){var s=function(){top.classList.toggle('solid',window.scrollY>40)};s();addEventListener('scroll',s,{passive:true})}
+  var items=[].slice.call(document.querySelectorAll('.rv'));
+  var show=function(el){el.classList.add('in')};
+  if(!('IntersectionObserver' in window)){items.forEach(show);return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
+  items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
+  setTimeout(function(){items.forEach(show)},2600);
+})();
+</script>
+
+</body>
+</html>

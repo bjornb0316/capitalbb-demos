@@ -40,6 +40,18 @@ html,body{overflow-x:clip}
 .top nav a:hover{color:#f3f0f0}
 .callbtn{display:inline-flex;align-items:center;background:#b2453c;color:#fff8f6;padding:11px 20px;border-radius:2px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
 .callbtn:hover{filter:brightness(1.07)}
+/* merk met ondertitel: ruit, naam, plaats eronder */
+.mark.has-sub{display:inline-flex;align-items:center;gap:11px;line-height:1.1}
+.mark .mark-i{width:19px;height:19px;flex:none;fill:#b2453c}
+.mark.has-sub b{display:block;font-weight:inherit;font-size:20px;letter-spacing:-0.02em}
+.mark.has-sub em{display:block;font-family:'Archivo', 'Helvetica Neue', Arial, sans-serif;font-style:normal;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#a2999b;margin-top:2px}
+
+/* WhatsApp als eigen knop, naast het nummer */
+.wabtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;border:1px solid #2c2427;background:#171315;color:#f3f0f0;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
+.wabtn svg{width:17px;height:17px;flex:none}
+.wabtn:hover{border-color:#b2453c}
+@media(max-width:900px){.wabtn span{display:none}.wabtn{padding:10px 12px}}
+
 @media(max-width:900px){.top nav{display:none}}
 /* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
 @media(max-width:720px){
@@ -89,7 +101,8 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
 .hero h1 em{font-style:normal;color:#b2453c}
 .hero h1 a{text-decoration:none}
-.h-kick{color:#a2999b;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
+.h-kick{display:flex;align-items:center;gap:10px;color:#a2999b;font-size:13.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.h-dot{width:8px;height:8px;border-radius:999px;background:#3fb96b;box-shadow:0 0 0 4px #3fb96b2e;flex:none}
 .h-lede{margin-top:20px;max-width:50ch;color:#a2999b;font-size:clamp(16px,1.6vw,19px)}
 .h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:2px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #2c2427;background:#171315;color:#f3f0f0;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
@@ -106,14 +119,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
    Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
    met een echte sluier eronder - niet het palet van de wereld volgen, want een
    licht palet levert zwarte letters op een avondfoto op. */
-.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen{position:relative;min-height:min(88svh,800px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
 .h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 .h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
-.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen .h-words{padding-block:clamp(32px,5vw,64px);color:#fff}
 .h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
 .h-eigen h1 em{color:#c97d77;text-shadow:0 2px 20px rgba(0,0,0,.75)}
-.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-kick{color:#ffffffd6}
+.h-eigen .h-dot{background:#4ade80;box-shadow:0 0 0 4px #4ade8033}
+.h-pijl{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
+.h-eigen .h-btn{border-radius:999px;padding:16px 28px;font-size:15.5px}
+.h-eigen .h-btn.is-primary{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.h-eigen h1{font-size:clamp(42px,6.6vw,88px);line-height:1.02;max-width:14ch}
+.h-eigen .h-lede{max-width:46ch;font-size:clamp(16px,1.45vw,18.5px)}
 .h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
 .h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
 .h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
@@ -121,7 +140,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
-.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic{position:relative;min-height:min(90svh,880px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
 .h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 @keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
@@ -132,14 +151,14 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 /* panorama: liggend beeld in een kader, woorden erin */
 .h-panorama{padding:clamp(22px,3vw,44px) 0 0}
-.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#1d1618;aspect-ratio:21/9;min-height:320px}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#1d1618;aspect-ratio:2/1;min-height:min(76svh,760px)}
 .h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
 @keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
 .h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
 /* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
 .h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
 .h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
-.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+.h-panorama h1{color:#fff;font-size:clamp(34px,5vw,68px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
 /* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
 .h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
 .h-panorama .h-lede{color:#ffffffdb}
@@ -149,16 +168,27 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
 
 /* split: woorden naast echte auto's */
-.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
-.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
-.h-split h1{font-size:clamp(36px,4.9vw,64px)}
-@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+/* split: woorden links, echte voertuigen rechts. Het geheel vult nu een scherm,
+   want een opening van 400px hoog leest als een kop met een plaatje - niet als
+   een entree. */
+.h-split{padding:clamp(48px,6vw,88px) 0 clamp(40px,5vw,72px);min-height:min(84svh,820px);display:flex;align-items:center}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1.15fr;gap:clamp(32px,5vw,68px);align-items:center;width:min(var(--w,1220px),100% - 48px)}
+.h-split h1{font-size:clamp(40px,5.4vw,74px)}
+@media(max-width:900px){.h-split{min-height:0;display:block}.h-split .wrap{grid-template-columns:1fr}}
 
 /* stack: woorden boven, beeld als band eronder */
-.h-stack{padding:clamp(44px,6vw,92px) 0 0}
-.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
-.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
-.h-band{margin:0;aspect-ratio:21/8;background:#1d1618;overflow:hidden}
+/* stack: woorden boven, beeld als band eronder. De band moet in het eerste
+   scherm beginnen - anders open je met letters op een egale kleur, en dat is
+   precies wat we niet willen. */
+.h-stack{padding:clamp(30px,3.6vw,56px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(24px,2.8vw,40px)}
+/* Twee regels, geen drie: bij drie regels zakt de beeldband onder de vouw en
+   open je alsnog met alleen letters. */
+.h-stack h1{font-size:clamp(38px,5.2vw,70px);max-width:13ch}
+.h-stack .h-lede{margin-top:16px;max-width:44ch}
+.h-stack .h-facts{margin-top:24px;padding-top:16px}
+.h-stack .h-cta{margin-top:24px}
+.h-band{margin:0;aspect-ratio:21/7;min-height:min(46svh,460px);background:#1d1618;overflow:hidden}
 .h-band img{width:100%;height:100%;object-fit:cover}
 @media(max-width:720px){.h-band{aspect-ratio:16/10}}
 
@@ -305,6 +335,76 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#0d0b0c;border-block:1px solid #2c2427;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#a2999b;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:2px;background:#171315;border:1px solid #2c2427;color:#f3f0f0;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#a2999b}
+.sa-zoek input:focus{outline:none;border-color:#b2453c}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#a2999b;cursor:pointer}
+.sa-wis:hover{color:#f3f0f0}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#a2999b;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:14px;letter-spacing:0;text-transform:none;color:#b2453c;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:2px;background:#171315;border:1px solid #2c2427;color:#f3f0f0;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#b2453c}
+.sa-meer{padding:11px 17px;border-radius:2px;background:transparent;border:1px solid #2c2427;color:#a2999b;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#f3f0f0;border-color:#b2453c}
+.sa-meer[aria-expanded="true"]{border-color:#b2453c;color:#b2453c}
+
+.sa-paneel{border-top:1px solid #2c2427}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:2px;background:transparent;border:1px solid #2c2427;color:#a2999b;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#f3f0f0;border-color:#b2453c}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#b2453c;border-color:#b2453c;color:#fff8f6}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#a2999b;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#2c2427}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#b2453c;border:3px solid #0d0b0c}
+input[type=range]::-moz-range-track{height:2px;background:#2c2427}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#b2453c;border:3px solid #0d0b0c}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#a2999b;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:19px;color:#f3f0f0;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:2px;background:transparent;border:1px solid #2c2427;color:#a2999b;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#f3f0f0;border-color:#b2453c}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#b2453c;border-color:#b2453c;color:#fff8f6}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #2c2427;border-radius:2px}
+.sa-leeg-t{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#a2999b;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #2c2427;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
 
 /* Prestige: showroom na sluitingstijd. Alles rustig, het beeld doet het werk. */
 .st-card{border:1px solid #2c2427}
@@ -321,32 +421,86 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Autobedrijf Westri Bennekom (prestige, mediaanprijs EUR 51495, 98 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet oxblood, 'Bodoni Moda' als display op 'Archivo', hoeken 2px, accent #b2453c.
-STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "rail", secties stock > process > about > trust > contact.
-FORM: prestige-oxblood-split-rail-bodonimoda-k2
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
+FIRST VIEWPORT: hero-variant "stack", voorraadweergave "mosaic", secties about > stock > process > trust > contact.
+FORM: prestige-oxblood-stack-mosaic-bodonimoda-k2
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
 <div class="top is-fixed" id="top">
   <div class="wrap">
-    <a class="mark is-long" href="#top">Autobedrijf Westri Bennekom</a>
+    <a class="mark is-long has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>Autobedrijf Westri Bennekom</b><em>Bennekom</em></span></a>
     <nav><a href="#voorraad">Voorraad</a><a href="#over-ons">Over ons</a><a href="#contact">Contact</a></nav>
+    <a class="wabtn" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad."><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.04 2A9.9 9.9 0 0 0 2.1 11.9c0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.9 9.9 0 0 0 4.74 1.2h.01a9.9 9.9 0 0 0 9.94-9.9A9.9 9.9 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.98.24-3.3-.69-2.78-1.1-4.54-3.95-4.68-4.13-.13-.18-1.11-1.48-1.11-2.82 0-1.34.7-2 .95-2.28.25-.27.54-.34.72-.34l.52.01c.17 0 .39-.06.61.47.23.55.78 1.9.85 2.04.07.14.11.3.02.48-.09.18-.13.29-.26.45l-.39.45c-.13.13-.26.28-.11.54.15.27.66 1.09 1.42 1.76.97.87 1.79 1.14 2.05 1.27.26.13.41.11.56-.07.15-.18.65-.76.82-1.02.18-.27.35-.22.59-.13.24.09 1.55.73 1.81.86.27.13.44.2.51.31.06.11.06.64-.18 1.32Z"/></svg><span>WhatsApp</span></a>
     <a class="callbtn" href="tel:+31641434662">06-4143 4662</a>
   </div>
 </div>
-<header class="hero h-split">
-  <div class="wrap">
-    <div class="h-words"><p class="h-kick">Nu in de showroom · Audi RS6 Avant RS6 TFSI Quattro | B&amp;O Advanced | Dynamic PLU · € 96.995</p><h1>Nu in de showroom <em>in Bennekom</em></h1><p class="h-lede">98 voertuigen op voorraad · Bennekom · vanaf € 31.995</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging</a><a class="h-btn" href="tel:+31641434662">Bel 06-4143 4662</a></div><div class="h-facts"><span>98 voertuigen op voorraad</span><span>4.4 uit 416 beoordelingen</span><span>16 jaar op Marktplaats</span><span>7 merken in huis</span><span>Kom langs in Bennekom</span></div></div>
-    <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c9bfc43-d6ed-432e-a53f-7b7cf57086b8?rule=ecg_mp_eps$_85.jpg" alt="Audi RS6 Avant RS6 TFSI Quattro | B&amp;O Advanced | Dynamic PLU" decoding="async" fetchpriority="high"><figcaption><span>Audi RS6 Avant RS6 TFSI Quattro | B&amp;O Ad</span><span>€ 96.995</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/38140b1f-aa9c-4512-87e6-4c49d6dbcdf0?rule=ecg_mp_eps$_85.jpg" alt="BMW 7-serie M760Li xDrive High Executive | Massage | TV | Ko" decoding="async"><figcaption><span>BMW 7-serie M760Li xDrive High Executive</span><span>€ 89.950</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/16b4d6d0-7392-49b0-896f-4a510f702643?rule=ecg_mp_eps$_85.jpg" alt="BMW X5 XDrive50e High Executive | AR CAM | 360 cam | Panoram" decoding="async"><figcaption><span>BMW X5 XDrive50e High Executive | AR CAM</span><span>€ 82.995</span></figcaption></figure></div></div>
-  </div>
+<header class="hero h-stack">
+  <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>Audi RS6 Avant RS6 TFSI Quattro | B&amp;O · € 96.995</p><h1>Nu in de showroom <em>in Bennekom</em></h1><p class="h-lede">Autobedrijf Westri Bennekom houdt zich bezig met de in- en verkoop van jong gebruikte en exclusieve occasions. Wij zijn niet merkgebonden. Alle inruil is altijd mogelijk bij ons. Mocht u int</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31641434662">Bel 06-4143 4662</a><a class="h-btn" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div><div class="h-facts"><span>4.4 uit 416 beoordelingen</span><span>16 jaar op Marktplaats</span><span>7 merken in huis</span><span>Kom langs in Bennekom</span></div></div>
+  <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c9bfc43-d6ed-432e-a53f-7b7cf57086b8?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c9bfc43-d6ed-432e-a53f-7b7cf57086b8?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c9bfc43-d6ed-432e-a53f-7b7cf57086b8?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c9bfc43-d6ed-432e-a53f-7b7cf57086b8?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c9bfc43-d6ed-432e-a53f-7b7cf57086b8?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Audi RS6 Avant RS6 TFSI Quattro | B&amp;O Advanced | Dynamic PLU" fetchpriority="high"></figure>
 </header>
+<section class="sec-about" id="over-ons">
+  <div class="wrap rv">
+    <div>
+      <h2>Over Autobedrijf Westri Bennekom</h2>
+      <p>Autobedrijf Westri Bennekom houdt zich bezig met de in- en verkoop van jong gebruikte en exclusieve occasions. Wij zijn niet merkgebonden. Alle inruil is altijd mogelijk bij ons. Mocht u interesse hebben in één van onze auto's kunt u altijd bellen of mailen voor een afspraak.</p>
+    </div>
+    <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/d0/d0c69907-5e5f-47aa-b891-f74923fb6793?rule=ecg_mp_eps$_85.jpg" alt="Autobedrijf Westri Bennekom" loading="lazy"></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
     <span class="meta">18 getoond van 98 · vanaf € 31.995</span>
     
   </div>
-  <div class="st-rail"><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c9bfc43-d6ed-432e-a53f-7b7cf57086b8?rule=ecg_mp_eps$_85.jpg" alt="Audi RS6 Avant RS6 TFSI Quattro | B&amp;O Advanced | Dynamic PLU" loading="lazy" decoding="async"></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 7 merken</option>
+    <option value="BMW">BMW (7)</option><option value="Audi">Audi (3)</option><option value="Porsche">Porsche (3)</option><option value="Mercedes-Benz">Mercedes-Benz (2)</option><option value="Bentley">Bentley (1)</option><option value="Land Rover">Land Rover (1)</option><option value="Volvo">Volvo (1)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 97.995</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="31995" max="97995" step="1100" value="97995">
+  <span class="sa-schaal"><i>€ 31.995</i><i>€ 97.995</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2012</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2012" max="2024" step="1" value="2012">
+  <span class="sa-schaal"><i>2012</i><i>2024</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="audi-audi-rs6-avant-rs6-tfsi-quattro-b-o-advance-1" data-rang="0" data-merk="Audi" data-prijs="96995" data-jaar="2020" data-zoek="audi rs6 avant rs6 tfsi quattro | b&amp;o advanced | dynamic plu audi">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4c9bfc43-d6ed-432e-a53f-7b7cf57086b8?rule=ecg_mp_eps$_86.jpg" alt="Audi RS6 Avant RS6 TFSI Quattro | B&amp;O Advanced | Dynamic PLU" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-rs6-avant-rs6-tfsi-quattro-b-o-advance-1" aria-pressed="false" aria-label="Bewaar Audi RS6 Avant RS6 TFSI Quattro | B&amp;O Advanced | Dynamic PLU"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi RS6 Avant RS6 TFSI Quattro | B&amp;O Advanced | Dynamic PLU</h3>
     <p class="st-spec">2020 · 99.987 km</p>
@@ -355,8 +509,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20Audi%20RS6%20Avant%20RS6%20TFSI%20Quattro%20%7C%20B%26O%20Advanced%20%7C%20Dynamic%20PLU%20(%E2%82%AC%2096.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/38140b1f-aa9c-4512-87e6-4c49d6dbcdf0?rule=ecg_mp_eps$_85.jpg" alt="BMW 7-serie M760Li xDrive High Executive | Massage | TV | Ko" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bmw-bmw-7-serie-m760li-xdrive-high-executive-mas-2" data-rang="1" data-merk="BMW" data-prijs="89950" data-jaar="2020" data-zoek="bmw 7-serie m760li xdrive high executive | massage | tv | ko bmw">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/38140b1f-aa9c-4512-87e6-4c49d6dbcdf0?rule=ecg_mp_eps$_85.jpg" alt="BMW 7-serie M760Li xDrive High Executive | Massage | TV | Ko" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-7-serie-m760li-xdrive-high-executive-mas-2" aria-pressed="false" aria-label="Bewaar BMW 7-serie M760Li xDrive High Executive | Massage | TV | Ko"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>BMW 7-serie M760Li xDrive High Executive | Massage | TV | Ko</h3>
     <p class="st-spec">2020 · 116.607 km</p>
@@ -365,8 +519,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20BMW%207-serie%20M760Li%20xDrive%20High%20Executive%20%7C%20Massage%20%7C%20TV%20%7C%20Ko%20(%E2%82%AC%2089.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/16b4d6d0-7392-49b0-896f-4a510f702643?rule=ecg_mp_eps$_85.jpg" alt="BMW X5 XDrive50e High Executive | AR CAM | 360 cam | Panoram" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="bmw-bmw-x5-xdrive50e-high-executive-ar-cam-360-c-3" data-rang="2" data-merk="BMW" data-prijs="82995" data-jaar="2023" data-zoek="bmw x5 xdrive50e high executive | ar cam | 360 cam | panoram bmw">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/16b4d6d0-7392-49b0-896f-4a510f702643?rule=ecg_mp_eps$_86.jpg" alt="BMW X5 XDrive50e High Executive | AR CAM | 360 cam | Panoram" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x5-xdrive50e-high-executive-ar-cam-360-c-3" aria-pressed="false" aria-label="Bewaar BMW X5 XDrive50e High Executive | AR CAM | 360 cam | Panoram"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>BMW X5 XDrive50e High Executive | AR CAM | 360 cam | Panoram</h3>
     <p class="st-spec">2023 · 45.998 km</p>
@@ -375,8 +529,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20BMW%20X5%20XDrive50e%20High%20Executive%20%7C%20AR%20CAM%20%7C%20360%20cam%20%7C%20Panoram%20(%E2%82%AC%2082.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/260b072f-3a65-4d1b-88ca-a21c564a09ff?rule=ecg_mp_eps$_85.jpg" alt="BMW X5 XDrive50e High Executive | X5M Kuipstoelen | Driving" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bmw-bmw-x5-xdrive50e-high-executive-x5m-kuipstoe-4" data-rang="3" data-merk="BMW" data-prijs="82995" data-jaar="2023" data-zoek="bmw x5 xdrive50e high executive | x5m kuipstoelen | driving bmw">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/260b072f-3a65-4d1b-88ca-a21c564a09ff?rule=ecg_mp_eps$_85.jpg" alt="BMW X5 XDrive50e High Executive | X5M Kuipstoelen | Driving" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x5-xdrive50e-high-executive-x5m-kuipstoe-4" aria-pressed="false" aria-label="Bewaar BMW X5 XDrive50e High Executive | X5M Kuipstoelen | Driving"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>BMW X5 XDrive50e High Executive | X5M Kuipstoelen | Driving</h3>
     <p class="st-spec">2023 · 84.956 km</p>
@@ -385,8 +539,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20BMW%20X5%20XDrive50e%20High%20Executive%20%7C%20X5M%20Kuipstoelen%20%7C%20Driving%20(%E2%82%AC%2082.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fd31773e-b606-47ba-86e1-4216b3324120?rule=ecg_mp_eps$_85.jpg" alt="Porsche Cayenne Coupé 3.0 E-Hybrid | Burmester | Achterasbe" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="porsche-porsche-cayenne-coupe-3-0-e-hybrid-burme-5" data-rang="4" data-merk="Porsche" data-prijs="73775" data-jaar="2022" data-zoek="porsche cayenne coupé 3.0 e-hybrid | burmester | achterasbe porsche">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fd31773e-b606-47ba-86e1-4216b3324120?rule=ecg_mp_eps$_85.jpg" alt="Porsche Cayenne Coupé 3.0 E-Hybrid | Burmester | Achterasbe" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="porsche-porsche-cayenne-coupe-3-0-e-hybrid-burme-5" aria-pressed="false" aria-label="Bewaar Porsche Cayenne Coupé 3.0 E-Hybrid | Burmester | Achterasbe"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Porsche Cayenne Coupé 3.0 E-Hybrid | Burmester | Achterasbe</h3>
     <p class="st-spec">2022 · 105.796 km</p>
@@ -395,8 +549,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20Porsche%20Cayenne%20Coup%C3%A9%203.0%20E-Hybrid%20%7C%20Burmester%20%7C%20Achterasbe%20(%E2%82%AC%2073.775)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a1699490-5e2d-4014-a21c-304a5e3055b2?rule=ecg_mp_eps$_85.jpg" alt="Bentley Flying Spur 6.0 W12 | Massage voor/achter | Pano | S" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bentley-bentley-flying-spur-6-0-w12-massage-voor-6" data-rang="5" data-merk="Bentley" data-prijs="72775" data-jaar="2013" data-zoek="bentley flying spur 6.0 w12 | massage voor/achter | pano | s bentley">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a1699490-5e2d-4014-a21c-304a5e3055b2?rule=ecg_mp_eps$_85.jpg" alt="Bentley Flying Spur 6.0 W12 | Massage voor/achter | Pano | S" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bentley-bentley-flying-spur-6-0-w12-massage-voor-6" aria-pressed="false" aria-label="Bewaar Bentley Flying Spur 6.0 W12 | Massage voor/achter | Pano | S"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Bentley Flying Spur 6.0 W12 | Massage voor/achter | Pano | S</h3>
     <p class="st-spec">2013 · 122.926 km</p>
@@ -405,8 +559,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20Bentley%20Flying%20Spur%206.0%20W12%20%7C%20Massage%20voor%2Fachter%20%7C%20Pano%20%7C%20S%20(%E2%82%AC%2072.775)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4dd2d34a-f5e6-4852-ac42-af78e6bd4144?rule=ecg_mp_eps$_85.jpg" alt="Porsche Taycan Cross Turismo 4S 93 kWh | 4 Wiel besturing |" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="porsche-porsche-taycan-cross-turismo-4s-93-kwh-4-7" data-rang="6" data-merk="Porsche" data-prijs="54995" data-jaar="2021" data-zoek="porsche taycan cross turismo 4s 93 kwh | 4 wiel besturing | porsche">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/4dd2d34a-f5e6-4852-ac42-af78e6bd4144?rule=ecg_mp_eps$_85.jpg" alt="Porsche Taycan Cross Turismo 4S 93 kWh | 4 Wiel besturing |" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="porsche-porsche-taycan-cross-turismo-4s-93-kwh-4-7" aria-pressed="false" aria-label="Bewaar Porsche Taycan Cross Turismo 4S 93 kWh | 4 Wiel besturing |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Porsche Taycan Cross Turismo 4S 93 kWh | 4 Wiel besturing |</h3>
     <p class="st-spec">2021 · 96.065 km</p>
@@ -415,8 +569,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20Porsche%20Taycan%20Cross%20Turismo%204S%2093%20kWh%20%7C%204%20Wiel%20besturing%20%7C%20(%E2%82%AC%2054.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/44c73718-3572-4be7-972d-b36eefb08564?rule=ecg_mp_eps$_85.jpg" alt="BMW I5 EDrive40 84 kWh | Bowers &amp; Wilkins | Head Up Display" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="bmw-bmw-i5-edrive40-84-kwh-bowers-wilkins-head-u-8" data-rang="7" data-merk="BMW" data-prijs="54995" data-jaar="2024" data-zoek="bmw i5 edrive40 84 kwh | bowers &amp; wilkins | head up display bmw">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/44c73718-3572-4be7-972d-b36eefb08564?rule=ecg_mp_eps$_86.jpg" alt="BMW I5 EDrive40 84 kWh | Bowers &amp; Wilkins | Head Up Display" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-i5-edrive40-84-kwh-bowers-wilkins-head-u-8" aria-pressed="false" aria-label="Bewaar BMW I5 EDrive40 84 kWh | Bowers &amp; Wilkins | Head Up Display"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>BMW I5 EDrive40 84 kWh | Bowers &amp; Wilkins | Head Up Display</h3>
     <p class="st-spec">2024 · 50.787 km</p>
@@ -425,8 +579,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20BMW%20I5%20EDrive40%2084%20kWh%20%7C%20Bowers%20%26%20Wilkins%20%7C%20Head%20Up%20Display%20(%E2%82%AC%2054.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2cea4ebb-6060-41f2-9d11-bd7facc24db5?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz CLS-klasse AMG 53 4MATIC+ Premium Plus | 360 C" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-cls-klasse-amg-53-4m-9" data-rang="8" data-merk="Mercedes-Benz" data-prijs="51995" data-jaar="2019" data-zoek="mercedes-benz cls-klasse amg 53 4matic+ premium plus | 360 c mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2cea4ebb-6060-41f2-9d11-bd7facc24db5?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz CLS-klasse AMG 53 4MATIC+ Premium Plus | 360 C" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-cls-klasse-amg-53-4m-9" aria-pressed="false" aria-label="Bewaar Mercedes-Benz CLS-klasse AMG 53 4MATIC+ Premium Plus | 360 C"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz CLS-klasse AMG 53 4MATIC+ Premium Plus | 360 C</h3>
     <p class="st-spec">2019 · 144.250 km</p>
@@ -435,8 +589,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20Mercedes-Benz%20CLS-klasse%20AMG%2053%204MATIC%2B%20Premium%20Plus%20%7C%20360%20C%20(%E2%82%AC%2051.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/664d65cd-3918-45b5-aa0b-3fdcb2ec3ac6?rule=ecg_mp_eps$_85.jpg" alt="Porsche Cayenne 3.0 E-Hybrid | Massage | Stoelverkoeling | 3" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="porsche-cayenne-10" data-rang="9" data-merk="Porsche" data-prijs="50995" data-jaar="2019" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="porsche cayenne 3.0 e-hybrid | massage | stoelverkoeling | 3 porsche cayenne hybride elektrisch/benzine">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/664d65cd-3918-45b5-aa0b-3fdcb2ec3ac6?rule=ecg_mp_eps$_85.jpg" alt="Porsche Cayenne 3.0 E-Hybrid | Massage | Stoelverkoeling | 3" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="porsche-cayenne-10" aria-pressed="false" aria-label="Bewaar Porsche Cayenne 3.0 E-Hybrid | Massage | Stoelverkoeling | 3"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Porsche Cayenne 3.0 E-Hybrid | Massage | Stoelverkoeling | 3</h3>
     <p class="st-spec">2019 · 139.146 km · Hybride Elektrisch/Benzine</p>
@@ -445,8 +599,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20Porsche%20Cayenne%203.0%20E-Hybrid%20%7C%20Massage%20%7C%20Stoelverkoeling%20%7C%203%20(%E2%82%AC%2050.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2173135a-4a8e-41eb-bada-10e08bf31f33?rule=ecg_mp_eps$_85.jpg" alt="BMW X5 M | Carbon | ABC Sport uitlaat | 100% Dealer onderhou" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bmw-bmw-x5-m-carbon-abc-sport-uitlaat-100-dealer-11" data-rang="10" data-merk="BMW" data-prijs="47495" data-jaar="2015" data-zoek="bmw x5 m | carbon | abc sport uitlaat | 100% dealer onderhou bmw">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2173135a-4a8e-41eb-bada-10e08bf31f33?rule=ecg_mp_eps$_85.jpg" alt="BMW X5 M | Carbon | ABC Sport uitlaat | 100% Dealer onderhou" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-x5-m-carbon-abc-sport-uitlaat-100-dealer-11" aria-pressed="false" aria-label="Bewaar BMW X5 M | Carbon | ABC Sport uitlaat | 100% Dealer onderhou"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>BMW X5 M | Carbon | ABC Sport uitlaat | 100% Dealer onderhou</h3>
     <p class="st-spec">2015 · 140.997 km</p>
@@ -455,8 +609,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20BMW%20X5%20M%20%7C%20Carbon%20%7C%20ABC%20Sport%20uitlaat%20%7C%20100%25%20Dealer%20onderhou%20(%E2%82%AC%2047.495)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/23387b76-b530-452e-a5a6-08e9a8eb3f48?rule=ecg_mp_eps$_85.jpg" alt="BMW 6-serie Cabrio M6 | Carbon | 360 cam | Head up Display |" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bmw-bmw-6-serie-cabrio-m6-carbon-360-cam-head-up-12" data-rang="11" data-merk="BMW" data-prijs="45995" data-jaar="2012" data-zoek="bmw 6-serie cabrio m6 | carbon | 360 cam | head up display | bmw">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/23387b76-b530-452e-a5a6-08e9a8eb3f48?rule=ecg_mp_eps$_85.jpg" alt="BMW 6-serie Cabrio M6 | Carbon | 360 cam | Head up Display |" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-6-serie-cabrio-m6-carbon-360-cam-head-up-12" aria-pressed="false" aria-label="Bewaar BMW 6-serie Cabrio M6 | Carbon | 360 cam | Head up Display |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>BMW 6-serie Cabrio M6 | Carbon | 360 cam | Head up Display |</h3>
     <p class="st-spec">2012 · 103.677 km</p>
@@ -465,8 +619,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20BMW%206-serie%20Cabrio%20M6%20%7C%20Carbon%20%7C%20360%20cam%20%7C%20Head%20up%20Display%20%7C%20(%E2%82%AC%2045.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/159ab705-a6ca-42df-b7f7-16ddc12efd91?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz A-klasse AMG 45 4MATIC+ Premium Plus | Panoram" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="mercedes-benz-mercedes-benz-a-klasse-amg-45-4mat-13" data-rang="12" data-merk="Mercedes-Benz" data-prijs="43995" data-jaar="2021" data-zoek="mercedes-benz a-klasse amg 45 4matic+ premium plus | panoram mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/159ab705-a6ca-42df-b7f7-16ddc12efd91?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz A-klasse AMG 45 4MATIC+ Premium Plus | Panoram" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-a-klasse-amg-45-4mat-13" aria-pressed="false" aria-label="Bewaar Mercedes-Benz A-klasse AMG 45 4MATIC+ Premium Plus | Panoram"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz A-klasse AMG 45 4MATIC+ Premium Plus | Panoram</h3>
     <p class="st-spec">2021 · 92.254 km</p>
@@ -475,8 +629,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20Mercedes-Benz%20A-klasse%20AMG%2045%204MATIC%2B%20Premium%20Plus%20%7C%20Panoram%20(%E2%82%AC%2043.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a4d991a2-04c9-4ab9-93b4-ce7465c5ad1a?rule=ecg_mp_eps$_85.jpg" alt="BMW 3-serie M340i xDrive High Executive | Schuifdak | Mossel" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="bmw-bmw-3-serie-m340i-xdrive-high-executive-schu-14" data-rang="13" data-merk="BMW" data-prijs="43495" data-jaar="2019" data-zoek="bmw 3-serie m340i xdrive high executive | schuifdak | mossel bmw">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a4d991a2-04c9-4ab9-93b4-ce7465c5ad1a?rule=ecg_mp_eps$_85.jpg" alt="BMW 3-serie M340i xDrive High Executive | Schuifdak | Mossel" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="bmw-bmw-3-serie-m340i-xdrive-high-executive-schu-14" aria-pressed="false" aria-label="Bewaar BMW 3-serie M340i xDrive High Executive | Schuifdak | Mossel"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>BMW 3-serie M340i xDrive High Executive | Schuifdak | Mossel</h3>
     <p class="st-spec">2019 · 128.795 km</p>
@@ -485,8 +639,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20BMW%203-serie%20M340i%20xDrive%20High%20Executive%20%7C%20Schuifdak%20%7C%20Mossel%20(%E2%82%AC%2043.495)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/02461da9-ba2a-4bd1-aa88-e833bbb59483?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Range Rover Sport 2.0 P400e Limited Edition | SV" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="land-rover-range-rover-sport-15" data-rang="14" data-merk="Land Rover" data-prijs="41775" data-jaar="2020" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="land rover range rover sport 2.0 p400e limited edition | sv land rover range rover (sport) hybride elektrisch/benzine">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/02461da9-ba2a-4bd1-aa88-e833bbb59483?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Range Rover Sport 2.0 P400e Limited Edition | SV" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="land-rover-range-rover-sport-15" aria-pressed="false" aria-label="Bewaar Land Rover Range Rover Sport 2.0 P400e Limited Edition | SV"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Land Rover Range Rover Sport 2.0 P400e Limited Edition | SV</h3>
     <p class="st-spec">2020 · 137.031 km · Hybride Elektrisch/Benzine</p>
@@ -495,8 +649,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20Land%20Rover%20Range%20Rover%20Sport%202.0%20P400e%20Limited%20Edition%20%7C%20SV%20(%E2%82%AC%2041.775)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e5bcd95-d9d8-477a-bc7e-21f432ec834d?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 Sportback 45 TFSI e S Edition | Panorama | Virtual |" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="audi-audi-q3-sportback-45-tfsi-e-s-edition-panor-16" data-rang="15" data-merk="Audi" data-prijs="36795" data-jaar="2022" data-zoek="audi q3 sportback 45 tfsi e s edition | panorama | virtual | audi">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/0e5bcd95-d9d8-477a-bc7e-21f432ec834d?rule=ecg_mp_eps$_85.jpg" alt="Audi Q3 Sportback 45 TFSI e S Edition | Panorama | Virtual |" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-q3-sportback-45-tfsi-e-s-edition-panor-16" aria-pressed="false" aria-label="Bewaar Audi Q3 Sportback 45 TFSI e S Edition | Panorama | Virtual |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi Q3 Sportback 45 TFSI e S Edition | Panorama | Virtual |</h3>
     <p class="st-spec">2022 · 86.299 km</p>
@@ -505,8 +659,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20Audi%20Q3%20Sportback%2045%20TFSI%20e%20S%20Edition%20%7C%20Panorama%20%7C%20Virtual%20%7C%20(%E2%82%AC%2036.795)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/93e4dfc9-8523-4b2b-8bb8-3b2a72e23987?rule=ecg_mp_eps$_85.jpg" alt="Volvo C40 Recharge Twin Intro Edition 78 kWh | Harman/Kardon" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="volvo-volvo-c40-recharge-twin-intro-edition-78-k-17" data-rang="16" data-merk="Volvo" data-prijs="32995" data-jaar="2022" data-zoek="volvo c40 recharge twin intro edition 78 kwh | harman/kardon volvo">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/93e4dfc9-8523-4b2b-8bb8-3b2a72e23987?rule=ecg_mp_eps$_85.jpg" alt="Volvo C40 Recharge Twin Intro Edition 78 kWh | Harman/Kardon" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="volvo-volvo-c40-recharge-twin-intro-edition-78-k-17" aria-pressed="false" aria-label="Bewaar Volvo C40 Recharge Twin Intro Edition 78 kWh | Harman/Kardon"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Volvo C40 Recharge Twin Intro Edition 78 kWh | Harman/Kardon</h3>
     <p class="st-spec">2022 · 29.597 km</p>
@@ -515,8 +669,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20Volvo%20C40%20Recharge%20Twin%20Intro%20Edition%2078%20kWh%20%7C%20Harman%2FKardon%20(%E2%82%AC%2032.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/023795d7-756a-41bb-a399-ff0b766a051a?rule=ecg_mp_eps$_85.jpg" alt="Audi SQ5 3.0 TFSI SQ5 Quattro ProLine Plus Panorama | LED |" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="audi-audi-sq5-3-0-tfsi-sq5-quattro-proline-plus--18" data-rang="17" data-merk="Audi" data-prijs="31995" data-jaar="2017" data-zoek="audi sq5 3.0 tfsi sq5 quattro proline plus panorama | led | audi">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/023795d7-756a-41bb-a399-ff0b766a051a?rule=ecg_mp_eps$_86.jpg" alt="Audi SQ5 3.0 TFSI SQ5 Quattro ProLine Plus Panorama | LED |" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-sq5-3-0-tfsi-sq5-quattro-proline-plus--18" aria-pressed="false" aria-label="Bewaar Audi SQ5 3.0 TFSI SQ5 Quattro ProLine Plus Panorama | LED |"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi SQ5 3.0 TFSI SQ5 Quattro ProLine Plus Panorama | LED |</h3>
     <p class="st-spec">2017 · 122.764 km</p>
@@ -525,7 +679,12 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20zag%20de%20Audi%20SQ5%203.0%20TFSI%20SQ5%20Quattro%20ProLine%20Plus%20Panorama%20%7C%20LED%20%7C%20(%E2%82%AC%2031.995)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article></div><div class="wrap"><div class="more"><span>Er staan er nog 80 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 80 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 80 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31641434662?text=Hallo%20Autobedrijf%20Westri%20Bennekom%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
 </section>
 <section class="sec-flow">
   <div class="wrap">
@@ -533,15 +692,6 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <ol class="flow rv">
       <li><b>Neem contact op</b><p>Bel of app ons over het voertuig dat u op het oog heeft.</p></li><li><b>Kom langs</b><p>Kom langs voor een bezichtiging en een proefrit.</p></li><li><b>Regel het samen</b><p>We bespreken prijs, inruil en aflevering. Geen verrassingen.</p></li>
     </ol>
-  </div>
-</section>
-<section class="sec-about" id="over-ons">
-  <div class="wrap rv">
-    <div>
-      <h2>Over Autobedrijf Westri Bennekom</h2>
-      <p>Autobedrijf Westri Bennekom houdt zich bezig met de in- en verkoop van jong gebruikte en exclusieve occasions. Wij zijn niet merkgebonden. Alle inruil is altijd mogelijk bij ons. Mocht u interesse hebben in één van onze auto's kunt u altijd bellen of mailen voor een afspraak.</p>
-    </div>
-    <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/d0/d0c69907-5e5f-47aa-b891-f74923fb6793?rule=ecg_mp_eps$_85.jpg" alt="Autobedrijf Westri Bennekom" loading="lazy"></div>
   </div>
 </section>
 <section class="sec-trust"><div class="wrap rv"><div><b>4.4</b><span>gemiddeld uit 416 beoordelingen</span></div><div><b>16</b><span>jaar op Marktplaats</span></div><div><b>Bennekom</b><span><a href="https://maps.google.com/?q=Molenstraat%2051%2C%206721WK%20Bennekom" target="_blank" rel="noreferrer">Molenstraat 51, 6721WK Bennekom</a></span></div><div><b>KvK</b><span>09218570</span></div></div></section>
@@ -580,6 +730,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

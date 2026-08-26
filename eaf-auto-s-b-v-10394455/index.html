@@ -6,14 +6,14 @@
 <title>EAF Auto's B.V · Voorschoten</title>
 <meta name="description" content="Voorbeeldwebsite voor EAF Auto's B.V.">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=Archivo:wght@400;500;600;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,400;100,500;125,600;125,700&display=swap">
 <style>
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:#101113;color:#f4f4f5;font-family:'Archivo', 'Helvetica Neue', Arial, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img{max-width:100%;display:block}
 a{color:inherit}
-h1,h2,h3{margin:0;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;letter-spacing:-0.02em;line-height:1.05;text-wrap:balance}
+h1,h2,h3{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:-0.03em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
 /* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
@@ -34,12 +34,24 @@ html,body{overflow-x:clip}
 .top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
 .top.is-fixed.solid{background:#101113e6;backdrop-filter:blur(14px);border-bottom-color:#2b2e34}
 .top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
-.mark{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:20px;letter-spacing:-0.02em;margin-right:auto;text-decoration:none}
+.mark{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.03em;margin-right:auto;text-decoration:none}
 .top nav{display:flex;gap:24px;font-size:15px}
 .top nav a{color:#9b9ea4;text-decoration:none}
 .top nav a:hover{color:#f4f4f5}
 .callbtn{display:inline-flex;align-items:center;background:#7fb2d9;color:#0a0b0d;padding:11px 20px;border-radius:2px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
 .callbtn:hover{filter:brightness(1.07)}
+/* merk met ondertitel: ruit, naam, plaats eronder */
+.mark.has-sub{display:inline-flex;align-items:center;gap:11px;line-height:1.1}
+.mark .mark-i{width:19px;height:19px;flex:none;fill:#7fb2d9}
+.mark.has-sub b{display:block;font-weight:inherit;font-size:20px;letter-spacing:-0.03em}
+.mark.has-sub em{display:block;font-family:'Archivo', 'Helvetica Neue', Arial, sans-serif;font-style:normal;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9b9ea4;margin-top:2px}
+
+/* WhatsApp als eigen knop, naast het nummer */
+.wabtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;border:1px solid #2b2e34;background:#191b1f;color:#f4f4f5;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
+.wabtn svg{width:17px;height:17px;flex:none}
+.wabtn:hover{border-color:#7fb2d9}
+@media(max-width:900px){.wabtn span{display:none}.wabtn{padding:10px 12px}}
+
 @media(max-width:900px){.top nav{display:none}}
 /* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
 @media(max-width:720px){
@@ -89,7 +101,8 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
 .hero h1 em{font-style:normal;color:#7fb2d9}
 .hero h1 a{text-decoration:none}
-.h-kick{color:#9b9ea4;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
+.h-kick{display:flex;align-items:center;gap:10px;color:#9b9ea4;font-size:13.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.h-dot{width:8px;height:8px;border-radius:999px;background:#3fb96b;box-shadow:0 0 0 4px #3fb96b2e;flex:none}
 .h-lede{margin-top:20px;max-width:50ch;color:#9b9ea4;font-size:clamp(16px,1.6vw,19px)}
 .h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:2px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #2b2e34;background:#191b1f;color:#f4f4f5;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
@@ -106,14 +119,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
    Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
    met een echte sluier eronder - niet het palet van de wereld volgen, want een
    licht palet levert zwarte letters op een avondfoto op. */
-.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen{position:relative;min-height:min(88svh,800px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
 .h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 .h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
-.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen .h-words{padding-block:clamp(32px,5vw,64px);color:#fff}
 .h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
-.h-eigen h1 em{color:#a5c9e4;text-shadow:0 2px 20px rgba(0,0,0,.75)}
-.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen h1 em{color:#7fb2d9;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffd6}
+.h-eigen .h-dot{background:#4ade80;box-shadow:0 0 0 4px #4ade8033}
+.h-pijl{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
+.h-eigen .h-btn{border-radius:999px;padding:16px 28px;font-size:15.5px}
+.h-eigen .h-btn.is-primary{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.h-eigen h1{font-size:clamp(42px,6.6vw,88px);line-height:1.02;max-width:14ch}
+.h-eigen .h-lede{max-width:46ch;font-size:clamp(16px,1.45vw,18.5px)}
 .h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
 .h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
 .h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
@@ -121,7 +140,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
-.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic{position:relative;min-height:min(90svh,880px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
 .h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 @keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
@@ -132,14 +151,14 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 /* panorama: liggend beeld in een kader, woorden erin */
 .h-panorama{padding:clamp(22px,3vw,44px) 0 0}
-.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#15171b;aspect-ratio:21/9;min-height:320px}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#15171b;aspect-ratio:2/1;min-height:min(76svh,760px)}
 .h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
 @keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
 .h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
 /* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
 .h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
 .h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
-.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+.h-panorama h1{color:#fff;font-size:clamp(34px,5vw,68px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
 /* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
 .h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
 .h-panorama .h-lede{color:#ffffffdb}
@@ -149,16 +168,27 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
 
 /* split: woorden naast echte auto's */
-.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
-.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
-.h-split h1{font-size:clamp(36px,4.9vw,64px)}
-@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+/* split: woorden links, echte voertuigen rechts. Het geheel vult nu een scherm,
+   want een opening van 400px hoog leest als een kop met een plaatje - niet als
+   een entree. */
+.h-split{padding:clamp(48px,6vw,88px) 0 clamp(40px,5vw,72px);min-height:min(84svh,820px);display:flex;align-items:center}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1.15fr;gap:clamp(32px,5vw,68px);align-items:center;width:min(var(--w,1220px),100% - 48px)}
+.h-split h1{font-size:clamp(40px,5.4vw,74px)}
+@media(max-width:900px){.h-split{min-height:0;display:block}.h-split .wrap{grid-template-columns:1fr}}
 
 /* stack: woorden boven, beeld als band eronder */
-.h-stack{padding:clamp(44px,6vw,92px) 0 0}
-.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
-.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
-.h-band{margin:0;aspect-ratio:21/8;background:#15171b;overflow:hidden}
+/* stack: woorden boven, beeld als band eronder. De band moet in het eerste
+   scherm beginnen - anders open je met letters op een egale kleur, en dat is
+   precies wat we niet willen. */
+.h-stack{padding:clamp(30px,3.6vw,56px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(24px,2.8vw,40px)}
+/* Twee regels, geen drie: bij drie regels zakt de beeldband onder de vouw en
+   open je alsnog met alleen letters. */
+.h-stack h1{font-size:clamp(38px,5.2vw,70px);max-width:13ch}
+.h-stack .h-lede{margin-top:16px;max-width:44ch}
+.h-stack .h-facts{margin-top:24px;padding-top:16px}
+.h-stack .h-cta{margin-top:24px}
+.h-band{margin:0;aspect-ratio:21/7;min-height:min(46svh,460px);background:#15171b;overflow:hidden}
 .h-band img{width:100%;height:100%;object-fit:cover}
 @media(max-width:720px){.h-band{aspect-ratio:16/10}}
 
@@ -173,7 +203,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
 .h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#2b2e34;border:1px solid #2b2e34;border-radius:2px;overflow:hidden;margin:0}
 .h-panel div{background:#191b1f;padding:17px 19px}
-.h-panel dd{margin:0;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.02em;line-height:1.25}
+.h-panel dd{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.03em;line-height:1.25}
 @media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
 
 /* fotostrook, gedeeld door split en poster */
@@ -198,7 +228,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 /* bijschrift bij de hoofdfoto */
 .h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#101113d9;backdrop-filter:blur(8px);border:1px solid #2b2e34;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
 .h-plate-k{color:#9b9ea4;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
-.h-plate-t{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-size:19px;line-height:1.15}
+.h-plate-t{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-size:19px;line-height:1.15}
 .h-plate-p{color:#7fb2d9;font-weight:600;font-size:17px;margin-top:4px}
 .h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #2b2e34;border-radius:2px}
 @media(max-width:900px){.h-plate{display:none}}
@@ -219,7 +249,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .st-card h3{font-size:17.5px;line-height:1.3}
 .st-spec{color:#9b9ea4;font-size:14.5px;font-variant-numeric:tabular-nums}
 .st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.st-price{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:23px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.st-price{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:23px;letter-spacing:-0.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
 .st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#7fb2d9;text-decoration:none;white-space:nowrap}
 .st-ask:hover{text-decoration:underline}
 
@@ -270,7 +300,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 
 .sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
-.sec-trust b{display:block;font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.02em;color:#7fb2d9;line-height:1}
+.sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.03em;color:#7fb2d9;line-height:1}
 .sec-trust span{display:block;margin-top:9px;color:#9b9ea4;font-size:15px}
 .sec-trust a{color:#f4f4f5}
 
@@ -293,7 +323,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 .sec-brands{border-block:1px solid #2b2e34;background:#191b1f}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
-.sec-brands span{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.02em;color:#9b9ea4;padding:6px 0}
+.sec-brands span{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.03em;color:#9b9ea4;padding:6px 0}
 .sec-brands span:first-child{color:#7fb2d9}
 
 .wrap{--w:1240px}
@@ -305,11 +335,81 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
 
+.sa-balk{position:sticky;top:0;z-index:40;background:#101113;border-block:1px solid #2b2e34;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#9b9ea4;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:2px;background:#191b1f;border:1px solid #2b2e34;color:#f4f4f5;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#9b9ea4}
+.sa-zoek input:focus{outline:none;border-color:#7fb2d9}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#9b9ea4;cursor:pointer}
+.sa-wis:hover{color:#f4f4f5}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9b9ea4;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:14px;letter-spacing:0;text-transform:none;color:#7fb2d9;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:2px;background:#191b1f;border:1px solid #2b2e34;color:#f4f4f5;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#7fb2d9}
+.sa-meer{padding:11px 17px;border-radius:2px;background:transparent;border:1px solid #2b2e34;color:#9b9ea4;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#f4f4f5;border-color:#7fb2d9}
+.sa-meer[aria-expanded="true"]{border-color:#7fb2d9;color:#7fb2d9}
+
+.sa-paneel{border-top:1px solid #2b2e34}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:2px;background:transparent;border:1px solid #2b2e34;color:#9b9ea4;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#f4f4f5;border-color:#7fb2d9}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#7fb2d9;border-color:#7fb2d9;color:#0a0b0d}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#9b9ea4;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#2b2e34}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#7fb2d9;border:3px solid #101113}
+input[type=range]::-moz-range-track{height:2px;background:#2b2e34}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#7fb2d9;border:3px solid #101113}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#9b9ea4;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:19px;color:#f4f4f5;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:2px;background:transparent;border:1px solid #2b2e34;color:#9b9ea4;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#f4f4f5;border-color:#7fb2d9}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#7fb2d9;border-color:#7fb2d9;color:#0a0b0d}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #2b2e34;border-radius:2px}
+.sa-leeg-t{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#9b9ea4;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #2b2e34;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
 
 /* Prestige: showroom na sluitingstijd. Alles rustig, het beeld doet het werk. */
 .st-card{border:1px solid #2b2e34}
 .st-card:hover{border-color:#7fb2d966;transform:translateY(-4px);transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s}
-.st-card h3{font-family:'Bodoni Moda', Didot, 'Times New Roman', serif;font-weight:400;letter-spacing:-0.02em}
+.st-card h3{font-family:'Archivo Expanded', 'Archivo', 'Helvetica Neue', Arial, sans-serif;font-weight:600;letter-spacing:-0.03em}
 .sec-trust{background:#191b1f;border-block:1px solid #2b2e34}
 .flow li{background:#101113}
 .sec-contact{background:#191b1f;border-top:1px solid #2b2e34}
@@ -320,31 +420,84 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 <body data-site="10394455">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van EAF Auto's B.V (prestige, mediaanprijs EUR 101900, 65 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
-OWN-WORLD: palet graphite, 'Bodoni Moda' als display op 'Archivo', hoeken 2px, accent #7fb2d9.
+OWN-WORLD: palet graphite, 'Archivo Expanded' als display op 'Archivo', hoeken 2px, accent #7fb2d9.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "stack", voorraadweergave "rail", secties stock > trust > brands > about > process > hours > contact.
-FORM: prestige-graphite-stack-rail-bodonimoda-k1
+FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "mosaic", secties trust > stock > brands > about > process > hours > contact.
+FORM: prestige-graphite-cinematic-mosaic-archivoexpanded-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
 <div class="top is-fixed" id="top">
   <div class="wrap">
-    <a class="mark" href="#top">EAF Auto's B.V</a>
+    <a class="mark has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>EAF Auto's B.V</b><em>Voorschoten</em></span></a>
     <nav><a href="#voorraad">Voorraad</a><a href="#over-ons">Over ons</a><a href="#contact">Contact</a></nav>
+    <a class="wabtn" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad."><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.04 2A9.9 9.9 0 0 0 2.1 11.9c0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.9 9.9 0 0 0 4.74 1.2h.01a9.9 9.9 0 0 0 9.94-9.9A9.9 9.9 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.98.24-3.3-.69-2.78-1.1-4.54-3.95-4.68-4.13-.13-.18-1.11-1.48-1.11-2.82 0-1.34.7-2 .95-2.28.25-.27.54-.34.72-.34l.52.01c.17 0 .39-.06.61.47.23.55.78 1.9.85 2.04.07.14.11.3.02.48-.09.18-.13.29-.26.45l-.39.45c-.13.13-.26.28-.11.54.15.27.66 1.09 1.42 1.76.97.87 1.79 1.14 2.05 1.27.26.13.41.11.56-.07.15-.18.65-.76.82-1.02.18-.27.35-.22.59-.13.24.09 1.55.73 1.81.86.27.13.44.2.51.31.06.11.06.64-.18 1.32Z"/></svg><span>WhatsApp</span></a>
     <a class="callbtn" href="tel:+31633630537">06-3363 0537</a>
   </div>
 </div>
-<header class="hero h-stack">
-  <div class="wrap h-words"><p class="h-kick">Nu in de showroom · Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon · € 239.950</p><h1>De collectie <em>vanaf € 64.950</em></h1><p class="h-lede">65 voertuigen op voorraad · Voorschoten · vanaf € 64.950</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31633630537">Bel 06-3363 0537</a><a class="h-btn" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div><div class="h-facts"><span>65 voertuigen op voorraad</span><span>4.9 uit 542 beoordelingen</span><span>18 jaar op Marktplaats</span><span>3 merken in huis</span><span>Kom langs in Voorschoten</span></div></div>
-  <figure class="h-band"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon" fetchpriority="high"></figure>
+<header class="hero h-cinematic">
+  <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon</span><span class="h-plate-p">€ 239.950</span></figcaption></figure>
+  <div class="wrap h-words"><p class="h-kick"><span class="h-dot"></span>Mercedes-Benz G-klasse 63 Manufaktur / Olijf · € 239.950</p><h1>De collectie <em>vanaf € 64.950</em></h1><p class="h-lede">Onze missie - auto's verkopen op een wijze waarop wij zelf graag een auto aanschaffen - is de drijfveer van ons bedrijf. Iedere dag opnieuw streven we er naar top-service aan onze klanten te</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31633630537">Bel 06-3363 0537</a><a class="h-btn" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div><div class="h-facts"><span>4.9 uit 542 beoordelingen</span><span>18 jaar op Marktplaats</span><span>3 merken in huis</span><span>Kom langs in Voorschoten</span></div></div>
 </header>
+<section class="sec-trust"><div class="wrap rv"><div><b>4.9</b><span>gemiddeld uit 542 beoordelingen</span></div><div><b>18</b><span>jaar op Marktplaats</span></div><div><b>Voorschoten</b><span><a href="https://maps.google.com/?q=Veurseweg%2C%2081A%2C%202251AA%20Voorschoten" target="_blank" rel="noreferrer">Veurseweg, 81A, 2251AA Voorschoten</a></span></div></div></section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>De voorraad</h2>
     <span class="meta">18 getoond van 65 · vanaf € 64.950</span>
     
   </div>
-  <div class="st-rail"><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon" loading="lazy" decoding="async"></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="sa-veld">
+  <label for="sa-merk">Merk</label>
+  <select id="sa-merk" data-select="merk">
+    <option value="">Alle 3 merken</option>
+    <option value="Mercedes-Benz">Mercedes-Benz (12)</option><option value="Land Rover">Land Rover (4)</option><option value="Audi">Audi (2)</option>
+  </select>
+</div>
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 241.850</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="64950" max="241850" step="2900" value="241850">
+  <span class="sa-schaal"><i>€ 64.950</i><i>€ 241.850</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2019</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2019" max="2025" step="1" value="2019">
+  <span class="sa-schaal"><i>2019</i><i>2025</i></span>
+</div><div class="sa-veld sa-breed">
+  <span class="sa-label">Brandstof</span>
+  <div class="sa-chips" role="group" aria-label="Brandstof">
+    <button class="sa-chip" type="button" data-facet="brandstof" data-waarde="Benzine" aria-pressed="false">Benzine<i>1</i></button><button class="sa-chip" type="button" data-facet="brandstof" data-waarde="Hybride Elektrisch/Benzine" aria-pressed="false">Hybride Elektrisch/Benzine<i>1</i></button>
+  </div>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="mercedes-benz-g-klasse-1" data-rang="0" data-merk="Mercedes-Benz" data-prijs="239950" data-jaar="2022" data-zoek="mercedes-benz g-klasse 63 manufaktur / olijf groen / carbon mercedes-benz g-klasse">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8617eeac-89db-4d25-a71d-81ef9e6e78ce?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-g-klasse-1" aria-pressed="false" aria-label="Bewaar Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz G-klasse 63 Manufaktur / Olijf Groen / Carbon</h3>
     <p class="st-spec">2022 · 23.110 km</p>
@@ -353,8 +506,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20G-klasse%2063%20Manufaktur%20%2F%20Olijf%20Groen%20%2F%20Carbon%20(%E2%82%AC%20239.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/354462fb-3b2a-4a5d-8d7b-9069c090ebfc?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz AMG GT 4-Door Coupe AMG 63 S E Performance / 8" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-amg-gt-4-door-coupe--2" data-rang="1" data-merk="Mercedes-Benz" data-prijs="229950" data-jaar="2025" data-zoek="mercedes-benz amg gt 4-door coupe amg 63 s e performance / 8 mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/354462fb-3b2a-4a5d-8d7b-9069c090ebfc?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz AMG GT 4-Door Coupe AMG 63 S E Performance / 8" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-amg-gt-4-door-coupe--2" aria-pressed="false" aria-label="Bewaar Mercedes-Benz AMG GT 4-Door Coupe AMG 63 S E Performance / 8"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz AMG GT 4-Door Coupe AMG 63 S E Performance / 8</h3>
     <p class="st-spec">2025 · 8.997 km</p>
@@ -363,8 +516,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20AMG%20GT%204-Door%20Coupe%20AMG%2063%20S%20E%20Performance%20%2F%208%20(%E2%82%AC%20229.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fbdc632f-b0e7-4b93-915e-de9a81003e15?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz G-klasse 63 Edition 1 BRABUS UITVOERING / Mat" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="mercedes-benz-g-klasse-3" data-rang="2" data-merk="Mercedes-Benz" data-prijs="199950" data-jaar="2019" data-zoek="mercedes-benz g-klasse 63 edition 1 brabus uitvoering / mat mercedes-benz g-klasse">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/fbdc632f-b0e7-4b93-915e-de9a81003e15?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz G-klasse 63 Edition 1 BRABUS UITVOERING / Mat" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-g-klasse-3" aria-pressed="false" aria-label="Bewaar Mercedes-Benz G-klasse 63 Edition 1 BRABUS UITVOERING / Mat"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz G-klasse 63 Edition 1 BRABUS UITVOERING / Mat</h3>
     <p class="st-spec">2019 · 50.930 km</p>
@@ -373,8 +526,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20G-klasse%2063%20Edition%201%20BRABUS%20UITVOERING%20%2F%20Mat%20(%E2%82%AC%20199.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a6e90d86-3da4-4cb6-8b1f-d9e669902010?rule=ecg_mp_eps$_85.jpg" alt="Land Rover RANGE ROVER P 510E SV / Chauffeurspakket / Leder" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="land-rover-land-rover-range-rover-p-510e-sv-chau-4" data-rang="3" data-merk="Land Rover" data-prijs="148950" data-jaar="2024" data-zoek="land rover range rover p 510e sv / chauffeurspakket / leder land rover">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a6e90d86-3da4-4cb6-8b1f-d9e669902010?rule=ecg_mp_eps$_85.jpg" alt="Land Rover RANGE ROVER P 510E SV / Chauffeurspakket / Leder" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="land-rover-land-rover-range-rover-p-510e-sv-chau-4" aria-pressed="false" aria-label="Bewaar Land Rover RANGE ROVER P 510E SV / Chauffeurspakket / Leder"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Land Rover RANGE ROVER P 510E SV / Chauffeurspakket / Leder</h3>
     <p class="st-spec">2024 · 20.668 km</p>
@@ -383,8 +536,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Land%20Rover%20RANGE%20ROVER%20P%20510E%20SV%20%2F%20Chauffeurspakket%20%2F%20Leder%20(%E2%82%AC%20148.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b7ebfbc8-88d6-41a0-a248-ce52d7b268d2?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Range Rover Sport 3.0 P550e Autobiography PHEV /" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="land-rover-land-rover-range-rover-sport-3-0-p550-5" data-rang="4" data-merk="Land Rover" data-prijs="134950" data-jaar="2025" data-zoek="land rover range rover sport 3.0 p550e autobiography phev / land rover">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b7ebfbc8-88d6-41a0-a248-ce52d7b268d2?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Range Rover Sport 3.0 P550e Autobiography PHEV /" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="land-rover-land-rover-range-rover-sport-3-0-p550-5" aria-pressed="false" aria-label="Bewaar Land Rover Range Rover Sport 3.0 P550e Autobiography PHEV /"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Land Rover Range Rover Sport 3.0 P550e Autobiography PHEV /</h3>
     <p class="st-spec">2025 · 11.960 km</p>
@@ -393,8 +546,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Land%20Rover%20Range%20Rover%20Sport%203.0%20P550e%20Autobiography%20PHEV%20%2F%20(%E2%82%AC%20134.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e017169f-a7b0-45de-809e-eefff266fe21?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz CLE Cabriolet AMG 53 4MATIC+ / Head Up / Memor" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-cle-cabriolet-amg-53-6" data-rang="5" data-merk="Mercedes-Benz" data-prijs="132950" data-jaar="2025" data-zoek="mercedes-benz cle cabriolet amg 53 4matic+ / head up / memor mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e017169f-a7b0-45de-809e-eefff266fe21?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz CLE Cabriolet AMG 53 4MATIC+ / Head Up / Memor" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-cle-cabriolet-amg-53-6" aria-pressed="false" aria-label="Bewaar Mercedes-Benz CLE Cabriolet AMG 53 4MATIC+ / Head Up / Memor"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz CLE Cabriolet AMG 53 4MATIC+ / Head Up / Memor</h3>
     <p class="st-spec">2025 · 25.175 km</p>
@@ -403,8 +556,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20CLE%20Cabriolet%20AMG%2053%204MATIC%2B%20%2F%20Head%20Up%20%2F%20Memor%20(%E2%82%AC%20132.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2eaa00ee-6ff4-43c8-95c2-d9cf7d2f36c4?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLC-klasse Coupé AMG 63 S E Performance Night" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-glc-klasse-coupe-amg-7" data-rang="6" data-merk="Mercedes-Benz" data-prijs="123950" data-jaar="2024" data-zoek="mercedes-benz glc-klasse coupé amg 63 s e performance night mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2eaa00ee-6ff4-43c8-95c2-d9cf7d2f36c4?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLC-klasse Coupé AMG 63 S E Performance Night" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-glc-klasse-coupe-amg-7" aria-pressed="false" aria-label="Bewaar Mercedes-Benz GLC-klasse Coupé AMG 63 S E Performance Night"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz GLC-klasse Coupé AMG 63 S E Performance Night</h3>
     <p class="st-spec">2024 · 7.365 km</p>
@@ -413,8 +566,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20GLC-klasse%20Coup%C3%A9%20AMG%2063%20S%20E%20Performance%20Night%20(%E2%82%AC%20123.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/26b0b0a1-f4c6-45e4-8be0-060a5881d5b1?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLE-klasse Coupé 400 e 4MATIC AMG Line Premiu" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="mercedes-benz-mercedes-benz-gle-klasse-coupe-400-8" data-rang="7" data-merk="Mercedes-Benz" data-prijs="109950" data-jaar="2025" data-zoek="mercedes-benz gle-klasse coupé 400 e 4matic amg line premiu mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/26b0b0a1-f4c6-45e4-8be0-060a5881d5b1?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz GLE-klasse Coupé 400 e 4MATIC AMG Line Premiu" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-gle-klasse-coupe-400-8" aria-pressed="false" aria-label="Bewaar Mercedes-Benz GLE-klasse Coupé 400 e 4MATIC AMG Line Premiu"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz GLE-klasse Coupé 400 e 4MATIC AMG Line Premiu</h3>
     <p class="st-spec">2025 · 32.105 km</p>
@@ -423,8 +576,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20GLE-klasse%20Coup%C3%A9%20400%20e%204MATIC%20AMG%20Line%20Premiu%20(%E2%82%AC%20109.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f0623e7c-e597-4a71-b9f5-f00f72b92b83?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz S-klasse 580 e 4MATIC AMG Line / Head Up / Cha" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-s-klasse-580-e-4mati-9" data-rang="8" data-merk="Mercedes-Benz" data-prijs="108850" data-jaar="2023" data-zoek="mercedes-benz s-klasse 580 e 4matic amg line / head up / cha mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f0623e7c-e597-4a71-b9f5-f00f72b92b83?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz S-klasse 580 e 4MATIC AMG Line / Head Up / Cha" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-s-klasse-580-e-4mati-9" aria-pressed="false" aria-label="Bewaar Mercedes-Benz S-klasse 580 e 4MATIC AMG Line / Head Up / Cha"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz S-klasse 580 e 4MATIC AMG Line / Head Up / Cha</h3>
     <p class="st-spec">2023 · 11.890 km</p>
@@ -433,8 +586,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20S-klasse%20580%20e%204MATIC%20AMG%20Line%20%2F%20Head%20Up%20%2F%20Cha%20(%E2%82%AC%20108.850)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/682ae712-c4b3-48a6-bedd-71d28f01730a?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLE-klasse 400 e 4MATIC AMG 63 Look / Massage" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-gle-klasse-400-e-4ma-10" data-rang="9" data-merk="Mercedes-Benz" data-prijs="94950" data-jaar="2023" data-zoek="mercedes-benz gle-klasse 400 e 4matic amg 63 look / massage mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/682ae712-c4b3-48a6-bedd-71d28f01730a?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLE-klasse 400 e 4MATIC AMG 63 Look / Massage" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-gle-klasse-400-e-4ma-10" aria-pressed="false" aria-label="Bewaar Mercedes-Benz GLE-klasse 400 e 4MATIC AMG 63 Look / Massage"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz GLE-klasse 400 e 4MATIC AMG 63 Look / Massage</h3>
     <p class="st-spec">2023 · 46.793 km</p>
@@ -443,8 +596,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20GLE-klasse%20400%20e%204MATIC%20AMG%2063%20Look%20%2F%20Massage%20(%E2%82%AC%2094.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c76ed64e-1ab3-4aff-bae1-8c9dc00886ac?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz CLE Cabriolet 300 4MATIC AMG Line / Massage /" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-cle-cabriolet-300-4m-11" data-rang="10" data-merk="Mercedes-Benz" data-prijs="89950" data-jaar="2024" data-zoek="mercedes-benz cle cabriolet 300 4matic amg line / massage / mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/c76ed64e-1ab3-4aff-bae1-8c9dc00886ac?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz CLE Cabriolet 300 4MATIC AMG Line / Massage /" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-cle-cabriolet-300-4m-11" aria-pressed="false" aria-label="Bewaar Mercedes-Benz CLE Cabriolet 300 4MATIC AMG Line / Massage /"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz CLE Cabriolet 300 4MATIC AMG Line / Massage /</h3>
     <p class="st-spec">2024 · 20.354 km</p>
@@ -453,8 +606,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20CLE%20Cabriolet%20300%204MATIC%20AMG%20Line%20%2F%20Massage%20%2F%20(%E2%82%AC%2089.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8fa3760c-f17e-4d6f-8e92-fab40d2f0d12?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Range Rover Velar 3.0 P400 AWD Dynamic SE MHEV /" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="land-rover-range-rover-velar-12" data-rang="11" data-merk="Land Rover" data-prijs="82950" data-jaar="2025" data-brandstof="Benzine" data-zoek="land rover range rover velar 3.0 p400 awd dynamic se mhev / land rover range rover velar benzine">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8fa3760c-f17e-4d6f-8e92-fab40d2f0d12?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Range Rover Velar 3.0 P400 AWD Dynamic SE MHEV /" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="land-rover-range-rover-velar-12" aria-pressed="false" aria-label="Bewaar Land Rover Range Rover Velar 3.0 P400 AWD Dynamic SE MHEV /"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Land Rover Range Rover Velar 3.0 P400 AWD Dynamic SE MHEV /</h3>
     <p class="st-spec">2025 · 9.422 km · Benzine</p>
@@ -463,8 +616,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Land%20Rover%20Range%20Rover%20Velar%203.0%20P400%20AWD%20Dynamic%20SE%20MHEV%20%2F%20(%E2%82%AC%2082.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42fb8790-1cd3-433f-b088-917d8d0629e0?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz E-klasse 300 e AMG 53 Look / HYPERSCREEN / Mas" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="mercedes-benz-mercedes-benz-e-klasse-300-e-amg-5-13" data-rang="12" data-merk="Mercedes-Benz" data-prijs="82950" data-jaar="2023" data-zoek="mercedes-benz e-klasse 300 e amg 53 look / hyperscreen / mas mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/42fb8790-1cd3-433f-b088-917d8d0629e0?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz E-klasse 300 e AMG 53 Look / HYPERSCREEN / Mas" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-e-klasse-300-e-amg-5-13" aria-pressed="false" aria-label="Bewaar Mercedes-Benz E-klasse 300 e AMG 53 Look / HYPERSCREEN / Mas"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz E-klasse 300 e AMG 53 Look / HYPERSCREEN / Mas</h3>
     <p class="st-spec">2023 · 6.603 km</p>
@@ -473,8 +626,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20E-klasse%20300%20e%20AMG%2053%20Look%20%2F%20HYPERSCREEN%20%2F%20Mas%20(%E2%82%AC%2082.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/746e996d-b0c7-486b-899f-01c98417917d?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz E-klasse Estate 300 e AMG 53 Look / HYPERSCREE" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-e-klasse-estate-300--14" data-rang="13" data-merk="Mercedes-Benz" data-prijs="82950" data-jaar="2023" data-zoek="mercedes-benz e-klasse estate 300 e amg 53 look / hyperscree mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/746e996d-b0c7-486b-899f-01c98417917d?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz E-klasse Estate 300 e AMG 53 Look / HYPERSCREE" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-e-klasse-estate-300--14" aria-pressed="false" aria-label="Bewaar Mercedes-Benz E-klasse Estate 300 e AMG 53 Look / HYPERSCREE"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz E-klasse Estate 300 e AMG 53 Look / HYPERSCREE</h3>
     <p class="st-spec">2023 · 25.104 km</p>
@@ -483,8 +636,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20E-klasse%20Estate%20300%20e%20AMG%2053%20Look%20%2F%20HYPERSCREE%20(%E2%82%AC%2082.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/41703a51-44fa-47a5-8d98-aed2ca759b3b?rule=ecg_mp_eps$_85.jpg" alt="Audi Q8 60 TFSI e Quattro RSQ8 Look / Luchtvering / Acc / La" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="audi-audi-q8-60-tfsi-e-quattro-rsq8-look-luchtve-15" data-rang="14" data-merk="Audi" data-prijs="79950" data-jaar="2021" data-zoek="audi q8 60 tfsi e quattro rsq8 look / luchtvering / acc / la audi">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/41703a51-44fa-47a5-8d98-aed2ca759b3b?rule=ecg_mp_eps$_85.jpg" alt="Audi Q8 60 TFSI e Quattro RSQ8 Look / Luchtvering / Acc / La" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-q8-60-tfsi-e-quattro-rsq8-look-luchtve-15" aria-pressed="false" aria-label="Bewaar Audi Q8 60 TFSI e Quattro RSQ8 Look / Luchtvering / Acc / La"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi Q8 60 TFSI e Quattro RSQ8 Look / Luchtvering / Acc / La</h3>
     <p class="st-spec">2021 · 51.763 km</p>
@@ -493,8 +646,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Audi%20Q8%2060%20TFSI%20e%20Quattro%20RSQ8%20Look%20%2F%20Luchtvering%20%2F%20Acc%20%2F%20La%20(%E2%82%AC%2079.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6e1debe2-197f-42d9-8f12-0033b6d9ab9d?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLE-klasse Coupé 350 e 4MATIC AMG 63 Look / 3" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-gle-klasse-coupe-350-16" data-rang="15" data-merk="Mercedes-Benz" data-prijs="78950" data-jaar="2021" data-zoek="mercedes-benz gle-klasse coupé 350 e 4matic amg 63 look / 3 mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/6e1debe2-197f-42d9-8f12-0033b6d9ab9d?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLE-klasse Coupé 350 e 4MATIC AMG 63 Look / 3" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-gle-klasse-coupe-350-16" aria-pressed="false" aria-label="Bewaar Mercedes-Benz GLE-klasse Coupé 350 e 4MATIC AMG 63 Look / 3"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz GLE-klasse Coupé 350 e 4MATIC AMG 63 Look / 3</h3>
     <p class="st-spec">2021 · 54.517 km</p>
@@ -503,8 +656,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Mercedes-Benz%20GLE-klasse%20Coup%C3%A9%20350%20e%204MATIC%20AMG%2063%20Look%20%2F%203%20(%E2%82%AC%2078.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2af9cb91-a5d0-4bf0-b1ba-76c9eb72909c?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Range Rover Velar 2.0 P400e AWD Dynamic SE / Head" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="land-rover-range-rover-velar-17" data-rang="16" data-merk="Land Rover" data-prijs="77650" data-jaar="2025" data-brandstof="Hybride Elektrisch/Benzine" data-zoek="land rover range rover velar 2.0 p400e awd dynamic se / head land rover range rover velar hybride elektrisch/benzine">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/2af9cb91-a5d0-4bf0-b1ba-76c9eb72909c?rule=ecg_mp_eps$_85.jpg" alt="Land Rover Range Rover Velar 2.0 P400e AWD Dynamic SE / Head" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="land-rover-range-rover-velar-17" aria-pressed="false" aria-label="Bewaar Land Rover Range Rover Velar 2.0 P400e AWD Dynamic SE / Head"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Land Rover Range Rover Velar 2.0 P400e AWD Dynamic SE / Head</h3>
     <p class="st-spec">2025 · 24.869 km · Hybride Elektrisch/Benzine</p>
@@ -513,8 +666,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Land%20Rover%20Range%20Rover%20Velar%202.0%20P400e%20AWD%20Dynamic%20SE%20%2F%20Head%20(%E2%82%AC%2077.650)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a51d005-e0df-4ee6-b5b9-ced573dc8846?rule=ecg_mp_eps$_85.jpg" alt="Audi Q5 55 TFSI e Quattro Competition SQ5 Look / RS Zetels /" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="audi-audi-q5-55-tfsi-e-quattro-competition-sq5-l-18" data-rang="17" data-merk="Audi" data-prijs="64950" data-jaar="2023" data-zoek="audi q5 55 tfsi e quattro competition sq5 look / rs zetels / audi">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/9a51d005-e0df-4ee6-b5b9-ced573dc8846?rule=ecg_mp_eps$_86.jpg" alt="Audi Q5 55 TFSI e Quattro Competition SQ5 Look / RS Zetels /" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="audi-audi-q5-55-tfsi-e-quattro-competition-sq5-l-18" aria-pressed="false" aria-label="Bewaar Audi Q5 55 TFSI e Quattro Competition SQ5 Look / RS Zetels /"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Audi Q5 55 TFSI e Quattro Competition SQ5 Look / RS Zetels /</h3>
     <p class="st-spec">2023 · 60.236 km</p>
@@ -523,9 +676,13 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20zag%20de%20Audi%20Q5%2055%20TFSI%20e%20Quattro%20Competition%20SQ5%20Look%20%2F%20RS%20Zetels%20%2F%20(%E2%82%AC%2064.950)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Informatie</a>
     </div>
   </div>
-</article></div><div class="wrap"><div class="more"><span>Er staan er nog 47 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 47 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 47 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31633630537?text=Hallo%20EAF%20Auto's%20B.V%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
 </section>
-<section class="sec-trust"><div class="wrap rv"><div><b>4.9</b><span>gemiddeld uit 542 beoordelingen</span></div><div><b>18</b><span>jaar op Marktplaats</span></div><div><b>Voorschoten</b><span><a href="https://maps.google.com/?q=Veurseweg%2C%2081A%2C%202251AA%20Voorschoten" target="_blank" rel="noreferrer">Veurseweg, 81A, 2251AA Voorschoten</a></span></div></div></section>
 <div class="sec-brands"><div class="wrap"><span>Mercedes-Benz</span><span>Land Rover</span><span>Audi</span></div></div>
 <section class="sec-about" id="over-ons">
   <div class="wrap rv">
@@ -579,6 +736,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 

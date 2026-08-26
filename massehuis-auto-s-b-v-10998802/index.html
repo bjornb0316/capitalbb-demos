@@ -40,6 +40,18 @@ html,body{overflow-x:clip}
 .top nav a:hover{color:#16181c}
 .callbtn{display:inline-flex;align-items:center;background:#1f5f4f;color:#ffffff;padding:11px 20px;border-radius:14px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
 .callbtn:hover{filter:brightness(1.07)}
+/* merk met ondertitel: ruit, naam, plaats eronder */
+.mark.has-sub{display:inline-flex;align-items:center;gap:11px;line-height:1.1}
+.mark .mark-i{width:19px;height:19px;flex:none;fill:#1f5f4f}
+.mark.has-sub b{display:block;font-weight:inherit;font-size:20px;letter-spacing:-0.035em}
+.mark.has-sub em{display:block;font-family:'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;font-style:normal;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5f646c;margin-top:2px}
+
+/* WhatsApp als eigen knop, naast het nummer */
+.wabtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;border:1px solid #e4e4df;background:#ffffff;color:#16181c;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
+.wabtn svg{width:17px;height:17px;flex:none}
+.wabtn:hover{border-color:#1f5f4f}
+@media(max-width:900px){.wabtn span{display:none}.wabtn{padding:10px 12px}}
+
 @media(max-width:900px){.top nav{display:none}}
 /* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
 @media(max-width:720px){
@@ -89,7 +101,8 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
 .hero h1 em{font-style:normal;color:#1f5f4f}
 .hero h1 a{text-decoration:none}
-.h-kick{color:#5f646c;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
+.h-kick{display:flex;align-items:center;gap:10px;color:#5f646c;font-size:13.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.h-dot{width:8px;height:8px;border-radius:999px;background:#3fb96b;box-shadow:0 0 0 4px #3fb96b2e;flex:none}
 .h-lede{margin-top:20px;max-width:50ch;color:#5f646c;font-size:clamp(16px,1.6vw,19px)}
 .h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:14px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #e4e4df;background:#ffffff;color:#16181c;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
@@ -106,14 +119,20 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
    Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
    met een echte sluier eronder - niet het palet van de wereld volgen, want een
    licht palet levert zwarte letters op een avondfoto op. */
-.h-eigen{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-eigen{position:relative;min-height:min(88svh,800px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
 .h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 .h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
-.h-eigen .h-words{padding-block:clamp(44px,7vw,96px);color:#fff}
+.h-eigen .h-words{padding-block:clamp(32px,5vw,64px);color:#fff}
 .h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
 .h-eigen h1 em{color:#628f84;text-shadow:0 2px 20px rgba(0,0,0,.75)}
-.h-eigen .h-kick{color:#ffffffcc}
+.h-eigen .h-kick{color:#ffffffd6}
+.h-eigen .h-dot{background:#4ade80;box-shadow:0 0 0 4px #4ade8033}
+.h-pijl{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
+.h-eigen .h-btn{border-radius:999px;padding:16px 28px;font-size:15.5px}
+.h-eigen .h-btn.is-primary{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.h-eigen h1{font-size:clamp(42px,6.6vw,88px);line-height:1.02;max-width:14ch}
+.h-eigen .h-lede{max-width:46ch;font-size:clamp(16px,1.45vw,18.5px)}
 .h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
 .h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
 .h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
@@ -121,7 +140,7 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
 
 /* cinematic: beeld vult het scherm, woorden liggen erin */
-.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic{position:relative;min-height:min(90svh,880px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
 .h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 @keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
@@ -132,14 +151,14 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 /* panorama: liggend beeld in een kader, woorden erin */
 .h-panorama{padding:clamp(22px,3vw,44px) 0 0}
-.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#eef1ee;aspect-ratio:21/9;min-height:320px}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#eef1ee;aspect-ratio:2/1;min-height:min(76svh,760px)}
 .h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
 @keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
 .h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
 /* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
 .h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
 .h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
-.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+.h-panorama h1{color:#fff;font-size:clamp(34px,5vw,68px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
 /* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
 .h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
 .h-panorama .h-lede{color:#ffffffdb}
@@ -149,16 +168,27 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
 
 /* split: woorden naast echte auto's */
-.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
-.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
-.h-split h1{font-size:clamp(36px,4.9vw,64px)}
-@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+/* split: woorden links, echte voertuigen rechts. Het geheel vult nu een scherm,
+   want een opening van 400px hoog leest als een kop met een plaatje - niet als
+   een entree. */
+.h-split{padding:clamp(48px,6vw,88px) 0 clamp(40px,5vw,72px);min-height:min(84svh,820px);display:flex;align-items:center}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1.15fr;gap:clamp(32px,5vw,68px);align-items:center;width:min(var(--w,1220px),100% - 48px)}
+.h-split h1{font-size:clamp(40px,5.4vw,74px)}
+@media(max-width:900px){.h-split{min-height:0;display:block}.h-split .wrap{grid-template-columns:1fr}}
 
 /* stack: woorden boven, beeld als band eronder */
-.h-stack{padding:clamp(44px,6vw,92px) 0 0}
-.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
-.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
-.h-band{margin:0;aspect-ratio:21/8;background:#eef1ee;overflow:hidden}
+/* stack: woorden boven, beeld als band eronder. De band moet in het eerste
+   scherm beginnen - anders open je met letters op een egale kleur, en dat is
+   precies wat we niet willen. */
+.h-stack{padding:clamp(30px,3.6vw,56px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(24px,2.8vw,40px)}
+/* Twee regels, geen drie: bij drie regels zakt de beeldband onder de vouw en
+   open je alsnog met alleen letters. */
+.h-stack h1{font-size:clamp(38px,5.2vw,70px);max-width:13ch}
+.h-stack .h-lede{margin-top:16px;max-width:44ch}
+.h-stack .h-facts{margin-top:24px;padding-top:16px}
+.h-stack .h-cta{margin-top:24px}
+.h-band{margin:0;aspect-ratio:21/7;min-height:min(46svh,460px);background:#eef1ee;overflow:hidden}
 .h-band img{width:100%;height:100%;object-fit:cover}
 @media(max-width:720px){.h-band{aspect-ratio:16/10}}
 
@@ -399,23 +429,33 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Massehuis Auto's B.V. (familie, mediaanprijs EUR 14450, 34 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
 OWN-WORLD: palet daglicht, 'Schibsted Grotesk' als display op 'Schibsted Grotesk', hoeken 14px, accent #1f5f4f.
 STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar whatsapp geleid.
-FIRST VIEWPORT: hero-variant "split", voorraadweergave "grid", secties stock > process > about > trust > hours > contact.
-FORM: familie-daglicht-split-grid-schibstedgrotesk-k1
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties about > stock > process > trust > hours > contact.
+FORM: familie-daglicht-split-mosaic-schibstedgrotesk-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
 <div class="top" id="top">
   <div class="wrap">
-    <a class="mark" href="#top">Massehuis Auto's B.V.</a>
+    <a class="mark has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>Massehuis Auto's B.V.</b><em>Varsseveld</em></span></a>
     <nav><a href="#voorraad">Voorraad</a><a href="#over-ons">Over ons</a><a href="#contact">Contact</a></nav>
+    
     <a class="callbtn" href="tel:+31315244044">031-5244044</a>
   </div>
 </div>
 <header class="hero h-split">
   <div class="wrap">
-    <div class="h-words"><div class="h-facts"><span>34 voertuigen op voorraad</span><span>4.7 uit 365 beoordelingen</span><span>18 jaar op Marktplaats</span><span>11 merken in huis</span><span>Kom langs in Varsseveld</span></div><h1>Occasions in Varsseveld <em>vanaf € 10.750</em></h1><p class="h-lede">Massehuis Auto's – Dé occasion specialist van Varsseveld Sinds 2005 staan wij bekend om betrouwbare occasions en persoonlijke service zonder verrassingen.</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31315244044">Bel 031-5244044</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div></div>
+    <div class="h-words"><p class="h-kick"><span class="h-dot"></span>34 occasions op voorraad · Varsseveld</p><div class="h-facts"><span>4.7 uit 365 beoordelingen</span><span>18 jaar op Marktplaats</span><span>11 merken in huis</span><span>Kom langs in Varsseveld</span></div><h1>Occasions in Varsseveld <em>vanaf € 10.750</em></h1><p class="h-lede">Massehuis Auto's – Dé occasion specialist van Varsseveld Sinds 2005 staan wij bekend om betrouwbare occasions en persoonlijke service zonder verrassingen.</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31315244044">Bel 031-5244044</a><a class="h-btn" href="#contact">Plan een bezichtiging</a></div></div>
     <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b6d10a03-43bd-4913-9021-94e8b61225b2?rule=ecg_mp_eps$_85.jpg" alt="Toyota Land Cruiser 3.0 D-4D SX Edition 202dkm 1e eig. Trekh" decoding="async" fetchpriority="high"><figcaption><span>Toyota Land Cruiser 3.0 D-4D SX Edition </span><span>€ 23.950</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3eae1be0-f338-4451-9ee0-99f457a6850d?rule=ecg_mp_eps$_85.jpg" alt="BMW 5-serie 520i Executive Edition 115dkm Carplay 2e eig NL-" decoding="async"><figcaption><span>BMW 5-serie 520i Executive Edition 115dk</span><span>€ 22.950</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/65b8267f-1a45-432b-a7ac-9910a904a523?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-klasse 180 Ambition Sport AMG 88dkm Burmeste" decoding="async"><figcaption><span>Mercedes-Benz C-klasse 180 Ambition Spor</span><span>€ 18.950</span></figcaption></figure></div></div>
   </div>
 </header>
+<section class="sec-about" id="over-ons">
+  <div class="wrap rv">
+    <div>
+      <h2>Over Massehuis Auto's B.V.</h2>
+      <p>Massehuis Auto's – Dé occasion specialist van Varsseveld Sinds 2005 staan wij bekend om betrouwbare occasions en persoonlijke service zonder verrassingen.</p>
+    </div>
+    <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/eb/ebda146d-dd6c-46d7-a7eb-406c7a884003?rule=ecg_mp_eps$_85.jpg" alt="Massehuis Auto's B.V." loading="lazy"></div>
+  </div>
+</section>
 <section id="voorraad">
   <div class="wrap head">
     <h2>Onze voorraad</h2>
@@ -473,8 +513,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
     <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
   </div>
-</div><div class="st-grid" data-voorraad><article class="st-card " data-slug="toyota-toyota-land-cruiser-3-0-d-4d-sx-edition-2-1" data-rang="0" data-merk="Toyota" data-prijs="23950" data-jaar="2008" data-zoek="toyota land cruiser 3.0 d-4d sx edition 202dkm 1e eig. trekh toyota">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b6d10a03-43bd-4913-9021-94e8b61225b2?rule=ecg_mp_eps$_85.jpg" alt="Toyota Land Cruiser 3.0 D-4D SX Edition 202dkm 1e eig. Trekh" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-land-cruiser-3-0-d-4d-sx-edition-2-1" aria-pressed="false" aria-label="Bewaar Toyota Land Cruiser 3.0 D-4D SX Edition 202dkm 1e eig. Trekh"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="toyota-toyota-land-cruiser-3-0-d-4d-sx-edition-2-1" data-rang="0" data-merk="Toyota" data-prijs="23950" data-jaar="2008" data-zoek="toyota land cruiser 3.0 d-4d sx edition 202dkm 1e eig. trekh toyota">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b6d10a03-43bd-4913-9021-94e8b61225b2?rule=ecg_mp_eps$_86.jpg" alt="Toyota Land Cruiser 3.0 D-4D SX Edition 202dkm 1e eig. Trekh" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="toyota-toyota-land-cruiser-3-0-d-4d-sx-edition-2-1" aria-pressed="false" aria-label="Bewaar Toyota Land Cruiser 3.0 D-4D SX Edition 202dkm 1e eig. Trekh"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Toyota Land Cruiser 3.0 D-4D SX Edition 202dkm 1e eig. Trekh</h3>
     <p class="st-spec">2008 · 202.264 km</p>
@@ -493,8 +533,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31315244044">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-c-klasse-180-ambitio-3" data-rang="2" data-merk="Mercedes-Benz" data-prijs="18950" data-jaar="2014" data-zoek="mercedes-benz c-klasse 180 ambition sport amg 88dkm burmeste mercedes-benz">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/65b8267f-1a45-432b-a7ac-9910a904a523?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz C-klasse 180 Ambition Sport AMG 88dkm Burmeste" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-c-klasse-180-ambitio-3" aria-pressed="false" aria-label="Bewaar Mercedes-Benz C-klasse 180 Ambition Sport AMG 88dkm Burmeste"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card is-wide" data-slug="mercedes-benz-mercedes-benz-c-klasse-180-ambitio-3" data-rang="2" data-merk="Mercedes-Benz" data-prijs="18950" data-jaar="2014" data-zoek="mercedes-benz c-klasse 180 ambition sport amg 88dkm burmeste mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/65b8267f-1a45-432b-a7ac-9910a904a523?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz C-klasse 180 Ambition Sport AMG 88dkm Burmeste" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-c-klasse-180-ambitio-3" aria-pressed="false" aria-label="Bewaar Mercedes-Benz C-klasse 180 Ambition Sport AMG 88dkm Burmeste"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz C-klasse 180 Ambition Sport AMG 88dkm Burmeste</h3>
     <p class="st-spec">2014 · 88.369 km</p>
@@ -543,8 +583,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31315244044">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="seat-seat-ateca-1-4-ecotsi-xcellence-trekhaak-pa-8" data-rang="7" data-merk="SEAT" data-prijs="15900" data-jaar="2017" data-kenmerk="Trekhaak" data-zoek="seat ateca 1.4 ecotsi xcellence trekhaak panoramadak carplay seat trekhaak">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/00111113-ee94-4a88-9fc5-0064c7a025ea?rule=ecg_mp_eps$_85.jpg" alt="Seat Ateca 1.4 EcoTSI Xcellence Trekhaak Panoramadak CarPlay" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="seat-seat-ateca-1-4-ecotsi-xcellence-trekhaak-pa-8" aria-pressed="false" aria-label="Bewaar Seat Ateca 1.4 EcoTSI Xcellence Trekhaak Panoramadak CarPlay"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card is-wide" data-slug="seat-seat-ateca-1-4-ecotsi-xcellence-trekhaak-pa-8" data-rang="7" data-merk="SEAT" data-prijs="15900" data-jaar="2017" data-kenmerk="Trekhaak" data-zoek="seat ateca 1.4 ecotsi xcellence trekhaak panoramadak carplay seat trekhaak">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/00111113-ee94-4a88-9fc5-0064c7a025ea?rule=ecg_mp_eps$_86.jpg" alt="Seat Ateca 1.4 EcoTSI Xcellence Trekhaak Panoramadak CarPlay" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="seat-seat-ateca-1-4-ecotsi-xcellence-trekhaak-pa-8" aria-pressed="false" aria-label="Bewaar Seat Ateca 1.4 EcoTSI Xcellence Trekhaak Panoramadak CarPlay"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Seat Ateca 1.4 EcoTSI Xcellence Trekhaak Panoramadak CarPlay</h3>
     <p class="st-spec">2017 · 150.528 km</p>
@@ -593,8 +633,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31315244044">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-gla-klasse-200-ambit-13" data-rang="12" data-merk="Mercedes-Benz" data-prijs="12950" data-jaar="2014" data-zoek="mercedes-benz gla-klasse 200 ambition 122dkm nl auto bi-xeno mercedes-benz">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8f763f76-3abf-4708-b1e9-1aed60c97217?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz GLA-klasse 200 Ambition 122dkm NL Auto Bi-Xeno" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-gla-klasse-200-ambit-13" aria-pressed="false" aria-label="Bewaar Mercedes-Benz GLA-klasse 200 Ambition 122dkm NL Auto Bi-Xeno"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card is-wide" data-slug="mercedes-benz-mercedes-benz-gla-klasse-200-ambit-13" data-rang="12" data-merk="Mercedes-Benz" data-prijs="12950" data-jaar="2014" data-zoek="mercedes-benz gla-klasse 200 ambition 122dkm nl auto bi-xeno mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8f763f76-3abf-4708-b1e9-1aed60c97217?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz GLA-klasse 200 Ambition 122dkm NL Auto Bi-Xeno" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-gla-klasse-200-ambit-13" aria-pressed="false" aria-label="Bewaar Mercedes-Benz GLA-klasse 200 Ambition 122dkm NL Auto Bi-Xeno"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz GLA-klasse 200 Ambition 122dkm NL Auto Bi-Xeno</h3>
     <p class="st-spec">2014 · 122.379 km</p>
@@ -643,8 +683,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="tel:+31315244044">Vraag info</a>
     </div>
   </div>
-</article><article class="st-card " data-slug="mercedes-benz-mercedes-benz-b-klasse-180-blue-ef-18" data-rang="17" data-merk="Mercedes-Benz" data-prijs="10750" data-jaar="2012" data-zoek="mercedes-benz b-klasse 180 blue efficiency 109dkm pano stoel mercedes-benz">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d66c0631-efeb-45dc-ae27-393ac0e2abf7?rule=ecg_mp_eps$_85.jpg" alt="Mercedes-Benz B-klasse 180 Blue efficiency 109dkm PANO Stoel" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-b-klasse-180-blue-ef-18" aria-pressed="false" aria-label="Bewaar Mercedes-Benz B-klasse 180 Blue efficiency 109dkm PANO Stoel"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
+</article><article class="st-card is-wide" data-slug="mercedes-benz-mercedes-benz-b-klasse-180-blue-ef-18" data-rang="17" data-merk="Mercedes-Benz" data-prijs="10750" data-jaar="2012" data-zoek="mercedes-benz b-klasse 180 blue efficiency 109dkm pano stoel mercedes-benz">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d66c0631-efeb-45dc-ae27-393ac0e2abf7?rule=ecg_mp_eps$_86.jpg" alt="Mercedes-Benz B-klasse 180 Blue efficiency 109dkm PANO Stoel" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="mercedes-benz-mercedes-benz-b-klasse-180-blue-ef-18" aria-pressed="false" aria-label="Bewaar Mercedes-Benz B-klasse 180 Blue efficiency 109dkm PANO Stoel"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Mercedes-Benz B-klasse 180 Blue efficiency 109dkm PANO Stoel</h3>
     <p class="st-spec">2012 · 109.423 km</p>
@@ -666,15 +706,6 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <ol class="flow rv">
       <li><b>Neem contact op</b><p>Bel ons over het voertuig dat u op het oog heeft.</p></li><li><b>Kom langs</b><p>Kom langs voor een bezichtiging en een proefrit.</p></li><li><b>Regel het samen</b><p>We bespreken prijs, inruil en aflevering. Geen verrassingen.</p></li>
     </ol>
-  </div>
-</section>
-<section class="sec-about" id="over-ons">
-  <div class="wrap rv">
-    <div>
-      <h2>Over Massehuis Auto's B.V.</h2>
-      <p>Massehuis Auto's – Dé occasion specialist van Varsseveld Sinds 2005 staan wij bekend om betrouwbare occasions en persoonlijke service zonder verrassingen.</p>
-    </div>
-    <div class="portrait"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-profile/images/eb/ebda146d-dd6c-46d7-a7eb-406c7a884003?rule=ecg_mp_eps$_85.jpg" alt="Massehuis Auto's B.V." loading="lazy"></div>
   </div>
 </section>
 <section class="sec-trust"><div class="wrap rv"><div><b>4.7</b><span>gemiddeld uit 365 beoordelingen</span></div><div><b>18</b><span>jaar op Marktplaats</span></div><div><b>Varsseveld</b><span><a href="https://maps.google.com/?q=Breukelaarweg%2C%202%2C%207051DX%20Varsseveld" target="_blank" rel="noreferrer">Breukelaarweg, 2, 7051DX Varsseveld</a></span></div></div></section>

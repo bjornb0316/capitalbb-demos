@@ -10,13 +10,18 @@
 <style>
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:#f4f7f8;color:#131a1d;font-family:'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0;background:#0d0f10;color:#f4f3f0;font-family:'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img{max-width:100%;display:block}
 a{color:inherit}
 h1,h2,h3{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;letter-spacing:-0.02em;line-height:1.05;text-wrap:balance}
 p{margin:0}
 button{font:inherit}
-:focus-visible{outline:2px solid #125a72;outline-offset:3px}
+/* Zonder deze regel wint een eigen display-waarde van de browserstandaard voor
+   [hidden]. Een kaart met display:flex blijft dan gewoon staan als het script
+   hem verbergt - het filter lijkt te werken maar er verandert niets op het
+   scherm. */
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid #e8b06a;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
 
@@ -25,16 +30,28 @@ html,body{overflow-x:clip}
 .wrap{width:min(var(--w,1220px),100% - 48px);margin-inline:auto}
 @media(max-width:720px){.wrap{width:min(var(--w,1220px),100% - 32px)}}
 
-.top{position:sticky;top:0;z-index:50;background:#f4f7f8;border-bottom:1px solid #dde5e8}
+.top{position:sticky;top:0;z-index:50;background:#0d0f10;border-bottom:1px solid #272b2d}
 .top.is-fixed{position:fixed;inset:0 0 auto;background:transparent;border-bottom-color:transparent;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s ease}
-.top.is-fixed.solid{background:#f4f7f8e6;backdrop-filter:blur(14px);border-bottom-color:#dde5e8}
+.top.is-fixed.solid{background:#0d0f10e6;backdrop-filter:blur(14px);border-bottom-color:#272b2d}
 .top .wrap{display:flex;align-items:center;gap:24px;padding:15px 0}
 .mark{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:20px;letter-spacing:-0.02em;margin-right:auto;text-decoration:none}
 .top nav{display:flex;gap:24px;font-size:15px}
-.top nav a{color:#586268;text-decoration:none}
-.top nav a:hover{color:#131a1d}
-.callbtn{display:inline-flex;align-items:center;background:#125a72;color:#ffffff;padding:11px 20px;border-radius:20px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+.top nav a{color:#a3a19c;text-decoration:none}
+.top nav a:hover{color:#f4f3f0}
+.callbtn{display:inline-flex;align-items:center;background:#e8b06a;color:#1a1207;padding:11px 20px;border-radius:20px;font-weight:600;font-size:15px;text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
 .callbtn:hover{filter:brightness(1.07)}
+/* merk met ondertitel: ruit, naam, plaats eronder */
+.mark.has-sub{display:inline-flex;align-items:center;gap:11px;line-height:1.1}
+.mark .mark-i{width:19px;height:19px;flex:none;fill:#e8b06a}
+.mark.has-sub b{display:block;font-weight:inherit;font-size:20px;letter-spacing:-0.02em}
+.mark.has-sub em{display:block;font-family:'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-style:normal;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#a3a19c;margin-top:2px}
+
+/* WhatsApp als eigen knop, naast het nummer */
+.wabtn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:999px;border:1px solid #272b2d;background:#16191b;color:#f4f3f0;font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap}
+.wabtn svg{width:17px;height:17px;flex:none}
+.wabtn:hover{border-color:#e8b06a}
+@media(max-width:900px){.wabtn span{display:none}.wabtn{padding:10px 12px}}
+
 @media(max-width:900px){.top nav{display:none}}
 /* Een lange bedrijfsnaam mag de telefoonknop nooit van het scherm duwen. */
 @media(max-width:720px){
@@ -48,33 +65,33 @@ html,body{overflow-x:clip}
 section{padding:clamp(54px,7vw,108px) 0}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(24px,3.4vw,44px)}
 .head h2{font-size:clamp(28px,3.9vw,50px)}
-.head .meta{color:#586268;font-size:15px}
-.head p{margin-top:12px;color:#586268;max-width:60ch;flex-basis:100%}
+.head .meta{color:#a3a19c;font-size:15px}
+.head p{margin-top:12px;color:#a3a19c;max-width:60ch;flex-basis:100%}
 .more{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
-.more span{color:#586268;font-size:15px}
+.more span{color:#a3a19c;font-size:15px}
 
 .hours{width:100%;border-collapse:collapse;font-size:16px}
-.hours th{text-align:left;font-weight:400;color:#586268;padding:10px 0;border-bottom:1px solid #dde5e8}
-.hours td{text-align:right;padding:10px 0;border-bottom:1px solid #dde5e8;font-variant-numeric:tabular-nums}
-.hours td.closed{color:#586268}
+.hours th{text-align:left;font-weight:400;color:#a3a19c;padding:10px 0;border-bottom:1px solid #272b2d}
+.hours td{text-align:right;padding:10px 0;border-bottom:1px solid #272b2d;font-variant-numeric:tabular-nums}
+.hours td.closed{color:#a3a19c}
 .hours tr:last-child th,.hours tr:last-child td{border-bottom:0}
-.hours tr.today th{color:#131a1d;font-weight:600}
+.hours tr.today th{color:#f4f3f0;font-weight:600}
 .hours tr.today td{font-weight:600}
-.hours .tag{margin-left:10px;color:#125a72;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.hours .tag{margin-left:10px;color:#e8b06a;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
 
 .field{display:block;margin-bottom:13px}
-.field span{display:block;font-size:13.5px;color:#586268;margin-bottom:6px}
-.field input,.field textarea{width:100%;padding:13px 15px;border:1px solid #dde5e8;border-radius:20px;background:#f4f7f8;color:#131a1d;font:inherit;font-size:16px}
-.field input:focus,.field textarea:focus{outline:none;border-color:#125a72}
+.field span{display:block;font-size:13.5px;color:#a3a19c;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:13px 15px;border:1px solid #272b2d;border-radius:20px;background:#0d0f10;color:#f4f3f0;font:inherit;font-size:16px}
+.field input:focus,.field textarea:focus{outline:none;border-color:#e8b06a}
 form .h-btn{width:100%;justify-content:center;border:0;cursor:pointer;margin-top:4px}
-.note{margin-top:12px;color:#586268;font-size:13.5px}
+.note{margin-top:12px;color:#a3a19c;font-size:13.5px}
 
-footer{padding:32px 0 calc(32px + var(--bar,0px));color:#586268;font-size:14px;border-top:1px solid #dde5e8}
+footer{padding:32px 0 calc(32px + var(--bar,0px));color:#a3a19c;font-size:14px;border-top:1px solid #272b2d}
 footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
 
-.bar{position:fixed;inset:auto 0 0;z-index:60;display:none;gap:1px;background:#dde5e8;border-top:1px solid #dde5e8}
-.bar a{flex:1;padding:15px;text-align:center;background:#ffffff;color:#131a1d;text-decoration:none;font-weight:600;font-size:15.5px}
-.bar a.acc{background:#125a72;color:#ffffff}
+.bar{position:fixed;inset:auto 0 0;z-index:60;display:none;gap:1px;background:#272b2d;border-top:1px solid #272b2d}
+.bar a{flex:1;padding:15px;text-align:center;background:#16191b;color:#f4f3f0;text-decoration:none;font-weight:600;font-size:15.5px}
+.bar a.acc{background:#e8b06a;color:#1a1207}
 @media(max-width:720px){.bar{display:flex}body{--bar:58px}}
 
 .js .rv{opacity:0;transform:translateY(14px)}
@@ -82,60 +99,96 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 
 
 .hero h1{font-size:clamp(38px,6.4vw,86px);max-width:15ch}
-.hero h1 em{font-style:normal;color:#125a72}
+.hero h1 em{font-style:normal;color:#e8b06a}
 .hero h1 a{text-decoration:none}
-.h-kick{color:#586268;font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:18px}
-.h-lede{margin-top:20px;max-width:50ch;color:#586268;font-size:clamp(16px,1.6vw,19px)}
+.h-kick{display:flex;align-items:center;gap:10px;color:#a3a19c;font-size:13.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.h-dot{width:8px;height:8px;border-radius:999px;background:#3fb96b;box-shadow:0 0 0 4px #3fb96b2e;flex:none}
+.h-lede{margin-top:20px;max-width:50ch;color:#a3a19c;font-size:clamp(16px,1.6vw,19px)}
 .h-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-.h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:20px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #dde5e8;background:#ffffff;color:#131a1d;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
+.h-btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:20px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #272b2d;background:#16191b;color:#f4f3f0;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s}
 .h-btn:hover{transform:translateY(-2px)}
-.h-btn.is-primary{background:#125a72;color:#ffffff;border-color:transparent}
-.h-facts{display:flex;flex-wrap:wrap;gap:0 34px;margin-top:38px;padding-top:20px;border-top:1px solid #dde5e8;color:#586268;font-size:14.5px}
+.h-btn.is-primary{background:#e8b06a;color:#1a1207;border-color:transparent}
+.h-facts{display:flex;flex-wrap:wrap;gap:0 34px;margin-top:38px;padding-top:20px;border-top:1px solid #272b2d;color:#a3a19c;font-size:14.5px}
 .h-facts span{padding:6px 0}
 /* Waar de wereld het bewijs of de cijfers vóór de kop zet, draait de scheiding mee. */
-.h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #dde5e8}
+.h-words>.h-facts:first-child{margin-top:0;margin-bottom:clamp(22px,3vw,34px);padding-top:0;padding-bottom:18px;border-top:0;border-bottom:1px solid #272b2d}
 .h-words>.h-cta:first-child{margin-top:0}
 .h-words>.h-lede:first-child{margin-top:0}
 
+/* eigen openingsfoto: sfeerbeeld vult het scherm.
+   Zo'n foto is bijna altijd donker, dus hier staat de tekst altijd in het wit
+   met een echte sluier eronder - niet het palet van de wereld volgen, want een
+   licht palet levert zwarte letters op een avondfoto op. */
+.h-eigen{position:relative;min-height:min(88svh,800px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.h-eigen .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
+.h-eigen .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
+.h-eigen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,16,.55) 0%,rgba(6,10,16,.22) 30%,rgba(6,10,16,.62) 68%,rgba(6,10,16,.88) 100%)}
+.h-eigen .h-words{padding-block:clamp(32px,5vw,64px);color:#fff}
+.h-eigen h1{color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.55)}
+.h-eigen h1 em{color:#e8b06a;text-shadow:0 2px 20px rgba(0,0,0,.75)}
+.h-eigen .h-kick{color:#ffffffd6}
+.h-eigen .h-dot{background:#4ade80;box-shadow:0 0 0 4px #4ade8033}
+.h-pijl{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px}
+.h-eigen .h-btn{border-radius:999px;padding:16px 28px;font-size:15.5px}
+.h-eigen .h-btn.is-primary{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.h-eigen h1{font-size:clamp(42px,6.6vw,88px);line-height:1.02;max-width:14ch}
+.h-eigen .h-lede{max-width:46ch;font-size:clamp(16px,1.45vw,18.5px)}
+.h-eigen .h-lede{color:#ffffffe0;text-shadow:0 1px 16px rgba(0,0,0,.6)}
+.h-eigen .h-facts{color:#ffffffc4;border-top-color:#ffffff40}
+.h-eigen .h-btn{border-color:#ffffff59;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
+.h-eigen .h-btn.is-primary{background:#e8b06a;color:#1a1207;border-color:transparent}
+@media(max-width:720px){.h-eigen{min-height:min(88svh,720px)}}
+
 /* cinematic: beeld vult het scherm, woorden liggen erin */
-.h-cinematic{position:relative;min-height:min(94svh,900px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.h-cinematic{position:relative;min-height:min(90svh,880px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
 .h-cinematic .h-shot{position:absolute;inset:0;margin:0;z-index:-2}
 .h-cinematic .h-shot img{width:100%;height:100%;object-fit:cover;animation:h-settle 1.6s cubic-bezier(.16,1,.3,1) both}
 @keyframes h-settle{from{transform:scale(1.07)}to{transform:scale(1)}}
-.h-cinematic::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#f4f7f8a6 0%,#f4f7f81a 24%,#f4f7f88c 52%,#f4f7f8e8 80%,#f4f7f8 100%)}
+.h-cinematic::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#0d0f10a6 0%,#0d0f101a 24%,#0d0f108c 52%,#0d0f10e8 80%,#0d0f10 100%)}
 .h-cinematic .h-words{padding-bottom:clamp(40px,7vw,84px)}
-.h-cinematic h1{text-shadow:0 2px 30px #f4f7f8b3}
-.h-cinematic .h-lede{color:#131a1dcc;text-shadow:0 1px 18px #f4f7f8cc}
+.h-cinematic h1{text-shadow:0 2px 30px #0d0f10b3}
+.h-cinematic .h-lede{color:#f4f3f0cc;text-shadow:0 1px 18px #0d0f10cc}
 
 /* panorama: liggend beeld in een kader, woorden erin */
 .h-panorama{padding:clamp(22px,3vw,44px) 0 0}
-.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#e4edf0;aspect-ratio:21/9;min-height:320px}
+.h-pano{position:relative;margin:0;border-radius:clamp(14px,2vw,26px);overflow:hidden;background:#1b1f21;aspect-ratio:2/1;min-height:min(76svh,760px)}
 .h-pano img{width:100%;height:100%;object-fit:cover;animation:h-drift 20s ease-in-out infinite alternate}
 @keyframes h-drift{from{transform:scale(1.02)}to{transform:scale(1.07)}}
 .h-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,12,10,.86) 0%,rgba(8,12,10,.46) 46%,rgba(8,12,10,.08) 100%)}
 /* Tweede sluier van onderaf: zonder deze staat de kop soms op een witte carrosserie. */
 .h-veil::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,10,.62) 0%,rgba(8,12,10,.16) 38%,transparent 68%)}
 .h-panorama .h-words{position:absolute;inset:auto auto 0 0;padding:clamp(22px,3.4vw,50px);max-width:min(660px,88%)}
-.h-panorama h1{color:#fff;font-size:clamp(29px,4.4vw,58px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
+.h-panorama h1{color:#fff;font-size:clamp(34px,5vw,68px);text-shadow:0 2px 22px rgba(0,0,0,.55)}
 /* De accentregel ligt vaak op een lichte carrosserie; die heeft meer grond nodig. */
 .h-panorama h1 em{text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 40px rgba(0,0,0,.5)}
 .h-panorama .h-lede{color:#ffffffdb}
 .h-panorama .h-btn{border-color:#ffffff4d;background:#ffffff1f;color:#fff;backdrop-filter:blur(6px)}
-.h-panorama .h-btn.is-primary{background:#125a72;color:#ffffff;border-color:transparent}
+.h-panorama .h-btn.is-primary{background:#e8b06a;color:#1a1207;border-color:transparent}
 .h-panorama .h-facts{border-top:0;padding-top:0;margin-top:clamp(26px,3.4vw,44px);gap:0 clamp(20px,3vw,44px)}
 @media(max-width:820px){.h-pano{aspect-ratio:4/5}.h-veil{background:linear-gradient(180deg,rgba(8,12,10,.22) 0%,rgba(8,12,10,.6) 44%,rgba(8,12,10,.9) 100%)}.h-veil::after{display:none}}
 
 /* split: woorden naast echte auto's */
-.h-split{padding:clamp(40px,6vw,84px) 0 clamp(32px,4vw,60px)}
-.h-split .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,64px);align-items:center}
-.h-split h1{font-size:clamp(36px,4.9vw,64px)}
-@media(max-width:900px){.h-split .wrap{grid-template-columns:1fr}}
+/* split: woorden links, echte voertuigen rechts. Het geheel vult nu een scherm,
+   want een opening van 400px hoog leest als een kop met een plaatje - niet als
+   een entree. */
+.h-split{padding:clamp(48px,6vw,88px) 0 clamp(40px,5vw,72px);min-height:min(84svh,820px);display:flex;align-items:center}
+.h-split .wrap{display:grid;grid-template-columns:1.05fr 1.15fr;gap:clamp(32px,5vw,68px);align-items:center;width:min(var(--w,1220px),100% - 48px)}
+.h-split h1{font-size:clamp(40px,5.4vw,74px)}
+@media(max-width:900px){.h-split{min-height:0;display:block}.h-split .wrap{grid-template-columns:1fr}}
 
 /* stack: woorden boven, beeld als band eronder */
-.h-stack{padding:clamp(44px,6vw,92px) 0 0}
-.h-stack .h-words{padding-bottom:clamp(32px,4.4vw,60px)}
-.h-stack h1{font-size:clamp(38px,5.6vw,74px);max-width:17ch}
-.h-band{margin:0;aspect-ratio:21/8;background:#e4edf0;overflow:hidden}
+/* stack: woorden boven, beeld als band eronder. De band moet in het eerste
+   scherm beginnen - anders open je met letters op een egale kleur, en dat is
+   precies wat we niet willen. */
+.h-stack{padding:clamp(30px,3.6vw,56px) 0 0}
+.h-stack .h-words{padding-bottom:clamp(24px,2.8vw,40px)}
+/* Twee regels, geen drie: bij drie regels zakt de beeldband onder de vouw en
+   open je alsnog met alleen letters. */
+.h-stack h1{font-size:clamp(38px,5.2vw,70px);max-width:13ch}
+.h-stack .h-lede{margin-top:16px;max-width:44ch}
+.h-stack .h-facts{margin-top:24px;padding-top:16px}
+.h-stack .h-cta{margin-top:24px}
+.h-band{margin:0;aspect-ratio:21/7;min-height:min(46svh,460px);background:#1b1f21;overflow:hidden}
 .h-band img{width:100%;height:100%;object-fit:cover}
 @media(max-width:720px){.h-band{aspect-ratio:16/10}}
 
@@ -145,17 +198,17 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 .h-poster .h-facts{margin-bottom:clamp(28px,4vw,44px)}
 
 /* index: geen groot beeld, de cijfers staan naast de tekst */
-.h-index{padding:clamp(34px,4.4vw,60px) 0 clamp(24px,3vw,38px);border-bottom:1px solid #dde5e8}
+.h-index{padding:clamp(34px,4.4vw,60px) 0 clamp(24px,3vw,38px);border-bottom:1px solid #272b2d}
 .h-index .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(26px,4vw,56px);align-items:center}
 .h-index h1{font-size:clamp(31px,4.2vw,54px);max-width:17ch}
-.h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#dde5e8;border:1px solid #dde5e8;border-radius:20px;overflow:hidden;margin:0}
-.h-panel div{background:#ffffff;padding:17px 19px}
+.h-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#272b2d;border:1px solid #272b2d;border-radius:20px;overflow:hidden;margin:0}
+.h-panel div{background:#16191b;padding:17px 19px}
 .h-panel dd{margin:0;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(15px,1.7vw,19px);letter-spacing:-0.02em;line-height:1.25}
 @media(max-width:860px){.h-index .wrap{grid-template-columns:1fr}}
 
 /* fotostrook, gedeeld door split en poster */
 .h-strip{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.h-strip figure{margin:0;position:relative;border-radius:20px;overflow:hidden;background:#e4edf0}
+.h-strip figure{margin:0;position:relative;border-radius:20px;overflow:hidden;background:#1b1f21}
 .h-strip figure:first-child{grid-column:1 / -1}
 .h-strip img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
 .h-strip figure:first-child img{aspect-ratio:16/9}
@@ -173,34 +226,41 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:720px){.h-poster .h-strip figure:nth-child(n+4){display:none}}
 
 /* bijschrift bij de hoofdfoto */
-.h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#f4f7f8d9;backdrop-filter:blur(8px);border:1px solid #dde5e8;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
-.h-plate-k{color:#586268;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
+.h-plate{position:absolute;right:0;top:clamp(90px,13vh,170px);z-index:2;margin:0;background:#0d0f10d9;backdrop-filter:blur(8px);border:1px solid #272b2d;border-right:0;padding:15px 21px;max-width:290px;display:flex;flex-direction:column;gap:5px}
+.h-plate-k{color:#a3a19c;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
 .h-plate-t{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-size:19px;line-height:1.15}
-.h-plate-p{color:#125a72;font-weight:600;font-size:17px;margin-top:4px}
-.h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #dde5e8;border-radius:20px}
+.h-plate-p{color:#e8b06a;font-weight:600;font-size:17px;margin-top:4px}
+.h-panorama .h-plate{top:auto;bottom:clamp(14px,2vw,26px);right:clamp(14px,2vw,26px);border:1px solid #272b2d;border-radius:20px}
 @media(max-width:900px){.h-plate{display:none}}
 
 
-.st-card{background:#ffffff;display:flex;flex-direction:column;overflow:hidden}
-.st-shot{position:relative;aspect-ratio:4/3;background:#e4edf0;overflow:hidden}
+.st-card{background:#16191b;display:flex;flex-direction:column;overflow:hidden}
+.st-shot{position:relative;aspect-ratio:4/3;background:#1b1f21;overflow:hidden}
 .st-shot img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .st-card:hover .st-shot img{transform:scale(1.04)}
-.st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#586268;font-size:14px}
-.st-year{position:absolute;left:0;top:0;background:#125a72;color:#ffffff;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
+.st-noimg{display:flex;align-items:center;justify-content:center;height:100%;color:#a3a19c;font-size:14px}
+.st-bewaar{position:absolute;right:9px;top:9px;z-index:2;width:36px;height:36px;display:grid;place-items:center;border:1px solid #272b2d;border-radius:50%;background:#16191b;color:#a3a19c;cursor:pointer;transition:color .2s,border-color .2s}
+.st-bewaar:hover{color:#e8b06a;border-color:#e8b06a}
+.st-bewaar[aria-pressed="true"]{color:#e8b06a;border-color:#e8b06a}
+.st-bewaar[aria-pressed="true"] svg{fill:#e8b06a}
+.st-row .st-bewaar,.st-table .st-bewaar{display:none}
+.st-year{position:absolute;left:0;top:0;background:#e8b06a;color:#1a1207;font-weight:700;font-size:13px;padding:5px 11px;font-variant-numeric:tabular-nums}
 .st-body{padding:17px 19px 19px;display:flex;flex-direction:column;gap:7px;flex:1}
 .st-card h3{font-size:17.5px;line-height:1.3}
-.st-spec{color:#586268;font-size:14.5px;font-variant-numeric:tabular-nums}
+.st-spec{color:#a3a19c;font-size:14.5px;font-variant-numeric:tabular-nums}
 .st-foot{margin-top:auto;padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .st-price{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:23px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
-.st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#125a72;text-decoration:none;white-space:nowrap}
+.st-ask{display:inline-flex;align-items:center;min-height:40px;font-size:14.5px;font-weight:600;color:#e8b06a;text-decoration:none;white-space:nowrap}
 .st-ask:hover{text-decoration:underline}
 
-.st-rail{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:max(24px,calc(50vw - 620px));padding:0 max(24px,calc(50vw - 620px)) 24px;scrollbar-width:thin;scrollbar-color:#dde5e8 transparent}
+.st-rail{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:max(24px,calc(50vw - 620px));padding:0 max(24px,calc(50vw - 620px)) 24px;scrollbar-width:thin;scrollbar-color:#272b2d transparent}
 .st-rail::-webkit-scrollbar{height:6px}
-.st-rail::-webkit-scrollbar-thumb{background:#dde5e8;border-radius:99px}
+.st-rail::-webkit-scrollbar-thumb{background:#272b2d;border-radius:99px}
 .st-rail .st-card{flex:0 0 min(420px,80vw);scroll-snap-align:start}
 
-.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:22px}
+/* min() erbij: zonder dat krijgt een spoor op een 320px-scherm alsnog 288px
+   en eet het de rechtermarge op. */
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(288px,100%),1fr));gap:22px}
 
 .st-mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
 .st-mosaic .st-card{grid-column:span 2}
@@ -210,14 +270,14 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 @media(max-width:980px){.st-mosaic{grid-template-columns:repeat(4,1fr)}.st-mosaic .is-lead{grid-column:span 4}.st-mosaic .is-wide{grid-column:span 2}}
 @media(max-width:660px){.st-mosaic{grid-template-columns:1fr;gap:16px}.st-mosaic .st-card,.st-mosaic .is-wide,.st-mosaic .is-lead{grid-column:span 1}.st-mosaic .is-lead .st-shot{aspect-ratio:16/10}}
 
-.st-list{border-top:1px solid #dde5e8}
-.st-row{display:grid;grid-template-columns:132px 1fr auto auto;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid #dde5e8;transition:background .18s ease}
-.st-row:hover{background:#ffffff}
-.st-row .st-thumb{aspect-ratio:4/3;background:#e4edf0;overflow:hidden;border-radius:20px}
+.st-list{border-top:1px solid #272b2d}
+.st-row{display:grid;grid-template-columns:132px 1fr auto auto;gap:20px;align-items:center;padding:15px 0;border-bottom:1px solid #272b2d;transition:background .18s ease}
+.st-row:hover{background:#16191b}
+.st-row .st-thumb{aspect-ratio:4/3;background:#1b1f21;overflow:hidden;border-radius:20px}
 .st-row .st-thumb img{width:100%;height:100%;object-fit:cover}
 .st-row h3{font-size:17.5px;line-height:1.3;font-family:'Manrope', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;letter-spacing:0;text-transform:none}
 .st-row .st-spec{margin-top:5px}
-.st-act{background:#125a72;color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;padding:11px 18px;border-radius:20px;white-space:nowrap}
+.st-act{background:#e8b06a;color:#1a1207;text-decoration:none;font-weight:700;font-size:15px;padding:11px 18px;border-radius:20px;white-space:nowrap}
 .st-act:hover{filter:brightness(1.07)}
 @media(max-width:820px){
   .st-row{grid-template-columns:96px 1fr;gap:14px}
@@ -225,89 +285,163 @@ footer .rowf{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
   .st-row .st-act{grid-column:2;justify-self:start}
 }
 
-.st-tablewrap{border:1px solid #dde5e8;border-radius:20px;overflow-x:auto;background:#ffffff}
+.st-tablewrap{border:1px solid #272b2d;border-radius:20px;overflow-x:auto;background:#16191b}
 .st-table{width:100%;border-collapse:collapse;font-size:15.5px;min-width:720px}
-.st-table th{text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#586268;font-weight:600;padding:13px 16px;border-bottom:1px solid #dde5e8;background:#e4edf0}
-.st-table td{padding:12px 16px;border-bottom:1px solid #dde5e8;vertical-align:middle}
+.st-table th{text-align:left;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#a3a19c;font-weight:600;padding:13px 16px;border-bottom:1px solid #272b2d;background:#1b1f21}
+.st-table td{padding:12px 16px;border-bottom:1px solid #272b2d;vertical-align:middle}
 .st-table tr:last-child td{border-bottom:0}
-.st-table tbody tr:hover{background:#e4edf0}
+.st-table tbody tr:hover{background:#1b1f21}
 .st-table .st-thumb{width:92px}
-.st-table .st-thumb img{width:92px;height:66px;object-fit:cover;border-radius:calc(20px - 1px);background:#e4edf0}
+.st-table .st-thumb img{width:92px;height:66px;object-fit:cover;border-radius:calc(20px - 1px);background:#1b1f21}
 .st-table .st-name{font-weight:600;line-height:1.3}
 .st-table .st-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .st-table .st-price{font-size:19px;text-align:right;display:block}
-.st-table .st-act-cell a{display:inline-block;background:#125a72;color:#ffffff;padding:9px 15px;border-radius:20px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+.st-table .st-act-cell a{display:inline-block;background:#e8b06a;color:#1a1207;padding:9px 15px;border-radius:20px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
 
 
 .sec-trust .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:clamp(24px,4vw,48px)}
-.sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.02em;color:#125a72;line-height:1}
-.sec-trust span{display:block;margin-top:9px;color:#586268;font-size:15px}
-.sec-trust a{color:#131a1d}
+.sec-trust b{display:block;font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-0.02em;color:#e8b06a;line-height:1}
+.sec-trust span{display:block;margin-top:9px;color:#a3a19c;font-size:15px}
+.sec-trust a{color:#f4f3f0}
 
 .sec-about .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,5vw,68px);align-items:start}
 /* Zonder min-width:0 rekt één lang woord uit hun eigen tekst de kolom op. */
 .sec-about .wrap>*{min-width:0}
 .sec-about p{overflow-wrap:anywhere}
 .sec-about h2{font-size:clamp(26px,3.4vw,42px);margin-bottom:18px}
-.sec-about p{color:#586268;font-size:17.5px;max-width:66ch}
-.sec-about .portrait{border:1px solid #dde5e8;border-radius:20px;background:#e4edf0;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
+.sec-about p{color:#a3a19c;font-size:17.5px;max-width:66ch}
+.sec-about .portrait{border:1px solid #272b2d;border-radius:20px;background:#1b1f21;padding:24px;display:flex;align-items:center;justify-content:center;min-height:170px}
 .sec-about .portrait img{max-height:210px;width:auto;object-fit:contain}
 @media(max-width:860px){.sec-about .wrap{grid-template-columns:1fr}}
 
 .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;list-style:none;padding:0;margin:0;counter-reset:s}
-.flow li{background:#ffffff;border:1px solid #dde5e8;border-radius:20px;padding:clamp(22px,2.6vw,30px);position:relative}
-.flow li::before{counter-increment:s;content:counter(s);display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:#125a72;color:#ffffff;font-weight:700;font-size:14px;margin-bottom:14px}
+.flow li{background:#16191b;border:1px solid #272b2d;border-radius:20px;padding:clamp(22px,2.6vw,30px);position:relative}
+.flow li::before{counter-increment:s;content:counter(s);display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:#e8b06a;color:#1a1207;font-weight:700;font-size:14px;margin-bottom:14px}
 .flow li b{display:block;font-size:18.5px;margin-bottom:8px}
-.flow li p{color:#586268;font-size:15.5px}
+.flow li p{color:#a3a19c;font-size:15.5px}
 @media(max-width:780px){.flow{grid-template-columns:1fr}}
 
-.sec-brands{border-block:1px solid #dde5e8;background:#ffffff}
+.sec-brands{border-block:1px solid #272b2d;background:#16191b}
 .sec-brands .wrap{display:flex;flex-wrap:wrap;gap:0 32px;padding:18px 0}
-.sec-brands span{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.02em;color:#586268;padding:6px 0}
-.sec-brands span:first-child{color:#125a72}
+.sec-brands span{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(15px,1.6vw,19px);letter-spacing:-0.02em;color:#a3a19c;padding:6px 0}
+.sec-brands span:first-child{color:#e8b06a}
 
 .wrap{--w:1280px}
 .sec-contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,68px)}
 .sec-contact h2{font-size:clamp(26px,3.4vw,44px)}
-.sec-contact .lede{margin-top:16px;color:#586268;max-width:46ch}
+.sec-contact .lede{margin-top:16px;color:#a3a19c;max-width:46ch}
 .sec-contact .callrow{margin-top:24px}
-.sec-contact .addr{margin-top:18px;color:#586268}
+.sec-contact .addr{margin-top:18px;color:#a3a19c}
 .sec-contact .hours{margin-top:26px}
 @media(max-width:860px){.sec-contact .wrap{grid-template-columns:1fr}}
+
+.sa-balk{position:sticky;top:0;z-index:40;background:#0d0f10;border-block:1px solid #272b2d;margin-bottom:22px}
+.sa-rij{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 0}
+.sa-zoek{position:relative;display:flex;align-items:center;flex:1 1 240px;min-width:200px}
+.sa-zoek svg{position:absolute;left:15px;color:#a3a19c;pointer-events:none}
+.sa-zoek input{width:100%;min-width:0;padding:12px 40px 12px 44px;border-radius:20px;background:#16191b;border:1px solid #272b2d;color:#f4f3f0;font:inherit;font-size:15px}
+.sa-zoek input::placeholder{color:#a3a19c}
+.sa-zoek input:focus{outline:none;border-color:#e8b06a}
+.sa-zoek input::-webkit-search-cancel-button{display:none}
+.sa-wis{position:absolute;right:7px;display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:#a3a19c;cursor:pointer}
+.sa-wis:hover{color:#f4f3f0}
+
+/* Een <select> is zo breed als zijn langste optie. Zonder min-width:0 duwt
+   een lange modelnaam de hele balk uit het scherm op een telefoon. */
+.sa-veld{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sa-veld label,.sa-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#a3a19c;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.sa-veld output{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:14px;letter-spacing:0;text-transform:none;color:#e8b06a;font-variant-numeric:tabular-nums}
+.sa-rij .sa-veld{flex-direction:row;align-items:center}
+.sa-rij .sa-veld label{display:none}
+.sa-balk select{appearance:none;max-width:100%;min-width:0;padding:11px 34px 11px 15px;border-radius:20px;background:#16191b;border:1px solid #272b2d;color:#f4f3f0;font:inherit;font-size:14.5px;cursor:pointer;text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23888' stroke-width='2.4' stroke-linecap='round' d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center}
+.sa-balk select:focus{outline:none;border-color:#e8b06a}
+.sa-meer{padding:11px 17px;border-radius:20px;background:transparent;border:1px solid #272b2d;color:#a3a19c;font:inherit;font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-meer:hover{color:#f4f3f0;border-color:#e8b06a}
+.sa-meer[aria-expanded="true"]{border-color:#e8b06a;color:#e8b06a}
+
+.sa-paneel{border-top:1px solid #272b2d}
+.sa-paneel-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:20px 28px;padding:20px 0 22px}
+.sa-breed{grid-column:1/-1}
+.sa-chips{display:flex;flex-wrap:wrap;gap:8px}
+.sa-chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:20px;background:transparent;border:1px solid #272b2d;color:#a3a19c;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.sa-chip:hover{color:#f4f3f0;border-color:#e8b06a}
+.sa-chip i{font-style:normal;font-size:12px;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-chip[aria-pressed="true"]{background:#e8b06a;border-color:#e8b06a;color:#1a1207}
+.sa-schaal{display:flex;justify-content:space-between;font-size:11.5px;color:#a3a19c;font-variant-numeric:tabular-nums}
+.sa-schaal i{font-style:normal}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:#272b2d}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;margin-top:-8px;border-radius:50%;background:#e8b06a;border:3px solid #0d0f10}
+input[type=range]::-moz-range-track{height:2px;background:#272b2d}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#e8b06a;border:3px solid #0d0f10}
+
+.sa-uitslag{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sa-tel{font-size:14.5px;color:#a3a19c;font-variant-numeric:tabular-nums}
+.sa-tel b{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:19px;color:#f4f3f0;margin-right:4px}
+.sa-acties{display:flex;gap:9px}
+.sa-knopje{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:20px;background:transparent;border:1px solid #272b2d;color:#a3a19c;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+.sa-knopje:hover{color:#f4f3f0;border-color:#e8b06a}
+.sa-knopje i{font-style:normal;opacity:.65;font-variant-numeric:tabular-nums}
+.sa-knopje[aria-pressed="true"]{background:#e8b06a;border-color:#e8b06a;color:#1a1207}
+
+.sa-leeg{text-align:center;padding:clamp(44px,7vw,80px) 20px;border:1px dashed #272b2d;border-radius:20px}
+.sa-leeg-t{font-family:'Archivo Expanded', 'Archivo', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;font-weight:600;font-size:clamp(20px,2.6vw,27px)}
+.sa-leeg-s{margin-top:10px;color:#a3a19c;max-width:46ch;margin-inline:auto}
+.sa-leeg .h-btn{margin-top:22px;border:0;cursor:pointer}
+
+.sa-meer-wrap{display:none}
+.sa-meer-tonen{width:100%;justify-content:center;border:1px solid #272b2d;cursor:pointer}
+.st-card.is-ingeklapt,.st-row.is-ingeklapt{display:none}
+
+@media(max-width:760px){
+  /* Op een telefoon staan dertig kaarten onder elkaar goed voor tienduizenden
+     pixels scrollen; alles wat daarna komt ziet niemand meer. */
+  .sa-meer-wrap{display:block;margin-top:16px}
+  .sa-rij{gap:9px}
+  .sa-sorteer,.sa-rij .sa-veld{flex:1 1 100%}
+  .sa-sorteer select,.sa-rij .sa-veld select{width:100%}
+  .sa-chip{padding:11px 16px}
+}
+
 
 /* Reizen: veel lucht, ronde hoeken, rust. Het bezoek is de conversie. */
 .callbtn{border-radius:999px}
 .h-btn{border-radius:999px}
-.st-card{border:1px solid #dde5e8;border-radius:clamp(12px,1.4vw,20px);transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s}
+.st-card{border:1px solid #272b2d;border-radius:clamp(12px,1.4vw,20px);transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s}
 .st-card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(20,30,25,.12)}
-.top{background:#f4f7f8f2;backdrop-filter:blur(12px)}
-.sec-trust{background:#e4edf0;border-block:1px solid #dde5e8}
+.top{background:#0d0f10f2;backdrop-filter:blur(12px)}
+.sec-trust{background:#1b1f21;border-block:1px solid #272b2d}
 .flow li{border-radius:clamp(12px,1.4vw,20px)}
-.sec-contact{background:#e4edf0;border-top:1px solid #dde5e8}
-.sec-contact .panel{background:#ffffff;border:1px solid #dde5e8;border-radius:clamp(14px,1.6vw,22px);padding:clamp(22px,3vw,32px)}
+.sec-contact{background:#1b1f21;border-top:1px solid #272b2d}
+.sec-contact .panel{background:#16191b;border:1px solid #272b2d;border-radius:clamp(14px,1.6vw,22px);padding:clamp(22px,3vw,32px)}
 .field input,.field textarea{border-radius:12px}
 .h-words>h1+.h-facts{margin-top:26px;padding-top:0;border-top:0;gap:0 clamp(20px,3vw,40px)}
 </style>
 </head>
-<body>
+<body data-site="21281936">
 <!--
 THESIS: Deze site is afgeleid uit de werkelijke voorraad van Levita BV (reizen, mediaanprijs EUR 79400, 110 voertuigen) en weigert het standaard dealer-sjabloon met sfeerhero, zoekbalk en kaartjesraster.
-OWN-WORLD: palet diepwater, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #125a72.
-STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar bellen geleid.
-FIRST VIEWPORT: hero-variant "cinematic", voorraadweergave "grid", secties stock > process > brands > about > promise > hours > contact.
-FORM: reizen-diepwater-cinematic-grid-archivoexpanded-k1
+OWN-WORLD: palet avondlicht, 'Archivo Expanded' als display op 'Manrope', hoeken 20px, accent #e8b06a.
+STORY: de bezoeker ziet echte voorraad met echte prijzen, begrijpt bij wie hij koopt, en wordt naar afspraak geleid.
+FIRST VIEWPORT: hero-variant "split", voorraadweergave "mosaic", secties brands > stock > process > about > promise > hours > contact.
+FORM: reizen-avondlicht-split-mosaic-archivoexpanded-k1
 FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de finish review, het verdict en DESIGN.md
 -->
 <div class="top" id="top">
   <div class="wrap">
-    <a class="mark" href="#top">Levita BV</a>
+    <a class="mark has-sub" href="#top"><svg class="mark-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z"/></svg><span><b>Levita BV</b><em>Apeldoorn</em></span></a>
     <nav><a href="#voorraad">Voorraad</a><a href="#over-ons">Over ons</a><a href="#contact">Contact</a></nav>
+    <a class="wabtn" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad."><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.04 2A9.9 9.9 0 0 0 2.1 11.9c0 1.75.46 3.45 1.32 4.95L2 22l5.3-1.38a9.9 9.9 0 0 0 4.74 1.2h.01a9.9 9.9 0 0 0 9.94-9.9A9.9 9.9 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.98.24-3.3-.69-2.78-1.1-4.54-3.95-4.68-4.13-.13-.18-1.11-1.48-1.11-2.82 0-1.34.7-2 .95-2.28.25-.27.54-.34.72-.34l.52.01c.17 0 .39-.06.61.47.23.55.78 1.9.85 2.04.07.14.11.3.02.48-.09.18-.13.29-.26.45l-.39.45c-.13.13-.26.28-.11.54.15.27.66 1.09 1.42 1.76.97.87 1.79 1.14 2.05 1.27.26.13.41.11.56-.07.15-.18.65-.76.82-1.02.18-.27.35-.22.59-.13.24.09 1.55.73 1.81.86.27.13.44.2.51.31.06.11.06.64-.18 1.32Z"/></svg><span>WhatsApp</span></a>
     <a class="callbtn" href="tel:+31618693647">06-1869 3647</a>
   </div>
 </div>
-<header class="hero h-cinematic">
-  <figure class="h-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f59868f2-5c84-4481-af13-9438facd77f2?rule=ecg_mp_eps$_87.jpg" srcset="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f59868f2-5c84-4481-af13-9438facd77f2?rule=ecg_mp_eps$_84.jpg 498w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f59868f2-5c84-4481-af13-9438facd77f2?rule=ecg_mp_eps$_85.jpg 726w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f59868f2-5c84-4481-af13-9438facd77f2?rule=ecg_mp_eps$_86.jpg 1024w, https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f59868f2-5c84-4481-af13-9438facd77f2?rule=ecg_mp_eps$_87.jpg 1920w" sizes="100vw" alt="Adria Matrix Plus 670 DC QUEENSBED+HEFBED 2025 6.100KM" fetchpriority="high"><figcaption class="h-plate"><span class="h-plate-k">Nu op voorraad</span><span class="h-plate-t">Adria Matrix Plus 670 DC QUEENSBED+HEFBED 2025 6.100KM</span><span class="h-plate-p">€ 99.900</span></figcaption></figure>
-  <div class="wrap h-words"><h1>110 campers en caravans <em>in Apeldoorn</em></h1><div class="h-facts"><span>110 voertuigen op voorraad</span><span>12 jaar op Marktplaats</span><span>Kom langs in Apeldoorn</span></div><p class="h-lede">Kom rustig kijken en stap in. We nemen de tijd om alles met u door te lopen.</p><div class="h-cta"><a class="h-btn is-primary" href="tel:+31618693647">Bel 06-1869 3647</a><a class="h-btn" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Stuur een WhatsApp</a></div></div>
+<header class="hero h-split">
+  <div class="wrap">
+    <div class="h-words"><p class="h-kick"><span class="h-dot"></span>110 campers en caravans · Apeldoorn</p><h1>Caravans en campers <em>in Apeldoorn</em></h1><div class="h-facts"><span>12 jaar op Marktplaats</span><span>Kom langs in Apeldoorn</span></div><p class="h-lede">Kom rustig kijken en stap in. We nemen de tijd om alles met u door te lopen.</p><div class="h-cta"><a class="h-btn is-primary" href="#contact">Plan een bezichtiging<svg class="h-pijl" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14m0 0 6-6m-6 6-6-6"/></svg></a><a class="h-btn" href="tel:+31618693647">Bel 06-1869 3647</a></div></div>
+    <div class="h-media"><div class="h-strip"><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f59868f2-5c84-4481-af13-9438facd77f2?rule=ecg_mp_eps$_85.jpg" alt="Adria Matrix Plus 670 DC QUEENSBED+HEFBED 2025 6.100KM" decoding="async" fetchpriority="high"><figcaption><span>Adria Matrix Plus 670 DC QUEENSBED+HEFBE</span><span>€ 99.900</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a5cc55cb-c87f-458a-8e5e-30e1fbf04b06?rule=ecg_mp_eps$_85.jpg" alt="Knaus Platinum Selection 600 MEG ENKELE BEDDEN 9-TR AUTOMAAT" decoding="async"><figcaption><span>Knaus Platinum Selection 600 MEG ENKELE </span><span>€ 89.900</span></figcaption></figure><figure><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3adfe9ff-b4d3-4215-993f-948833709d99?rule=ecg_mp_eps$_85.jpg" alt="Carado T 338 PRO+ ENKELE BEDDEN+HEFBED 8-TRAPS AUTO 2025" decoding="async"><figcaption><span>Carado T 338 PRO+ ENKELE BEDDEN+HEFBED 8</span><span>€ 88.900</span></figcaption></figure></div></div>
+  </div>
 </header>
 <section id="voorraad">
   <div class="wrap head">
@@ -315,8 +449,48 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
     <span class="meta">18 getoond van 110 · vanaf € 69.900</span>
     
   </div>
-  <div class="wrap"><div class="st-grid"><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f59868f2-5c84-4481-af13-9438facd77f2?rule=ecg_mp_eps$_85.jpg" alt="Adria Matrix Plus 670 DC QUEENSBED+HEFBED 2025 6.100KM" loading="lazy" decoding="async"></div>
+  <div class="wrap"><div class="sa-balk" id="sa-balk">
+  <div class="sa-rij">
+    <div class="sa-zoek">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="m16 16 4.5 4.5"/></svg>
+      <input id="sa-zoek" type="search" placeholder="Zoek in 18 voertuigen…" aria-label="Zoek in de voorraad" autocomplete="off">
+      <button class="sa-wis" id="sa-zoek-wis" type="button" hidden aria-label="Zoekterm wissen">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path stroke="currentColor" stroke-width="1.9" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    
+    <button class="sa-meer" id="sa-meer" type="button" aria-expanded="false" aria-controls="sa-paneel">Meer filters</button>
+    <label class="sa-sorteer"><span class="sr">Sorteren op</span>
+      <select id="sa-sorteer">
+        <option value="standaard">Aanbevolen</option>
+        <option value="prijs-op">Prijs: laag naar hoog</option>
+        <option value="prijs-af">Prijs: hoog naar laag</option>
+        <option value="jaar-af">Bouwjaar: nieuwste eerst</option>
+      </select>
+    </label>
+  </div>
+  <div class="sa-paneel" id="sa-paneel" hidden><div class="sa-paneel-in">
+        <div class="sa-veld">
+  <label for="sa-prijs">Maximumprijs <output id="sa-prijs-uit" for="sa-prijs">€ 99.900</output></label>
+  <input id="sa-prijs" type="range" data-range="prijs" data-richting="max" data-eenheid="euro"
+    min="69900" max="99900" step="500" value="99900">
+  <span class="sa-schaal"><i>€ 69.900</i><i>€ 99.900</i></span>
+</div><div class="sa-veld">
+  <label for="sa-jaar">Bouwjaar vanaf <output id="sa-jaar-uit" for="sa-jaar">2017</output></label>
+  <input id="sa-jaar" type="range" data-range="jaar" data-richting="min" data-eenheid="jaar"
+    min="2017" max="2025" step="1" value="2017">
+  <span class="sa-schaal"><i>2017</i><i>2025</i></span>
+</div>
+      </div></div>
+</div>
+<div class="sa-uitslag">
+  <p class="sa-tel" id="sa-tel" role="status" aria-live="polite"></p>
+  <div class="sa-acties">
+    <button class="sa-knopje" id="sa-bewaard" type="button" aria-pressed="false" hidden>Bewaard <i>0</i></button>
+    <button class="sa-knopje" id="sa-wis-alles" type="button" hidden>Filters wissen</button>
+  </div>
+</div><div class="st-mosaic" data-voorraad><article class="st-card is-lead" data-slug="campers-adria-matrix-plus-670-dc-queensbed-hefbe-1" data-rang="0" data-prijs="99900" data-jaar="2025" data-zoek="adria matrix plus 670 dc queensbed+hefbed 2025 6.100km">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f59868f2-5c84-4481-af13-9438facd77f2?rule=ecg_mp_eps$_86.jpg" alt="Adria Matrix Plus 670 DC QUEENSBED+HEFBED 2025 6.100KM" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-adria-matrix-plus-670-dc-queensbed-hefbe-1" aria-pressed="false" aria-label="Bewaar Adria Matrix Plus 670 DC QUEENSBED+HEFBED 2025 6.100KM"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Adria Matrix Plus 670 DC QUEENSBED+HEFBED 2025 6.100KM</h3>
     <p class="st-spec">2025 · 6.120 km</p>
@@ -325,8 +499,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Adria%20Matrix%20Plus%20670%20DC%20QUEENSBED%2BHEFBED%202025%206.100KM%20(%E2%82%AC%2099.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a5cc55cb-c87f-458a-8e5e-30e1fbf04b06?rule=ecg_mp_eps$_85.jpg" alt="Knaus Platinum Selection 600 MEG ENKELE BEDDEN 9-TR AUTOMAAT" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-knaus-platinum-selection-600-meg-enkele--2" data-rang="1" data-prijs="89900" data-jaar="2025" data-kenmerk="Enkele bedden" data-zoek="knaus platinum selection 600 meg enkele bedden 9-tr automaat enkele bedden">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a5cc55cb-c87f-458a-8e5e-30e1fbf04b06?rule=ecg_mp_eps$_85.jpg" alt="Knaus Platinum Selection 600 MEG ENKELE BEDDEN 9-TR AUTOMAAT" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-knaus-platinum-selection-600-meg-enkele--2" aria-pressed="false" aria-label="Bewaar Knaus Platinum Selection 600 MEG ENKELE BEDDEN 9-TR AUTOMAAT"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Knaus Platinum Selection 600 MEG ENKELE BEDDEN 9-TR AUTOMAAT</h3>
     <p class="st-spec">2025 · 15.910 km</p>
@@ -335,8 +509,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Knaus%20Platinum%20Selection%20600%20MEG%20ENKELE%20BEDDEN%209-TR%20AUTOMAAT%20(%E2%82%AC%2089.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3adfe9ff-b4d3-4215-993f-948833709d99?rule=ecg_mp_eps$_85.jpg" alt="Carado T 338 PRO+ ENKELE BEDDEN+HEFBED 8-TRAPS AUTO 2025" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="campers-carado-t-338-pro-enkele-bedden-hefbed-8--3" data-rang="2" data-prijs="88900" data-jaar="2025" data-kenmerk="Enkele bedden" data-zoek="carado t 338 pro+ enkele bedden+hefbed 8-traps auto 2025 enkele bedden">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3adfe9ff-b4d3-4215-993f-948833709d99?rule=ecg_mp_eps$_86.jpg" alt="Carado T 338 PRO+ ENKELE BEDDEN+HEFBED 8-TRAPS AUTO 2025" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-carado-t-338-pro-enkele-bedden-hefbed-8--3" aria-pressed="false" aria-label="Bewaar Carado T 338 PRO+ ENKELE BEDDEN+HEFBED 8-TRAPS AUTO 2025"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Carado T 338 PRO+ ENKELE BEDDEN+HEFBED 8-TRAPS AUTO 2025</h3>
     <p class="st-spec">2025 · 10.539 km</p>
@@ -345,8 +519,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Carado%20T%20338%20PRO%2B%20ENKELE%20BEDDEN%2BHEFBED%208-TRAPS%20AUTO%202025%20(%E2%82%AC%2088.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f537eace-bb36-4897-a431-f7c110537a0c?rule=ecg_mp_eps$_85.jpg" alt="Pössl Roadcruiser 640D ENKELE BEDDEN 9-TRAPS AUTOMAAT 2025" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-possl-roadcruiser-640d-enkele-bedden-9-t-4" data-rang="3" data-prijs="84900" data-jaar="2025" data-kenmerk="Enkele bedden" data-zoek="pössl roadcruiser 640d enkele bedden 9-traps automaat 2025 enkele bedden">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/f537eace-bb36-4897-a431-f7c110537a0c?rule=ecg_mp_eps$_85.jpg" alt="Pössl Roadcruiser 640D ENKELE BEDDEN 9-TRAPS AUTOMAAT 2025" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-possl-roadcruiser-640d-enkele-bedden-9-t-4" aria-pressed="false" aria-label="Bewaar Pössl Roadcruiser 640D ENKELE BEDDEN 9-TRAPS AUTOMAAT 2025"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Pössl Roadcruiser 640D ENKELE BEDDEN 9-TRAPS AUTOMAAT 2025</h3>
     <p class="st-spec">2025 · 7.959 km</p>
@@ -355,8 +529,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20P%C3%B6ssl%20Roadcruiser%20640D%20ENKELE%20BEDDEN%209-TRAPS%20AUTOMAAT%202025%20(%E2%82%AC%2084.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ebab950b-5331-45aa-b349-e4a221ff0f79?rule=ecg_mp_eps$_85.jpg" alt="Pössl Summit Prime 640 ENKELE BEDDEN AUTOMAAT FIAT8" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-possl-summit-prime-640-enkele-bedden-aut-5" data-rang="4" data-prijs="82900" data-jaar="2023" data-kenmerk="Enkele bedden" data-zoek="pössl summit prime 640 enkele bedden automaat fiat8 enkele bedden">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/ebab950b-5331-45aa-b349-e4a221ff0f79?rule=ecg_mp_eps$_85.jpg" alt="Pössl Summit Prime 640 ENKELE BEDDEN AUTOMAAT FIAT8" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-possl-summit-prime-640-enkele-bedden-aut-5" aria-pressed="false" aria-label="Bewaar Pössl Summit Prime 640 ENKELE BEDDEN AUTOMAAT FIAT8"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Pössl Summit Prime 640 ENKELE BEDDEN AUTOMAAT FIAT8</h3>
     <p class="st-spec">2023 · 40.590 km</p>
@@ -365,8 +539,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20P%C3%B6ssl%20Summit%20Prime%20640%20ENKELE%20BEDDEN%20AUTOMAAT%20FIAT8%20(%E2%82%AC%2082.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/246a77a2-ea28-4946-adb2-801f834bdb02?rule=ecg_mp_eps$_85.jpg" alt="Carthago Malibu 600 LE ENKELE BEDDEN + HEFDAK 9T AUTOMAAT" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-carthago-malibu-600-le-enkele-bedden-hef-6" data-rang="5" data-prijs="81900" data-jaar="2022" data-kenmerk="Enkele bedden|Hefdak" data-zoek="carthago malibu 600 le enkele bedden + hefdak 9t automaat enkele bedden hefdak">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/246a77a2-ea28-4946-adb2-801f834bdb02?rule=ecg_mp_eps$_85.jpg" alt="Carthago Malibu 600 LE ENKELE BEDDEN + HEFDAK 9T AUTOMAAT" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-carthago-malibu-600-le-enkele-bedden-hef-6" aria-pressed="false" aria-label="Bewaar Carthago Malibu 600 LE ENKELE BEDDEN + HEFDAK 9T AUTOMAAT"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Carthago Malibu 600 LE ENKELE BEDDEN + HEFDAK 9T AUTOMAAT</h3>
     <p class="st-spec">2022 · 27.629 km</p>
@@ -375,8 +549,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Carthago%20Malibu%20600%20LE%20ENKELE%20BEDDEN%20%2B%20HEFDAK%209T%20AUTOMAAT%20(%E2%82%AC%2081.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e4dbb2f6-5f98-4b48-b8a5-8ac11dd05702?rule=ecg_mp_eps$_85.jpg" alt="Sunlight T68 ADVENTURE EDITIE ENKELE BEDDEN+HEFBED 9-TR AUT" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-sunlight-t68-adventure-editie-enkele-bed-7" data-rang="6" data-prijs="81900" data-jaar="2024" data-kenmerk="Enkele bedden" data-zoek="sunlight t68 adventure editie enkele bedden+hefbed 9-tr aut enkele bedden">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/e4dbb2f6-5f98-4b48-b8a5-8ac11dd05702?rule=ecg_mp_eps$_85.jpg" alt="Sunlight T68 ADVENTURE EDITIE ENKELE BEDDEN+HEFBED 9-TR AUT" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-sunlight-t68-adventure-editie-enkele-bed-7" aria-pressed="false" aria-label="Bewaar Sunlight T68 ADVENTURE EDITIE ENKELE BEDDEN+HEFBED 9-TR AUT"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Sunlight T68 ADVENTURE EDITIE ENKELE BEDDEN+HEFBED 9-TR AUT</h3>
     <p class="st-spec">2024 · 22.766 km</p>
@@ -385,8 +559,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Sunlight%20T68%20ADVENTURE%20EDITIE%20ENKELE%20BEDDEN%2BHEFBED%209-TR%20AUT%20(%E2%82%AC%2081.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/24af2b1d-0b30-4704-abb2-0584c83012c3?rule=ecg_mp_eps$_85.jpg" alt="Eura Mobil Van 635 EB ENKELE BEDDEN 9T AUTOMAAT TREKHAAK" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="campers-eura-mobil-van-635-eb-enkele-bedden-9t-a-8" data-rang="7" data-prijs="81900" data-jaar="2023" data-kenmerk="Enkele bedden" data-zoek="eura mobil van 635 eb enkele bedden 9t automaat trekhaak enkele bedden">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/24af2b1d-0b30-4704-abb2-0584c83012c3?rule=ecg_mp_eps$_86.jpg" alt="Eura Mobil Van 635 EB ENKELE BEDDEN 9T AUTOMAAT TREKHAAK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-eura-mobil-van-635-eb-enkele-bedden-9t-a-8" aria-pressed="false" aria-label="Bewaar Eura Mobil Van 635 EB ENKELE BEDDEN 9T AUTOMAAT TREKHAAK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Eura Mobil Van 635 EB ENKELE BEDDEN 9T AUTOMAAT TREKHAAK</h3>
     <p class="st-spec">2023 · 34.897 km</p>
@@ -395,8 +569,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Eura%20Mobil%20Van%20635%20EB%20ENKELE%20BEDDEN%209T%20AUTOMAAT%20TREKHAAK%20(%E2%82%AC%2081.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/71ae6675-2498-437b-aa5b-064cf7acf838?rule=ecg_mp_eps$_85.jpg" alt="Pössl Summit 640 ENKELE BEDDEN 9TR AUT BUSBIKER BUL" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-possl-summit-640-enkele-bedden-9tr-aut-b-9" data-rang="8" data-prijs="79900" data-jaar="2023" data-kenmerk="Enkele bedden" data-zoek="pössl summit 640 enkele bedden 9tr aut busbiker bul enkele bedden">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/71ae6675-2498-437b-aa5b-064cf7acf838?rule=ecg_mp_eps$_85.jpg" alt="Pössl Summit 640 ENKELE BEDDEN 9TR AUT BUSBIKER BUL" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-possl-summit-640-enkele-bedden-9tr-aut-b-9" aria-pressed="false" aria-label="Bewaar Pössl Summit 640 ENKELE BEDDEN 9TR AUT BUSBIKER BUL"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Pössl Summit 640 ENKELE BEDDEN 9TR AUT BUSBIKER BUL</h3>
     <p class="st-spec">2023 · 19.823 km</p>
@@ -405,8 +579,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20P%C3%B6ssl%20Summit%20640%20ENKELE%20BEDDEN%209TR%20AUT%20BUSBIKER%20BUL%20(%E2%82%AC%2079.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/71abff9f-bad8-4b16-aaf0-b05512ee37af?rule=ecg_mp_eps$_85.jpg" alt="Adria Twin 640 SLB ENKELE BEDDEN 9-TRAPS AUTOMAAT 160PK" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-adria-twin-640-slb-enkele-bedden-9-traps-10" data-rang="9" data-prijs="78900" data-jaar="2021" data-kenmerk="Enkele bedden" data-zoek="adria twin 640 slb enkele bedden 9-traps automaat 160pk enkele bedden">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/71abff9f-bad8-4b16-aaf0-b05512ee37af?rule=ecg_mp_eps$_85.jpg" alt="Adria Twin 640 SLB ENKELE BEDDEN 9-TRAPS AUTOMAAT 160PK" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-adria-twin-640-slb-enkele-bedden-9-traps-10" aria-pressed="false" aria-label="Bewaar Adria Twin 640 SLB ENKELE BEDDEN 9-TRAPS AUTOMAAT 160PK"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Adria Twin 640 SLB ENKELE BEDDEN 9-TRAPS AUTOMAAT 160PK</h3>
     <p class="st-spec">2021 · 53.926 km</p>
@@ -415,8 +589,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Adria%20Twin%20640%20SLB%20ENKELE%20BEDDEN%209-TRAPS%20AUTOMAAT%20160PK%20(%E2%82%AC%2078.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dbbe048f-5487-4cd0-9316-7a3a20342b44?rule=ecg_mp_eps$_85.jpg" alt="Benimar Tessoro T 496 AUTOMAAT QUEENSBED+HEFBED DAKAIRCO" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-benimar-tessoro-t-496-automaat-queensbed-11" data-rang="10" data-prijs="76900" data-jaar="2022" data-zoek="benimar tessoro t 496 automaat queensbed+hefbed dakairco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/dbbe048f-5487-4cd0-9316-7a3a20342b44?rule=ecg_mp_eps$_85.jpg" alt="Benimar Tessoro T 496 AUTOMAAT QUEENSBED+HEFBED DAKAIRCO" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-benimar-tessoro-t-496-automaat-queensbed-11" aria-pressed="false" aria-label="Bewaar Benimar Tessoro T 496 AUTOMAAT QUEENSBED+HEFBED DAKAIRCO"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Benimar Tessoro T 496 AUTOMAAT QUEENSBED+HEFBED DAKAIRCO</h3>
     <p class="st-spec">2022 · 12.837 km</p>
@@ -425,8 +599,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Benimar%20Tessoro%20T%20496%20AUTOMAAT%20QUEENSBED%2BHEFBED%20DAKAIRCO%20(%E2%82%AC%2076.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b160caed-6daf-4edb-bb42-6ca55a643247?rule=ecg_mp_eps$_85.jpg" alt="Adria Twin Supreme 640 SGX 9-T AUTOMAAT 2X ZONNEPANEEL" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-adria-twin-supreme-640-sgx-9-t-automaat--12" data-rang="11" data-prijs="74900" data-jaar="2020" data-zoek="adria twin supreme 640 sgx 9-t automaat 2x zonnepaneel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/b160caed-6daf-4edb-bb42-6ca55a643247?rule=ecg_mp_eps$_85.jpg" alt="Adria Twin Supreme 640 SGX 9-T AUTOMAAT 2X ZONNEPANEEL" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-adria-twin-supreme-640-sgx-9-t-automaat--12" aria-pressed="false" aria-label="Bewaar Adria Twin Supreme 640 SGX 9-T AUTOMAAT 2X ZONNEPANEEL"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Adria Twin Supreme 640 SGX 9-T AUTOMAAT 2X ZONNEPANEEL</h3>
     <p class="st-spec">2020 · 54.569 km</p>
@@ -435,8 +609,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Adria%20Twin%20Supreme%20640%20SGX%209-T%20AUTOMAAT%202X%20ZONNEPANEEL%20(%E2%82%AC%2074.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/030159bc-e866-4080-9ce9-eaec4253d12d?rule=ecg_mp_eps$_85.jpg" alt="Adria Twin Supreme 640 SGX 9-TRAPS AUTOMAAT ZONNEPANEEL" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="campers-adria-twin-supreme-640-sgx-9-traps-autom-13" data-rang="12" data-prijs="73900" data-jaar="2020" data-zoek="adria twin supreme 640 sgx 9-traps automaat zonnepaneel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/030159bc-e866-4080-9ce9-eaec4253d12d?rule=ecg_mp_eps$_86.jpg" alt="Adria Twin Supreme 640 SGX 9-TRAPS AUTOMAAT ZONNEPANEEL" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-adria-twin-supreme-640-sgx-9-traps-autom-13" aria-pressed="false" aria-label="Bewaar Adria Twin Supreme 640 SGX 9-TRAPS AUTOMAAT ZONNEPANEEL"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Adria Twin Supreme 640 SGX 9-TRAPS AUTOMAAT ZONNEPANEEL</h3>
     <p class="st-spec">2020 · 44.616 km</p>
@@ -445,8 +619,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Adria%20Twin%20Supreme%20640%20SGX%209-TRAPS%20AUTOMAAT%20ZONNEPANEEL%20(%E2%82%AC%2073.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8e760ea6-6cb1-439f-bc37-75739fc205be?rule=ecg_mp_eps$_85.jpg" alt="Carthago C-Tourer I 144 QB QUEENSBED+HEBED TREKHAAK DAKAIRCO" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-carthago-c-tourer-i-144-qb-queensbed-heb-14" data-rang="13" data-prijs="72900" data-jaar="2017" data-zoek="carthago c-tourer i 144 qb queensbed+hebed trekhaak dakairco">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/8e760ea6-6cb1-439f-bc37-75739fc205be?rule=ecg_mp_eps$_85.jpg" alt="Carthago C-Tourer I 144 QB QUEENSBED+HEBED TREKHAAK DAKAIRCO" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-carthago-c-tourer-i-144-qb-queensbed-heb-14" aria-pressed="false" aria-label="Bewaar Carthago C-Tourer I 144 QB QUEENSBED+HEBED TREKHAAK DAKAIRCO"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Carthago C-Tourer I 144 QB QUEENSBED+HEBED TREKHAAK DAKAIRCO</h3>
     <p class="st-spec">2017 · 102.006 km</p>
@@ -455,8 +629,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Carthago%20C-Tourer%20I%20144%20QB%20QUEENSBED%2BHEBED%20TREKHAAK%20DAKAIRCO%20(%E2%82%AC%2072.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3c164881-9f9e-4e4f-b036-452cf5be9c15?rule=ecg_mp_eps$_85.jpg" alt="Chausson Titanium 788 QUEENSBED+HEFBED+F2F AUTOMAAT EURO6" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-chausson-titanium-788-queensbed-hefbed-f-15" data-rang="14" data-prijs="72900" data-jaar="2022" data-brandstof="Diesel" data-zoek="chausson titanium 788 queensbed+hefbed+f2f automaat euro6 diesel">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/3c164881-9f9e-4e4f-b036-452cf5be9c15?rule=ecg_mp_eps$_85.jpg" alt="Chausson Titanium 788 QUEENSBED+HEFBED+F2F AUTOMAAT EURO6" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-chausson-titanium-788-queensbed-hefbed-f-15" aria-pressed="false" aria-label="Bewaar Chausson Titanium 788 QUEENSBED+HEFBED+F2F AUTOMAAT EURO6"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Chausson Titanium 788 QUEENSBED+HEFBED+F2F AUTOMAAT EURO6</h3>
     <p class="st-spec">2022 · 21.069 km · Diesel</p>
@@ -465,8 +639,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Chausson%20Titanium%20788%20QUEENSBED%2BHEFBED%2BF2F%20AUTOMAAT%20EURO6%20(%E2%82%AC%2072.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d3201bf3-6155-46b0-8a57-e50817b2266e?rule=ecg_mp_eps$_85.jpg" alt="Dethleffs Globebus GT T006 ENKELE BEDDEN XXL-GARAGE CAMERA" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-dethleffs-globebus-gt-t006-enkele-bedden-16" data-rang="15" data-prijs="72900" data-jaar="2022" data-kenmerk="Enkele bedden" data-zoek="dethleffs globebus gt t006 enkele bedden xxl-garage camera enkele bedden">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/d3201bf3-6155-46b0-8a57-e50817b2266e?rule=ecg_mp_eps$_85.jpg" alt="Dethleffs Globebus GT T006 ENKELE BEDDEN XXL-GARAGE CAMERA" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-dethleffs-globebus-gt-t006-enkele-bedden-16" aria-pressed="false" aria-label="Bewaar Dethleffs Globebus GT T006 ENKELE BEDDEN XXL-GARAGE CAMERA"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Dethleffs Globebus GT T006 ENKELE BEDDEN XXL-GARAGE CAMERA</h3>
     <p class="st-spec">2022 · 30.114 km</p>
@@ -475,8 +649,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Dethleffs%20Globebus%20GT%20T006%20ENKELE%20BEDDEN%20XXL-GARAGE%20CAMERA%20(%E2%82%AC%2072.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a1f6fc3d-b14d-4389-99f9-be9f66485111?rule=ecg_mp_eps$_85.jpg" alt="Malibu Van Charming 640 LE AUTOMAAT ENKELE BEDDEN EURO6" loading="lazy" decoding="async"></div>
+</article><article class="st-card " data-slug="campers-malibu-van-charming-640-le-automaat-enke-17" data-rang="16" data-prijs="69900" data-jaar="2018" data-kenmerk="Enkele bedden" data-zoek="malibu van charming 640 le automaat enkele bedden euro6 enkele bedden">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/a1f6fc3d-b14d-4389-99f9-be9f66485111?rule=ecg_mp_eps$_85.jpg" alt="Malibu Van Charming 640 LE AUTOMAAT ENKELE BEDDEN EURO6" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-malibu-van-charming-640-le-automaat-enke-17" aria-pressed="false" aria-label="Bewaar Malibu Van Charming 640 LE AUTOMAAT ENKELE BEDDEN EURO6"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Malibu Van Charming 640 LE AUTOMAAT ENKELE BEDDEN EURO6</h3>
     <p class="st-spec">2018 · 51.427 km</p>
@@ -485,8 +659,8 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Malibu%20Van%20Charming%20640%20LE%20AUTOMAAT%20ENKELE%20BEDDEN%20EURO6%20(%E2%82%AC%2069.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article><article class="st-card ">
-  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/48cf7768-9951-46f9-b385-8bb223010b45?rule=ecg_mp_eps$_85.jpg" alt="Challenger Graphite 308 QUEENSBED+HEFBED+F2F AUTOMAAT EURO6" loading="lazy" decoding="async"></div>
+</article><article class="st-card is-wide" data-slug="campers-challenger-graphite-308-queensbed-hefbed-18" data-rang="17" data-prijs="69900" data-jaar="2021" data-zoek="challenger graphite 308 queensbed+hefbed+f2f automaat euro6">
+  <div class="st-shot"><img src="https://images.marktplaats.com/api/v1/hz-mp-pro-listing/images/48cf7768-9951-46f9-b385-8bb223010b45?rule=ecg_mp_eps$_86.jpg" alt="Challenger Graphite 308 QUEENSBED+HEFBED+F2F AUTOMAAT EURO6" loading="lazy" decoding="async"><button class="st-bewaar" type="button" data-bewaar="campers-challenger-graphite-308-queensbed-hefbed-18" aria-pressed="false" aria-label="Bewaar Challenger Graphite 308 QUEENSBED+HEFBED+F2F AUTOMAAT EURO6"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20.2 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 1 1 19.4 13Z"/></svg></button></div>
   <div class="st-body">
     <h3>Challenger Graphite 308 QUEENSBED+HEFBED+F2F AUTOMAAT EURO6</h3>
     <p class="st-spec">2021 · 24.346 km</p>
@@ -495,7 +669,12 @@ FINISH: unreviewed en undocumented is unfinished; deze build eindigt met de fini
       <a class="st-ask" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20zag%20de%20Challenger%20Graphite%20308%20QUEENSBED%2BHEFBED%2BF2F%20AUTOMAAT%20EURO6%20(%E2%82%AC%2069.900)%20op%20uw%20website.%20Is%20deze%20nog%20beschikbaar%3F">Plan een bezichtiging</a>
     </div>
   </div>
-</article></div><div class="more"><span>Er staan er nog 92 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
+</article></div><div class="sa-leeg" id="sa-leeg" hidden>
+  <p class="sa-leeg-t">Hier staat niets tussen.</p>
+  <p class="sa-leeg-s">Er staan er nog 92 op de zaak die niet online staan. Grote kans dat het uw zoekopdracht wel is.</p>
+  <button class="h-btn" type="button" id="sa-leeg-wis">Filters wissen</button>
+</div>
+<div class="sa-meer-wrap"><button class="h-btn sa-meer-tonen" id="sa-meer-tonen" type="button" hidden></button></div><div class="more"><span>Er staan er nog 92 op de zaak die hier niet passen.</span><a class="h-btn is-primary" href="https://wa.me/31618693647?text=Hallo%20Levita%20BV%2C%20ik%20heb%20een%20vraag%20over%20uw%20voorraad.">Vraag de rest op via WhatsApp</a></div></div>
 </section>
 <section class="sec-flow">
   <div class="wrap">
@@ -550,6 +729,221 @@ document.documentElement.className+=' js';
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'});
   items.forEach(function(el,i){el.style.transitionDelay=(Math.min(i,3)*50)+'ms';io.observe(el)});
   setTimeout(function(){items.forEach(show)},2600);
+})();
+
+(function () {
+  var balk = document.getElementById('sa-balk');
+  var rooster = document.querySelector('[data-voorraad]');
+  if (!balk || !rooster) return;
+
+  var $ = function (s, w) { return (w || document).querySelector(s); };
+  var $$ = function (s, w) { return [].slice.call((w || document).querySelectorAll(s)); };
+  var kaarten = $$('[data-slug]', rooster);
+  if (!kaarten.length) return;
+
+  var zoekVeld = $('#sa-zoek'), zoekWis = $('#sa-zoek-wis');
+  var sorteer = $('#sa-sorteer'), meerKnop = $('#sa-meer'), paneel = $('#sa-paneel');
+  var telRegel = $('#sa-tel'), leeg = $('#sa-leeg');
+  var wisAlles = $('#sa-wis-alles'), bewaardKnop = $('#sa-bewaard');
+  var meerTonen = $('#sa-meer-tonen');
+
+  var SLEUTEL = 'demo-bewaard-' + (document.body.getAttribute('data-site') || 'x');
+  var bewaard = [];
+  try { bewaard = JSON.parse(localStorage.getItem(SLEUTEL)) || []; } catch (e) {}
+
+  var smal = matchMedia('(max-width:760px)');
+  var LIMIET = 9, allesTonen = false;
+
+  var staat = { zoek: '', selects: {}, chips: {}, ranges: {}, sorteer: 'standaard', alleenBewaard: false };
+
+  function past(kaart) {
+    var d = kaart.dataset;
+    if (staat.alleenBewaard && bewaard.indexOf(d.slug) === -1) return false;
+    for (var s in staat.selects) {
+      if (staat.selects[s] && d[s] !== staat.selects[s]) return false;
+    }
+    for (var c in staat.chips) {
+      var gekozen = staat.chips[c];
+      if (!gekozen.length) continue;
+      var eigen = (d[c] || '').split('|');
+      var raak = false;
+      for (var i = 0; i < gekozen.length; i++) if (eigen.indexOf(gekozen[i]) > -1) { raak = true; break; }
+      if (!raak) return false;
+    }
+    for (var r in staat.ranges) {
+      var grens = staat.ranges[r];
+      var waarde = +d[r];
+      if (!waarde) continue;                       // onbekend filteren we niet weg
+      if (grens.richting === 'max' && waarde > grens.waarde) return false;
+      if (grens.richting === 'min' && waarde < grens.waarde) return false;
+    }
+    if (staat.zoek) {
+      var woorden = staat.zoek.split(/\s+/);
+      for (var w = 0; w < woorden.length; w++) {
+        if (woorden[w] && (d.zoek || '').indexOf(woorden[w]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function sorteerWaarde(kaart) {
+    var d = kaart.dataset;
+    switch (staat.sorteer) {
+      case 'prijs-op': return +d.prijs || 9e9;
+      case 'prijs-af': return -(+d.prijs || -1);
+      case 'jaar-af':  return -(+d.jaar || -1);
+      default:         return +d.rang || 0;
+    }
+  }
+
+  function draaien() {
+    var zichtbaar = [];
+    kaarten.forEach(function (k) {
+      var ja = past(k);
+      k.hidden = !ja;
+      if (ja) zichtbaar.push(k);
+    });
+
+    var op = zichtbaar.slice().sort(function (a, b) {
+      var x = sorteerWaarde(a), y = sorteerWaarde(b);
+      return x < y ? -1 : x > y ? 1 : 0;
+    });
+    op.forEach(function (k, i) { k.style.order = i; });
+
+    var beperk = smal.matches && !allesTonen && op.length > LIMIET;
+    op.forEach(function (k, i) { k.classList.toggle('is-ingeklapt', beperk && i >= LIMIET); });
+    if (meerTonen) {
+      meerTonen.hidden = !beperk;
+      if (beperk) meerTonen.textContent = 'Toon de overige ' + (op.length - LIMIET) + ' voertuigen';
+    }
+
+    if (telRegel) {
+      var prijzen = op.map(function (k) { return +k.dataset.prijs; }).filter(function (p) { return p > 0; });
+      var vanaf = prijzen.length ? Math.min.apply(null, prijzen) : null;
+      telRegel.innerHTML = '<b>' + op.length + '</b> ' + (op.length === 1 ? 'voertuig' : 'voertuigen')
+        + (vanaf ? ' \u00b7 vanaf \u20ac\u00a0' + vanaf.toLocaleString('nl-NL') : '');
+    }
+    if (leeg) leeg.hidden = op.length > 0;
+
+    var actief = !!staat.zoek || staat.alleenBewaard;
+    for (var s in staat.selects) if (staat.selects[s]) actief = true;
+    for (var c in staat.chips) if (staat.chips[c].length) actief = true;
+    for (var r in staat.ranges) if (staat.ranges[r].aangeraakt) actief = true;
+    if (wisAlles) wisAlles.hidden = !actief;
+  }
+
+  /* --- bewaren --- */
+  function tekenBewaard() {
+    $$('[data-bewaar]').forEach(function (b) {
+      b.setAttribute('aria-pressed', bewaard.indexOf(b.getAttribute('data-bewaar')) > -1 ? 'true' : 'false');
+    });
+    if (bewaardKnop) {
+      $('i', bewaardKnop).textContent = bewaard.length;
+      bewaardKnop.hidden = bewaard.length === 0 && !staat.alleenBewaard;
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-bewaar]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var slug = knop.getAttribute('data-bewaar'), i = bewaard.indexOf(slug);
+    if (i > -1) bewaard.splice(i, 1); else bewaard.push(slug);
+    try { localStorage.setItem(SLEUTEL, JSON.stringify(bewaard)); } catch (err) {}
+    tekenBewaard();
+    if (staat.alleenBewaard) draaien();
+  });
+
+  /* --- bediening: altijd BINNEN de balk selecteren --- */
+  var wacht;
+  if (zoekVeld) zoekVeld.addEventListener('input', function () {
+    if (zoekWis) zoekWis.hidden = !zoekVeld.value;
+    clearTimeout(wacht);
+    wacht = setTimeout(function () { staat.zoek = zoekVeld.value.trim().toLowerCase(); draaien(); }, 130);
+  });
+  if (zoekWis) zoekWis.addEventListener('click', function () {
+    zoekVeld.value = ''; staat.zoek = ''; zoekWis.hidden = true; zoekVeld.focus(); draaien();
+  });
+
+  $$('[data-select]', balk).forEach(function (sel) {
+    staat.selects[sel.getAttribute('data-select')] = '';
+    sel.addEventListener('change', function () {
+      staat.selects[sel.getAttribute('data-select')] = sel.value;
+      draaien();
+    });
+  });
+
+  $$('[data-facet]', balk).forEach(function (knop) {
+    var sleutel = knop.getAttribute('data-facet');
+    staat.chips[sleutel] = staat.chips[sleutel] || [];
+    knop.addEventListener('click', function () {
+      var waarde = knop.getAttribute('data-waarde');
+      var lijst = staat.chips[sleutel], i = lijst.indexOf(waarde);
+      if (i > -1) lijst.splice(i, 1); else lijst.push(waarde);
+      knop.setAttribute('aria-pressed', i === -1 ? 'true' : 'false');
+      draaien();
+    });
+  });
+
+  $$('[data-range]', balk).forEach(function (schuif) {
+    var sleutel = schuif.getAttribute('data-range');
+    var richting = schuif.getAttribute('data-richting');
+    var eenheid = schuif.getAttribute('data-eenheid');
+    var uit = $('#sa-' + sleutel + '-uit');
+    staat.ranges[sleutel] = { waarde: +schuif.value, richting: richting, aangeraakt: false };
+    schuif.addEventListener('input', function () {
+      staat.ranges[sleutel].waarde = +schuif.value;
+      staat.ranges[sleutel].aangeraakt = richting === 'max' ? +schuif.value < +schuif.max : +schuif.value > +schuif.min;
+      if (uit) uit.textContent = eenheid === 'euro'
+        ? '\u20ac\u00a0' + (+schuif.value).toLocaleString('nl-NL')
+        : schuif.value;
+      draaien();
+    });
+  });
+
+  if (sorteer) sorteer.addEventListener('change', function () { staat.sorteer = sorteer.value; draaien(); });
+
+  if (meerKnop && paneel) meerKnop.addEventListener('click', function () {
+    paneel.hidden = !paneel.hidden;
+    meerKnop.setAttribute('aria-expanded', String(!paneel.hidden));
+  });
+
+  if (bewaardKnop) bewaardKnop.addEventListener('click', function () {
+    staat.alleenBewaard = !staat.alleenBewaard;
+    bewaardKnop.setAttribute('aria-pressed', String(staat.alleenBewaard));
+    draaien();
+  });
+
+  function allesWissen() {
+    staat.zoek = ''; staat.alleenBewaard = false;
+    if (zoekVeld) zoekVeld.value = '';
+    if (zoekWis) zoekWis.hidden = true;
+    if (bewaardKnop) bewaardKnop.setAttribute('aria-pressed', 'false');
+    $$('[data-select]', balk).forEach(function (s) { s.value = ''; staat.selects[s.getAttribute('data-select')] = ''; });
+    $$('[data-facet]', balk).forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    for (var c in staat.chips) staat.chips[c] = [];
+    $$('[data-range]', balk).forEach(function (s) {
+      var sleutel = s.getAttribute('data-range');
+      var terug = s.getAttribute('data-richting') === 'max' ? s.max : s.min;
+      s.value = terug;
+      staat.ranges[sleutel].waarde = +terug;
+      staat.ranges[sleutel].aangeraakt = false;
+      var uit = $('#sa-' + sleutel + '-uit');
+      if (uit) uit.textContent = s.getAttribute('data-eenheid') === 'euro'
+        ? '\u20ac\u00a0' + (+terug).toLocaleString('nl-NL') : terug;
+    });
+    draaien();
+  }
+  if (wisAlles) wisAlles.addEventListener('click', allesWissen);
+  var leegWis = $('#sa-leeg-wis');
+  if (leegWis) leegWis.addEventListener('click', allesWissen);
+
+  if (meerTonen) meerTonen.addEventListener('click', function () {
+    allesTonen = true; meerTonen.hidden = true; draaien();
+  });
+  if (smal.addEventListener) smal.addEventListener('change', function () { draaien(); });
+
+  tekenBewaard();
+  draaien();
 })();
 </script>
 
